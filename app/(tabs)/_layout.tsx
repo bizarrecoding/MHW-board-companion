@@ -25,7 +25,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
+          title: 'Inventory',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
@@ -44,16 +44,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="inventory"
+        name="log"
         options={{
-          title: 'Inventory',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Tab Two',
+          title: 'Hunting log',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
