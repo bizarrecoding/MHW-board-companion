@@ -1,19 +1,21 @@
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 
-import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text, View } from "../../components/Themed";
-import { FloatingButton } from "../../components/FloatingButton";
+import CharacterScreen from "../../components/screens/characterScreen";
+import { HunterProfile } from "../../components/screens/characterScreen/character";
 
-export default function TabTwoScreen() {
+export default function TabCharacterScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
+      <Text style={styles.title}>Tab Character</Text>
       <View
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <FloatingButton icon={<Text>+</Text>} />
+      <CharacterScreen />
+      {/* <EditScreenInfo path="app/(tabs)/character.tsx" /> */}
     </View>
   );
 }
@@ -21,8 +23,6 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
   title: {
     fontSize: 20,
