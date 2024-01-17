@@ -1,18 +1,19 @@
+import { useGlobalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet } from "react-native";
 
+import Divider from "../components/Divider";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
+import { RollPoolModal } from "../components/modals/RollPoolModal";
 
 export default function ModalScreen() {
+  const { type } = useGlobalSearchParams();
+  if (type === `roll`) return <RollPoolModal />;
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
+      <Text style={styles.title}>Modal {type}</Text>
+      <Divider />
       <EditScreenInfo path="app/modal.tsx" />
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
@@ -30,10 +31,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: `bold`,
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: `80%`,
   },
 });
