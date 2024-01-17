@@ -1,0 +1,29 @@
+# /node_modules/* and /bower_components/* in the project root are ignored by default
+# DO NOT PUT ANYTHING FROM /components or /app INTO HERE! If it's used in the app it has to go through eslint
+
+**/__tests__/*
+**/__mocks__/**
+/e2e/**
+/jest/**
+**/*.test.js
+**/*.spec.js
+/ios/**
+/android/**
+ 
+/ios/**
+/build/**
+/generated/**
+/scripts/**
+/assets/**
+/patches/**
+/well-known/**
+/.expo/**
+/.expo_shared/**
+/dist/**
+/dist/bundle/**
+/.vscode/**
+/node_modules/**/*
+/webpack.config.js
+/babel.config.js
+/register-service-worker.js
+/web-build/**/*

@@ -9,6 +9,9 @@
 			"activityBar.background": "#381066",
 			"titleBar.activeBackground": "#4E168F",
 			"titleBar.activeForeground": "#FCFAFE"
+		},
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": "explicit"
 		}
 	}
 }
