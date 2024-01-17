@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 
 import { Button, View, Text } from "../../components/Themed";
-
-const defaultValues = [5, 5];
+import { RootState } from "../../util/redux/store";
 
 /**
  *  Create a pool of numbers
@@ -22,18 +22,19 @@ const createDamagePool = (values: number[]) => {
 };
 
 export default function TabTwoScreen() {
+  const { rollPool } = useSelector((state: RootState) => state.rolls);
   const [numberToRoll, setnumberToRoll] = useState(1);
   const [pool, setPool] = useState<number[]>([]);
   const [roll, setRoll] = useState<number[]>([]);
   const increment = () => setnumberToRoll((n) => (n < 10 ? n + 1 : n));
   const decrement = () => setnumberToRoll((n) => (n > 0 ? n - 1 : 0));
 
-  const reset = () => {
-    const pool = createDamagePool(defaultValues);
+  const reset = useCallback(() => {
+    const pool = createDamagePool(rollPool);
     // Shuffle the pool
     setPool(pool.sort(() => Math.random() - 0.5));
     setRoll([]);
-  };
+  }, [rollPool]);
 
   const rollDamage = () => {
     if (pool.length < numberToRoll) {
@@ -49,7 +50,7 @@ export default function TabTwoScreen() {
 
   useEffect(() => {
     reset();
-  }, []);
+  }, [reset, rollPool]);
 
   return (
     <View style={styles.container}>
@@ -57,6 +58,7 @@ export default function TabTwoScreen() {
         style={[styles.center_row, { minHeight: 500, flexDirection: `column` }]}
       >
         <Text variant="title">Rolls until Sharpen: {pool.length}</Text>
+        {/* <Text variant="title">pool:{JSON.stringify(pool)}</Text> */}
         <Text variant="title">roll:{JSON.stringify(roll)}</Text>
       </View>
       <View style={[styles.center_row, { marginVertical: 16 }]}>
