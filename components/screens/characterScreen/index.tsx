@@ -6,8 +6,15 @@ import { View, Text } from "../../Themed";
 import ProfilePicker from "./ProfilePicker";
 import Equipment from "./Equipment";
 import { HunterProfile } from "./character";
+import { Dropdown } from "../../Dropdown";
 
 const testProfile: HunterProfile = require("../../../storage/hunter.json");
+
+const dummyData = [
+  { label: "test", value: "0" },
+  { label: "test1", value: "1" },
+  { label: "test2", value: "2" },
+];
 
 export default function CharacterScreen() {
   const [playerProfile, setPlayerProfile] = useState<HunterProfile | null>(
@@ -17,6 +24,10 @@ export default function CharacterScreen() {
   const onProfileSelection = () => {
     // alert(`Selected Profile: \n ${testProfile.name}`);
     setPlayerProfile(testProfile);
+  };
+
+  const onDropdownSelect = (item: (typeof dummyData)[number]) => {
+    console.log("🚀 ~ onDropdownSelect ~ item:", item);
   };
 
   return (
@@ -33,6 +44,11 @@ export default function CharacterScreen() {
       <View>
         <Equipment {...{ playerProfile, setPlayerProfile }} />
       </View>
+      <Dropdown
+        title="Modal title"
+        options={dummyData}
+        onChange={onDropdownSelect}
+      />
     </View>
   );
 }

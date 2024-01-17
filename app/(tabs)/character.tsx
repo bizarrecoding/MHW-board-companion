@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 
 import { Text, View } from "../../components/Themed";
 import CharacterScreen from "../../components/screens/characterScreen";
-import { HunterProfile } from "../../components/screens/characterScreen/character";
 
 export default function TabCharacterScreen() {
   return (
