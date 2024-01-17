@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /**
  * Retrieve an object from the AsyncStorage.
@@ -50,7 +50,8 @@ export const clearAsyncStorage = async () => {
  * Removes a key-value pair from the AsyncStorage
  * @param {String} key Key to remove from AsyncStorage
  */
-export const removeAsyncStorageKey = (key: string) => removeAsyncStorageKeys([key]);
+export const removeAsyncStorageKey = (key: string) =>
+  removeAsyncStorageKeys([key]);
 
 /**
  * Removes multiple key-value pairs from the AsyncStorage
