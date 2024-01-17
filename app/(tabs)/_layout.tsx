@@ -30,11 +30,11 @@ export default function TabLayout() {
           title: `Inventory`,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/modal?type=item" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
-                    name="info-circle"
+                    name="plus"
                     size={25}
                     color={Colors[colorScheme ?? `light`].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
@@ -50,6 +50,41 @@ export default function TabLayout() {
         options={{
           title: `Hunting log`,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerRight: () => (
+            <Link href="/modal?type=log" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name="plus"
+                    size={25}
+                    color={Colors[colorScheme ?? `light`].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="rolls"
+        options={{
+          title: `Damage Rolls`,
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerRight: () => (
+            <Link href="/modal?type=roll" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name="info-circle"
+                    size={25}
+                    color={Colors[colorScheme ?? `light`].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
         }}
       />
     </Tabs>
