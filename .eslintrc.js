@@ -32,6 +32,14 @@ module.exports = {
   },
   plugins: [`react`, `react-native`, `prettier`, `import`],
   rules: {
+    "prettier/prettier": [
+      `error`,
+      {
+        printWidth: 100,
+        trailingComma: `es5`,
+        singleQuote: false,
+      },
+    ],
     camelcase: `off`,
     quotes: [1, `backtick`, { avoidEscape: true }],
     "array-callback-return": `error`,
@@ -60,10 +68,7 @@ module.exports = {
     "no-shadow": `off`,
     "no-template-curly-in-string": `error`,
     "no-underscore-dangle": `off`,
-    "no-unused-vars": [
-      `error`,
-      { argsIgnorePattern: `^_`, varsIgnorePattern: `^_` },
-    ],
+    "no-unused-vars": [`error`, { argsIgnorePattern: `^_`, varsIgnorePattern: `^_` }],
     "no-use-before-define": `off`,
     "react-perf/jsx-no-new-function-as-prop": `off`,
     "no-useless-backreference": `error`,

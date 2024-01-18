@@ -50,8 +50,7 @@ export const clearAsyncStorage = async () => {
  * Removes a key-value pair from the AsyncStorage
  * @param {String} key Key to remove from AsyncStorage
  */
-export const removeAsyncStorageKey = (key: string) =>
-  removeAsyncStorageKeys([key]);
+export const removeAsyncStorageKey = (key: string) => removeAsyncStorageKeys([key]);
 
 /**
  * Removes multiple key-value pairs from the AsyncStorage

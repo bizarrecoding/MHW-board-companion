@@ -4,12 +4,7 @@ import { ListRenderItem, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 
-import {
-  MonsterKind,
-  Monsters,
-  RankType,
-  Ranks,
-} from "../../assets/data/constants";
+import { MonsterKind, Monsters, RankType, Ranks } from "../../assets/data/constants";
 import { addLogEntry } from "../../util/redux/LogSlice";
 import Divider from "../Divider";
 import NumberInput from "../NumberInput";
@@ -34,11 +29,7 @@ export const LogEntryModal = () => {
       </Text>
       <Divider variant="title" />
       <View style={{ flex: 1, width: `100%`, paddingHorizontal: 16 }}>
-        <SelectInput<MonsterKind>
-          data={Monsters}
-          label="Monster"
-          setValue={setMonster}
-        />
+        <SelectInput<MonsterKind> data={Monsters} label="Monster" setValue={setMonster} />
         <Divider separation={4} />
         <SelectInput<RankType> data={Ranks} label="Rank" setValue={setRank} />
         <Divider separation={4} />
@@ -62,11 +53,7 @@ type SelectInputProps<T> = {
 
 const SNAP_WIDTH = 360;
 
-const SelectInput = <T extends string | number>({
-  label,
-  data,
-  setValue,
-}: SelectInputProps<T>) => {
+const SelectInput = <T extends string | number>({ label, data, setValue }: SelectInputProps<T>) => {
   const renderItem: ListRenderItem<T> = ({ item }) => {
     return (
       <View style={{ paddingHorizontal: 16, width: SNAP_WIDTH }}>
@@ -76,10 +63,7 @@ const SelectInput = <T extends string | number>({
   };
   return (
     <View style={{ marginBottom: 16 }}>
-      <Text
-        variant="subtitle"
-        style={{ paddingHorizontal: 16, marginBottom: 8 }}
-      >
+      <Text variant="subtitle" style={{ paddingHorizontal: 16, marginBottom: 8 }}>
         {label}:
       </Text>
       <FlatList<T>

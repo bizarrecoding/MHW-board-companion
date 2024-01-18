@@ -1,10 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-  StyleProp,
-  TextStyle,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { StyleProp, TextStyle, TouchableOpacity, StyleSheet } from "react-native";
 
 import Text from "./ThemedText";
 import { useThemeColor, ThemeProps } from "./useThemeColor";
@@ -31,15 +26,9 @@ export default function Button(props: ButtonProps) {
     ...otherProps
   } = props;
 
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    `tint`,
-  );
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `tint`);
 
-  const textColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    `textSecondary`,
-  );
+  const textColor = useThemeColor({ light: lightColor, dark: darkColor }, `textSecondary`);
 
   return (
     <TouchableOpacity
@@ -47,9 +36,7 @@ export default function Button(props: ButtonProps) {
         styles.baseButton,
         round ? styles.round : null,
         variant === `filled` ? { backgroundColor } : null,
-        variant === `outlined`
-          ? { borderColor: textColor, borderWidth: 1 }
-          : null,
+        variant === `outlined` ? { borderColor: textColor, borderWidth: 1 } : null,
         variant === `clear` ? { backgroundColor: `transparent` } : null,
         icon && !title ? { padding: 0, margin: 0, minWidth: 0 } : null,
         style,
