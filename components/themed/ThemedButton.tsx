@@ -1,3 +1,4 @@
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   StyleProp,
   TextStyle,
@@ -10,9 +11,10 @@ import { useThemeColor, ThemeProps } from "./useThemeColor";
 
 export type ButtonProps = ThemeProps &
   TouchableOpacity[`props`] & {
-    title: string;
+    title?: string;
     round?: boolean;
-    variant?: `filled` | `outlined`;
+    variant?: `filled` | `outlined` | `clear`;
+    icon?: keyof typeof FontAwesome.glyphMap;
     textStyle?: StyleProp<TextStyle>;
   };
 
@@ -21,9 +23,10 @@ export default function Button(props: ButtonProps) {
     style,
     lightColor,
     darkColor,
-    title,
-    round = true,
+    title = ``,
+    icon,
     textStyle,
+    round = true,
     variant = `filled`,
     ...otherProps
   } = props;
@@ -37,19 +40,29 @@ export default function Button(props: ButtonProps) {
     { light: lightColor, dark: darkColor },
     `textSecondary`,
   );
+
   return (
     <TouchableOpacity
       style={[
         styles.baseButton,
         round ? styles.round : null,
         variant === `filled` ? { backgroundColor } : null,
+        variant === `outlined`
+          ? { borderColor: textColor, borderWidth: 1 }
+          : null,
+        variant === `clear` ? { backgroundColor: `transparent` } : null,
+        icon && !title ? { padding: 0, margin: 0, minWidth: 0 } : null,
         style,
       ]}
       {...otherProps}
     >
-      <Text variant="button" style={[{ color: textColor }, textStyle]}>
-        {title}
-      </Text>
+      {/* eslint-disable-next-line */}
+      {icon ? <FontAwesome name={icon} size={25} color={"#FFF"} /> : null}
+      {title ? (
+        <Text variant="button" style={[{ color: textColor }, textStyle]}>
+          {title}
+        </Text>
+      ) : null}
     </TouchableOpacity>
   );
 }

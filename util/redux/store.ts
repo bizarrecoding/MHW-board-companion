@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import logSlice from "./LogSlice";
 import rollSlice from "./RollSlice";
 
 export const store = configureStore({
   reducer: {
     rolls: rollSlice,
+    log: logSlice,
   },
 });
 

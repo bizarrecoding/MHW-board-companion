@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 type DiceValue = [number, number, number, number];
-export interface CounterState {
+export interface RollState {
   rollPool: DiceValue;
 }
 
-const initialState: CounterState = {
+const initialState: RollState = {
   rollPool: [5, 5, 0, 1],
 };
 
@@ -15,7 +15,6 @@ export const rollSlice = createSlice({
   initialState,
   reducers: {
     setRollPool: (state, action: PayloadAction<DiceValue>) => {
-      console.log(`🚀 ~ action.payload:`, action.payload);
       state.rollPool = action.payload;
     },
   },

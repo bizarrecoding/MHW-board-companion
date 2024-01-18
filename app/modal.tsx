@@ -5,10 +5,12 @@ import { Platform, StyleSheet } from "react-native";
 import Divider from "../components/Divider";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
+import { LogEntryModal } from "../components/modals/LogEntryModal";
 import { RollPoolModal } from "../components/modals/RollPoolModal";
 
 export default function ModalScreen() {
   const { type } = useGlobalSearchParams();
+  if (type === `log`) return <LogEntryModal />;
   if (type === `roll`) return <RollPoolModal />;
   return (
     <View style={styles.container}>
