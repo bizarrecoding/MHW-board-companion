@@ -14,6 +14,9 @@ const dummyData = [
   { label: "test", value: "0" },
   { label: "test1", value: "1" },
   { label: "test2", value: "2" },
+  { label: "test3", value: "3" },
+  { label: "test4", value: "4" },
+  { label: "test5", value: "5" },
 ];
 
 export default function CharacterScreen() {
