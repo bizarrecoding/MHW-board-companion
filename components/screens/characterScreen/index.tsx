@@ -1,27 +1,26 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 
-import { View, Text } from "../../Themed";
-
-import ProfilePicker from "./ProfilePicker";
 import Equipment from "./Equipment";
+import ProfilePicker from "./ProfilePicker";
 import { HunterProfile } from "./character";
 import { Dropdown } from "../../Dropdown";
+import { View } from "../../Themed";
 
-const testProfile: HunterProfile = require("../../../storage/hunter.json");
+const testProfile: HunterProfile = require(`../../../storage/hunter.json`);
 
 const dummyData = [
-  { label: "test", value: "0" },
-  { label: "test1", value: "1" },
-  { label: "test2", value: "2" },
-  { label: "test3", value: "3" },
-  { label: "test4", value: "4" },
-  { label: "test5", value: "5" },
+  { label: `test`, value: `0` },
+  { label: `test1`, value: `1` },
+  { label: `test2`, value: `2` },
+  { label: `test3`, value: `3` },
+  { label: `test4`, value: `4` },
+  { label: `test5`, value: `5` },
 ];
 
 export default function CharacterScreen() {
   const [playerProfile, setPlayerProfile] = useState<HunterProfile | null>(
-    null
+    null,
   );
 
   const onProfileSelection = () => {
@@ -30,7 +29,7 @@ export default function CharacterScreen() {
   };
 
   const onDropdownSelect = (item: (typeof dummyData)[number]) => {
-    console.log("🚀 ~ onDropdownSelect ~ item:", item);
+    console.log(`🚀 ~ onDropdownSelect ~ item:`, item);
   };
 
   return (
@@ -58,8 +57,8 @@ export default function CharacterScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: `100%`,
     left: 10,
-    backgroundColor: "black",
+    backgroundColor: `black`,
   },
 });

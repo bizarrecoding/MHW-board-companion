@@ -1,12 +1,16 @@
-import React, { useState, useEffect, Dispatch } from "react";
-import { Alert, Modal, StyleSheet, Pressable } from "react-native";
-
-import { View, Text } from "./Themed";
-import Button from "./Button";
-
-import { FlatList } from "react-native-gesture-handler";
-import { StyleProp, TextStyle, ScrollView } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import React, { useState, Dispatch } from "react";
+import {
+  Modal,
+  StyleSheet,
+  Pressable,
+  StyleProp,
+  TextStyle,
+} from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+
+import Button from "./Button";
+import { View, Text } from "./Themed";
 
 const ITEM_HEIGHT = 72;
 
@@ -40,8 +44,8 @@ const renderItem = ({
   setSelectedItem,
 }: RenderItemArgs) => {
   const backgroundColor: any =
-    item.value === selectedItem ? "#6e3b6e" : "#f9c2ff";
-  const color: any = item.value === selectedItem ? "white" : "black";
+    item.value === selectedItem ? `#6e3b6e` : `#f9c2ff`;
+  const color: any = item.value === selectedItem ? `white` : `black`;
 
   return (
     <Item
@@ -98,6 +102,8 @@ const ListContainer = ({
           const scrollEndPosY = event.nativeEvent.contentOffset.y;
           const snapIndex = Math.round(scrollEndPosY / ITEM_HEIGHT);
           setSelectedItem(options[snapIndex]);
+          if (snapIndex === 0) setIsArrowDownVisible(true);
+          if (snapIndex >= options.length) setIsArrowUpVisible(true);
         }}
         keyExtractor={(item) => item.value}
       />
@@ -121,7 +127,7 @@ const ModalViewContainer = ({
   setModalVisible,
   onChange,
 }: ModalViewContainerArgs) => {
-  console.log("🚀 ~ ModalViewContainerArgs:");
+  console.log(`🚀 ~ ModalViewContainerArgs:`);
   return (
     <View style={styles.modalView}>
       <View style={styles.modalContent}>
@@ -138,14 +144,14 @@ const ModalViewContainer = ({
             <Button
               label="Cancel"
               onPress={() => {
-                console.log("Cancel");
+                console.log(`Cancel`);
                 setModalVisible(false);
               }}
             />
             <Button
               label="Confirm"
               onPress={() => {
-                console.log("Confirm");
+                console.log(`Confirm`);
                 setModalVisible(false);
                 if (onChange) onChange(selectedItem);
               }}
@@ -178,7 +184,7 @@ export const Dropdown = ({ title, options, onChange }: DropdownArgs) => {
         onPress={() => setModalVisible(true)}
       >
         <Text style={styles.textStyle}>
-          {selectedItem?.label ?? "Show Modal"}
+          {selectedItem?.label ?? `Show Modal`}
         </Text>
       </Pressable>
     </View>
@@ -191,17 +197,17 @@ const styles = StyleSheet.create({
   },
   modalView: {
     flex: 1,
-    justifyContent: "center",
-    backgroundColor: "rgba(0,0,0,0.5);",
+    justifyContent: `center`,
+    backgroundColor: `rgba(0,0,0,0.5);`,
   },
   modalContent: {
-    backgroundColor: "#eee",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: `#eee`,
+    flexDirection: `column`,
+    justifyContent: `center`,
+    alignItems: `center`,
     marginHorizontal: 15,
     borderRadius: 15,
-    shadowColor: "#000",
+    shadowColor: `#000`,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -212,68 +218,65 @@ const styles = StyleSheet.create({
   },
   header: {
     marginVertical: 5,
-    width: "90%",
-    backgroundColor: "#eee",
+    width: `90%`,
+    backgroundColor: `#eee`,
   },
   modalTitle: {},
   body: {
-    position: "relative",
-    backgroundColor: "#eee",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
+    position: `relative`,
+    backgroundColor: `#eee`,
+    justifyContent: `center`,
+    alignItems: `center`,
+    width: `100%`,
     marginVertical: 20,
     paddingVertical: 10,
     height: 100,
   },
   arrows: {
-    position: "absolute",
-    right: "3%",
-    backgroundColor: "#eee",
-    height: "50%",
-    justifyContent: "space-between",
+    position: `absolute`,
+    right: `3%`,
+    backgroundColor: `#eee`,
+    height: `50%`,
+    justifyContent: `space-between`,
   },
   optionList: {
-    overflow: "scroll",
-    width: "80%",
+    overflow: `scroll`,
+    width: `80%`,
     borderWidth: 2,
-    marginHorizontal: "10%",
+    marginHorizontal: `10%`,
     // paddingHorizontal: "10%",
-    backgroundColor: "#eee",
+    backgroundColor: `#eee`,
   },
   item: {
     padding: 12,
   },
   option: {
-    backgroundColor: "#3333",
+    backgroundColor: `#3333`,
     height: ITEM_HEIGHT - 12 * 2,
     // paddingVertical: 5,
     borderWidth: 0.5,
     borderRadius: 5,
   },
   optionText: {
-    textAlignVertical: "center",
+    textAlignVertical: `center`,
     fontSize: 20,
-    width: "80%",
-    height: "100%",
+    width: `80%`,
+    height: `100%`,
     padding: 2,
-    marginHorizontal: "10%",
-    textAlign: "center",
-    color: "black",
-    fontWeight: "500",
-  },
-  separator: {
-    padding: 1,
+    marginHorizontal: `10%`,
+    textAlign: `center`,
+    color: `black`,
+    fontWeight: `500`,
   },
   footer: {
     marginBottom: 10,
-    width: "100%",
+    width: `100%`,
   },
   controls: {
-    backgroundColor: "#eee",
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-around",
+    backgroundColor: `#eee`,
+    width: `100%`,
+    flexDirection: `row`,
+    justifyContent: `space-around`,
   },
 
   button: {
@@ -282,14 +285,11 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: `#F194FF`,
   },
   textStyle: {
-    color: "black",
-    fontWeight: "bold",
-    textAlign: "center",
+    color: `black`,
+    fontWeight: `bold`,
+    textAlign: `center`,
   },
 });

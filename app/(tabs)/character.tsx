@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
 
 import { Text, View } from "../../components/Themed";
@@ -25,11 +25,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: `bold`,
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: "80%",
+    width: `80%`,
   },
 });

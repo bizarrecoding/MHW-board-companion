@@ -1,11 +1,10 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
 
-import { View, Text } from "../../Themed";
-import { TextInput } from "react-native";
-import Button from "../../Button";
-import { HunterProfile } from "./character";
+// import { HunterProfile } from "./character";
 import type { ProfilePickerArgs } from "./character";
+import Button from "../../Button";
+import { View, Text } from "../../Themed";
 
 export default function ProfilePicker({
   playerProfile,
@@ -16,7 +15,7 @@ export default function ProfilePicker({
       <View>
         <Text>Hunter Name</Text>
         <View style={styles.loader}>
-          <TextInput style={styles.input} value={playerProfile?.name ?? ""} />
+          <TextInput style={styles.input} value={playerProfile?.name ?? ``} />
           <Button label="test" onPress={onProfileSelection}>
             <Text>Load</Text>
           </Button>
@@ -28,15 +27,15 @@ export default function ProfilePicker({
 
 const styles = StyleSheet.create({
   container: {
-    width: "90%",
+    width: `90%`,
   },
   loader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: `row`,
+    justifyContent: `space-between`,
   },
   input: {
-    backgroundColor: "#eee",
+    backgroundColor: `#eee`,
     padding: 5,
-    width: "70%",
+    width: `70%`,
   },
 });

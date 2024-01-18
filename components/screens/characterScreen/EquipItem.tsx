@@ -1,8 +1,7 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
 
 import { View, Text } from "../../Themed";
-import { TextInput } from "react-native";
 
 export interface EquipItemArgs {
   label: string;
@@ -11,7 +10,7 @@ export interface EquipItemArgs {
 export default function EquipItem({ label, item }: EquipItemArgs) {
   return (
     <View style={styles.itemRow}>
-      <Text>{label ?? "Armor Item"}</Text>
+      <Text>{label ?? `Armor Item`}</Text>
       <TextInput style={styles.input} value={item} />
     </View>
   );
@@ -19,14 +18,14 @@ export default function EquipItem({ label, item }: EquipItemArgs) {
 
 const styles = StyleSheet.create({
   itemRow: {
-    flexDirection: "row",
+    flexDirection: `row`,
     marginTop: 10,
-    justifyContent: "space-between",
-    alignItems: "center",
+    justifyContent: `space-between`,
+    alignItems: `center`,
   },
   input: {
-    backgroundColor: "#eee",
+    backgroundColor: `#eee`,
     padding: 5,
-    width: "70%",
+    width: `70%`,
   },
 });

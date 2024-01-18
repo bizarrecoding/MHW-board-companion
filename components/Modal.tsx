@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text } from "./Themed";
-import Button from "./Button";
 import { StyleSheet } from "react-native";
+
+import Button from "./Button";
+import { View } from "./Themed";
 
 interface ModalArgs {
   title?: string;
@@ -27,7 +28,7 @@ const Modal = ({
               onPress={
                 onPressCancel ??
                 (() => {
-                  console.log("Cancel");
+                  console.log(`Cancel`);
                 })
               }
             />
@@ -36,7 +37,7 @@ const Modal = ({
               onPress={
                 onPressConfirm ??
                 (() => {
-                  console.log("Confirm");
+                  console.log(`Confirm`);
                 })
               }
             />
@@ -51,40 +52,40 @@ export default Modal;
 
 const styles = StyleSheet.create({
   background: {
-    position: "absolute",
+    position: `absolute`,
     top: 0,
     left: 0,
-    width: "100%",
-    height: "100%",
+    width: `100%`,
+    height: `100%`,
     opacity: 1,
-    backgroundColor: "black",
+    backgroundColor: `black`,
   },
   container: {
     width: 120,
     height: 300,
-    backgroundColor: "#eee",
+    backgroundColor: `#eee`,
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
+    justifyContent: `center`,
+    alignItems: `center`,
+    position: `relative`,
   },
   header: {
-    color: "#333",
-    position: "absolute",
+    color: `#333`,
+    position: `absolute`,
     top: 0,
     left: 10,
   },
   content: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: `center`,
+    alignItems: `center`,
   },
   footer: {
-    position: "absolute",
+    position: `absolute`,
     bottom: 0,
     right: 0,
   },
   controls: {
-    flexDirection: "row",
+    flexDirection: `row`,
   },
 });
