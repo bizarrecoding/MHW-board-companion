@@ -1,0 +1,17 @@
+{
+    "profile_id": "0",
+    "name": "Ace Hunter",
+    "equipment": {
+        "head": "Leather Headgear",
+        "chest": "Leather Mail",
+        "arms": "Leather Gloves",
+        "waist": "Leather Belt",
+        "boots": "Leather Trousers",
+        "weapon": "Iron Katana"
+    },
+    "inventory": {
+        "potionHealth": 0,
+        "potionStamina": 1
+    },
+    "log": {}
+}
