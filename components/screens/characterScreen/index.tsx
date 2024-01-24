@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
 
-import Equipment from "./Equipment";
-import ProfilePicker from "./ProfilePicker";
-import { HunterProfile } from "./character";
-import { Dropdown } from "../../Dropdown";
-import { View } from "../../Themed";
+import Equipment from './Equipment';
+import ProfilePicker from './ProfilePicker';
+import { HunterProfile } from './character';
+import { Dropdown } from '../../Dropdown/Dropdown';
+import { View } from '../../Themed';
 
 const testProfile: HunterProfile = require(`../../../storage/hunter.json`);
 
@@ -49,7 +49,8 @@ export default function CharacterScreen() {
       <Dropdown
         title="Modal title"
         options={dummyData}
-        onChange={onDropdownSelect}
+        onPressCancel={undefined}
+        onPressConfirm={onDropdownSelect}
       />
     </View>
   );
