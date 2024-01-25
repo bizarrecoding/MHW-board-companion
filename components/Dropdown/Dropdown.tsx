@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { DropdownInput } from './DropdownInput';
-import { DropdownModal } from './DropdownModal';
+import { SelectInput } from './SelectInput';
 import { SelectList } from './SelectList';
+import { SelectModal } from './SelectModal';
 import { View } from '../Themed';
 
 type ItemData = { label: string; value: string };
@@ -26,7 +26,7 @@ export const Dropdown = ({
 
   return (
     <View style={styles.viewInvoker}>
-      <DropdownModal
+      <SelectModal
         title={title}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
@@ -38,8 +38,8 @@ export const Dropdown = ({
           selectedItem={selectedItem}
           setSelectedItem={setSelectedItem}
         />
-      </DropdownModal>
-      <DropdownInput
+      </SelectModal>
+      <SelectInput
         value={selectedItem?.label}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}

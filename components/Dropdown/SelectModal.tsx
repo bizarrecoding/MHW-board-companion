@@ -4,7 +4,7 @@ import { Modal, StyleSheet } from 'react-native';
 import Button from '../Button';
 import { View, Text } from '../Themed';
 
-interface DropdownModalArgs {
+interface SelectModalArgs {
   title?: string;
   onPressConfirm?: () => void;
   onPressCancel?: () => void;
@@ -13,17 +13,17 @@ interface DropdownModalArgs {
   children: any;
 }
 /**
- * Modal to be used in conjunction with the Dropdown component
+ * Modal to be used in conjunction with the Select component
  */
 
-export const DropdownModal = ({
+export const SelectModal = ({
   title,
   modalVisible,
   setModalVisible,
   onPressConfirm,
   onPressCancel,
   children,
-}: DropdownModalArgs) => {
+}: SelectModalArgs) => {
   return (
     <Modal animationType="slide" transparent={true} visible={modalVisible}>
       <View style={styles.modalView}>

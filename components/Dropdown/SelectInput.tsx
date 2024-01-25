@@ -4,19 +4,19 @@ import { StyleSheet, Pressable } from 'react-native';
 
 import { Text, View } from '../Themed';
 
-interface DropdownInputArgs {
+interface SelectInputArgs {
   modalVisible: boolean;
   setModalVisible: Dispatch<boolean>;
   value: string;
   placeholder?: string;
 }
 
-export const DropdownInput = ({
+export const SelectInput = ({
   modalVisible,
   setModalVisible,
   value,
   placeholder = ``,
-}: DropdownInputArgs) => {
+}: SelectInputArgs) => {
   const iconName = modalVisible ? `caret-up` : `caret-down`;
   const iconColor = `#333`;
 
