@@ -1,4 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import FontAwesome5 from "@expo/vector-icons/build/FontAwesome5";
 import { Link, Tabs } from "expo-router";
 import React from "react";
 import { Pressable, useColorScheme } from "react-native";
@@ -9,9 +10,14 @@ import Colors from "../../constants/Colors";
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>[`name`];
+  name: React.ComponentProps<typeof FontAwesome>[`name`] | `dice`;
   color: string;
 }) {
+  if (props.name === `dice`) {
+    const { name, ...rest } = props;
+    return <FontAwesome5 size={28} style={{ marginBottom: -3 }} name={name} {...rest} />;
+  }
+  // @ts-ignore
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
 
@@ -28,7 +34,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: `Inventory`,
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="briefcase" color={color} />,
           headerRight: () => (
             <Link href="/modal?type=item" asChild>
               <Pressable>
@@ -58,7 +64,7 @@ export default function TabLayout() {
         name="log"
         options={{
           title: `Hunting log`,
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
           headerRight: () => (
             <Link href="/modal?type=log" asChild>
               <Pressable>
@@ -79,7 +85,7 @@ export default function TabLayout() {
         name="rolls"
         options={{
           title: `Damage Rolls`,
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="dice" color={color} />,
           headerRight: () => (
             <Link href="/modal?type=roll" asChild>
               <Pressable>

@@ -1,4 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import React from "react";
 import { StyleProp, TextStyle, TouchableOpacity, StyleSheet } from "react-native";
 
 import Text from "./ThemedText";
@@ -9,7 +10,7 @@ export type ButtonProps = ThemeProps &
     title?: string;
     round?: boolean;
     variant?: `filled` | `outlined` | `clear`;
-    icon?: keyof typeof FontAwesome.glyphMap;
+    icon?: keyof typeof FontAwesome.glyphMap | React.ReactNode;
     textStyle?: StyleProp<TextStyle>;
   };
 
@@ -43,8 +44,9 @@ export default function Button(props: ButtonProps) {
       ]}
       {...otherProps}
     >
-      {/* eslint-disable-next-line */}
-      {icon ? <FontAwesome name={icon} size={25} color={"#FFF"} /> : null}
+      {/* @ts-ignore */}
+      {icon && typeof icon === `string` ? <FontAwesome name={icon} size={25} color="#FFF" /> : null}
+      {icon && typeof icon !== `string` ? icon : null}
       {title ? (
         <Text variant="button" style={[{ color: textColor }, textStyle]}>
           {title}
