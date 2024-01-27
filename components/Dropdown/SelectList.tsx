@@ -1,10 +1,10 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import React, { useState } from 'react';
-import type { Dispatch } from 'react';
-import { StyleSheet, Pressable, StyleProp, TextStyle } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import React, { useState } from "react";
+import type { Dispatch } from "react";
+import { StyleSheet, Pressable, StyleProp, TextStyle } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 
-import { View, Text } from '../Themed';
+import { View, Text } from "../Themed";
 
 const ITEM_HEIGHT = 72;
 
@@ -33,8 +33,7 @@ interface RenderItemArgs {
 }
 
 const renderItem = ({ item, selectedValue, onPressItem }: RenderItemArgs) => {
-  const backgroundColor: any =
-    item.value === selectedValue ? `#6e3b6e` : `#f9c2ff`;
+  const backgroundColor: any = item.value === selectedValue ? `#6e3b6e` : `#f9c2ff`;
   const color: any = item.value === selectedValue ? `white` : `black`;
 
   return (
@@ -88,12 +87,8 @@ export const SelectList = ({
         keyExtractor={(item) => item.value}
       />
       <View style={styles.arrows}>
-        {isArrowUpVisible && (
-          <FontAwesome name="arrow-up" size={18} color="#25292e" />
-        )}
-        {isArrowDownVisible && (
-          <FontAwesome name="arrow-down" size={18} color="#25292e" />
-        )}
+        {isArrowUpVisible && <FontAwesome name="arrow-up" size={18} color="#25292e" />}
+        {isArrowDownVisible && <FontAwesome name="arrow-down" size={18} color="#25292e" />}
       </View>
     </>
   );

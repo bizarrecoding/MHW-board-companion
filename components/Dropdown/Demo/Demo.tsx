@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import { SelectDemo } from './SelectDemo';
-import { View } from '../../Themed';
+import { SelectDemo } from "./SelectDemo";
+import { View } from "../../Themed";
 
 const dummyData = [
   { label: `test`, value: `0` },

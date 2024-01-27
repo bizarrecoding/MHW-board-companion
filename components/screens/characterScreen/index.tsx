@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 
-import Equipment from './Equipment';
-import ProfilePicker from './ProfilePicker';
-import { HunterProfile } from './character';
-import { View } from '../../Themed';
+import Equipment from "./Equipment";
+import ProfilePicker from "./ProfilePicker";
+import { HunterProfile } from "./character";
+import { View } from "../../Themed";
 
 const testProfile: HunterProfile = require(`../../../storage/hunter.json`);
 
 export default function CharacterScreen() {
-  const [playerProfile, setPlayerProfile] = useState<HunterProfile | null>(
-    null,
-  );
+  const [playerProfile, setPlayerProfile] = useState<HunterProfile | null>(null);
 
   const onProfileSelection = () => {
     // alert(`Selected Profile: \n ${testProfile.name}`);

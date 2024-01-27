@@ -6,10 +6,7 @@ import type { ProfilePickerArgs } from "./character";
 import Button from "../../Button";
 import { View, Text } from "../../Themed";
 
-export default function ProfilePicker({
-  playerProfile,
-  onProfileSelection,
-}: ProfilePickerArgs) {
+export default function ProfilePicker({ playerProfile, onProfileSelection }: ProfilePickerArgs) {
   return (
     <View style={styles.container}>
       <View>

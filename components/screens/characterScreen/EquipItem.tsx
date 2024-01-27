@@ -1,8 +1,8 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React from "react";
+import { StyleSheet } from "react-native";
 
-import { SelectButton } from '../../Dropdown';
-import { View, Text } from '../../Themed';
+import { SelectButton } from "../../Dropdown";
+import { View, Text } from "../../Themed";
 
 export interface EquipItemArgs {
   label: string;

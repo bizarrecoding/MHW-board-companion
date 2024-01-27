@@ -1,8 +1,8 @@
-import React, { Dispatch } from 'react';
-import { Modal, StyleSheet } from 'react-native';
+import React, { Dispatch } from "react";
+import { Modal, StyleSheet } from "react-native";
 
-import Button from '../Button';
-import { View, Text } from '../Themed';
+import Button from "../Button";
+import { View, Text } from "../Themed";
 
 interface SelectModalArgs {
   title?: string;

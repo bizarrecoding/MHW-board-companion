@@ -1,21 +1,17 @@
-import { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { useState } from "react";
+import { StyleSheet } from "react-native";
 
-import EquipItem from './EquipItem';
-import { PlayerCharacterArgs } from './character';
-import type { ArmorPiece } from './character';
-import { SelectModal, SelectList } from '../../Dropdown';
-import type { ItemData, SelectedItemReturnType } from '../../Dropdown';
-import { View, Text } from '../../Themed';
+import EquipItem from "./EquipItem";
+import { PlayerCharacterArgs } from "./character";
+import type { ArmorPiece } from "./character";
+import { SelectModal, SelectList } from "../../Dropdown";
+import type { ItemData, SelectedItemReturnType } from "../../Dropdown";
+import { View, Text } from "../../Themed";
 
 const armorListHead: ArmorPiece[] = require(`../../../storage/armor-head.json`);
-const armorListChest: ArmorPiece[] = require(
-  `../../../storage/armor-chest.json`,
-);
+const armorListChest: ArmorPiece[] = require(`../../../storage/armor-chest.json`);
 const armorListArms: ArmorPiece[] = require(`../../../storage/armor-arms.json`);
-const armorListWaist: ArmorPiece[] = require(
-  `../../../storage/armor-waist.json`,
-);
+const armorListWaist: ArmorPiece[] = require(`../../../storage/armor-waist.json`);
 const armorListLegs: ArmorPiece[] = require(`../../../storage/armor-legs.json`);
 
 // const weaponsList: ArmorPiece[] = require(`../../../storage/armor-legs.json`);
@@ -57,16 +53,11 @@ export default function Equipment({ playerProfile }: PlayerCharacterArgs) {
   const [equippedLegs, setEquippedLegs] = useState<EquipmentOrNull>(null);
   // const [equippedWeapon, setEquippedWeapon] = useState<EquipmentOrNull>(null);
 
-  const [isFocusedHead, setIsFocusedHead] =
-    useState<SelectedItemReturnType>(null);
-  const [isFocusedChest, setIsFocusedChest] =
-    useState<SelectedItemReturnType>(null);
-  const [isFocusedArms, setIsFocusedArms] =
-    useState<SelectedItemReturnType>(null);
-  const [isFocusedWaist, setIsFocusedWaist] =
-    useState<SelectedItemReturnType>(null);
-  const [isFocusedLegs, setIsFocusedLegs] =
-    useState<SelectedItemReturnType>(null);
+  const [isFocusedHead, setIsFocusedHead] = useState<SelectedItemReturnType>(null);
+  const [isFocusedChest, setIsFocusedChest] = useState<SelectedItemReturnType>(null);
+  const [isFocusedArms, setIsFocusedArms] = useState<SelectedItemReturnType>(null);
+  const [isFocusedWaist, setIsFocusedWaist] = useState<SelectedItemReturnType>(null);
+  const [isFocusedLegs, setIsFocusedLegs] = useState<SelectedItemReturnType>(null);
 
   const showSelectModal = () => {
     setModalVisible(true);
@@ -75,24 +66,19 @@ export default function Equipment({ playerProfile }: PlayerCharacterArgs) {
   const onPressConfirm = () => {
     switch (isSelectingType) {
       case IsArmorType.HEAD:
-        if (isFocusedHead)
-          setEquippedHead(armorListHead[isFocusedHead.indexArray]);
+        if (isFocusedHead) setEquippedHead(armorListHead[isFocusedHead.indexArray]);
         break;
       case IsArmorType.CHEST:
-        if (isFocusedChest)
-          setEquippedChest(armorListChest[isFocusedChest.indexArray]);
+        if (isFocusedChest) setEquippedChest(armorListChest[isFocusedChest.indexArray]);
         break;
       case IsArmorType.ARMS:
-        if (isFocusedArms)
-          setEquippedArms(armorListArms[isFocusedArms.indexArray]);
+        if (isFocusedArms) setEquippedArms(armorListArms[isFocusedArms.indexArray]);
         break;
       case IsArmorType.WAIST:
-        if (isFocusedWaist)
-          setEquippedWaist(armorListWaist[isFocusedWaist.indexArray]);
+        if (isFocusedWaist) setEquippedWaist(armorListWaist[isFocusedWaist.indexArray]);
         break;
       case IsArmorType.LEGS:
-        if (isFocusedLegs)
-          setEquippedLegs(armorListLegs[isFocusedLegs.indexArray]);
+        if (isFocusedLegs) setEquippedLegs(armorListLegs[isFocusedLegs.indexArray]);
         break;
       // case IsArmorType.WEAPON:
       //   setEquippedHead(armorListHead[isFocusedHead.indexArray]);

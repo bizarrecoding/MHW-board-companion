@@ -1,8 +1,8 @@
-import { FontAwesome } from '@expo/vector-icons';
-import React from 'react';
-import { StyleSheet, Pressable } from 'react-native';
+import { FontAwesome } from "@expo/vector-icons";
+import React from "react";
+import { StyleSheet, Pressable } from "react-native";
 
-import { Text, View } from '../Themed';
+import { Text, View } from "../Themed";
 
 interface SelectButtonArgs {
   modalVisible: boolean;

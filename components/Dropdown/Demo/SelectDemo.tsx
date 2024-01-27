@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 
-import { View } from '../../Themed';
-import { SelectButton } from '../SelectButton';
-import { SelectList } from '../SelectList';
-import type { SelectedItemReturnType } from '../SelectList';
-import { SelectModal } from '../SelectModal';
+import { View } from "../../Themed";
+import { SelectButton } from "../SelectButton";
+import { SelectList } from "../SelectList";
+import type { SelectedItemReturnType } from "../SelectList";
+import { SelectModal } from "../SelectModal";
 
 type ItemData = { label: string; value: string };
 
