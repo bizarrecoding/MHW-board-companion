@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 
 import useGetArmorOptions from "./useGetArmorOptions";
 import useGetProfileOptions from "./useGetProfileOptions";
-import useManageEquipment from "./useManageEquipment";
 import {
   changeEquipmentItem,
   enableSaveProfile,
@@ -22,14 +21,16 @@ const useManageCharacter = () => {
     SelectOptions.NONE
   );
 
-  const { profileList } = useGetProfileOptions();
   const [isFocusedProfile, setIsFocusedProfile] = useState<SelectedItemReturnType>(null);
+  const [isFocusedHead, setIsFocusedHead] = useState<SelectedItemReturnType>(null);
+  const [isFocusedChest, setIsFocusedChest] = useState<SelectedItemReturnType>(null);
+  const [isFocusedArms, setIsFocusedArms] = useState<SelectedItemReturnType>(null);
+  const [isFocusedWaist, setIsFocusedWaist] = useState<SelectedItemReturnType>(null);
+  const [isFocusedLegs, setIsFocusedLegs] = useState<SelectedItemReturnType>(null);
 
+  const { profileList } = useGetProfileOptions();
   const { armorListHead, armorListChest, armorListArms, armorListWaist, armorListLegs } =
     useGetArmorOptions();
-
-  const { isFocusedHead, isFocusedChest, isFocusedArms, isFocusedWaist, isFocusedLegs } =
-    useManageEquipment();
 
   const showSelectModal = (selectOption: CharacterModalSelectTypes) => {
     setIsSelectingType(selectOption);
@@ -114,6 +115,12 @@ const useManageCharacter = () => {
     showSelectModal,
     hideSelectModal,
     onPressConfirm,
+
+    setIsFocusedHead,
+    setIsFocusedChest,
+    setIsFocusedArms,
+    setIsFocusedWaist,
+    setIsFocusedLegs,
   };
 };
 

@@ -8,7 +8,6 @@ import ProfilePicker from "./ProfilePicker";
 import useGetArmorOptions from "./helpers/useGetArmorOptions";
 import useGetProfileOptions from "./helpers/useGetProfileOptions";
 import useManageCharacter from "./helpers/useManageCharacter";
-import useManageEquipment from "./helpers/useManageEquipment";
 import { RootState } from "../../../util/redux/store";
 import { SelectModal, SelectList } from "../../Dropdown";
 import { View } from "../../Themed";
@@ -28,14 +27,17 @@ export default function CharacterScreen() {
     useGetArmorOptions();
   const { optionsProfile } = useGetProfileOptions();
   const {
+    isSelectingType,
+    setIsFocusedProfile,
+    showSelectModal,
+    hideSelectModal,
+    onPressConfirm,
     setIsFocusedHead,
     setIsFocusedChest,
     setIsFocusedArms,
     setIsFocusedWaist,
     setIsFocusedLegs,
-  } = useManageEquipment();
-  const { isSelectingType, setIsFocusedProfile, showSelectModal, hideSelectModal, onPressConfirm } =
-    useManageCharacter();
+  } = useManageCharacter();
 
   const renderSelectList = () => {
     switch (isSelectingType) {

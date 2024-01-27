@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import type { ProfilePickerArgs } from "./ICharacter";
+import type { ICharacterArgs } from "./ICharacter";
 import { SelectButton } from "../../Dropdown";
 import { View, Text } from "../../Themed";
 
@@ -10,7 +10,7 @@ export default function ProfilePicker({
   isActiveSelect,
   showSelectModal,
   selectType,
-}: ProfilePickerArgs) {
+}: ICharacterArgs.IProfilePicker) {
   const onSelectModal = () => {
     showSelectModal(selectType);
   };

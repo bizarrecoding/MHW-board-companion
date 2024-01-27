@@ -1,10 +1,18 @@
 import { StyleSheet } from "react-native";
 
 import EquipItem from "./EquipItem";
-import { IEquipment, ArmorTypes, CharacterModalSelectOptions as SelectOptions } from "./ICharacter";
+import {
+  ICharacterArgs,
+  ArmorTypes,
+  CharacterModalSelectOptions as SelectOptions,
+} from "./ICharacter";
 import { View, Text } from "../../Themed";
 
-export default function Equipment({ data, isSelectingType, showSelectModal }: IEquipment) {
+export default function Equipment({
+  data,
+  isSelectingType,
+  showSelectModal,
+}: ICharacterArgs.IEquipment) {
   const {
     head: equippedHead,
     chest: equippedChest,

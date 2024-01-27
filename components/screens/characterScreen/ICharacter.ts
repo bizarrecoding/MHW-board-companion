@@ -1,5 +1,3 @@
-import { Dispatch } from "react";
-
 export type HunterProfile = {
   profile_id: string;
   name: string;
@@ -65,27 +63,25 @@ type OptionsTypes = typeof CharacterModalSelectOptions;
 type ValueOf<T> = T[keyof T];
 export type CharacterModalSelectTypes = ValueOf<OptionsTypes>;
 
-export interface PlayerCharacterArgs {
-  playerProfile: HunterProfile | null;
-  setPlayerProfile: Dispatch<HunterProfile | null>;
-}
-export interface ProfilePickerArgs {
-  profileName: string;
-  isActiveSelect: boolean;
-  showSelectModal: (selectType: CharacterModalSelectTypes) => void;
-  selectType: CharacterModalSelectTypes;
-}
+export namespace ICharacterArgs {
+  export interface IProfilePicker {
+    profileName: string;
+    isActiveSelect: boolean;
+    showSelectModal: (selectType: CharacterModalSelectTypes) => void;
+    selectType: CharacterModalSelectTypes;
+  }
 
-export interface IEquipment {
-  data: HunterProfile[`equipment`][`armor`] | null;
-  isSelectingType: CharacterModalSelectTypes;
-  showSelectModal: (armorType: ArmorTypes) => void;
-}
+  export interface IEquipment {
+    data: HunterProfile[`equipment`][`armor`] | null;
+    isSelectingType: CharacterModalSelectTypes;
+    showSelectModal: (armorType: ArmorTypes) => void;
+  }
 
-export interface EquipItemArgs {
-  label: string;
-  isActiveSelect: boolean;
-  selectedLabel?: string;
-  showSelectModal: (armorType: ArmorTypes) => void;
-  armorType: ArmorTypes;
+  export interface IEquipItem {
+    label: string;
+    isActiveSelect: boolean;
+    selectedLabel?: string;
+    showSelectModal: (armorType: ArmorTypes) => void;
+    armorType: ArmorTypes;
+  }
 }

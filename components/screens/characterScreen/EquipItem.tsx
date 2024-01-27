@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import { EquipItemArgs } from "./ICharacter";
+import { ICharacterArgs } from "./ICharacter";
 import { SelectButton } from "../../Dropdown";
 import { View, Text } from "../../Themed";
 
@@ -11,7 +11,7 @@ export default function EquipItem({
   selectedLabel,
   showSelectModal,
   armorType,
-}: EquipItemArgs) {
+}: ICharacterArgs.IEquipItem) {
   const onSelectModal = () => {
     showSelectModal(armorType);
   };
@@ -34,10 +34,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: `space-between`,
     alignItems: `center`,
-  },
-  input: {
-    backgroundColor: `#eee`,
-    padding: 5,
-    width: `70%`,
   },
 });
