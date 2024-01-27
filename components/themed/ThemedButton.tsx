@@ -63,11 +63,13 @@ type IconButtonProps = Pick<
   `style` | `lightColor` | `darkColor` | `icon` | `onPress` | `variant`
 >;
 
+const TRANSPARENCY_MOD = `cc`;
+
 export const ThemedIconButton = (props: IconButtonProps) => {
   const { style, lightColor, darkColor, icon, onPress, variant = `clear` } = props;
 
-  const colorBase = useThemeColor({ light: darkColor, dark: lightColor }, `text`);
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `tint`);
+  const colorBase = useThemeColor({ light: darkColor, dark: lightColor }, `tint`);
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `card`);
 
   return (
     <TouchableOpacity
@@ -76,7 +78,7 @@ export const ThemedIconButton = (props: IconButtonProps) => {
     >
       {icon && typeof icon === `string` ? (
         // @ts-ignore
-        <FontAwesome name={icon} size={25} color={colorBase} />
+        <FontAwesome name={icon} size={25} color={`${colorBase}${TRANSPARENCY_MOD}`} />
       ) : (
         icon
       )}

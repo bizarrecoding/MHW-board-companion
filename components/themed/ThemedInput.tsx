@@ -6,16 +6,19 @@ export type TextInputProps = ThemeProps &
   DefaultTextInput[`props`] & {
     variant?: `title` | `subtitle` | `button` | `caption` | `body`;
   };
+
+const TRANSPARENCY_MOD = `D`;
+
 export default function TextInput(props: TextInputProps) {
   const { style, lightColor, darkColor, variant = `body`, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, `text`);
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `modal`);
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `tint_dark`);
 
   switch (variant) {
     case `title`:
       return (
         <DefaultTextInput
-          placeholderTextColor={`${color}8`}
+          placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
           style={[{ color, backgroundColor }, styles.base, styles.title, style]}
           {...otherProps}
         />
@@ -23,7 +26,7 @@ export default function TextInput(props: TextInputProps) {
     case `subtitle`:
       return (
         <DefaultTextInput
-          placeholderTextColor={`${color}8`}
+          placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
           style={[{ color, backgroundColor }, styles.base, styles.subtitle, style]}
           {...otherProps}
         />
@@ -31,7 +34,7 @@ export default function TextInput(props: TextInputProps) {
     case `button`:
       return (
         <DefaultTextInput
-          placeholderTextColor={`${color}8`}
+          placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
           style={[{ color, backgroundColor }, styles.base, styles.button, style]}
           {...otherProps}
         />
@@ -39,7 +42,7 @@ export default function TextInput(props: TextInputProps) {
     case `caption`:
       return (
         <DefaultTextInput
-          placeholderTextColor={`${color}8`}
+          placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
           style={[{ color, backgroundColor }, styles.base, styles.caption, style]}
           {...otherProps}
         />
@@ -47,7 +50,7 @@ export default function TextInput(props: TextInputProps) {
     case `body`:
       return (
         <DefaultTextInput
-          placeholderTextColor={`${color}8`}
+          placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
           style={[{ color, backgroundColor }, styles.base, styles.body, style]}
           {...otherProps}
         />
