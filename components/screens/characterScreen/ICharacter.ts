@@ -1,35 +1,41 @@
 import { Dispatch } from "react";
 
-import { CharacterState } from "../../../util/redux/CharacterSlice";
+export type HunterProfile = {
+  profile_id: string;
+  name: string;
+  equipment: {
+    armor: {
+      head: ArmorPiece | null;
+      chest: ArmorPiece | null;
+      arms: ArmorPiece | null;
+      waist: ArmorPiece | null;
+      legs: ArmorPiece | null;
+    };
+    weapon: {
+      type: WeaponTypes;
+      equipped: WeaponPiece | null;
+    };
+  };
+  inventory: {
+    potionHealth: number;
+    potionStamina: number;
+  };
+  log: object;
+};
 
-export type HunterProfile = CharacterState;
-// export type HunterProfile = {
-//   profile_id: string;
-//   name: string;
-//   equipment: {
-//     head: string;
-//     chest: string;
-//     arms: string;
-//     waist: string;
-//     legs: string;
-//     weapon: string;
-//   };
-//   inventory: {
-//     potionHealth: number;
-//     potionStamina: number;
-//   };
-//   log: any;
-// };
 export type PlayerCharacterArgs = {
   playerProfile: HunterProfile | null;
   setPlayerProfile: Dispatch<HunterProfile | null>;
 };
-export type ProfilePickerArgs = PlayerCharacterArgs & {
+export type ProfilePickerArgs = {
+  profileName: string;
   onProfileSelection: () => void;
+  isActiveSelect: boolean;
+  showSelectModal: () => void;
 };
 
 export type IEquipment = {
-  data: CharacterState[`equipment`] | null;
+  data: HunterProfile[`equipment`][`armor`] | null;
 };
 
 export type ArmorPiece = {
@@ -39,7 +45,15 @@ export type ArmorPiece = {
   skills: any[];
 };
 
-export type EquipmentOrNull = ArmorPiece | null;
+export type WeaponPiece = {
+  id: string;
+  name: string;
+  stats: {
+    atkLvl1: number;
+    atkLvl2: number;
+    atkLvl3: number;
+  };
+};
 
 export enum IsArmorType {
   NONE = ``,
@@ -49,4 +63,11 @@ export enum IsArmorType {
   WAIST = `waist`,
   LEGS = `legs`,
   WEAPON = `weapon`,
+}
+
+export enum WeaponTypes {
+  INSECT_GLAIVE = `INSECT_GLAIVE`,
+  BOWGUN = `BOWGUN`,
+  SWITCHAXE = `SWITCHAXE`,
+  GUN_LANCE = `GUN_LANCE`,
 }

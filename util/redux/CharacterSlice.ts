@@ -1,48 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import type { EquipmentOrNull } from "../../components/screens/characterScreen/ICharacter";
-import { IsArmorType } from "../../components/screens/characterScreen/ICharacter";
+import type {
+  ArmorPiece,
+  HunterProfile,
+} from "../../components/screens/characterScreen/ICharacter";
+import { IsArmorType, WeaponTypes } from "../../components/screens/characterScreen/ICharacter";
 
 type ActionChangeGear = {
-  type: Exclude<IsArmorType, IsArmorType.NONE>;
-  item: EquipmentOrNull;
+  itemType: Exclude<IsArmorType, IsArmorType.NONE>;
+  item: ArmorPiece;
 };
-
 export interface CharacterState {
-  profile_id: string;
-  name: string;
-  equipment: {
-    head: EquipmentOrNull;
-    chest: EquipmentOrNull;
-    arms: EquipmentOrNull;
-    waist: EquipmentOrNull;
-    legs: EquipmentOrNull;
-    weapon: string;
-  };
-  inventory: {
-    potionHealth: number;
-    potionStamina: number;
-  };
-  log: object;
+  profile: HunterProfile;
+  hasProfileBeenEdit: boolean;
 }
 
 const initialState: CharacterState = {
-  profile_id: `9999`,
-  name: `Test Hunter`,
-  equipment: {
-    head: null,
-    chest: null,
-    arms: null,
-    waist: null,
-    legs: null,
-    weapon: ``,
+  profile: {
+    profile_id: `-1`,
+    name: ``,
+    equipment: {
+      armor: {
+        head: null,
+        chest: null,
+        arms: null,
+        waist: null,
+        legs: null,
+      },
+      weapon: {
+        type: WeaponTypes.INSECT_GLAIVE,
+        equipped: null,
+      },
+    },
+    inventory: {
+      potionHealth: 0,
+      potionStamina: 0,
+    },
+    log: {},
   },
-  inventory: {
-    potionHealth: 0,
-    potionStamina: 0,
-  },
-  log: {},
+  hasProfileBeenEdit: false,
 };
 
 export const characterSlice = createSlice({
@@ -50,12 +47,36 @@ export const characterSlice = createSlice({
   initialState,
   reducers: {
     changeEquipmentItem: (state, action: PayloadAction<ActionChangeGear>) => {
-      state.equipment = { ...state.equipment, [action.payload.type]: action.payload.item };
+      // const newState: CharacterState = {
+      //   ...state,
+      //   profile: {
+      //     ...state.profile,
+      //     equipment: {
+      //       ...state.profile.equipment,
+      //       armor: {
+      //         ...state.profile.equipment.armor,
+      //         [action.payload.itemType]: action.payload.item,
+      //       },
+      //     },
+      //   },
+      //   hasProfileBeenEdit: !state.hasProfileBeenEdit,
+      // };
+      state.profile.equipment.armor = {
+        ...state.profile.equipment.armor,
+        [action.payload.itemType]: action.payload.item,
+      };
+      // state = { ...newState };
+    },
+    changeProfile: (state, action: PayloadAction<HunterProfile>) => {
+      state.profile = { ...action.payload };
+    },
+    enableSaveProfile: (state, action: PayloadAction<boolean>) => {
+      state.hasProfileBeenEdit = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { changeEquipmentItem } = characterSlice.actions;
+export const { changeEquipmentItem, changeProfile, enableSaveProfile } = characterSlice.actions;
 
 export default characterSlice.reducer;

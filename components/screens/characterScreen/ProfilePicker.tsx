@@ -1,21 +1,26 @@
 import React from "react";
-import { StyleSheet, TextInput } from "react-native";
+import { StyleSheet } from "react-native";
 
 // import { HunterProfile } from "./character";
 import type { ProfilePickerArgs } from "./ICharacter";
-import Button from "../../Button";
+import { SelectButton } from "../../Dropdown";
 import { View, Text } from "../../Themed";
 
-export default function ProfilePicker({ playerProfile, onProfileSelection }: ProfilePickerArgs) {
+export default function ProfilePicker({
+  profileName,
+  isActiveSelect,
+  showSelectModal,
+}: ProfilePickerArgs) {
   return (
     <View style={styles.container}>
       <View>
         <Text>Hunter Name</Text>
         <View style={styles.loader}>
-          <TextInput style={styles.input} value={playerProfile?.name ?? ``} />
-          <Button label="test" onPress={onProfileSelection}>
-            <Text>Load</Text>
-          </Button>
+          <SelectButton
+            modalVisible={isActiveSelect}
+            selectedLabel={profileName}
+            showSelectModal={showSelectModal}
+          />
         </View>
       </View>
     </View>

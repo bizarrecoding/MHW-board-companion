@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import useGetArmorOptions from "./useGetArmorOptions";
-import { changeEquipmentItem } from "../../../../util/redux/CharacterSlice";
+import { changeEquipmentItem, enableSaveProfile } from "../../../../util/redux/CharacterSlice";
 import type { SelectedItemReturnType } from "../../../Dropdown";
 import { IsArmorType } from "../ICharacter";
 
@@ -33,7 +33,7 @@ const useManageEquipment = () => {
         if (isFocusedHead)
           dispatch(
             changeEquipmentItem({
-              type: IsArmorType.HEAD,
+              itemType: IsArmorType.HEAD,
               item: armorListHead[isFocusedHead.indexArray],
             })
           );
@@ -42,7 +42,7 @@ const useManageEquipment = () => {
         if (isFocusedChest)
           dispatch(
             changeEquipmentItem({
-              type: IsArmorType.CHEST,
+              itemType: IsArmorType.CHEST,
               item: armorListChest[isFocusedChest.indexArray],
             })
           );
@@ -51,7 +51,7 @@ const useManageEquipment = () => {
         if (isFocusedArms)
           dispatch(
             changeEquipmentItem({
-              type: IsArmorType.ARMS,
+              itemType: IsArmorType.ARMS,
               item: armorListArms[isFocusedArms.indexArray],
             })
           );
@@ -60,7 +60,7 @@ const useManageEquipment = () => {
         if (isFocusedWaist)
           dispatch(
             changeEquipmentItem({
-              type: IsArmorType.WAIST,
+              itemType: IsArmorType.WAIST,
               item: armorListWaist[isFocusedWaist.indexArray],
             })
           );
@@ -69,7 +69,7 @@ const useManageEquipment = () => {
         if (isFocusedLegs)
           dispatch(
             changeEquipmentItem({
-              type: IsArmorType.LEGS,
+              itemType: IsArmorType.LEGS,
               item: armorListLegs[isFocusedLegs.indexArray],
             })
           );
@@ -81,6 +81,7 @@ const useManageEquipment = () => {
       default:
         break;
     }
+    dispatch(enableSaveProfile(true));
   };
 
   return {
