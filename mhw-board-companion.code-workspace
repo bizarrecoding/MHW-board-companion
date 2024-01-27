@@ -12,6 +12,24 @@
 		},
 		"editor.codeActionsOnSave": {
 			"source.fixAll.eslint": "explicit"
-		}
+		},
+		"cSpell.words": [
+			"Barroth",
+			"Blos",
+			"Carbalite",
+			"Diablos",
+			"Dragonite",
+			"Dragonvein",
+			"Fucium",
+			"Gajau",
+			"hardbone",
+			"Jyuratodus",
+			"Keenbone",
+			"Lightcrystal",
+			"Medula",
+			"Novacrystal",
+			"Pukei",
+			"Wingdrake"
+		]
 	}
 }

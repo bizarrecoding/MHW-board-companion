@@ -14,31 +14,22 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
   const dispatch = useDispatch();
   const renderItem: ListRenderItem<LogEntry> = ({ item }) => {
     const deleteItem = () => {
-      Alert.alert(
-        `Delete Hunt ${item.monster}?`,
-        `This action cannot be undone.`,
-        [
-          {
-            text: `Cancel`,
-            onPress: () => console.log(`Cancel Pressed`),
-            style: `cancel`,
-          },
-          {
-            text: `OK`,
-            onPress: () => dispatch(deleteLogEntry(item.id)),
-            style: `destructive`,
-          },
-        ],
-      );
+      Alert.alert(`Delete Hunt ${item.monster}?`, `This action cannot be undone.`, [
+        {
+          text: `Cancel`,
+          onPress: () => console.log(`Cancel Pressed`),
+          style: `cancel`,
+        },
+        {
+          text: `OK`,
+          onPress: () => dispatch(deleteLogEntry(item.id)),
+          style: `destructive`,
+        },
+      ]);
     };
     return (
       <View style={styles.itemCard}>
-        <View
-          style={[
-            styles.itemCardAvatar,
-            { backgroundColor: colorFromText(item.monster) },
-          ]}
-        />
+        <View style={[styles.itemCardAvatar, { backgroundColor: colorFromText(item.monster) }]} />
         <View style={{ flex: 1 }}>
           <Text variant="caption">{item.monster}</Text>
           <View
@@ -56,7 +47,7 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
             ) : null}
           </View>
         </View>
-        <Button variant="clear" icon="stop" onPress={deleteItem} />
+        <Button variant="clear" icon="times-circle" onPress={deleteItem} />
       </View>
     );
   };

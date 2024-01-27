@@ -10,9 +10,7 @@ import NumberInput from "../NumberInput";
 import { View, Text, Button } from "../Themed";
 
 export const RollPoolModal = () => {
-  const [d1, d2, d3, d4] = useSelector(
-    (state: RootState) => state.rolls.rollPool,
-  );
+  const [d1, d2, d3, d4] = useSelector((state: RootState) => state.rolls.rollPool);
   const dispatch = useDispatch();
   const [dice1, setDice1] = useState(d1);
   const [dice2, setDice2] = useState(d2);

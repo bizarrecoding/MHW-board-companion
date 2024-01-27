@@ -35,7 +35,6 @@ export const logSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addLogEntry, deleteLogEntry, replaceLogEntry } =
-  logSlice.actions;
+export const { addLogEntry, deleteLogEntry, replaceLogEntry } = logSlice.actions;
 
 export default logSlice.reducer;

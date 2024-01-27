@@ -1,10 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-  StyleProp,
-  TextStyle,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import React from "react";
+import { StyleProp, TextStyle, TouchableOpacity, StyleSheet } from "react-native";
 
 import Text from "./ThemedText";
 import { useThemeColor, ThemeProps } from "./useThemeColor";
@@ -14,7 +10,7 @@ export type ButtonProps = ThemeProps &
     title?: string;
     round?: boolean;
     variant?: `filled` | `outlined` | `clear`;
-    icon?: keyof typeof FontAwesome.glyphMap;
+    icon?: keyof typeof FontAwesome.glyphMap | React.ReactNode;
     textStyle?: StyleProp<TextStyle>;
   };
 
@@ -31,15 +27,9 @@ export default function Button(props: ButtonProps) {
     ...otherProps
   } = props;
 
-  const backgroundColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    `tint`,
-  );
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `tint`);
 
-  const textColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    `textSecondary`,
-  );
+  const textColor = useThemeColor({ light: lightColor, dark: darkColor }, `textSecondary`);
 
   return (
     <TouchableOpacity
@@ -47,17 +37,16 @@ export default function Button(props: ButtonProps) {
         styles.baseButton,
         round ? styles.round : null,
         variant === `filled` ? { backgroundColor } : null,
-        variant === `outlined`
-          ? { borderColor: textColor, borderWidth: 1 }
-          : null,
+        variant === `outlined` ? { borderColor: textColor, borderWidth: 1 } : null,
         variant === `clear` ? { backgroundColor: `transparent` } : null,
         icon && !title ? { padding: 0, margin: 0, minWidth: 0 } : null,
         style,
       ]}
       {...otherProps}
     >
-      {/* eslint-disable-next-line */}
-      {icon ? <FontAwesome name={icon} size={25} color={"#FFF"} /> : null}
+      {/* @ts-ignore */}
+      {icon && typeof icon === `string` ? <FontAwesome name={icon} size={25} color="#FFF" /> : null}
+      {icon && typeof icon !== `string` ? icon : null}
       {title ? (
         <Text variant="button" style={[{ color: textColor }, textStyle]}>
           {title}

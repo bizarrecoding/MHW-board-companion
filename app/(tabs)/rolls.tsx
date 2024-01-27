@@ -54,9 +54,7 @@ export default function TabTwoScreen() {
 
   return (
     <View style={styles.container}>
-      <View
-        style={[styles.center_row, { minHeight: 500, flexDirection: `column` }]}
-      >
+      <View style={[styles.center_row, { minHeight: 500, flexDirection: `column` }]}>
         <Text variant="title">Rolls until Sharpen: {pool.length}</Text>
         {/* <Text variant="title">pool:{JSON.stringify(pool)}</Text> */}
         <Text variant="title">roll:{JSON.stringify(roll)}</Text>

@@ -7,45 +7,20 @@ export type TextProps = ThemeProps &
     variant?: `title` | `subtitle` | `button` | `caption` | `body`;
   };
 export default function Text(props: TextProps) {
-  const {
-    style,
-    lightColor,
-    darkColor,
-    variant = `body`,
-    ...otherProps
-  } = props;
+  const { style, lightColor, darkColor, variant = `body`, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, `text`);
 
   switch (variant) {
     case `title`:
-      return (
-        <DefaultText style={[{ color }, styles.title, style]} {...otherProps} />
-      );
+      return <DefaultText style={[{ color }, styles.title, style]} {...otherProps} />;
     case `subtitle`:
-      return (
-        <DefaultText
-          style={[{ color }, styles.subtitle, style]}
-          {...otherProps}
-        />
-      );
+      return <DefaultText style={[{ color }, styles.subtitle, style]} {...otherProps} />;
     case `button`:
-      return (
-        <DefaultText
-          style={[{ color }, styles.button, style]}
-          {...otherProps}
-        />
-      );
+      return <DefaultText style={[{ color }, styles.button, style]} {...otherProps} />;
     case `caption`:
-      return (
-        <DefaultText
-          style={[{ color }, styles.caption, style]}
-          {...otherProps}
-        />
-      );
+      return <DefaultText style={[{ color }, styles.caption, style]} {...otherProps} />;
     case `body`:
-      return (
-        <DefaultText style={[{ color }, styles.body, style]} {...otherProps} />
-      );
+      return <DefaultText style={[{ color }, styles.body, style]} {...otherProps} />;
   }
 }
 
