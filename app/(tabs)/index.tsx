@@ -33,7 +33,7 @@ export default function Inventory() {
     return (
       <View style={{ padding: 16, alignItems: `center` }}>
         <View style={{ flexDirection: `row` }}>
-          <InventoryIcon type={item.type} />
+          <InventoryIcon type={item.type} name={item.name} />
           <View style={{ flex: 1 }}>
             <Text variant="caption">{item.name}</Text>
             <Text variant="body">x {item.amount}</Text>
