@@ -33,3 +33,13 @@ export type ArmorPiece = {
   defense: number;
   skills: any[];
 };
+
+export enum IsArmorType {
+  NONE = ``,
+  HEAD = `head`,
+  CHEST = `chest`,
+  ARMS = `arms`,
+  WAIST = `waist`,
+  LEGS = `legs`,
+  WEAPON = `weapon`,
+}

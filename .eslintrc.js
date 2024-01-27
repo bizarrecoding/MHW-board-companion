@@ -56,6 +56,7 @@ module.exports = {
       },
     ],
     eqeqeq: `error`,
+    indent: [`error`, 2, { SwitchCase: 1, ignoreComments: true }],
     "func-name-matching": `error`,
     "global-require": `off`,
     "import/no-default-export": `off`,

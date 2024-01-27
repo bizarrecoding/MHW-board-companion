@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
+import { IsArmorType } from "./character";
 import { SelectButton } from "../../Dropdown";
 import { View, Text } from "../../Themed";
 
@@ -8,19 +9,18 @@ export interface EquipItemArgs {
   label: string;
   isActiveSelect: boolean;
   selectedLabel?: string;
-  showSelectModal: () => void;
-  changeFocusedSelection: () => void;
+  showSelectModal: (armorType: IsArmorType) => void;
+  armorType: IsArmorType;
 }
 export default function EquipItem({
   label,
   isActiveSelect,
   selectedLabel,
   showSelectModal,
-  changeFocusedSelection,
+  armorType,
 }: EquipItemArgs) {
   const onSelectModal = () => {
-    changeFocusedSelection();
-    showSelectModal();
+    showSelectModal(armorType);
   };
 
   return (
