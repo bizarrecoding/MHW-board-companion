@@ -47,13 +47,21 @@ export const characterSlice = createSlice({
   initialState,
   reducers: {
     changeEquipmentItem: (state, action: PayloadAction<ActionChangeGear>) => {
-      state.profile.equipment.armor = {
-        ...state.profile.equipment.armor,
-        [action.payload.itemType]: action.payload.item,
-      };
+      const oldValue = state.profile.equipment.armor[action.payload.itemType]?.id;
+      const hasValueChanged = oldValue !== action.payload.item.id;
+      if (hasValueChanged) {
+        state.profile.equipment.armor = {
+          ...state.profile.equipment.armor,
+          [action.payload.itemType]: action.payload.item,
+        };
+      }
     },
     changeProfile: (state, action: PayloadAction<HunterProfile>) => {
-      state.profile = { ...action.payload };
+      const oldValue = state.profile.profile_id;
+      const hasValueChanged = oldValue !== action.payload.profile_id;
+      if (hasValueChanged) {
+        state.profile = { ...action.payload };
+      }
     },
     enableSaveProfile: (state, action: PayloadAction<boolean>) => {
       state.hasProfileBeenEdit = action.payload;

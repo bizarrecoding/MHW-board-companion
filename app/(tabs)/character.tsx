@@ -9,7 +9,6 @@ export default function TabCharacterScreen() {
     <View style={styles.container}>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <CharacterScreen />
-      {/* <EditScreenInfo path="app/(tabs)/character.tsx" /> */}
     </View>
   );
 }
@@ -17,10 +16,6 @@ export default function TabCharacterScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: `bold`,
   },
   separator: {
     marginVertical: 30,
