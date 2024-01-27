@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 import { ListRenderItem, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
@@ -11,7 +11,6 @@ import NumberInput from "../NumberInput";
 import { Button, Text, View } from "../Themed";
 
 export const LogEntryModal = () => {
-  const id = useId();
   const dispatch = useDispatch();
   const [monster, setMonster] = useState<MonsterKind>(`Barroth`);
   const [rank, setRank] = useState<RankType>(`Low Rank`);
@@ -19,7 +18,7 @@ export const LogEntryModal = () => {
 
   console.log({ monster, rank, carts });
   const saveLogEntry = () => {
-    dispatch(addLogEntry({ id, monster, rank, carts }));
+    dispatch(addLogEntry({ id: Date.now() + ``, monster, rank, carts }));
     router.back();
   };
   return (

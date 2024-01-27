@@ -29,7 +29,9 @@ export default function Button(props: ButtonProps) {
 
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `tint`);
 
-  const textColor = useThemeColor({ light: lightColor, dark: darkColor }, `textSecondary`);
+  const textBase = useThemeColor({ light: darkColor, dark: lightColor }, `text`);
+  const textAccent = useThemeColor({ light: lightColor, dark: darkColor }, `textSecondary`);
+  const textColor = variant === `filled` ? textAccent : textBase;
 
   return (
     <TouchableOpacity
@@ -56,12 +58,44 @@ export default function Button(props: ButtonProps) {
   );
 }
 
+type IconButtonProps = Pick<
+  ButtonProps,
+  `style` | `lightColor` | `darkColor` | `icon` | `onPress` | `variant`
+>;
+
+export const ThemedIconButton = (props: IconButtonProps) => {
+  const { style, lightColor, darkColor, icon, onPress, variant = `clear` } = props;
+
+  const colorBase = useThemeColor({ light: darkColor, dark: lightColor }, `text`);
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `tint`);
+
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.baseIconButton, variant !== `clear` ? { backgroundColor } : null, style]}
+    >
+      {icon && typeof icon === `string` ? (
+        // @ts-ignore
+        <FontAwesome name={icon} size={25} color={colorBase} />
+      ) : (
+        icon
+      )}
+    </TouchableOpacity>
+  );
+};
+
 const styles = StyleSheet.create({
   baseButton: {
     marginHorizontal: 16,
     marginVertical: 8,
     padding: 10,
     minWidth: 100,
+    alignItems: `center`,
+    justifyContent: `center`,
+  },
+  baseIconButton: {
+    margin: 4,
+    padding: 8,
     alignItems: `center`,
     justifyContent: `center`,
   },

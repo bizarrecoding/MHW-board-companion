@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { View, Text, Button } from "./Themed";
 
 type NumberInputProps = {
-  label: string;
+  label?: string;
   setValue: React.Dispatch<React.SetStateAction<number>>;
   children: React.ReactNode;
   min?: number;
@@ -22,9 +22,11 @@ export default function NumberInput({
   const decrement = () => setValue((n) => (n > min ? n - 1 : 0));
   return (
     <>
-      <Text variant="button" style={styles.inputLabel}>
-        {label}
-      </Text>
+      {label ? (
+        <Text variant="button" style={styles.inputLabel}>
+          {label}
+        </Text>
+      ) : null}
       <View style={[styles.center_row, { marginVertical: 16 }]}>
         <Button title="-" style={styles.buttons} onPress={decrement} />
         {children}

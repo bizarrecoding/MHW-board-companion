@@ -3,7 +3,7 @@ import { Alert, FlatList, ListRenderItem, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 
 import Divider from "./Divider";
-import { Button, Text, View } from "./Themed";
+import { IconButton, Text, View } from "./Themed";
 import { LogEntry, deleteLogEntry } from "../util/redux/LogSlice";
 
 type HunterLogProps = {
@@ -47,7 +47,7 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
             ) : null}
           </View>
         </View>
-        <Button variant="clear" icon="times-circle" onPress={deleteItem} />
+        <IconButton icon="times-circle" onPress={deleteItem} />
       </View>
     );
   };

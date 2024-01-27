@@ -5,7 +5,8 @@
 
 import { View as DefaultView } from "react-native";
 
-import Button from "./themed/ThemedButton";
+import Button, { ThemedIconButton as IconButton } from "./themed/ThemedButton";
+import TextInput from "./themed/ThemedInput";
 import Text from "./themed/ThemedText";
 import { useThemeColor, ThemeProps } from "./themed/useThemeColor";
 
@@ -18,4 +19,4 @@ export function View(props: ViewProps) {
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
 
-export { Button, Text };
+export { Button, Text, TextInput, IconButton };

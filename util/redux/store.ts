@@ -12,6 +12,7 @@ import {
 } from "redux-persist";
 
 import characterSlice, { CharacterState } from "./CharacterSlice";
+import inventorySlice, { InventoryState } from "./InventorySlice";
 import logSlice, { HuntingLogState } from "./LogSlice";
 import rollSlice, { RollState } from "./RollSlice";
 
@@ -28,6 +29,7 @@ export const store = configureStore({
     rolls: persistConfig<RollState>(`rolls`, rollSlice),
     log: persistConfig<HuntingLogState>(`log`, logSlice),
     character: persistConfig<CharacterState>(`character`, characterSlice),
+    inventory: persistConfig<InventoryState>(`log`, inventorySlice),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

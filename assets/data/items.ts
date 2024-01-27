@@ -92,7 +92,7 @@ export const ItemList: ItemEntry[] = [
     name: "Barroth Carapace",
   },
   {
-    type: "shell",
+    type: "ridge",
     name: "Barroth Ridge",
   },
   // Jyuratodus
@@ -163,11 +163,11 @@ export const ItemList: ItemEntry[] = [
     name: "Diablos Carapace",
   },
   {
-    type: "horn",
+    type: "claw",
     name: "Twisted Horn",
   },
   {
-    type: "horn",
+    type: "claw",
     name: "Majestic Horn",
   },
   {
@@ -175,7 +175,7 @@ export const ItemList: ItemEntry[] = [
     name: "Diablos Fang",
   },
   {
-    type: "shell",
+    type: "ridge",
     name: "Diablos Ridge",
   },
   {
@@ -188,11 +188,11 @@ export const ItemList: ItemEntry[] = [
     name: "Black Diablos Carapace",
   },
   {
-    type: "horn",
+    type: "claw",
     name: "Black Spiral Horn",
   },
   {
-    type: "shell",
+    type: "ridge",
     name: "Black Diablos Ridge",
   },
   {

@@ -5,6 +5,7 @@ import { Platform, StyleSheet } from "react-native";
 import Divider from "../components/Divider";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
+import { InventoryEntryModal } from "../components/modals/InventoryEntryModal";
 import { LogEntryModal } from "../components/modals/LogEntryModal";
 import { RollPoolModal } from "../components/modals/RollPoolModal";
 
@@ -12,6 +13,7 @@ export default function ModalScreen() {
   const { type } = useGlobalSearchParams();
   if (type === `log`) return <LogEntryModal />;
   if (type === `roll`) return <RollPoolModal />;
+  if (type === `item`) return <InventoryEntryModal />;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Modal {type}</Text>
