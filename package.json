@@ -11,7 +11,8 @@
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix",
     "pretty": "pretty-quick --staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "check-types": "tsc --noEmit --pretty"
   },
   "jest": {
     "preset": "jest-expo"

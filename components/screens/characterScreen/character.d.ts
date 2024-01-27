@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { Dispatch } from 'react';
 
 export type HunterProfile = {
   profile_id: string;
@@ -8,7 +8,7 @@ export type HunterProfile = {
     chest: string;
     arms: string;
     waist: string;
-    boots: string;
+    legs: string;
     weapon: string;
   };
   inventory: {
@@ -25,4 +25,11 @@ export type PlayerCharacterArgs = {
 
 export type ProfilePickerArgs = PlayerCharacterArgs & {
   onProfileSelection: () => void;
+};
+
+export type ArmorPiece = {
+  id: string;
+  name: string;
+  defense: number;
+  skills: any[];
 };

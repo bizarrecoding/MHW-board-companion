@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { SelectInput } from './SelectInput';
-import { SelectList } from './SelectList';
-import { SelectModal } from './SelectModal';
-import { View } from '../Themed';
+import { View } from '../../Themed';
+import { SelectButton } from '../SelectButton';
+import { SelectList } from '../SelectList';
+import type { SelectedItemReturnType } from '../SelectList';
+import { SelectModal } from '../SelectModal';
 
 type ItemData = { label: string; value: string };
 
@@ -15,14 +16,22 @@ interface DropdownArgs {
   onPressCancel?: (item: ItemData) => void;
 }
 
-export const Dropdown = ({
+export const SelectDemo = ({
   title,
   options,
   // onPressConfirm,
   // onPressCancel,
 }: DropdownArgs) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [selectedItem, setSelectedItem] = useState<SelectedItemReturnType>({
+    label: ``,
+    value: ``,
+    indexArray: -1,
+  });
+
+  const showSelectModal = () => {
+    setModalVisible(true);
+  };
 
   return (
     <View style={styles.viewInvoker}>
@@ -35,14 +44,14 @@ export const Dropdown = ({
       >
         <SelectList
           options={options}
-          selectedItem={selectedItem}
+          selectedValue={selectedItem?.value}
           setSelectedItem={setSelectedItem}
         />
       </SelectModal>
-      <SelectInput
-        value={selectedItem?.label}
+      <SelectButton
+        selectedLabel={selectedItem?.label}
         modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
+        showSelectModal={showSelectModal}
         placeholder={undefined}
       />
     </View>

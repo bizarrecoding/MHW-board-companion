@@ -1,30 +1,30 @@
 import { FontAwesome } from '@expo/vector-icons';
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 
 import { Text, View } from '../Themed';
 
-interface SelectInputArgs {
+interface SelectButtonArgs {
   modalVisible: boolean;
-  setModalVisible: Dispatch<boolean>;
-  value: string;
+  showSelectModal: () => void;
+  selectedLabel?: string;
   placeholder?: string;
 }
 
-export const SelectInput = ({
+export const SelectButton = ({
   modalVisible,
-  setModalVisible,
-  value,
+  showSelectModal,
+  selectedLabel,
   placeholder = ``,
-}: SelectInputArgs) => {
+}: SelectButtonArgs) => {
   const iconName = modalVisible ? `caret-up` : `caret-down`;
   const iconColor = `#333`;
 
   return (
-    <Pressable onPress={() => setModalVisible(true)}>
+    <Pressable onPress={showSelectModal}>
       <View style={styles.button}>
         <View style={styles.buttonOpen}>
-          <Text style={styles.textStyle}>{value ?? placeholder}</Text>
+          <Text style={styles.textStyle}>{selectedLabel ?? placeholder}</Text>
         </View>
         <View style={styles.iconContainer}>
           <FontAwesome name={iconName} size={18} color={iconColor} />

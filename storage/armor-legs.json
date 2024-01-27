@@ -1,0 +1,20 @@
+[
+    {
+        "id": "0",
+        "name": "Hunter's Vambraces",
+        "defense": 0,
+        "skills": []
+    },
+    {
+        "id": "1",
+        "name": "Leather Gloves",
+        "defense": 0,
+        "skills": []
+    },
+    {
+        "id": "2",
+        "name": "Alloy Greaves",
+        "defense": 0,
+        "skills": []
+    }
+]

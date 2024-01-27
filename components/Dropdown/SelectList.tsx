@@ -1,5 +1,6 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import React, { useState, Dispatch } from 'react';
+import React, { useState } from 'react';
+import type { Dispatch } from 'react';
 import { StyleSheet, Pressable, StyleProp, TextStyle } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -7,60 +8,58 @@ import { View, Text } from '../Themed';
 
 const ITEM_HEIGHT = 72;
 
-type ItemData = { label: string; value: string };
-
-type SelectListArgs = {
-  options?: ItemData[];
-  selectedItem: any;
-  setSelectedItem: Dispatch<any>;
-};
-
-interface RenderItemArgs {
-  item: ItemData;
-  selectedItem: any;
-  setSelectedItem: Dispatch<any>;
-}
+export type ItemData = { label: string; value: string };
 
 type ItemProps = {
   item: ItemData;
-  onPress: () => void;
+  onPressItem?: () => void;
   backgroundColor: StyleProp<TextStyle>;
   textColor: StyleProp<TextStyle>;
 };
-const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => {
+const Item = ({ item, backgroundColor, textColor, onPressItem }: ItemProps) => {
   return (
     <View style={styles.item}>
-      <Pressable onPress={onPress} style={[styles.option, backgroundColor]}>
+      <Pressable onPress={onPressItem} style={[styles.option, backgroundColor]}>
         <Text style={[styles.optionText, textColor]}>{item.label}</Text>
       </Pressable>
     </View>
   );
 };
 
-const renderItem = ({
-  item,
-  selectedItem,
-  setSelectedItem,
-}: RenderItemArgs) => {
+interface RenderItemArgs {
+  item: ItemData;
+  selectedValue?: string;
+  onPressItem?: () => void;
+}
+
+const renderItem = ({ item, selectedValue, onPressItem }: RenderItemArgs) => {
   const backgroundColor: any =
-    item.value === selectedItem ? `#6e3b6e` : `#f9c2ff`;
-  const color: any = item.value === selectedItem ? `white` : `black`;
+    item.value === selectedValue ? `#6e3b6e` : `#f9c2ff`;
+  const color: any = item.value === selectedValue ? `white` : `black`;
 
   return (
     <Item
       item={item}
-      onPress={() => {
-        setSelectedItem(item);
-      }}
+      onPressItem={onPressItem}
       backgroundColor={backgroundColor}
       textColor={color}
     />
   );
 };
 
+export type SelectedItemReturnType = (ItemData & { indexArray: number }) | null;
+
+type SelectListArgs = {
+  options?: ItemData[];
+  selectedValue?: string;
+  onPressItem?: () => void;
+  setSelectedItem: Dispatch<SelectedItemReturnType>;
+};
+
 export const SelectList = ({
   options = [],
-  selectedItem,
+  selectedValue,
+  onPressItem,
   setSelectedItem,
 }: SelectListArgs) => {
   const [isArrowUpVisible, setIsArrowUpVisible] = useState(false);
@@ -73,8 +72,8 @@ export const SelectList = ({
         renderItem={(itemData) =>
           renderItem({
             item: itemData.item,
-            selectedItem,
-            setSelectedItem,
+            selectedValue,
+            onPressItem,
           })
         }
         style={styles.optionList}
@@ -82,7 +81,7 @@ export const SelectList = ({
         onMomentumScrollEnd={(event) => {
           const scrollEndPosY = event.nativeEvent.contentOffset.y;
           const snapIndex = Math.round(scrollEndPosY / ITEM_HEIGHT);
-          setSelectedItem(options[snapIndex]);
+          setSelectedItem({ ...options[snapIndex], indexArray: snapIndex });
           if (snapIndex === 0) setIsArrowDownVisible(true);
           if (snapIndex >= options.length) setIsArrowUpVisible(true);
         }}
