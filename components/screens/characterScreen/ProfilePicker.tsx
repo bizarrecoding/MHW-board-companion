@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-// import { HunterProfile } from "./character";
 import type { ProfilePickerArgs } from "./ICharacter";
 import { SelectButton } from "../../Dropdown";
 import { View, Text } from "../../Themed";
@@ -10,7 +9,12 @@ export default function ProfilePicker({
   profileName,
   isActiveSelect,
   showSelectModal,
+  selectType,
 }: ProfilePickerArgs) {
+  const onSelectModal = () => {
+    showSelectModal(selectType);
+  };
+
   return (
     <View style={styles.container}>
       <View>
@@ -19,7 +23,7 @@ export default function ProfilePicker({
           <SelectButton
             modalVisible={isActiveSelect}
             selectedLabel={profileName}
-            showSelectModal={showSelectModal}
+            showSelectModal={onSelectModal}
           />
         </View>
       </View>
@@ -34,10 +38,5 @@ const styles = StyleSheet.create({
   loader: {
     flexDirection: `row`,
     justifyContent: `space-between`,
-  },
-  input: {
-    backgroundColor: `#eee`,
-    padding: 5,
-    width: `70%`,
   },
 });

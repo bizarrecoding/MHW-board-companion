@@ -5,10 +5,10 @@ import type {
   ArmorPiece,
   HunterProfile,
 } from "../../components/screens/characterScreen/ICharacter";
-import { IsArmorType, WeaponTypes } from "../../components/screens/characterScreen/ICharacter";
+import { ArmorTypes, WeaponTypes } from "../../components/screens/characterScreen/ICharacter";
 
 type ActionChangeGear = {
-  itemType: Exclude<IsArmorType, IsArmorType.NONE>;
+  itemType: ArmorTypes;
   item: ArmorPiece;
 };
 export interface CharacterState {
@@ -47,25 +47,10 @@ export const characterSlice = createSlice({
   initialState,
   reducers: {
     changeEquipmentItem: (state, action: PayloadAction<ActionChangeGear>) => {
-      // const newState: CharacterState = {
-      //   ...state,
-      //   profile: {
-      //     ...state.profile,
-      //     equipment: {
-      //       ...state.profile.equipment,
-      //       armor: {
-      //         ...state.profile.equipment.armor,
-      //         [action.payload.itemType]: action.payload.item,
-      //       },
-      //     },
-      //   },
-      //   hasProfileBeenEdit: !state.hasProfileBeenEdit,
-      // };
       state.profile.equipment.armor = {
         ...state.profile.equipment.armor,
         [action.payload.itemType]: action.payload.item,
       };
-      // state = { ...newState };
     },
     changeProfile: (state, action: PayloadAction<HunterProfile>) => {
       state.profile = { ...action.payload };

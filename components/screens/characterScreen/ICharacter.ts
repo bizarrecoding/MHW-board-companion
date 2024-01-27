@@ -23,21 +23,6 @@ export type HunterProfile = {
   log: object;
 };
 
-export type PlayerCharacterArgs = {
-  playerProfile: HunterProfile | null;
-  setPlayerProfile: Dispatch<HunterProfile | null>;
-};
-export type ProfilePickerArgs = {
-  profileName: string;
-  onProfileSelection: () => void;
-  isActiveSelect: boolean;
-  showSelectModal: () => void;
-};
-
-export type IEquipment = {
-  data: HunterProfile[`equipment`][`armor`] | null;
-};
-
 export type ArmorPiece = {
   id: string;
   name: string;
@@ -55,19 +40,52 @@ export type WeaponPiece = {
   };
 };
 
-export enum IsArmorType {
-  NONE = ``,
+export enum ArmorTypes {
   HEAD = `head`,
   CHEST = `chest`,
   ARMS = `arms`,
   WAIST = `waist`,
   LEGS = `legs`,
-  WEAPON = `weapon`,
 }
 
 export enum WeaponTypes {
-  INSECT_GLAIVE = `INSECT_GLAIVE`,
-  BOWGUN = `BOWGUN`,
-  SWITCHAXE = `SWITCHAXE`,
-  GUN_LANCE = `GUN_LANCE`,
+  INSECT_GLAIVE = `insect_glaive`,
+  BOWGUN = `bowgun`,
+  SWITCHAXE = `switchaxe`,
+  GUN_LANCE = `gun_lance`,
+}
+
+export const CharacterModalSelectOptions = Object.freeze({
+  ...ArmorTypes,
+  NONE: ``,
+  PROFILE: `profile`,
+  WEAPON: `weapon`,
+});
+type OptionsTypes = typeof CharacterModalSelectOptions;
+type ValueOf<T> = T[keyof T];
+export type CharacterModalSelectTypes = ValueOf<OptionsTypes>;
+
+export interface PlayerCharacterArgs {
+  playerProfile: HunterProfile | null;
+  setPlayerProfile: Dispatch<HunterProfile | null>;
+}
+export interface ProfilePickerArgs {
+  profileName: string;
+  isActiveSelect: boolean;
+  showSelectModal: (selectType: CharacterModalSelectTypes) => void;
+  selectType: CharacterModalSelectTypes;
+}
+
+export interface IEquipment {
+  data: HunterProfile[`equipment`][`armor`] | null;
+  isSelectingType: CharacterModalSelectTypes;
+  showSelectModal: (armorType: ArmorTypes) => void;
+}
+
+export interface EquipItemArgs {
+  label: string;
+  isActiveSelect: boolean;
+  selectedLabel?: string;
+  showSelectModal: (armorType: ArmorTypes) => void;
+  armorType: ArmorTypes;
 }

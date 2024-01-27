@@ -1,59 +1,104 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Equipment from "./Equipment";
+import { ArmorTypes, CharacterModalSelectOptions as SelectOptions } from "./ICharacter";
 import ProfilePicker from "./ProfilePicker";
+import useGetArmorOptions from "./helpers/useGetArmorOptions";
 import useGetProfileOptions from "./helpers/useGetProfileOptions";
-import { changeProfile, enableSaveProfile } from "../../../util/redux/CharacterSlice";
+import useManageCharacter from "./helpers/useManageCharacter";
+import useManageEquipment from "./helpers/useManageEquipment";
 import { RootState } from "../../../util/redux/store";
 import { SelectModal, SelectList } from "../../Dropdown";
-import type { SelectedItemReturnType } from "../../Dropdown";
 import { View } from "../../Themed";
 
 export default function CharacterScreen() {
-  const dispatch = useDispatch();
   const character = useSelector((state: RootState) => state.character);
-  console.log(`🚀 ~ CharacterScreen ~ character.edit:`, character.hasProfileBeenEdit);
 
-  const { profileList, optionsProfile } = useGetProfileOptions();
-  const [isFocusedProfile, setIsFocusedProfile] = useState<SelectedItemReturnType>(null);
+  const {
+    head: equippedHead,
+    chest: equippedChest,
+    arms: equippedArms,
+    waist: equippedWaist,
+    legs: equippedLegs,
+  } = character.profile.equipment.armor;
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const { optionsHead, optionsChest, optionsArms, optionsWaist, optionsLegs } =
+    useGetArmorOptions();
+  const { optionsProfile } = useGetProfileOptions();
+  const {
+    setIsFocusedHead,
+    setIsFocusedChest,
+    setIsFocusedArms,
+    setIsFocusedWaist,
+    setIsFocusedLegs,
+  } = useManageEquipment();
+  const { isSelectingType, setIsFocusedProfile, showSelectModal, hideSelectModal, onPressConfirm } =
+    useManageCharacter();
 
-  const onProfileSelection = () => {
-    if (isFocusedProfile) {
-      dispatch(changeProfile(profileList[isFocusedProfile.indexArray]));
-      dispatch(enableSaveProfile(false));
-    }
-  };
-
-  const showSelectModal = () => {
-    // setIsSelectingType(armorType);
-    setIsModalVisible(true);
-  };
-
-  const hideSelectModal = () => {
-    // setIsSelectingType(IsArmorType.NONE);
-    setIsModalVisible(false);
-  };
   const renderSelectList = () => {
-    return (
-      <SelectList
-        options={optionsProfile}
-        selectedValue={character.profile.profile_id}
-        setSelectedItem={setIsFocusedProfile}
-      />
-    );
+    switch (isSelectingType) {
+      case SelectOptions.PROFILE:
+        return (
+          <SelectList
+            options={optionsProfile}
+            selectedValue={character.profile.profile_id}
+            setSelectedItem={setIsFocusedProfile}
+          />
+        );
+      case ArmorTypes.HEAD:
+        return (
+          <SelectList
+            options={optionsHead}
+            selectedValue={equippedHead?.id}
+            setSelectedItem={setIsFocusedHead}
+          />
+        );
+      case ArmorTypes.CHEST:
+        return (
+          <SelectList
+            options={optionsChest}
+            selectedValue={equippedChest?.id}
+            setSelectedItem={setIsFocusedChest}
+          />
+        );
+      case ArmorTypes.ARMS:
+        return (
+          <SelectList
+            options={optionsArms}
+            selectedValue={equippedArms?.id}
+            setSelectedItem={setIsFocusedArms}
+          />
+        );
+      case ArmorTypes.WAIST:
+        return (
+          <SelectList
+            options={optionsWaist}
+            selectedValue={equippedWaist?.id}
+            setSelectedItem={setIsFocusedWaist}
+          />
+        );
+      case ArmorTypes.LEGS:
+        return (
+          <SelectList
+            options={optionsLegs}
+            selectedValue={equippedLegs?.id}
+            setSelectedItem={setIsFocusedLegs}
+          />
+        );
+      default:
+        return null;
+    }
   };
 
   return (
     <>
       <SelectModal
         title="Select Profile"
-        modalVisible={isModalVisible}
+        modalVisible={isSelectingType !== SelectOptions.NONE}
         setModalVisible={hideSelectModal}
-        onPressConfirm={onProfileSelection}
+        onPressConfirm={onPressConfirm}
       >
         {renderSelectList()}
       </SelectModal>
@@ -62,14 +107,16 @@ export default function CharacterScreen() {
           <ProfilePicker
             {...{
               profileName: character.profile.name,
-              onProfileSelection,
-              isActiveSelect: isModalVisible,
+              isActiveSelect: isSelectingType === SelectOptions.PROFILE,
               showSelectModal,
+              selectType: SelectOptions.PROFILE,
             }}
           />
         </View>
         <View>
-          <Equipment {...{ data: character.profile.equipment.armor }} />
+          <Equipment
+            {...{ data: character.profile.equipment.armor, isSelectingType, showSelectModal }}
+          />
         </View>
       </View>
     </>

@@ -7,9 +7,7 @@ const armorListArms: ArmorPiece[] = require(`../../../../storage/armor-arms.json
 const armorListWaist: ArmorPiece[] = require(`../../../../storage/armor-waist.json`);
 const armorListLegs: ArmorPiece[] = require(`../../../../storage/armor-legs.json`);
 
-// const weaponsList: ArmorPiece[] = require(`../../../storage/armor-legs.json`);
-
-export const mapEquipmentToOptions = (equipmentList: ArmorPiece[]): ItemData[] => {
+export const mapArmorToOptions = (equipmentList: ArmorPiece[]): ItemData[] => {
   return equipmentList.map((item) => ({
     label: item.name,
     value: item.id,
@@ -17,11 +15,11 @@ export const mapEquipmentToOptions = (equipmentList: ArmorPiece[]): ItemData[] =
 };
 
 const useGetArmorOptions = () => {
-  const optionsHead = mapEquipmentToOptions(armorListHead);
-  const optionsChest = mapEquipmentToOptions(armorListChest);
-  const optionsArms = mapEquipmentToOptions(armorListArms);
-  const optionsWaist = mapEquipmentToOptions(armorListWaist);
-  const optionsLegs = mapEquipmentToOptions(armorListLegs);
+  const optionsHead = mapArmorToOptions(armorListHead);
+  const optionsChest = mapArmorToOptions(armorListChest);
+  const optionsArms = mapArmorToOptions(armorListArms);
+  const optionsWaist = mapArmorToOptions(armorListWaist);
+  const optionsLegs = mapArmorToOptions(armorListLegs);
 
   return {
     optionsHead,
