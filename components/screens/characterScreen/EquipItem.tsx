@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import { IsArmorType } from "./character";
+import { IsArmorType } from "./ICharacter";
 import { SelectButton } from "../../Dropdown";
 import { View, Text } from "../../Themed";
 

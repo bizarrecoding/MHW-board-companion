@@ -1,17 +1,17 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
+import useGetArmorOptions from "./useGetArmorOptions";
+import { changeEquipmentItem } from "../../../../util/redux/CharacterSlice";
 import type { SelectedItemReturnType } from "../../../Dropdown";
-import type { ArmorPiece } from "../character";
-
-type EquipmentOrNull = ArmorPiece | null;
+import { IsArmorType } from "../ICharacter";
 
 const useManageEquipment = () => {
-  // const [equippedWeapon, setEquippedWeapon] = useState<EquipmentOrNull>(null);
-  const [equippedHead, setEquippedHead] = useState<EquipmentOrNull>(null);
-  const [equippedChest, setEquippedChest] = useState<EquipmentOrNull>(null);
-  const [equippedArms, setEquippedArms] = useState<EquipmentOrNull>(null);
-  const [equippedWaist, setEquippedWaist] = useState<EquipmentOrNull>(null);
-  const [equippedLegs, setEquippedLegs] = useState<EquipmentOrNull>(null);
+  const dispatch = useDispatch();
+  const [isSelectingType, setIsSelectingType] = useState(IsArmorType.NONE);
+
+  const { armorListHead, armorListChest, armorListArms, armorListWaist, armorListLegs } =
+    useGetArmorOptions();
 
   const [isFocusedHead, setIsFocusedHead] = useState<SelectedItemReturnType>(null);
   const [isFocusedChest, setIsFocusedChest] = useState<SelectedItemReturnType>(null);
@@ -19,26 +19,84 @@ const useManageEquipment = () => {
   const [isFocusedWaist, setIsFocusedWaist] = useState<SelectedItemReturnType>(null);
   const [isFocusedLegs, setIsFocusedLegs] = useState<SelectedItemReturnType>(null);
 
+  const showSelectModal = (armorType: IsArmorType) => {
+    setIsSelectingType(armorType);
+  };
+
+  const hideSelectModal = () => {
+    setIsSelectingType(IsArmorType.NONE);
+  };
+
+  const onPressConfirm = () => {
+    switch (isSelectingType) {
+      case IsArmorType.HEAD:
+        if (isFocusedHead)
+          dispatch(
+            changeEquipmentItem({
+              type: IsArmorType.HEAD,
+              item: armorListHead[isFocusedHead.indexArray],
+            })
+          );
+        break;
+      case IsArmorType.CHEST:
+        if (isFocusedChest)
+          dispatch(
+            changeEquipmentItem({
+              type: IsArmorType.CHEST,
+              item: armorListChest[isFocusedChest.indexArray],
+            })
+          );
+        break;
+      case IsArmorType.ARMS:
+        if (isFocusedArms)
+          dispatch(
+            changeEquipmentItem({
+              type: IsArmorType.ARMS,
+              item: armorListArms[isFocusedArms.indexArray],
+            })
+          );
+        break;
+      case IsArmorType.WAIST:
+        if (isFocusedWaist)
+          dispatch(
+            changeEquipmentItem({
+              type: IsArmorType.WAIST,
+              item: armorListWaist[isFocusedWaist.indexArray],
+            })
+          );
+        break;
+      case IsArmorType.LEGS:
+        if (isFocusedLegs)
+          dispatch(
+            changeEquipmentItem({
+              type: IsArmorType.LEGS,
+              item: armorListLegs[isFocusedLegs.indexArray],
+            })
+          );
+        break;
+      // case IsArmorType.WEAPON:
+      //   setEquippedHead(armorListHead[isFocusedHead.indexArray]);
+      //   break;
+
+      default:
+        break;
+    }
+  };
+
   return {
-    equippedHead,
-    setEquippedHead,
-    equippedChest,
-    setEquippedChest,
-    equippedArms,
-    setEquippedArms,
-    equippedWaist,
-    setEquippedWaist,
-    equippedLegs,
-    setEquippedLegs,
+    isSelectingType,
+    showSelectModal,
+    hideSelectModal,
+    onPressConfirm,
     isFocusedHead,
-    setIsFocusedHead,
     isFocusedChest,
-    setIsFocusedChest,
     isFocusedArms,
-    setIsFocusedArms,
     isFocusedWaist,
-    setIsFocusedWaist,
     isFocusedLegs,
+    setIsFocusedHead,
+    setIsFocusedChest,
+    setIsFocusedArms,
+    setIsFocusedWaist,
     setIsFocusedLegs,
   };
 };

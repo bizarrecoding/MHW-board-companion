@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, TextInput } from "react-native";
 
 // import { HunterProfile } from "./character";
-import type { ProfilePickerArgs } from "./character";
+import type { ProfilePickerArgs } from "./ICharacter";
 import Button from "../../Button";
 import { View, Text } from "../../Themed";
 

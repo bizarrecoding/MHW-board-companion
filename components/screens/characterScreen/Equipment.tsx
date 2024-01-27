@@ -1,28 +1,36 @@
-import { useState } from "react";
 import { StyleSheet } from "react-native";
 
 import EquipItem from "./EquipItem";
-import { PlayerCharacterArgs, IsArmorType } from "./character";
+import { IEquipment, IsArmorType } from "./ICharacter";
 import useGetArmorOptions from "./helpers/useGetArmorOptions";
 import useManageEquipment from "./helpers/useManageEquipment";
 import { SelectModal, SelectList } from "../../Dropdown";
 import { View, Text } from "../../Themed";
 
-export default function Equipment({ playerProfile }: PlayerCharacterArgs) {
-  console.log(`🚀 ~ Equipment ~ playerProfile:`, playerProfile);
+export default function Equipment({ data }: IEquipment) {
   const {
-    optionsHead,
-    optionsChest,
-    optionsArms,
-    optionsWaist,
-    optionsLegs,
-    armorListHead,
-    armorListChest,
-    armorListArms,
-    armorListWaist,
-    armorListLegs,
-  } = useGetArmorOptions();
-  const [isSelectingType, setIsSelectingType] = useState(IsArmorType.NONE);
+    head: equippedHead,
+    chest: equippedChest,
+    arms: equippedArms,
+    waist: equippedWaist,
+    legs: equippedLegs,
+  } = data ?? {};
+
+  const { optionsHead, optionsChest, optionsArms, optionsWaist, optionsLegs } =
+    useGetArmorOptions();
+
+  const {
+    showSelectModal,
+    hideSelectModal,
+    onPressConfirm,
+    isSelectingType,
+    setIsFocusedHead,
+    setIsFocusedChest,
+    setIsFocusedArms,
+    setIsFocusedWaist,
+    setIsFocusedLegs,
+  } = useManageEquipment();
+
   const isSelectingNONE = isSelectingType === IsArmorType.NONE;
   const isSelectingHead = isSelectingType === IsArmorType.HEAD;
   const isSelectingChest = isSelectingType === IsArmorType.CHEST;
@@ -30,60 +38,58 @@ export default function Equipment({ playerProfile }: PlayerCharacterArgs) {
   const isSelectingWaist = isSelectingType === IsArmorType.WAIST;
   const isSelectingLegs = isSelectingType === IsArmorType.LEGS;
 
-  const {
-    equippedHead,
-    setEquippedHead,
-    equippedChest,
-    setEquippedChest,
-    equippedArms,
-    setEquippedArms,
-    equippedWaist,
-    setEquippedWaist,
-    equippedLegs,
-    setEquippedLegs,
-    isFocusedHead,
-    setIsFocusedHead,
-    isFocusedChest,
-    setIsFocusedChest,
-    isFocusedArms,
-    setIsFocusedArms,
-    isFocusedWaist,
-    setIsFocusedWaist,
-    isFocusedLegs,
-    setIsFocusedLegs,
-  } = useManageEquipment();
-
-  const showSelectModal = (armorType: IsArmorType) => {
-    setIsSelectingType(armorType);
-  };
-
-  const hideSelectModal = () => {
-    setIsSelectingType(IsArmorType.NONE);
-  };
-
-  const onPressConfirm = () => {
+  const renderSelectList = () => {
     switch (isSelectingType) {
       case IsArmorType.HEAD:
-        if (isFocusedHead) setEquippedHead(armorListHead[isFocusedHead.indexArray]);
-        break;
+        return (
+          <SelectList
+            options={optionsHead}
+            selectedValue={equippedHead?.id}
+            setSelectedItem={setIsFocusedHead}
+          />
+        );
       case IsArmorType.CHEST:
-        if (isFocusedChest) setEquippedChest(armorListChest[isFocusedChest.indexArray]);
-        break;
+        return (
+          <SelectList
+            options={optionsChest}
+            selectedValue={equippedChest?.id}
+            setSelectedItem={setIsFocusedChest}
+          />
+        );
       case IsArmorType.ARMS:
-        if (isFocusedArms) setEquippedArms(armorListArms[isFocusedArms.indexArray]);
-        break;
+        return (
+          <SelectList
+            options={optionsArms}
+            selectedValue={equippedArms?.id}
+            setSelectedItem={setIsFocusedArms}
+          />
+        );
       case IsArmorType.WAIST:
-        if (isFocusedWaist) setEquippedWaist(armorListWaist[isFocusedWaist.indexArray]);
-        break;
+        return (
+          <SelectList
+            options={optionsWaist}
+            selectedValue={equippedWaist?.id}
+            setSelectedItem={setIsFocusedWaist}
+          />
+        );
       case IsArmorType.LEGS:
-        if (isFocusedLegs) setEquippedLegs(armorListLegs[isFocusedLegs.indexArray]);
-        break;
+        return (
+          <SelectList
+            options={optionsLegs}
+            selectedValue={equippedLegs?.id}
+            setSelectedItem={setIsFocusedLegs}
+          />
+        );
       // case IsArmorType.WEAPON:
+      //   <SelectList
+      //     options={}
+      //     selectedValue={equippedWeapon?.id}
+      //     setSelectedItem={setIsFocusedWeapon}
+      //   />
       //   setEquippedHead(armorListHead[isFocusedHead.indexArray]);
       //   break;
-
       default:
-        break;
+        return null;
     }
   };
 
@@ -95,46 +101,7 @@ export default function Equipment({ playerProfile }: PlayerCharacterArgs) {
         setModalVisible={hideSelectModal}
         onPressConfirm={onPressConfirm}
       >
-        {isSelectingHead ? (
-          <SelectList
-            options={optionsHead}
-            selectedValue={equippedHead?.id}
-            setSelectedItem={setIsFocusedHead}
-          />
-        ) : null}
-        {isSelectingChest ? (
-          <SelectList
-            options={optionsChest}
-            selectedValue={equippedChest?.id}
-            setSelectedItem={setIsFocusedChest}
-          />
-        ) : null}
-        {isSelectingArms ? (
-          <SelectList
-            options={optionsArms}
-            selectedValue={equippedArms?.id}
-            setSelectedItem={setIsFocusedArms}
-          />
-        ) : null}
-        {isSelectingWaist ? (
-          <SelectList
-            options={optionsWaist}
-            selectedValue={equippedWaist?.id}
-            setSelectedItem={setIsFocusedWaist}
-          />
-        ) : null}
-        {isSelectingLegs ? (
-          <SelectList
-            options={optionsLegs}
-            selectedValue={equippedLegs?.id}
-            setSelectedItem={setIsFocusedLegs}
-          />
-        ) : null}
-        {/* <SelectList
-          options={}
-          selectedValue={equippedWeapon?.id}
-          setSelectedItem={setIsFocusedWeapon}
-        /> */}
+        {renderSelectList()}
       </SelectModal>
       <View style={styles.equipmentContainer}>
         <Text>Equipment</Text>

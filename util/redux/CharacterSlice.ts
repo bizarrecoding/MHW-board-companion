@@ -1,15 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import type { PayloadAction } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+
+import type { EquipmentOrNull } from "../../components/screens/characterScreen/ICharacter";
+import { IsArmorType } from "../../components/screens/characterScreen/ICharacter";
+
+type ActionChangeGear = {
+  type: Exclude<IsArmorType, IsArmorType.NONE>;
+  item: EquipmentOrNull;
+};
 
 export interface CharacterState {
   profile_id: string;
   name: string;
   equipment: {
-    head: string;
-    chest: string;
-    arms: string;
-    waist: string;
-    legs: string;
+    head: EquipmentOrNull;
+    chest: EquipmentOrNull;
+    arms: EquipmentOrNull;
+    waist: EquipmentOrNull;
+    legs: EquipmentOrNull;
     weapon: string;
   };
   inventory: {
@@ -20,19 +28,19 @@ export interface CharacterState {
 }
 
 const initialState: CharacterState = {
-  profile_id: ``,
-  name: ``,
+  profile_id: `9999`,
+  name: `Test Hunter`,
   equipment: {
-    head: ``,
-    chest: ``,
-    arms: ``,
-    waist: ``,
-    legs: ``,
+    head: null,
+    chest: null,
+    arms: null,
+    waist: null,
+    legs: null,
     weapon: ``,
   },
   inventory: {
     potionHealth: 0,
-    potionStamina: 1,
+    potionStamina: 0,
   },
   log: {},
 };
@@ -41,20 +49,13 @@ export const characterSlice = createSlice({
   name: `character`,
   initialState,
   reducers: {
-    //   addLogEntry: (state, action: PayloadAction<LogEntry>) => {
-    //     state.huntLog = [...state.huntLog, action.payload];
-    //   },
-    //   deleteLogEntry: (state, action: PayloadAction<string>) => {
-    //     state.huntLog = state.huntLog.filter((h) => h.id !== action.payload);
-    //   },
-    //   replaceLogEntry: (state, action: PayloadAction<LogEntry>) => {
-    //     const index = state.huntLog.findIndex((h) => h.id === action.payload.id);
-    //     state.huntLog[index] = action.payload;
-    //   },
+    changeEquipmentItem: (state, action: PayloadAction<ActionChangeGear>) => {
+      state.equipment = { ...state.equipment, [action.payload.type]: action.payload.item };
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const actions = characterSlice.actions;
+export const { changeEquipmentItem } = characterSlice.actions;
 
 export default characterSlice.reducer;

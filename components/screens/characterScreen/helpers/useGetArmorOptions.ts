@@ -1,11 +1,11 @@
 import type { ItemData } from "../../../Dropdown";
-import type { ArmorPiece } from "../character";
+import type { ArmorPiece } from "../ICharacter";
 
-const armorListHead: ArmorPiece[] = require(`../../../storage/armor-head.json`);
-const armorListChest: ArmorPiece[] = require(`../../../storage/armor-chest.json`);
-const armorListArms: ArmorPiece[] = require(`../../../storage/armor-arms.json`);
-const armorListWaist: ArmorPiece[] = require(`../../../storage/armor-waist.json`);
-const armorListLegs: ArmorPiece[] = require(`../../../storage/armor-legs.json`);
+const armorListHead: ArmorPiece[] = require(`../../../../storage/armor-head.json`);
+const armorListChest: ArmorPiece[] = require(`../../../../storage/armor-chest.json`);
+const armorListArms: ArmorPiece[] = require(`../../../../storage/armor-arms.json`);
+const armorListWaist: ArmorPiece[] = require(`../../../../storage/armor-waist.json`);
+const armorListLegs: ArmorPiece[] = require(`../../../../storage/armor-legs.json`);
 
 // const weaponsList: ArmorPiece[] = require(`../../../storage/armor-legs.json`);
 
