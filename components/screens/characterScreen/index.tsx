@@ -1,57 +1,127 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 
 import Equipment from "./Equipment";
+import { ArmorTypes, CharacterModalSelectOptions as SelectOptions } from "./ICharacter";
 import ProfilePicker from "./ProfilePicker";
-import { HunterProfile } from "./character";
-import { Dropdown } from "../../Dropdown";
+import useGetArmorOptions from "./helpers/useGetArmorOptions";
+import useGetProfileOptions from "./helpers/useGetProfileOptions";
+import useManageCharacter from "./helpers/useManageCharacter";
+import { RootState } from "../../../util/redux/store";
+import { SelectModal, SelectList } from "../../Dropdown";
 import { View } from "../../Themed";
 
-const testProfile: HunterProfile = require(`../../../storage/hunter.json`);
-
-const dummyData = [
-  { label: `test`, value: `0` },
-  { label: `test1`, value: `1` },
-  { label: `test2`, value: `2` },
-  { label: `test3`, value: `3` },
-  { label: `test4`, value: `4` },
-  { label: `test5`, value: `5` },
-];
-
 export default function CharacterScreen() {
-  const [playerProfile, setPlayerProfile] = useState<HunterProfile | null>(
-    null,
-  );
+  const character = useSelector((state: RootState) => state.character);
 
-  const onProfileSelection = () => {
-    // alert(`Selected Profile: \n ${testProfile.name}`);
-    setPlayerProfile(testProfile);
-  };
+  const {
+    head: equippedHead,
+    chest: equippedChest,
+    arms: equippedArms,
+    waist: equippedWaist,
+    legs: equippedLegs,
+  } = character.profile.equipment.armor;
 
-  const onDropdownSelect = (item: (typeof dummyData)[number]) => {
-    console.log(`🚀 ~ onDropdownSelect ~ item:`, item);
+  const { optionsHead, optionsChest, optionsArms, optionsWaist, optionsLegs } =
+    useGetArmorOptions();
+  const { optionsProfile } = useGetProfileOptions();
+  const {
+    isSelectingType,
+    setIsFocusedProfile,
+    showSelectModal,
+    hideSelectModal,
+    onPressConfirm,
+    setIsFocusedHead,
+    setIsFocusedChest,
+    setIsFocusedArms,
+    setIsFocusedWaist,
+    setIsFocusedLegs,
+  } = useManageCharacter();
+
+  const renderSelectList = () => {
+    switch (isSelectingType) {
+      case SelectOptions.PROFILE:
+        return (
+          <SelectList
+            options={optionsProfile}
+            selectedValue={character.profile.profile_id}
+            setSelectedItem={setIsFocusedProfile}
+          />
+        );
+      case ArmorTypes.HEAD:
+        return (
+          <SelectList
+            options={optionsHead}
+            selectedValue={equippedHead?.id}
+            setSelectedItem={setIsFocusedHead}
+          />
+        );
+      case ArmorTypes.CHEST:
+        return (
+          <SelectList
+            options={optionsChest}
+            selectedValue={equippedChest?.id}
+            setSelectedItem={setIsFocusedChest}
+          />
+        );
+      case ArmorTypes.ARMS:
+        return (
+          <SelectList
+            options={optionsArms}
+            selectedValue={equippedArms?.id}
+            setSelectedItem={setIsFocusedArms}
+          />
+        );
+      case ArmorTypes.WAIST:
+        return (
+          <SelectList
+            options={optionsWaist}
+            selectedValue={equippedWaist?.id}
+            setSelectedItem={setIsFocusedWaist}
+          />
+        );
+      case ArmorTypes.LEGS:
+        return (
+          <SelectList
+            options={optionsLegs}
+            selectedValue={equippedLegs?.id}
+            setSelectedItem={setIsFocusedLegs}
+          />
+        );
+      default:
+        return null;
+    }
   };
 
   return (
-    <View style={styles.container}>
-      <View>
-        <ProfilePicker
-          {...{
-            playerProfile,
-            setPlayerProfile,
-            onProfileSelection,
-          }}
-        />
+    <>
+      <SelectModal
+        title="Select Profile"
+        modalVisible={isSelectingType !== SelectOptions.NONE}
+        setModalVisible={hideSelectModal}
+        onPressConfirm={onPressConfirm}
+      >
+        {renderSelectList()}
+      </SelectModal>
+      <View style={styles.container}>
+        <View>
+          <ProfilePicker
+            {...{
+              profileName: character.profile.name,
+              isActiveSelect: isSelectingType === SelectOptions.PROFILE,
+              showSelectModal,
+              selectType: SelectOptions.PROFILE,
+            }}
+          />
+        </View>
+        <View>
+          <Equipment
+            {...{ data: character.profile.equipment.armor, isSelectingType, showSelectModal }}
+          />
+        </View>
       </View>
-      <View>
-        <Equipment {...{ playerProfile, setPlayerProfile }} />
-      </View>
-      <Dropdown
-        title="Modal title"
-        options={dummyData}
-        onChange={onDropdownSelect}
-      />
-    </View>
+    </>
   );
 }
 

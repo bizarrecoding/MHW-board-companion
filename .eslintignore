@@ -9,7 +9,7 @@
 **/*.spec.js
 /ios/**
 /android/**
- 
+
 /ios/**
 /build/**
 /generated/**
@@ -27,3 +27,4 @@
 /babel.config.js
 /register-service-worker.js
 /web-build/**/*
+expo-env.d.ts

@@ -1,24 +1,30 @@
 import React from "react";
-import { StyleSheet, TextInput } from "react-native";
+import { StyleSheet } from "react-native";
 
-// import { HunterProfile } from "./character";
-import type { ProfilePickerArgs } from "./character";
-import Button from "../../Button";
+import type { ICharacterArgs } from "./ICharacter";
+import { SelectButton } from "../../Dropdown";
 import { View, Text } from "../../Themed";
 
 export default function ProfilePicker({
-  playerProfile,
-  onProfileSelection,
-}: ProfilePickerArgs) {
+  profileName,
+  isActiveSelect,
+  showSelectModal,
+  selectType,
+}: ICharacterArgs.IProfilePicker) {
+  const onSelectModal = () => {
+    showSelectModal(selectType);
+  };
+
   return (
     <View style={styles.container}>
       <View>
         <Text>Hunter Name</Text>
         <View style={styles.loader}>
-          <TextInput style={styles.input} value={playerProfile?.name ?? ``} />
-          <Button label="test" onPress={onProfileSelection}>
-            <Text>Load</Text>
-          </Button>
+          <SelectButton
+            modalVisible={isActiveSelect}
+            selectedLabel={profileName}
+            showSelectModal={onSelectModal}
+          />
         </View>
       </View>
     </View>
@@ -32,10 +38,5 @@ const styles = StyleSheet.create({
   loader: {
     flexDirection: `row`,
     justifyContent: `space-between`,
-  },
-  input: {
-    backgroundColor: `#eee`,
-    padding: 5,
-    width: `70%`,
   },
 });

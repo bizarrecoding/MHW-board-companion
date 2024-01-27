@@ -1,0 +1,20 @@
+[
+    {
+        "id": "0",
+        "name": "Hunter's Headgear",
+        "defense": 0,
+        "skills": []
+    },
+    {
+        "id": "1",
+        "name": "Leather Headgear",
+        "defense": 0,
+        "skills": []
+    },
+    {
+        "id": "2",
+        "name": "Alloy Helm",
+        "defense": 0,
+        "skills": []
+    }
+]

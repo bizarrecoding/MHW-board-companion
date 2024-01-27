@@ -1,21 +1,19 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import Button from "./Button";
-import { View } from "./Themed";
+import Button from "../Button";
+import { View } from "../Themed";
 
+/**
+ * TODO: convert into General-use Modal, or delete
+ */
 interface ModalArgs {
   title?: string;
   onPressCancel?: ({ ...args }: any) => void;
   onPressConfirm?: ({ ...args }: any) => void;
   children?: any;
 }
-const Modal = ({
-  title,
-  onPressCancel,
-  onPressConfirm,
-  children,
-}: ModalArgs) => {
+const Modal = ({ title, onPressCancel, onPressConfirm, children }: ModalArgs) => {
   return (
     <View style={styles.background}>
       <View style={styles.container}>

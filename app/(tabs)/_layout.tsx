@@ -55,9 +55,7 @@ export default function TabLayout() {
         name="character"
         options={{
           title: `Character`,
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="address-book" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="address-book" color={color} />,
         }}
       />
       <Tabs.Screen

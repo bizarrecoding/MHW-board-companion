@@ -1,35 +1,38 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"workbench.colorCustomizations": {
-			"activityBar.background": "#381066",
-			"titleBar.activeBackground": "#4E168F",
-			"titleBar.activeForeground": "#FCFAFE"
-		},
-		"editor.codeActionsOnSave": {
-			"source.fixAll.eslint": "explicit"
-		},
-		"cSpell.words": [
-			"Barroth",
-			"Blos",
-			"Carbalite",
-			"Diablos",
-			"Dragonite",
-			"Dragonvein",
-			"Fucium",
-			"Gajau",
-			"hardbone",
-			"Jyuratodus",
-			"Keenbone",
-			"Lightcrystal",
-			"Medula",
-			"Novacrystal",
-			"Pukei",
-			"Wingdrake"
-		]
-	}
+  "folders": [
+    {
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "workbench.colorCustomizations": {
+      "activityBar.background": "#381066",
+      "titleBar.activeBackground": "#4E168F",
+      "titleBar.activeForeground": "#FCFAFE",
+    },
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+    "cSpell.words": [
+      "Barroth",
+      "Blos",
+      "Carbalite",
+      "Diablos",
+      "Dragonite",
+      "Dragonvein",
+      "Fucium",
+      "Gajau",
+      "hardbone",
+      "Jyuratodus",
+      "Keenbone",
+      "Lightcrystal",
+      "Medula",
+      "Novacrystal",
+      "Pukei",
+      "Wingdrake",
+    ],
+  },
 }

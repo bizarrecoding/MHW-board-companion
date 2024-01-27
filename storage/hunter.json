@@ -1,17 +1,112 @@
-{
+[
+  {
     "profile_id": "0",
-    "name": "Ace Hunter",
+    "name": "Fledgling Hunter",
     "equipment": {
-        "head": "Leather Headgear",
-        "chest": "Leather Mail",
-        "arms": "Leather Gloves",
-        "waist": "Leather Belt",
-        "boots": "Leather Trousers",
-        "weapon": "Iron Katana"
+      "armor": {
+        "head": {
+          "id": "0",
+          "name": "Hunter's Headgear",
+          "defense": 0,
+          "skills": []
+        },
+        "chest": {
+          "id": "0",
+          "name": "Hunter's Mail",
+          "defense": 0,
+          "skills": []
+        },
+        "arms": {
+          "id": "0",
+          "name": "Hunter's Vambraces",
+          "defense": 0,
+          "skills": []
+        },
+        "waist": {
+          "id": "0",
+          "name": "Hunter's Coil",
+          "defense": 0,
+          "skills": []
+        },
+        "legs": {
+          "id": "0",
+          "name": "Hunter's Greaves",
+          "defense": 0,
+          "skills": []
+        }
+      },
+      "weapon": {
+        "type": "insectGlaive",
+        "equipped": {
+          "id": "0",
+          "name": "Iron Blade",
+          "stats": {
+            "atkLvl1": 10,
+            "atkLvl2": 3,
+            "atkLvl3": 0
+          }
+        }
+      }
     },
     "inventory": {
-        "potionHealth": 0,
-        "potionStamina": 1
+      "potionHealth": 0,
+      "potionStamina": 0
     },
     "log": {}
-}
+  },
+  {
+    "profile_id": "1",
+    "name": "Newbie Hunter",
+    "equipment": {
+      "armor": {
+        "head": {
+          "id": "1",
+          "name": "Leather Headgear",
+          "defense": 0,
+          "skills": []
+        },
+        "chest": {
+          "id": "1",
+          "name": "Leather Mail",
+          "defense": 0,
+          "skills": []
+        },
+        "arms": {
+          "id": "1",
+          "name": "Leather Gloves",
+          "defense": 0,
+          "skills": []
+        },
+        "waist": {
+          "id": "1",
+          "name": "Leather Belt",
+          "defense": 0,
+          "skills": []
+        },
+        "legs": {
+          "id": "1",
+          "name": "Leather Trousers",
+          "defense": 0,
+          "skills": []
+        }
+      },
+      "weapon": {
+        "type": "insectGlaive",
+        "equipped": {
+          "id": 4,
+          "name": "Bone Shooter",
+          "stats": {
+            "atkLvl1": 10,
+            "atkLvl2": 3,
+            "atkLvl3": 0
+          }
+        }
+      }
+    },
+    "inventory": {
+      "potionHealth": 0,
+      "potionStamina": 1
+    },
+    "log": {}
+  }
+]

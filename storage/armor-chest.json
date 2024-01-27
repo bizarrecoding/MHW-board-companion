@@ -1,0 +1,20 @@
+[
+    {
+        "id": "0",
+        "name": "Hunter's Mail",
+        "defense": 0,
+        "skills": []
+    },
+    {
+        "id": "1",
+        "name": "Leather Mail",
+        "defense": 0,
+        "skills": []
+    },
+    {
+        "id": "2",
+        "name": "Alloy Mail",
+        "defense": 0,
+        "skills": []
+    }
+]

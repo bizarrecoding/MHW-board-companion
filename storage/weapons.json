@@ -1,64 +1,64 @@
 {
-    "insectGlaive": [
-        {
-            "id": "0",
-            "name": "Iron Blade",
-            "stats": {
-                "atkLvl1": 10,
-                "atkLvl2": 3,
-                "atkLvl3": 0
-            }
-        },
-        {
-            "id": "1",
-            "name": "Steel Blade",
-            "stats": {
-                "atkLvl1": 7,
-                "atkLvl2": 3,
-                "atkLvl3": 2
-            }
-        },
-        {
-            "id": "1",
-            "name": "Pukei-Pukei Blade",
-            "stats": {
-                "atkLvl1": 5,
-                "atkLvl2": 5,
-                "atkLvl3": 4
-            }
-        }
-    ],
-    "bowgun": [
-        {
-            "id": 4,
-            "name": "Bone Shooter",
-            "stats": {
-                "atkLvl1": 10,
-                "atkLvl2": 3,
-                "atkLvl3": 0
-            }
-        }
-    ],
-    "switchAxe": [
-        {
-            "id": "5",
-            "name": "Iron Axe",
-            "stats": {
-                "atkLvl1": 10,
-                "atkLvl2": 3,
-                "atkLvl3": 0
-            }
-        }
-    ],
-    "gunLance": [
-        {
-            "id": "6",
-            "name": "Iron GunLance",
-            "stats": {
-                "atkLvl1": 10,
-                "atkLvl2": 3,
-                "atkLvl3": 0
-            }
-        }
-    ]
+  "INSECT_GLAIVE": [
+    {
+      "id": "0",
+      "name": "Iron Blade",
+      "stats": {
+        "atkLvl1": 10,
+        "atkLvl2": 3,
+        "atkLvl3": 0
+      }
+    },
+    {
+      "id": "1",
+      "name": "Steel Blade",
+      "stats": {
+        "atkLvl1": 7,
+        "atkLvl2": 3,
+        "atkLvl3": 2
+      }
+    },
+    {
+      "id": "1",
+      "name": "Pukei-Pukei Blade",
+      "stats": {
+        "atkLvl1": 5,
+        "atkLvl2": 5,
+        "atkLvl3": 4
+      }
+    }
+  ],
+  "BOWGUN": [
+    {
+      "id": 4,
+      "name": "Bone Shooter",
+      "stats": {
+        "atkLvl1": 10,
+        "atkLvl2": 3,
+        "atkLvl3": 0
+      }
+    }
+  ],
+  "SWITCHAXE": [
+    {
+      "id": "5",
+      "name": "Iron Axe",
+      "stats": {
+        "atkLvl1": 10,
+        "atkLvl2": 3,
+        "atkLvl3": 0
+      }
+    }
+  ],
+  "GUN_LANCE": [
+    {
+      "id": "6",
+      "name": "Iron GunLance",
+      "stats": {
+        "atkLvl1": 10,
+        "atkLvl2": 3,
+        "atkLvl3": 0
+      }
+    }
+  ]
 }
