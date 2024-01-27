@@ -1,7 +1,4 @@
-export type ItemEntry = {
-  type: string;
-  name: string;
-}
+import { ItemEntry } from "./types";
 
 export const ItemList: ItemEntry[] = [
   // Misc bones
@@ -97,11 +94,11 @@ export const ItemList: ItemEntry[] = [
   },
   // Jyuratodus
   {
-    type: "scale",
+    type: "ridge",
     name: "Jyuratodus Fin",
   },
   {
-    type: "fang",
+    type: "claw",
     name: "Jyuratodus Fang",
   },
   {
@@ -171,7 +168,7 @@ export const ItemList: ItemEntry[] = [
     name: "Majestic Horn",
   },
   {
-    type: "fang",
+    type: "claw",
     name: "Diablos Fang",
   },
   {
@@ -179,7 +176,7 @@ export const ItemList: ItemEntry[] = [
     name: "Diablos Ridge",
   },
   {
-    type: "gem",
+    type: "ridge",
     name: "Blos Medula",
   },
   // Black Diablos 

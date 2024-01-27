@@ -4,7 +4,7 @@ import { ListRenderItem, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 
-import { MonsterKind, Monsters, RankType, Ranks } from "../../assets/data/constants";
+import { MonsterKind, Monsters, RankType, Ranks } from "../../assets/data/types";
 import { addLogEntry } from "../../util/redux/LogSlice";
 import Divider from "../Divider";
 import NumberInput from "../NumberInput";

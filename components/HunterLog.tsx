@@ -3,6 +3,7 @@ import { Alert, FlatList, ListRenderItem, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 
 import Divider from "./Divider";
+import { MonsterIcon } from "./InventoryIcon";
 import { IconButton, Text, View } from "./Themed";
 import { LogEntry, deleteLogEntry } from "../util/redux/LogSlice";
 
@@ -29,7 +30,7 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
     };
     return (
       <View style={styles.itemCard}>
-        <View style={[styles.itemCardAvatar, { backgroundColor: colorFromText(item.monster) }]} />
+        <MonsterIcon type={item.monster} rank={item.rank} />
         <View style={{ flex: 1 }}>
           <Text variant="caption">{item.monster}</Text>
           <View
@@ -69,16 +70,6 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
   );
 };
 
-const colorFromText = (text: string) => {
-  //sums number value of each char in string, then converts to hex
-  const color = text
-    .split(``)
-    .reduce((acc, char) => acc + char.charCodeAt(0), 0)
-    .toString(16);
-  //adds alpha A:62% to ease color saturation/blending
-  return `#${color}A`;
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -91,12 +82,5 @@ const styles = StyleSheet.create({
     padding: 16,
     flexDirection: `row`,
     alignItems: `center`,
-  },
-  itemCardAvatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-    backgroundColor: `#ccc`,
-    marginRight: 16,
   },
 });

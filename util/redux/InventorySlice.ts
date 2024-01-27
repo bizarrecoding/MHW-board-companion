@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+import { InventoryKind } from "../../assets/data/types";
+
 export type InventoryEntry = {
-  type: string;
+  type: InventoryKind;
   name: string;
   amount: number;
 };

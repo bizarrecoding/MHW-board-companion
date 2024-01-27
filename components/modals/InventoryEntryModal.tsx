@@ -26,7 +26,7 @@ export const InventoryEntryModal = () => {
     };
     return (
       <View style={{ flexDirection: `row`, padding: 16, alignItems: `center` }}>
-        <InventoryIcon type={item.type} />
+        <InventoryIcon type={item.type} name={item.name} />
         <Text variant="caption" style={{ flex: 1 }}>
           {item.name}
         </Text>

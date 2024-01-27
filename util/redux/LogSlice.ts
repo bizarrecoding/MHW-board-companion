@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+import { MonsterKind, RankType, Result } from "../../assets/data/types";
+
 export type LogEntry = {
   id: string;
-  monster: string;
-  rank: string;
+  monster: MonsterKind;
+  rank: RankType;
   carts: number;
-  result?: string;
+  result?: Result;
 };
 
 export interface HuntingLogState {
