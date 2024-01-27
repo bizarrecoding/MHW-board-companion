@@ -64,6 +64,11 @@ export const SelectList = ({
   const [isArrowUpVisible, setIsArrowUpVisible] = useState(false);
   const [isArrowDownVisible, setIsArrowDownVisible] = useState(true);
 
+  const selectedIndex =
+    selectedValue && options.length > 0
+      ? options.findIndex((option) => option.value === selectedValue)
+      : undefined;
+
   return (
     <>
       <FlatList
@@ -85,6 +90,12 @@ export const SelectList = ({
           if (snapIndex >= options.length) setIsArrowUpVisible(true);
         }}
         keyExtractor={(item) => item.value}
+        getItemLayout={(_, index) => ({
+          length: ITEM_HEIGHT,
+          offset: ITEM_HEIGHT * index,
+          index,
+        })}
+        initialScrollIndex={selectedIndex}
       />
       <View style={styles.arrows}>
         {isArrowUpVisible && <FontAwesome name="arrow-up" size={18} color="#25292e" />}
