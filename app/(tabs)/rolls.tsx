@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 
+import { WhetstoneIcon } from "../../components/InventoryIcon";
+import RollDisplay from "../../components/RollDisplay";
 import { Button, View, Text } from "../../components/Themed";
 import { RootState } from "../../util/redux/store";
 
@@ -23,11 +25,11 @@ const createDamagePool = (values: number[]) => {
 
 export default function TabTwoScreen() {
   const { rollPool } = useSelector((state: RootState) => state.rolls);
-  const [numberToRoll, setnumberToRoll] = useState(1);
+  const [numberToRoll, setNumberToRoll] = useState(1);
   const [pool, setPool] = useState<number[]>([]);
   const [roll, setRoll] = useState<number[]>([]);
-  const increment = () => setnumberToRoll((n) => (n < 10 ? n + 1 : n));
-  const decrement = () => setnumberToRoll((n) => (n > 0 ? n - 1 : 0));
+  const increment = () => setNumberToRoll((n) => (n < 10 ? n + 1 : n));
+  const decrement = () => setNumberToRoll((n) => (n > 0 ? n - 1 : 0));
 
   const reset = useCallback(() => {
     const pool = createDamagePool(rollPool);
@@ -54,10 +56,13 @@ export default function TabTwoScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.center_row, { minHeight: 500, flexDirection: `column` }]}>
-        <Text variant="title">Rolls until Sharpen: {pool.length}</Text>
-        {/* <Text variant="title">pool:{JSON.stringify(pool)}</Text> */}
-        <Text variant="title">roll:{JSON.stringify(roll)}</Text>
+      <View style={{ minHeight: 500, flexDirection: `column` }}>
+        <Text variant="title" style={{ padding: 16, textAlign: `center` }}>
+          Rolls until Sharpen: {pool.length}
+        </Text>
+        <View style={[styles.center_row, styles.container]}>
+          <RollDisplay roll={roll} />
+        </View>
       </View>
       <View style={[styles.center_row, { marginVertical: 16 }]}>
         <Button title="-" style={styles.buttons} onPress={decrement} />
@@ -66,7 +71,7 @@ export default function TabTwoScreen() {
       </View>
       <View style={{ flexDirection: `row` }}>
         <Button title="Roll" style={{ flex: 4 }} onPress={rollDamage} />
-        <Button title="Sharpen" style={{ flex: 1 }} onPress={reset} />
+        <WhetstoneIcon style={{ flex: 1 }} onPress={reset} />
       </View>
     </View>
   );
