@@ -25,7 +25,12 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme ?? `light`].tabIconSelected,
+        tabBarInactiveTintColor: Colors[colorScheme ?? `light`].tabIconDefault,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{

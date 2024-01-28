@@ -12,7 +12,7 @@ const TRANSPARENCY_MOD = `D`;
 export default function TextInput(props: TextInputProps) {
   const { style, lightColor, darkColor, variant = `body`, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, `text`);
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `tint_dark`);
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `card`);
 
   switch (variant) {
     case `title`:

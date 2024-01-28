@@ -1,5 +1,12 @@
 import React from "react";
-import { Image, ImageStyle, StyleProp, StyleSheet } from "react-native";
+import {
+  Image,
+  ImageStyle,
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 
 import { View } from "./Themed";
 import { InventoryKind, MonsterKind, RankType } from "../assets/data/types";
@@ -46,6 +53,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Ore.webp`)}
         />
       );
@@ -53,6 +61,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Shell.webp`)}
         />
       );
@@ -60,6 +69,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Bone.webp`)}
         />
       );
@@ -67,6 +77,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Wing.webp`)}
         />
       );
@@ -74,6 +85,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Sac.webp`)}
         />
       );
@@ -81,6 +93,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Dung.webp`)}
         />
       );
@@ -88,6 +101,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Scale.webp`)}
         />
       );
@@ -95,6 +109,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Gem.webp`)}
         />
       );
@@ -102,6 +117,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Tail.webp`)}
         />
       );
@@ -109,6 +125,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Claw.webp`)}
         />
       );
@@ -116,6 +133,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Ridge.webp`)}
         />
       );
@@ -123,6 +141,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return (
         <Image
           style={styles.InventoryIcon}
+          resizeMode="contain"
           source={require(`../assets/images/materials/Hide.webp`)}
         />
       );
@@ -157,15 +176,15 @@ type MonsterIconProps = {
 const MonsterIcon_: React.FC<MonsterIconProps> = ({ type }) => {
   switch (type) {
     case `Barroth`:
-      return <Image style={styles.MonsterIcon} source={Barroth} />;
+      return <Image style={styles.MonsterIcon} resizeMode="contain" source={Barroth} />;
     case `Pukei-Pukei`:
-      return <Image style={styles.MonsterIcon} source={PukeiPukei} />;
+      return <Image style={styles.MonsterIcon} resizeMode="contain" source={PukeiPukei} />;
     case `Jyuratodus`:
-      return <Image style={styles.MonsterIcon} source={Jyuratodus} />;
+      return <Image style={styles.MonsterIcon} resizeMode="contain" source={Jyuratodus} />;
     case `Diablos`:
-      return <Image style={styles.MonsterIcon} source={Diablos} />;
+      return <Image style={styles.MonsterIcon} resizeMode="contain" source={Diablos} />;
     case `Black Diablos`:
-      return <Image style={styles.MonsterIcon} source={BlackDiablos} />;
+      return <Image style={styles.MonsterIcon} resizeMode="contain" source={BlackDiablos} />;
     default:
       return <View />;
   }
@@ -197,6 +216,23 @@ export const MonsterIcon = (props: MonsterIconProps) => {
   );
 };
 
+type WhetstoneIconProps = {
+  style: StyleProp<ViewStyle>;
+  onPress?: () => void;
+};
+
+export const WhetstoneIcon: React.FC<WhetstoneIconProps> = ({ style, onPress }) => {
+  return (
+    <TouchableOpacity onPress={onPress} style={[styles.whetstoneIconWrapper, style]}>
+      <Image
+        style={styles.InventoryIcon}
+        resizeMode="contain"
+        source={require(`../assets/images/materials/whetstone.png`)}
+      />
+    </TouchableOpacity>
+  );
+};
+
 const ICON_SIZES = {
   small: 40,
   medium: 50,
@@ -215,6 +251,19 @@ const styles = StyleSheet.create({
   InventoryIcon: {
     width: ICON_SIZES.small - 16,
     height: ICON_SIZES.small - 16,
+  },
+  whetstoneIconWrapper: {
+    marginVertical: 8,
+    marginHorizontal: 16,
+    alignItems: `center`,
+    justifyContent: `center`,
+    //adding 4 to match complementary button size
+    width: ICON_SIZES.small + 4,
+    height: ICON_SIZES.small + 4,
+    backgroundColor: `#8883`,
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: `#3333`,
   },
   MonsterIconWrapper: {
     alignItems: `center`,

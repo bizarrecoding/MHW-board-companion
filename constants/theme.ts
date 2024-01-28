@@ -7,7 +7,7 @@ export const DefaultTheme: Theme = {
   colors: {
     primary: Colors[`light`].tint_dark,
     background: Colors[`light`].background,
-    card: Colors[`light`].tint_dark + `88`,
+    card: `rgb(106, 148, 147)`,
     text: Colors[`light`].text,
     border: `rgb(216, 216, 216)`,
     notification: `rgb(255, 59, 48)`,

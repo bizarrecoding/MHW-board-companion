@@ -4,7 +4,8 @@ import { ListRenderItem, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 
-import { ItemEntry, ItemList } from "../../assets/data/items";
+import { ItemList } from "../../assets/data/items";
+import { ItemEntry } from "../../assets/data/types";
 import { addInventoryEntry } from "../../util/redux/InventorySlice";
 import Divider from "../Divider";
 import InventoryIcon from "../InventoryIcon";
