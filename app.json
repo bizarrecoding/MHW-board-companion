@@ -16,13 +16,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lokih.mhwboardcompanion"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.lokih.mhwboardcompanion"
     },
     "web": {
       "bundler": "metro",
@@ -34,6 +36,21 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c47333f1-c1b9-4bd8-85b4-21c8c7093f2f"
+      }
+    },
+    "owner": "lokih",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c47333f1-c1b9-4bd8-85b4-21c8c7093f2f"
     }
   }
 }
