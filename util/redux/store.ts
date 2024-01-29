@@ -29,7 +29,7 @@ export const store = configureStore({
     rolls: persistConfig<RollState>(`rolls`, rollSlice),
     log: persistConfig<HuntingLogState>(`log`, logSlice),
     character: persistConfig<CharacterState>(`character`, characterSlice),
-    inventory: persistConfig<InventoryState>(`log`, inventorySlice),
+    inventory: persistConfig<InventoryState>(`inventory`, inventorySlice),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
