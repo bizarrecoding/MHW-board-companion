@@ -1,103 +1,101 @@
-{
-  "equipment-head": [
-    {
-      "id": "1",
-      "name": "Leather Headgear",
-      "defense": 0,
-      "skills": [],
-      "resistanceFire": 0,
-      "resistanceIce": 0,
-      "resistanceThunder": 0,
-      "resistanceWater": 0,
-      "resistanceDragon": 0
-    },
-    {
-      "id": "2",
-      "name": "Chainmail Headgear",
-      "defense": 0,
-      "skills": [],
-      "resistanceFire": 0,
-      "resistanceIce": 0,
-      "resistanceThunder": 0,
-      "resistanceWater": 0,
-      "resistanceDragon": 0
-    },
-    {
-      "id": "3",
-      "name": "Alloy",
-      "defense": 1,
-      "skills": [],
-      "resistanceFire": 0,
-      "resistanceIce": 0,
-      "resistanceThunder": 0,
-      "resistanceWater": 0,
-      "resistanceDragon": 0
-    },
-    {
-      "id": "4",
-      "name": "Bone Helm",
-      "defense": 1,
-      "skills": [],
-      "resistanceFire": 0,
-      "resistanceIce": 0,
-      "resistanceThunder": 0,
-      "resistanceWater": 0,
-      "resistanceDragon": 0
-    },
-    {
-      "id": "5",
-      "name": "Barroth Helm",
-      "defense": 1,
-      "skills": [],
-      "resistanceFire": 0,
-      "resistanceIce": 0,
-      "resistanceThunder": 0,
-      "resistanceWater": 1,
-      "resistanceDragon": 0
-    },
-    {
-      "id": "6",
-      "name": "Pukei Hood",
-      "defense": 1,
-      "skills": [],
-      "resistanceFire": 0,
-      "resistanceIce": 0,
-      "resistanceThunder": 0,
-      "resistanceWater": 1,
-      "resistanceDragon": 0
-    },
-    {
-      "id": "7",
-      "name": "Jyura Helm",
-      "defense": 1,
-      "skills": [],
-      "resistanceFire": 0,
-      "resistanceIce": 0,
-      "resistanceThunder": 0,
-      "resistanceWater": 1,
-      "resistanceDragon": 0
-    },
-    {
-      "id": "8",
-      "name": "Diablos Helm",
-      "defense": 1,
-      "skills": [],
-      "resistanceFire": 1,
-      "resistanceIce": 0,
-      "resistanceThunder": 0,
-      "resistanceWater": 0,
-      "resistanceDragon": 0
-    },
-    {
-      "id": "9",
-      "name": "Diablos Nero Helm",
-      "defense": 1,
-      "skills": [],
-      "resistanceFire": 1,
-      "resistanceIce": 0,
-      "resistanceThunder": 0,
-      "resistanceWater": 0,
-      "resistanceDragon": 0
-    }
-  ]
-}
+[
+  {
+    "id": "1",
+    "name": "Leather Headgear",
+    "defense": 0,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "2",
+    "name": "Chainmail Headgear",
+    "defense": 0,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "3",
+    "name": "Alloy",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "4",
+    "name": "Bone Helm",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "5",
+    "name": "Barroth Helm",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 1,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "6",
+    "name": "Pukei Hood",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 1,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "7",
+    "name": "Jyura Helm",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 1,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "8",
+    "name": "Diablos Helm",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 1,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "9",
+    "name": "Diablos Nero Helm",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 1,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  }
+]
