@@ -25,8 +25,20 @@ export type ArmorPiece = {
   id: string;
   name: string;
   defense: number;
-  skills: any[];
+  skills: unknown[];
+  resistanceFire: number;
+  resistanceIce: number;
+  resistanceThunder: number;
+  resistanceWater: number;
+  resistanceDragon: number;
 };
+
+export enum Deviation {
+  None = `none`,
+  Low = `low`,
+  Average = `average`,
+  High = `high`,
+}
 
 export type WeaponPiece = {
   id: string;
@@ -35,7 +47,10 @@ export type WeaponPiece = {
     atkLvl1: number;
     atkLvl2: number;
     atkLvl3: number;
+    atkLvl4: number;
   };
+  defense: number;
+  deviation: Deviation;
 };
 
 export enum ArmorTypes {

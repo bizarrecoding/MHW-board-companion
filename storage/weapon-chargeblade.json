@@ -1,0 +1,110 @@
+[
+  {
+    "id": "1",
+    "name": "Proto Commission Axe",
+    "stats": {
+      "atkLvl1": 8,
+      "atkLvl2": 4,
+      "atkLvl3": null,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "2",
+    "name": "Bone Strongarm",
+    "stats": {
+      "atkLvl1": 5,
+      "atkLvl2": 5,
+      "atkLvl3": null,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "3",
+    "name": "Elite Commission Axe",
+    "stats": {
+      "atkLvl1": 8,
+      "atkLvl2": 3,
+      "atkLvl3": 1,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "4",
+    "name": "Chrome Guardian",
+    "stats": {
+      "atkLvl1": 5,
+      "atkLvl2": 4,
+      "atkLvl3": 3,
+      "atkLvl4": null
+    },
+    "defense": 1,
+    "deviation": "none"
+  },
+  {
+    "id": "5",
+    "name": "Hard Bone Strongarm",
+    "stats": {
+      "atkLvl1": 3,
+      "atkLvl2": 4,
+      "atkLvl3": 3,
+      "atkLvl4": null
+    },
+    "defense": 1,
+    "deviation": "none"
+  },
+  {
+    "id": "6",
+    "name": "Mudslide Blade",
+    "stats": {
+      "atkLvl1": 3,
+      "atkLvl2": 4,
+      "atkLvl3": 5,
+      "atkLvl4": null
+    },
+    "defense": 1,
+    "deviation": "none"
+  },
+  {
+    "id": "7",
+    "name": "Jyura Depth",
+    "stats": {
+      "atkLvl1": 1,
+      "atkLvl2": 6,
+      "atkLvl3": 5,
+      "atkLvl4": 2
+    },
+    "defense": 1,
+    "deviation": "none"
+  },
+  {
+    "id": "8",
+    "name": "Diablos Wall",
+    "stats": {
+      "atkLvl1": 1,
+      "atkLvl2": 7,
+      "atkLvl3": 1,
+      "atkLvl4": 1
+    },
+    "defense": 1,
+    "deviation": "none"
+  },
+  {
+    "id": "9",
+    "name": "Diablos Tyrannis",
+    "stats": {
+      "atkLvl1": 2,
+      "atkLvl2": 5,
+      "atkLvl3": 2,
+      "atkLvl4": 3
+    },
+    "defense": 1,
+    "deviation": "none"
+  }
+]
