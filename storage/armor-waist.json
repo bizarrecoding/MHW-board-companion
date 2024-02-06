@@ -1,20 +1,101 @@
 [
-    {
-        "id": "0",
-        "name": "Hunter's Coil",
-        "defense": 0,
-        "skills": []
-    },
-    {
-        "id": "1",
-        "name": "Leather Belt",
-        "defense": 0,
-        "skills": []
-    },
-    {
-        "id": "2",
-        "name": "Alloy Coil",
-        "defense": 0,
-        "skills": []
-    }
+  {
+    "id": "1",
+    "name": "Leather Belt",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "2",
+    "name": "Chainmail Belt",
+    "defense": 0,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "3",
+    "name": "Alloy Coil",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "4",
+    "name": "Bone Coil",
+    "defense": 0,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "5",
+    "name": "Barroth Coil",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 1,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "6",
+    "name": "Pukei Coil",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 1,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "7",
+    "name": "Jyura Coil",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 0,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 1,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "8",
+    "name": "Diablos Coil",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 1,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  },
+  {
+    "id": "9",
+    "name": "Diablos Nero Coil",
+    "defense": 1,
+    "skills": [],
+    "resistanceFire": 1,
+    "resistanceIce": 0,
+    "resistanceThunder": 0,
+    "resistanceWater": 0,
+    "resistanceDragon": 0
+  }
 ]

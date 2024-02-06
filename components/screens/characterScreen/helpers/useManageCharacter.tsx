@@ -3,16 +3,21 @@ import { useDispatch } from "react-redux";
 
 import useGetArmorOptions from "./useGetArmorOptions";
 import useGetProfileOptions from "./useGetProfileOptions";
+import useGetWeaponOptions from "./useGetWeaponOptions";
 import {
   changeEquipmentItem,
   enableSaveProfile,
   changeProfile,
+  changeWeaponEquipped,
+  changeWeaponType,
 } from "../../../../util/redux/CharacterSlice";
 import type { SelectedItemReturnType } from "../../../Dropdown";
 import {
   ArmorTypes,
   CharacterModalSelectOptions as SelectOptions,
   CharacterModalSelectTypes,
+  Weapons,
+  WeaponTypes,
 } from "../ICharacter";
 
 const useManageCharacter = () => {
@@ -27,10 +32,16 @@ const useManageCharacter = () => {
   const [isFocusedArms, setIsFocusedArms] = useState<SelectedItemReturnType>(null);
   const [isFocusedWaist, setIsFocusedWaist] = useState<SelectedItemReturnType>(null);
   const [isFocusedLegs, setIsFocusedLegs] = useState<SelectedItemReturnType>(null);
+  const [isFocusedTypeWeapon, setIsFocusedTypeWeapon] = useState<SelectedItemReturnType>(null);
+  const [isFocusedWeapon, setIsFocusedWeapon] = useState<SelectedItemReturnType>(null);
 
   const { profileList } = useGetProfileOptions();
   const { armorListHead, armorListChest, armorListArms, armorListWaist, armorListLegs } =
     useGetArmorOptions();
+  const { loadWeaponList, weaponTypeOptions } = useGetWeaponOptions();
+  const { weaponList, weaponOptions } = loadWeaponList(
+    isFocusedTypeWeapon ? (isFocusedTypeWeapon.value as WeaponTypes) : Weapons.INSECTGLAIVE
+  );
 
   const showSelectModal = (selectOption: CharacterModalSelectTypes) => {
     setIsSelectingType(selectOption);
@@ -103,6 +114,19 @@ const useManageCharacter = () => {
           dispatch(enableSaveProfile(true));
         }
         break;
+      case SelectOptions.TYPE_WEAPON:
+        if (isFocusedTypeWeapon) {
+          const selectedType = isFocusedTypeWeapon.value as WeaponTypes;
+          dispatch(changeWeaponType(selectedType));
+          dispatch(enableSaveProfile(true));
+        }
+        break;
+      case SelectOptions.WEAPON:
+        if (isFocusedWeapon) {
+          dispatch(changeWeaponEquipped(weaponList[isFocusedWeapon.indexArray]));
+          dispatch(enableSaveProfile(true));
+        }
+        break;
       default:
         break;
     }
@@ -121,6 +145,10 @@ const useManageCharacter = () => {
     setIsFocusedArms,
     setIsFocusedWaist,
     setIsFocusedLegs,
+    setIsFocusedTypeWeapon,
+    setIsFocusedWeapon,
+    weaponTypeOptions,
+    weaponOptions,
   };
 };
 

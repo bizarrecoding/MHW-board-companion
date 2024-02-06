@@ -16,12 +16,15 @@ export default function CharacterScreen() {
   const character = useSelector((state: RootState) => state.character);
 
   const {
-    head: equippedHead,
-    chest: equippedChest,
-    arms: equippedArms,
-    waist: equippedWaist,
-    legs: equippedLegs,
-  } = character.profile.equipment.armor;
+    armor: {
+      head: equippedHead,
+      chest: equippedChest,
+      arms: equippedArms,
+      waist: equippedWaist,
+      legs: equippedLegs,
+    },
+    weapon: { type: equippedTypeWeapon, equipped: equippedWeapon },
+  } = character.profile.equipment;
 
   const { optionsHead, optionsChest, optionsArms, optionsWaist, optionsLegs } =
     useGetArmorOptions();
@@ -37,6 +40,10 @@ export default function CharacterScreen() {
     setIsFocusedArms,
     setIsFocusedWaist,
     setIsFocusedLegs,
+    setIsFocusedTypeWeapon,
+    setIsFocusedWeapon,
+    weaponTypeOptions,
+    weaponOptions,
   } = useManageCharacter();
 
   const renderSelectList = () => {
@@ -89,6 +96,22 @@ export default function CharacterScreen() {
             setSelectedItem={setIsFocusedLegs}
           />
         );
+      case SelectOptions.TYPE_WEAPON:
+        return (
+          <SelectList
+            options={weaponTypeOptions}
+            selectedValue={equippedTypeWeapon ?? undefined}
+            setSelectedItem={setIsFocusedTypeWeapon}
+          />
+        );
+      case SelectOptions.WEAPON:
+        return (
+          <SelectList
+            options={weaponOptions}
+            selectedValue={equippedWeapon?.id}
+            setSelectedItem={setIsFocusedWeapon}
+          />
+        );
       default:
         return null;
     }
@@ -116,9 +139,7 @@ export default function CharacterScreen() {
           />
         </View>
         <View>
-          <Equipment
-            {...{ data: character.profile.equipment.armor, isSelectingType, showSelectModal }}
-          />
+          <Equipment {...{ data: character.profile.equipment, isSelectingType, showSelectModal }} />
         </View>
       </View>
     </>

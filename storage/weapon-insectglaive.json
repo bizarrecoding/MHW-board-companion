@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "name": "Iron Blade",
+    "stats": {
+      "atkLvl1": 10,
+      "atkLvl2": 2,
+      "atkLvl3": null,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "2",
+    "name": "Bone Rod",
+    "stats": {
+      "atkLvl1": 7,
+      "atkLvl2": 3,
+      "atkLvl3": null,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "3",
+    "name": "Steel Blade",
+    "stats": {
+      "atkLvl1": 8,
+      "atkLvl2": 3,
+      "atkLvl3": 1,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "4",
+    "name": "Chrome Blade",
+    "stats": {
+      "atkLvl1": 6,
+      "atkLvl2": 4,
+      "atkLvl3": 2,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "5",
+    "name": "Hard Bone Rod",
+    "stats": {
+      "atkLvl1": 5,
+      "atkLvl2": 4,
+      "atkLvl3": 1,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "6",
+    "name": "Aerial Rod",
+    "stats": {
+      "atkLvl1": 3,
+      "atkLvl2": 4,
+      "atkLvl3": 3,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "7",
+    "name": "Blooming Glaive",
+    "stats": {
+      "atkLvl1": 3,
+      "atkLvl2": 5,
+      "atkLvl3": 4,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "8",
+    "name": "Datura Blade",
+    "stats": {
+      "atkLvl1": 3,
+      "atkLvl2": 4,
+      "atkLvl3": 7,
+      "atkLvl4": 2
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "9",
+    "name": "Diablos Rod",
+    "stats": {
+      "atkLvl1": 2,
+      "atkLvl2": 6,
+      "atkLvl3": 4,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "10",
+    "name": "Tyrannis Glaive",
+    "stats": {
+      "atkLvl1": 3,
+      "atkLvl2": 5,
+      "atkLvl3": 6,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  }
+]

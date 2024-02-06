@@ -1,49 +1,50 @@
 [
   {
-    "profile_id": "0",
+    "profile_id": "1",
     "name": "Fledgling Hunter",
     "equipment": {
       "armor": {
         "head": {
-          "id": "0",
+          "id": "1",
           "name": "Hunter's Headgear",
           "defense": 0,
           "skills": []
         },
         "chest": {
-          "id": "0",
+          "id": "1",
           "name": "Hunter's Mail",
           "defense": 0,
           "skills": []
         },
         "arms": {
-          "id": "0",
+          "id": "1",
           "name": "Hunter's Vambraces",
           "defense": 0,
           "skills": []
         },
         "waist": {
-          "id": "0",
+          "id": "1",
           "name": "Hunter's Coil",
           "defense": 0,
           "skills": []
         },
         "legs": {
-          "id": "0",
+          "id": "1",
           "name": "Hunter's Greaves",
           "defense": 0,
           "skills": []
         }
       },
       "weapon": {
-        "type": "insectGlaive",
+        "type": "insect_glaive",
         "equipped": {
-          "id": "0",
+          "id": "1",
           "name": "Iron Blade",
           "stats": {
             "atkLvl1": 10,
-            "atkLvl2": 3,
-            "atkLvl3": 0
+            "atkLvl2": 2,
+            "atkLvl3": null,
+            "atkLvl4": null
           }
         }
       }
@@ -55,50 +56,51 @@
     "log": {}
   },
   {
-    "profile_id": "1",
+    "profile_id": "2",
     "name": "Newbie Hunter",
     "equipment": {
       "armor": {
         "head": {
-          "id": "1",
+          "id": "2",
           "name": "Leather Headgear",
           "defense": 0,
           "skills": []
         },
         "chest": {
-          "id": "1",
+          "id": "2",
           "name": "Leather Mail",
           "defense": 0,
           "skills": []
         },
         "arms": {
-          "id": "1",
+          "id": "2",
           "name": "Leather Gloves",
           "defense": 0,
           "skills": []
         },
         "waist": {
-          "id": "1",
+          "id": "2",
           "name": "Leather Belt",
           "defense": 0,
           "skills": []
         },
         "legs": {
-          "id": "1",
+          "id": "2",
           "name": "Leather Trousers",
           "defense": 0,
           "skills": []
         }
       },
       "weapon": {
-        "type": "insectGlaive",
+        "type": "heavy_bowgun",
         "equipped": {
-          "id": 4,
+          "id": "2",
           "name": "Bone Shooter",
           "stats": {
-            "atkLvl1": 10,
-            "atkLvl2": 3,
-            "atkLvl3": 0
+            "atkLvl1": 6,
+            "atkLvl2": 4,
+            "atkLvl3": null,
+            "atkLvl4": null
           }
         }
       }

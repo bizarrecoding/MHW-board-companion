@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "name": "Proto Iron Axe",
+    "stats": {
+      "atkLvl1": 11,
+      "atkLvl2": null,
+      "atkLvl3": null,
+      "atkLvl4": 1
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "2",
+    "name": "Bone Axe",
+    "stats": {
+      "atkLvl1": 8,
+      "atkLvl2": null,
+      "atkLvl3": null,
+      "atkLvl4": 2
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "3",
+    "name": "Improved Steel Axe",
+    "stats": {
+      "atkLvl1": 10,
+      "atkLvl2": null,
+      "atkLvl3": 1,
+      "atkLvl4": 1
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "4",
+    "name": "Perfected Alloy Axe",
+    "stats": {
+      "atkLvl1": 8,
+      "atkLvl2": null,
+      "atkLvl3": 1,
+      "atkLvl4": 3
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "5",
+    "name": "Bone Smasher",
+    "stats": {
+      "atkLvl1": 7,
+      "atkLvl2": null,
+      "atkLvl3": 3,
+      "atkLvl4": null
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "6",
+    "name": "Power Smasher",
+    "stats": {
+      "atkLvl1": 5,
+      "atkLvl2": null,
+      "atkLvl3": 4,
+      "atkLvl4": 1
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "7",
+    "name": "Carapace Axe",
+    "stats": {
+      "atkLvl1": 6,
+      "atkLvl2": null,
+      "atkLvl3": 2,
+      "atkLvl4": 2
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "8",
+    "name": "Barroth Grinder",
+    "stats": {
+      "atkLvl1": 6,
+      "atkLvl2": null,
+      "atkLvl3": 4,
+      "atkLvl4": 2
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "9",
+    "name": "Diablos Axe",
+    "stats": {
+      "atkLvl1": 7,
+      "atkLvl2": null,
+      "atkLvl3": 2,
+      "atkLvl4": 3
+    },
+    "defense": 0,
+    "deviation": "none"
+  },
+  {
+    "id": "10",
+    "name": "Axe Semper Tyrannis",
+    "stats": {
+      "atkLvl1": 8,
+      "atkLvl2": null,
+      "atkLvl3": null,
+      "atkLvl4": 6
+    },
+    "defense": 0,
+    "deviation": "none"
+  }
+]
