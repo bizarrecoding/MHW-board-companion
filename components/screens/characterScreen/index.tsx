@@ -100,7 +100,7 @@ export default function CharacterScreen() {
         return (
           <SelectList
             options={weaponTypeOptions}
-            selectedValue={equippedTypeWeapon}
+            selectedValue={equippedTypeWeapon ?? undefined}
             setSelectedItem={setIsFocusedTypeWeapon}
           />
         );

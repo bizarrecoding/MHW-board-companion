@@ -36,7 +36,7 @@
         }
       },
       "weapon": {
-        "type": "insectGlaive",
+        "type": "insect_glaive",
         "equipped": {
           "id": "1",
           "name": "Iron Blade",
@@ -92,7 +92,7 @@
         }
       },
       "weapon": {
-        "type": "heavybowgun",
+        "type": "heavy_bowgun",
         "equipped": {
           "id": "2",
           "name": "Bone Shooter",

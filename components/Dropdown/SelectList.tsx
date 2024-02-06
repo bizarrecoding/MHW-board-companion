@@ -62,14 +62,12 @@ export const SelectList = ({
   onPressItem,
   setSelectedItem,
 }: SelectListArgs) => {
-  console.log(`🚀 ~ selectedValue:`, selectedValue);
   const [scrollArrows, setScrollArrows] = useState<ArrowOptions>(ArrowOptions.BOTH);
 
   const selectedIndex =
     selectedValue && options.length > 0
       ? options.findIndex((option) => option.value === selectedValue)
-      : 1;
-  console.log(`🚀 ~ selectedIndex:`, selectedIndex);
+      : undefined;
 
   const displayArrowDown = [ArrowOptions.DOWN, ArrowOptions.BOTH].includes(scrollArrows);
   const displayArrowUp = [ArrowOptions.UP, ArrowOptions.BOTH].includes(scrollArrows);

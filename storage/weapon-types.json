@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Insect Glaive",
+    "id": "1",
+    "value": "insect_glaive"
+  },
+  {
+    "name": "Switch Axe",
+    "id": "2",
+    "value": "switch_axe"
+  },
+  {
+    "name": "Heavy Bowgun",
+    "id": "3",
+    "value": "heavy_bowgun"
+  },
+  {
+    "name": "Charge Blade",
+    "id": "4",
+    "value": "charge_blade"
+  },
+  {
+    "name": "Sword & Shield",
+    "id": "5",
+    "value": "sword_shield"
+  },
+  {
+    "name": "Dual Blades",
+    "id": "6",
+    "value": "dual_blades"
+  },
+  {
+    "name": "Great Sword",
+    "id": "7",
+    "value": "great_sword"
+  },
+  {
+    "name": "Long Sword",
+    "id": "8",
+    "value": "long_sword"
+  },
+  {
+    "name": "Hammer",
+    "id": "9",
+    "value": "hammer"
+  },
+  {
+    "name": "Hunting Horn",
+    "id": "10",
+    "value": "hunting_horn"
+  },
+  {
+    "name": "Lance",
+    "id": "11",
+    "value": "lance"
+  },
+  {
+    "name": "Gunlance",
+    "id": "12",
+    "value": "gunlance"
+  },
+  {
+    "name": "Light Bowgun",
+    "id": "13",
+    "value": "light_bowgun"
+  },
+  {
+    "name": "Bow",
+    "id": "14",
+    "value": "bow"
+  }
+]

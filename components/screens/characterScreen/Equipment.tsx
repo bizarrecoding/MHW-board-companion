@@ -6,6 +6,7 @@ import {
   ArmorTypes,
   CharacterModalSelectOptions as SelectOptions,
 } from "./ICharacter";
+import { parseWeaponValueToLabel } from "./helpers/useGetWeaponOptions";
 import { View, Text } from "../../Themed";
 
 export default function Equipment({
@@ -21,8 +22,9 @@ export default function Equipment({
       waist: equippedWaist,
       legs: equippedLegs,
     },
-    weapon: { type: equippedTypeWeapon, equipped: equippedWeapon },
+    weapon: { type, equipped: equippedWeapon },
   } = data;
+  const equippedTypeWeapon = parseWeaponValueToLabel(type);
 
   const isSelectingHead = isSelectingType === SelectOptions.HEAD;
   const isSelectingChest = isSelectingType === SelectOptions.CHEST;

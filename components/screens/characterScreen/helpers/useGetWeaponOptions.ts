@@ -11,11 +11,22 @@ const weaponListInsectGlaive: WeaponPiece[] = require(
 const weaponListSwitchAxe: WeaponPiece[] = require(`../../../../storage/weapon-switchaxe.json`);
 const weaponListChargeBlade: WeaponPiece[] = require(`../../../../storage/weapon-chargeblade.json`);
 
-// const formatEnumToLabel = (value: string) => { };
+const capitalizeFirstLetter = (text: string) => {
+  if (text.length === 0) return text;
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};
+
+export const parseWeaponValueToLabel = (value: string) => {
+  const arr = value
+    .split(`_`)
+    .map((t) => capitalizeFirstLetter(t))
+    .join(` `);
+  return arr;
+};
 
 const getWeaponTypeOptions = () => {
   return Object.values(Weapons).map((weapon) => ({
-    label: weapon.split(`_`).join(` `),
+    label: parseWeaponValueToLabel(weapon),
     value: weapon,
   }));
 };
