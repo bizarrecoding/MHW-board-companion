@@ -61,17 +61,20 @@ export enum ArmorTypes {
   LEGS = `legs`,
 }
 
-export enum WeaponTypes {
-  INSECT_GLAIVE = `insect_glaive`,
-  BOWGUN = `bowgun`,
-  SWITCHAXE = `switchaxe`,
-  GUN_LANCE = `gun_lance`,
-}
+export const Weapons = Object.freeze({
+  INSECTGLAIVE: `insect_glaive`,
+  HEAVYBOWGUN: `heavy_bowgun`,
+  SWITCHAXE: `switch_axe`,
+  CHARGEBLADE: `charge_blade`,
+});
+type WeaponsTyping = typeof Weapons;
+export type WeaponTypes = ValueOf<WeaponsTyping>;
 
 export const CharacterModalSelectOptions = Object.freeze({
   ...ArmorTypes,
   NONE: ``,
   PROFILE: `profile`,
+  TYPE_WEAPON: `weapon_type`,
   WEAPON: `weapon`,
 });
 type OptionsTypes = typeof CharacterModalSelectOptions;
@@ -79,24 +82,25 @@ type ValueOf<T> = T[keyof T];
 export type CharacterModalSelectTypes = ValueOf<OptionsTypes>;
 
 export namespace ICharacterArgs {
+  type ModalSelectionFnType = (selectType: CharacterModalSelectTypes) => void;
   export interface IProfilePicker {
     profileName: string;
     isActiveSelect: boolean;
-    showSelectModal: (selectType: CharacterModalSelectTypes) => void;
+    showSelectModal: ModalSelectionFnType;
     selectType: CharacterModalSelectTypes;
   }
 
   export interface IEquipment {
-    data: HunterProfile[`equipment`][`armor`] | null;
+    data: HunterProfile[`equipment`];
     isSelectingType: CharacterModalSelectTypes;
-    showSelectModal: (armorType: ArmorTypes) => void;
+    showSelectModal: ModalSelectionFnType;
   }
 
   export interface IEquipItem {
     label: string;
     isActiveSelect: boolean;
     selectedLabel?: string;
-    showSelectModal: (armorType: ArmorTypes) => void;
-    armorType: ArmorTypes;
+    showSelectModal: ModalSelectionFnType;
+    equipType: Exclude<CharacterModalSelectTypes, ``>;
   }
 }

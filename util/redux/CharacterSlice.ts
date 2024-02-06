@@ -4,8 +4,15 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type {
   ArmorPiece,
   HunterProfile,
+  WeaponTypes,
+  WeaponPiece,
 } from "../../components/screens/characterScreen/ICharacter";
-import { ArmorTypes, WeaponTypes } from "../../components/screens/characterScreen/ICharacter";
+import { ArmorTypes, Weapons } from "../../components/screens/characterScreen/ICharacter";
+
+type ActionChangeWeapon = {
+  weaponType: WeaponTypes;
+  weapon: WeaponPiece;
+};
 
 type ActionChangeGear = {
   itemType: ArmorTypes;
@@ -29,7 +36,7 @@ const initialState: CharacterState = {
         legs: null,
       },
       weapon: {
-        type: WeaponTypes.INSECT_GLAIVE,
+        type: Weapons.INSECTGLAIVE,
         equipped: null,
       },
     },
@@ -46,6 +53,26 @@ export const characterSlice = createSlice({
   name: `character`,
   initialState,
   reducers: {
+    changeWeaponEquipped: (state, action: PayloadAction<ActionChangeWeapon[`weapon`]>) => {
+      const oldValue = state.profile.equipment.weapon.equipped;
+      const hasValueChanged = oldValue !== action.payload;
+      if (hasValueChanged) {
+        state.profile.equipment.weapon = {
+          ...state.profile.equipment.weapon,
+          equipped: action.payload,
+        };
+      }
+    },
+    changeWeaponType: (state, action: PayloadAction<ActionChangeWeapon[`weaponType`]>) => {
+      const oldValue = state.profile.equipment.weapon.type;
+      const hasValueChanged = oldValue !== action.payload;
+      if (hasValueChanged) {
+        state.profile.equipment.weapon = {
+          ...state.profile.equipment.weapon,
+          type: action.payload,
+        };
+      }
+    },
     changeEquipmentItem: (state, action: PayloadAction<ActionChangeGear>) => {
       const oldValue = state.profile.equipment.armor[action.payload.itemType]?.id;
       const hasValueChanged = oldValue !== action.payload.item.id;
@@ -70,6 +97,12 @@ export const characterSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { changeEquipmentItem, changeProfile, enableSaveProfile } = characterSlice.actions;
+export const {
+  changeEquipmentItem,
+  changeProfile,
+  enableSaveProfile,
+  changeWeaponEquipped,
+  changeWeaponType,
+} = characterSlice.actions;
 
 export default characterSlice.reducer;

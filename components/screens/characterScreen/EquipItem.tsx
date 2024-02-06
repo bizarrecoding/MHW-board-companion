@@ -10,10 +10,10 @@ export default function EquipItem({
   isActiveSelect,
   selectedLabel,
   showSelectModal,
-  armorType,
+  equipType,
 }: ICharacterArgs.IEquipItem) {
   const onSelectModal = () => {
-    showSelectModal(armorType);
+    showSelectModal(equipType);
   };
 
   return (

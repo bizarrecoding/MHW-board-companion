@@ -21,13 +21,10 @@ export const updateScrollArrows = ({
 }: UpdateScrollArrowsArgs) => {
   if (itemIndex < 0 || listLength === 0) return null;
   if (itemIndex === 0) return setScrollArrows(ArrowOptions.DOWN);
-  console.log(`🚀 ~ scrollArrows: skipped DOWN`);
   if (itemIndex === listLength - 1) return setScrollArrows(ArrowOptions.UP);
-  console.log(`🚀 ~ scrollArrows: skipped UP`);
 
   // If last state was 'BOTH', prevents updating state for same value.
   if (scrollArrows === ArrowOptions.BOTH) return null;
-  console.log(`🚀 ~ scrollArrows: skipped BOTH`);
 
   return setScrollArrows(ArrowOptions.BOTH);
 };

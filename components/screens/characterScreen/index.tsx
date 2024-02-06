@@ -7,6 +7,7 @@ import { ArmorTypes, CharacterModalSelectOptions as SelectOptions } from "./ICha
 import ProfilePicker from "./ProfilePicker";
 import useGetArmorOptions from "./helpers/useGetArmorOptions";
 import useGetProfileOptions from "./helpers/useGetProfileOptions";
+import useGetWeaponOptions from "./helpers/useGetWeaponOptions";
 import useManageCharacter from "./helpers/useManageCharacter";
 import { RootState } from "../../../util/redux/store";
 import { SelectModal, SelectList } from "../../Dropdown";
@@ -16,15 +17,19 @@ export default function CharacterScreen() {
   const character = useSelector((state: RootState) => state.character);
 
   const {
-    head: equippedHead,
-    chest: equippedChest,
-    arms: equippedArms,
-    waist: equippedWaist,
-    legs: equippedLegs,
-  } = character.profile.equipment.armor;
+    armor: {
+      head: equippedHead,
+      chest: equippedChest,
+      arms: equippedArms,
+      waist: equippedWaist,
+      legs: equippedLegs,
+    },
+    weapon: { type: equippedTypeWeapon, equipped: equippedWeapon },
+  } = character.profile.equipment;
 
   const { optionsHead, optionsChest, optionsArms, optionsWaist, optionsLegs } =
     useGetArmorOptions();
+  const { weaponTypeOptions, weaponOptions } = useGetWeaponOptions();
   const { optionsProfile } = useGetProfileOptions();
   const {
     isSelectingType,
@@ -37,6 +42,8 @@ export default function CharacterScreen() {
     setIsFocusedArms,
     setIsFocusedWaist,
     setIsFocusedLegs,
+    setIsFocusedTypeWeapon,
+    setIsFocusedWeapon,
   } = useManageCharacter();
 
   const renderSelectList = () => {
@@ -89,6 +96,22 @@ export default function CharacterScreen() {
             setSelectedItem={setIsFocusedLegs}
           />
         );
+      case SelectOptions.TYPE_WEAPON:
+        return (
+          <SelectList
+            options={weaponTypeOptions}
+            selectedValue={equippedTypeWeapon}
+            setSelectedItem={setIsFocusedTypeWeapon}
+          />
+        );
+      case SelectOptions.WEAPON:
+        return (
+          <SelectList
+            options={weaponOptions}
+            selectedValue={equippedWeapon?.id}
+            setSelectedItem={setIsFocusedWeapon}
+          />
+        );
       default:
         return null;
     }
@@ -116,9 +139,7 @@ export default function CharacterScreen() {
           />
         </View>
         <View>
-          <Equipment
-            {...{ data: character.profile.equipment.armor, isSelectingType, showSelectModal }}
-          />
+          <Equipment {...{ data: character.profile.equipment, isSelectingType, showSelectModal }} />
         </View>
       </View>
     </>

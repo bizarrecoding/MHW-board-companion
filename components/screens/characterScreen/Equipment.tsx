@@ -14,18 +14,23 @@ export default function Equipment({
   showSelectModal,
 }: ICharacterArgs.IEquipment) {
   const {
-    head: equippedHead,
-    chest: equippedChest,
-    arms: equippedArms,
-    waist: equippedWaist,
-    legs: equippedLegs,
-  } = data ?? {};
+    armor: {
+      head: equippedHead,
+      chest: equippedChest,
+      arms: equippedArms,
+      waist: equippedWaist,
+      legs: equippedLegs,
+    },
+    weapon: { type: equippedTypeWeapon, equipped: equippedWeapon },
+  } = data;
 
   const isSelectingHead = isSelectingType === SelectOptions.HEAD;
   const isSelectingChest = isSelectingType === SelectOptions.CHEST;
   const isSelectingArms = isSelectingType === SelectOptions.ARMS;
   const isSelectingWaist = isSelectingType === SelectOptions.WAIST;
   const isSelectingLegs = isSelectingType === SelectOptions.LEGS;
+  const isSelectingTypeWeapon = isSelectingType === SelectOptions.TYPE_WEAPON;
+  const isSelectingWeapon = isSelectingType === SelectOptions.WEAPON;
 
   return (
     <>
@@ -37,35 +42,49 @@ export default function Equipment({
             isActiveSelect={isSelectingHead}
             selectedLabel={equippedHead?.name}
             showSelectModal={showSelectModal}
-            armorType={ArmorTypes.HEAD}
+            equipType={ArmorTypes.HEAD}
           />
           <EquipItem
             label="Chest"
             isActiveSelect={isSelectingChest}
             selectedLabel={equippedChest?.name}
             showSelectModal={showSelectModal}
-            armorType={ArmorTypes.CHEST}
+            equipType={ArmorTypes.CHEST}
           />
           <EquipItem
             label="Arms"
             isActiveSelect={isSelectingArms}
             selectedLabel={equippedArms?.name}
             showSelectModal={showSelectModal}
-            armorType={ArmorTypes.ARMS}
+            equipType={ArmorTypes.ARMS}
           />
           <EquipItem
             label="Waist"
             isActiveSelect={isSelectingWaist}
             selectedLabel={equippedWaist?.name}
             showSelectModal={showSelectModal}
-            armorType={ArmorTypes.WAIST}
+            equipType={ArmorTypes.WAIST}
           />
           <EquipItem
             label="Legs"
             isActiveSelect={isSelectingLegs}
             selectedLabel={equippedLegs?.name}
             showSelectModal={showSelectModal}
-            armorType={ArmorTypes.LEGS}
+            equipType={ArmorTypes.LEGS}
+          />
+          <EquipItem
+            label="Weapon Type"
+            isActiveSelect={isSelectingTypeWeapon}
+            selectedLabel={equippedTypeWeapon}
+            showSelectModal={showSelectModal}
+            equipType={SelectOptions.TYPE_WEAPON}
+          />
+          <EquipItem
+            label="Weapon"
+            isActiveSelect={isSelectingWeapon}
+            selectedLabel={equippedWeapon?.name}
+            showSelectModal={showSelectModal}
+            equipType={SelectOptions.WEAPON}
           />
         </View>
       </View>
