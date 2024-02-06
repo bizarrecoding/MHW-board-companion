@@ -70,6 +70,7 @@ export const characterSlice = createSlice({
         state.profile.equipment.weapon = {
           ...state.profile.equipment.weapon,
           type: action.payload,
+          equipped: null,
         };
       }
     },

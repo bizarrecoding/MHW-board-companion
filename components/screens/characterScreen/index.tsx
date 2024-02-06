@@ -7,7 +7,6 @@ import { ArmorTypes, CharacterModalSelectOptions as SelectOptions } from "./ICha
 import ProfilePicker from "./ProfilePicker";
 import useGetArmorOptions from "./helpers/useGetArmorOptions";
 import useGetProfileOptions from "./helpers/useGetProfileOptions";
-import useGetWeaponOptions from "./helpers/useGetWeaponOptions";
 import useManageCharacter from "./helpers/useManageCharacter";
 import { RootState } from "../../../util/redux/store";
 import { SelectModal, SelectList } from "../../Dropdown";
@@ -29,7 +28,6 @@ export default function CharacterScreen() {
 
   const { optionsHead, optionsChest, optionsArms, optionsWaist, optionsLegs } =
     useGetArmorOptions();
-  const { weaponTypeOptions, weaponOptions } = useGetWeaponOptions();
   const { optionsProfile } = useGetProfileOptions();
   const {
     isSelectingType,
@@ -44,6 +42,8 @@ export default function CharacterScreen() {
     setIsFocusedLegs,
     setIsFocusedTypeWeapon,
     setIsFocusedWeapon,
+    weaponTypeOptions,
+    weaponOptions,
   } = useManageCharacter();
 
   const renderSelectList = () => {

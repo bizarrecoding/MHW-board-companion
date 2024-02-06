@@ -16,6 +16,7 @@ import {
   ArmorTypes,
   CharacterModalSelectOptions as SelectOptions,
   CharacterModalSelectTypes,
+  Weapons,
   WeaponTypes,
 } from "../ICharacter";
 
@@ -37,7 +38,10 @@ const useManageCharacter = () => {
   const { profileList } = useGetProfileOptions();
   const { armorListHead, armorListChest, armorListArms, armorListWaist, armorListLegs } =
     useGetArmorOptions();
-  const { weaponList } = useGetWeaponOptions();
+  const { loadWeaponList, weaponTypeOptions } = useGetWeaponOptions();
+  const { weaponList, weaponOptions } = loadWeaponList(
+    isFocusedTypeWeapon ? (isFocusedTypeWeapon.value as WeaponTypes) : Weapons.INSECTGLAIVE
+  );
 
   const showSelectModal = (selectOption: CharacterModalSelectTypes) => {
     setIsSelectingType(selectOption);
@@ -112,7 +116,8 @@ const useManageCharacter = () => {
         break;
       case SelectOptions.TYPE_WEAPON:
         if (isFocusedTypeWeapon) {
-          dispatch(changeWeaponType(isFocusedTypeWeapon.value as WeaponTypes));
+          const selectedType = isFocusedTypeWeapon.value as WeaponTypes;
+          dispatch(changeWeaponType(selectedType));
           dispatch(enableSaveProfile(true));
         }
         break;
@@ -142,6 +147,8 @@ const useManageCharacter = () => {
     setIsFocusedLegs,
     setIsFocusedTypeWeapon,
     setIsFocusedWeapon,
+    weaponTypeOptions,
+    weaponOptions,
   };
 };
 

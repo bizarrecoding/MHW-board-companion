@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import type { ItemData } from "../../../Dropdown";
 import type { WeaponPiece, WeaponTypes } from "../ICharacter";
 import { Weapons } from "../ICharacter";
@@ -77,16 +75,11 @@ const loadWeaponList = (
 };
 
 const useGetWeaponOptions = () => {
-  const [typeOfWeapon, setTypeOfWeapon] = useState<WeaponTypes>(Weapons.INSECTGLAIVE);
-  const { weaponOptions, weaponList } = loadWeaponList(typeOfWeapon);
   const weaponTypeOptions = getWeaponTypeOptions();
 
   return {
-    typeOfWeapon,
-    setTypeOfWeapon,
     weaponTypeOptions,
-    weaponOptions,
-    weaponList,
+    loadWeaponList,
   };
 };
 
