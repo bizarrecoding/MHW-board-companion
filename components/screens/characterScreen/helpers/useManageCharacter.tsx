@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import useGetArmorOptions from "./useGetArmorOptions";
 import useGetProfileOptions from "./useGetProfileOptions";
 import useGetWeaponOptions from "./useGetWeaponOptions";
 import {
   changeEquipmentItem,
-  enableSaveProfile,
+  // enableSaveProfile,
   changeProfile,
   changeWeaponEquipped,
   changeWeaponType,
 } from "../../../../util/redux/CharacterSlice";
+import { RootState } from "../../../../util/redux/store";
 import type { SelectedItemReturnType } from "../../../Dropdown";
 import {
   ArmorTypes,
@@ -21,27 +22,21 @@ import {
 } from "../ICharacter";
 
 const useManageCharacter = () => {
+  const character = useSelector((state: RootState) => state.character);
+
+  const equippedTypeWeapon = character.profile.equipment.weapon.type;
   const dispatch = useDispatch();
   const [isSelectingType, setIsSelectingType] = useState<CharacterModalSelectTypes>(
     SelectOptions.NONE
   );
 
-  const [isFocusedProfile, setIsFocusedProfile] = useState<SelectedItemReturnType>(null);
-  const [isFocusedHead, setIsFocusedHead] = useState<SelectedItemReturnType>(null);
-  const [isFocusedChest, setIsFocusedChest] = useState<SelectedItemReturnType>(null);
-  const [isFocusedArms, setIsFocusedArms] = useState<SelectedItemReturnType>(null);
-  const [isFocusedWaist, setIsFocusedWaist] = useState<SelectedItemReturnType>(null);
-  const [isFocusedLegs, setIsFocusedLegs] = useState<SelectedItemReturnType>(null);
-  const [isFocusedTypeWeapon, setIsFocusedTypeWeapon] = useState<SelectedItemReturnType>(null);
-  const [isFocusedWeapon, setIsFocusedWeapon] = useState<SelectedItemReturnType>(null);
+  const [isFocusedItem, setIsFocusedItem] = useState<SelectedItemReturnType>(null);
 
   const { profileList } = useGetProfileOptions();
   const { armorListHead, armorListChest, armorListArms, armorListWaist, armorListLegs } =
     useGetArmorOptions();
   const { loadWeaponList, weaponTypeOptions } = useGetWeaponOptions();
-  const { weaponList, weaponOptions } = loadWeaponList(
-    isFocusedTypeWeapon ? (isFocusedTypeWeapon.value as WeaponTypes) : Weapons.INSECTGLAIVE
-  );
+  const { weaponList, weaponOptions } = loadWeaponList(equippedTypeWeapon ?? Weapons.INSECTGLAIVE);
 
   const showSelectModal = (selectOption: CharacterModalSelectTypes) => {
     setIsSelectingType(selectOption);
@@ -54,77 +49,77 @@ const useManageCharacter = () => {
   const onPressConfirm = () => {
     switch (isSelectingType) {
       case SelectOptions.PROFILE:
-        if (isFocusedProfile) {
-          dispatch(changeProfile(profileList[isFocusedProfile.indexArray]));
-          dispatch(enableSaveProfile(false));
+        if (isFocusedItem) {
+          dispatch(changeProfile(profileList[isFocusedItem.indexArray]));
+          // dispatch(enableSaveProfile(false));
         }
         break;
       case ArmorTypes.HEAD:
-        if (isFocusedHead) {
+        if (isFocusedItem) {
           dispatch(
             changeEquipmentItem({
               itemType: ArmorTypes.HEAD,
-              item: armorListHead[isFocusedHead.indexArray],
+              item: armorListHead[isFocusedItem.indexArray],
             })
           );
-          dispatch(enableSaveProfile(true));
+          // dispatch(enableSaveProfile(true));
         }
         break;
       case ArmorTypes.CHEST:
-        if (isFocusedChest) {
+        if (isFocusedItem) {
           dispatch(
             changeEquipmentItem({
               itemType: ArmorTypes.CHEST,
-              item: armorListChest[isFocusedChest.indexArray],
+              item: armorListChest[isFocusedItem.indexArray],
             })
           );
-          dispatch(enableSaveProfile(true));
+          // dispatch(enableSaveProfile(true));
         }
         break;
       case ArmorTypes.ARMS:
-        if (isFocusedArms) {
+        if (isFocusedItem) {
           dispatch(
             changeEquipmentItem({
               itemType: ArmorTypes.ARMS,
-              item: armorListArms[isFocusedArms.indexArray],
+              item: armorListArms[isFocusedItem.indexArray],
             })
           );
-          dispatch(enableSaveProfile(true));
+          // dispatch(enableSaveProfile(true));
         }
         break;
       case ArmorTypes.WAIST:
-        if (isFocusedWaist) {
+        if (isFocusedItem) {
           dispatch(
             changeEquipmentItem({
               itemType: ArmorTypes.WAIST,
-              item: armorListWaist[isFocusedWaist.indexArray],
+              item: armorListWaist[isFocusedItem.indexArray],
             })
           );
-          dispatch(enableSaveProfile(true));
+          // dispatch(enableSaveProfile(true));
         }
         break;
       case ArmorTypes.LEGS:
-        if (isFocusedLegs) {
+        if (isFocusedItem) {
           dispatch(
             changeEquipmentItem({
               itemType: ArmorTypes.LEGS,
-              item: armorListLegs[isFocusedLegs.indexArray],
+              item: armorListLegs[isFocusedItem.indexArray],
             })
           );
-          dispatch(enableSaveProfile(true));
+          // dispatch(enableSaveProfile(true));
         }
         break;
       case SelectOptions.TYPE_WEAPON:
-        if (isFocusedTypeWeapon) {
-          const selectedType = isFocusedTypeWeapon.value as WeaponTypes;
+        if (isFocusedItem) {
+          const selectedType = isFocusedItem.value as WeaponTypes;
           dispatch(changeWeaponType(selectedType));
-          dispatch(enableSaveProfile(true));
+          // dispatch(enableSaveProfile(true));
         }
         break;
       case SelectOptions.WEAPON:
-        if (isFocusedWeapon) {
-          dispatch(changeWeaponEquipped(weaponList[isFocusedWeapon.indexArray]));
-          dispatch(enableSaveProfile(true));
+        if (isFocusedItem) {
+          dispatch(changeWeaponEquipped(weaponList[isFocusedItem.indexArray]));
+          // dispatch(enableSaveProfile(true));
         }
         break;
       default:
@@ -133,20 +128,13 @@ const useManageCharacter = () => {
   };
 
   return {
+    character,
     isSelectingType,
-    isFocusedProfile,
-    setIsFocusedProfile,
     showSelectModal,
     hideSelectModal,
     onPressConfirm,
 
-    setIsFocusedHead,
-    setIsFocusedChest,
-    setIsFocusedArms,
-    setIsFocusedWaist,
-    setIsFocusedLegs,
-    setIsFocusedTypeWeapon,
-    setIsFocusedWeapon,
+    setIsFocusedItem,
     weaponTypeOptions,
     weaponOptions,
   };

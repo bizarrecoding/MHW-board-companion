@@ -1,10 +1,10 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import React, { useState } from "react";
+// import FontAwesome from "@expo/vector-icons/FontAwesome";
+// import React, { useState } from "react";
 import type { Dispatch } from "react";
 import { StyleSheet, Pressable, StyleProp, TextStyle } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
-import { ArrowOptions, updateScrollArrows } from "./helpers";
+// import { ArrowOptions, updateScrollArrows } from "./helpers";
 import { View, Text } from "../Themed";
 
 const ITEM_HEIGHT = 72;
@@ -62,15 +62,16 @@ export const SelectList = ({
   onPressItem,
   setSelectedItem,
 }: SelectListArgs) => {
-  const [scrollArrows, setScrollArrows] = useState<ArrowOptions>(ArrowOptions.BOTH);
+  console.log(`🚀 ~ selectedValue:`, selectedValue);
+  // const [scrollArrows, setScrollArrows] = useState<ArrowOptions>(ArrowOptions.BOTH);
 
   const selectedIndex =
     selectedValue && options.length > 0
       ? options.findIndex((option) => option.value === selectedValue)
       : undefined;
 
-  const displayArrowDown = [ArrowOptions.DOWN, ArrowOptions.BOTH].includes(scrollArrows);
-  const displayArrowUp = [ArrowOptions.UP, ArrowOptions.BOTH].includes(scrollArrows);
+  // const displayArrowDown = [ArrowOptions.DOWN, ArrowOptions.BOTH].includes(scrollArrows);
+  // const displayArrowUp = [ArrowOptions.UP, ArrowOptions.BOTH].includes(scrollArrows);
 
   return (
     <>
@@ -89,12 +90,12 @@ export const SelectList = ({
           const scrollEndPosY = event.nativeEvent.contentOffset.y;
           const snapIndex = Math.round(scrollEndPosY / ITEM_HEIGHT);
           setSelectedItem({ ...options[snapIndex], indexArray: snapIndex });
-          updateScrollArrows({
-            itemIndex: snapIndex,
-            listLength: options.length,
-            setScrollArrows,
-            scrollArrows,
-          });
+          // updateScrollArrows({
+          //   itemIndex: snapIndex,
+          //   listLength: options.length,
+          //   setScrollArrows,
+          //   scrollArrows,
+          // });
         }}
         keyExtractor={(item) => item.value}
         getItemLayout={(_, index) => ({
@@ -104,22 +105,22 @@ export const SelectList = ({
         })}
         initialScrollIndex={selectedIndex}
       />
-      <View style={styles.arrows}>
+      {/* <View style={styles.arrows}>
         {displayArrowUp && <FontAwesome name="arrow-up" size={18} color="#25292e" />}
         {displayArrowDown && <FontAwesome name="arrow-down" size={18} color="#25292e" />}
-      </View>
+      </View> */}
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  arrows: {
-    position: `absolute`,
-    right: `3%`,
-    backgroundColor: `#eee`,
-    height: `50%`,
-    justifyContent: `space-between`,
-  },
+  // arrows: {
+  //   position: `absolute`,
+  //   right: `3%`,
+  //   backgroundColor: `#eee`,
+  //   height: `50%`,
+  //   justifyContent: `space-between`,
+  // },
   optionList: {
     overflow: `scroll`,
     width: `80%`,

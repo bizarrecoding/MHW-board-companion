@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { useSelector } from "react-redux";
 
 import Equipment from "./Equipment";
 import { ArmorTypes, CharacterModalSelectOptions as SelectOptions } from "./ICharacter";
@@ -8,13 +7,20 @@ import ProfilePicker from "./ProfilePicker";
 import useGetArmorOptions from "./helpers/useGetArmorOptions";
 import useGetProfileOptions from "./helpers/useGetProfileOptions";
 import useManageCharacter from "./helpers/useManageCharacter";
-import { RootState } from "../../../util/redux/store";
 import { SelectModal, SelectList } from "../../Dropdown";
 import { View } from "../../Themed";
 
 export default function CharacterScreen() {
-  const character = useSelector((state: RootState) => state.character);
-
+  const {
+    character,
+    isSelectingType,
+    showSelectModal,
+    hideSelectModal,
+    onPressConfirm,
+    setIsFocusedItem,
+    weaponTypeOptions,
+    weaponOptions,
+  } = useManageCharacter();
   const {
     armor: {
       head: equippedHead,
@@ -29,22 +35,6 @@ export default function CharacterScreen() {
   const { optionsHead, optionsChest, optionsArms, optionsWaist, optionsLegs } =
     useGetArmorOptions();
   const { optionsProfile } = useGetProfileOptions();
-  const {
-    isSelectingType,
-    setIsFocusedProfile,
-    showSelectModal,
-    hideSelectModal,
-    onPressConfirm,
-    setIsFocusedHead,
-    setIsFocusedChest,
-    setIsFocusedArms,
-    setIsFocusedWaist,
-    setIsFocusedLegs,
-    setIsFocusedTypeWeapon,
-    setIsFocusedWeapon,
-    weaponTypeOptions,
-    weaponOptions,
-  } = useManageCharacter();
 
   const renderSelectList = () => {
     switch (isSelectingType) {
@@ -53,7 +43,7 @@ export default function CharacterScreen() {
           <SelectList
             options={optionsProfile}
             selectedValue={character.profile.profile_id}
-            setSelectedItem={setIsFocusedProfile}
+            setSelectedItem={setIsFocusedItem}
           />
         );
       case ArmorTypes.HEAD:
@@ -61,7 +51,7 @@ export default function CharacterScreen() {
           <SelectList
             options={optionsHead}
             selectedValue={equippedHead?.id}
-            setSelectedItem={setIsFocusedHead}
+            setSelectedItem={setIsFocusedItem}
           />
         );
       case ArmorTypes.CHEST:
@@ -69,7 +59,7 @@ export default function CharacterScreen() {
           <SelectList
             options={optionsChest}
             selectedValue={equippedChest?.id}
-            setSelectedItem={setIsFocusedChest}
+            setSelectedItem={setIsFocusedItem}
           />
         );
       case ArmorTypes.ARMS:
@@ -77,7 +67,7 @@ export default function CharacterScreen() {
           <SelectList
             options={optionsArms}
             selectedValue={equippedArms?.id}
-            setSelectedItem={setIsFocusedArms}
+            setSelectedItem={setIsFocusedItem}
           />
         );
       case ArmorTypes.WAIST:
@@ -85,7 +75,7 @@ export default function CharacterScreen() {
           <SelectList
             options={optionsWaist}
             selectedValue={equippedWaist?.id}
-            setSelectedItem={setIsFocusedWaist}
+            setSelectedItem={setIsFocusedItem}
           />
         );
       case ArmorTypes.LEGS:
@@ -93,7 +83,7 @@ export default function CharacterScreen() {
           <SelectList
             options={optionsLegs}
             selectedValue={equippedLegs?.id}
-            setSelectedItem={setIsFocusedLegs}
+            setSelectedItem={setIsFocusedItem}
           />
         );
       case SelectOptions.TYPE_WEAPON:
@@ -101,7 +91,7 @@ export default function CharacterScreen() {
           <SelectList
             options={weaponTypeOptions}
             selectedValue={equippedTypeWeapon ?? undefined}
-            setSelectedItem={setIsFocusedTypeWeapon}
+            setSelectedItem={setIsFocusedItem}
           />
         );
       case SelectOptions.WEAPON:
@@ -109,7 +99,7 @@ export default function CharacterScreen() {
           <SelectList
             options={weaponOptions}
             selectedValue={equippedWeapon?.id}
-            setSelectedItem={setIsFocusedWeapon}
+            setSelectedItem={setIsFocusedItem}
           />
         );
       default:
