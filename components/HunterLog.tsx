@@ -66,7 +66,7 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
           <Text variant="subtitle" style={styles.title}>
             Total hunts: {data.length}
           </Text>
-          <Divider />
+          <Divider separation={8} />
         </View>
       }
     />
