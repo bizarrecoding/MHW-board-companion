@@ -22,8 +22,12 @@ export const inventorySlice = createSlice({
   initialState,
   reducers: {
     addInventoryEntry: (state, action: PayloadAction<InventoryEntry>) => {
-      if (state.inventory.find((h) => h.name === action.payload.name)) return;
-      state.inventory.push(action.payload);
+      const existing = state.inventory.findIndex((h) => h.name === action.payload.name);
+      if (existing !== -1) {
+        state.inventory[existing].amount += action.payload.amount;
+      } else {
+        state.inventory.push(action.payload);
+      }
     },
     deleteInventoryEntry: (state, action: PayloadAction<string>) => {
       state.inventory = state.inventory.filter((h) => h.name !== action.payload);

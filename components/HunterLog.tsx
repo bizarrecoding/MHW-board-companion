@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import Divider from "./Divider";
 import { MonsterIcon } from "./InventoryIcon";
 import { IconButton, Text, View } from "./Themed";
+import { useThemeColor } from "./themed/useThemeColor";
 import { LogEntry, deleteLogEntry } from "../util/redux/LogSlice";
 
 type HunterLogProps = {
@@ -13,6 +14,7 @@ type HunterLogProps = {
 
 export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
   const dispatch = useDispatch();
+  const backgroundColor = useThemeColor({}, `background`);
   const renderItem: ListRenderItem<LogEntry> = ({ item }) => {
     const deleteItem = () => {
       Alert.alert(`Delete Hunt ${item.monster}?`, `This action cannot be undone.`, [
@@ -56,6 +58,7 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
   return (
     <FlatList
       data={data}
+      style={[styles.container, { backgroundColor }]}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       ListHeaderComponent={

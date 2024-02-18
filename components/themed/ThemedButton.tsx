@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
   baseButton: {
     marginHorizontal: 16,
     marginVertical: 8,
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     minWidth: 100,
     alignItems: `center`,
     justifyContent: `center`,
