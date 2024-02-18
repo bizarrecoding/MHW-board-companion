@@ -6,7 +6,7 @@ export default {
   light: {
     text: `#222`,
     textSecondary: `#eee`,
-    background: `#eee`,
+    background: `#F3F3F3`,
     card: `#CCC`,
     tint: tintColorLight,
     tint_dark: tintColorDark,
