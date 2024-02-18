@@ -2,7 +2,6 @@ import React from "react";
 import { Alert, FlatList, ListRenderItem, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 
-import Divider from "./Divider";
 import { MonsterIcon } from "./InventoryIcon";
 import { IconButton, Text, View } from "./Themed";
 import { useThemeColor } from "./themed/useThemeColor";
@@ -32,7 +31,7 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
     };
     return (
       <View style={styles.itemCard}>
-        <MonsterIcon type={item.monster} rank={item.rank} />
+        <MonsterIcon type={item.monster} rank={item.carts === 3 ? `failed` : item.rank} />
         <View style={{ flex: 1 }}>
           <Text variant="caption">{item.monster}</Text>
           <View
@@ -62,12 +61,9 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       ListHeaderComponent={
-        <View style={styles.container}>
-          <Text variant="subtitle" style={styles.title}>
-            Total hunts: {data.length}
-          </Text>
-          <Divider separation={8} />
-        </View>
+        <Text variant="subtitle" style={styles.title}>
+          Total hunts: {data.length}
+        </Text>
       }
     />
   );
@@ -79,7 +75,7 @@ const styles = StyleSheet.create({
   },
   title: {
     padding: 16,
-    paddingBottom: 8,
+    marginBottom: 16,
   },
   itemCard: {
     padding: 16,
