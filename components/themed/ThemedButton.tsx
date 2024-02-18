@@ -24,10 +24,12 @@ export default function Button(props: ButtonProps) {
     textStyle,
     round = true,
     variant = `filled`,
+    disabled,
     ...otherProps
   } = props;
 
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `tint`);
+  const backgroundBase = useThemeColor({ light: lightColor, dark: darkColor }, `tint`);
+  const backgroundColor = backgroundBase + (disabled ? `88` : ``);
 
   const textBase = useThemeColor({ light: darkColor, dark: lightColor }, `text`);
   const textAccent = useThemeColor({ light: lightColor, dark: darkColor }, `textSecondary`);
@@ -44,6 +46,7 @@ export default function Button(props: ButtonProps) {
         icon && !title ? { padding: 0, margin: 0, minWidth: 0 } : null,
         style,
       ]}
+      disabled={disabled}
       {...otherProps}
     >
       {/* @ts-ignore */}
