@@ -1,7 +1,7 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import React, { useState } from "react";
+import React from "react";
 import type { Dispatch } from "react";
-import { StyleSheet, Pressable, StyleProp, TextStyle } from "react-native";
+import { StyleSheet, Pressable, StyleProp, TextStyle, ListRenderItem } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import { ArrowOptions, updateScrollArrows } from "./helpers";
@@ -27,26 +27,6 @@ const Item = ({ item, backgroundColor, textColor, onPressItem }: ItemProps) => {
   );
 };
 
-interface RenderItemArgs {
-  item: ItemData;
-  selectedValue?: string;
-  onPressItem?: () => void;
-}
-
-const renderItem = ({ item, selectedValue, onPressItem }: RenderItemArgs) => {
-  const backgroundColor: any = item.value === selectedValue ? `#6e3b6e` : `#f9c2ff`;
-  const color: any = item.value === selectedValue ? `white` : `black`;
-
-  return (
-    <Item
-      item={item}
-      onPressItem={onPressItem}
-      backgroundColor={backgroundColor}
-      textColor={color}
-    />
-  );
-};
-
 export type SelectedItemReturnType = (ItemData & { indexArray: number }) | null;
 
 type SelectListArgs = {
@@ -62,33 +42,44 @@ export const SelectList = ({
   onPressItem,
   setSelectedItem,
 }: SelectListArgs) => {
-  const [scrollArrows, setScrollArrows] = useState<ArrowOptions>(ArrowOptions.BOTH);
+  const [scrollArrows, setScrollArrows] = React.useState<ArrowOptions>(ArrowOptions.BOTH);
+  const displayArrowDown = [ArrowOptions.DOWN, ArrowOptions.BOTH].includes(scrollArrows);
+  const displayArrowUp = [ArrowOptions.UP, ArrowOptions.BOTH].includes(scrollArrows);
 
   const selectedIndex =
     selectedValue && options.length > 0
       ? options.findIndex((option) => option.value === selectedValue)
       : undefined;
 
-  const displayArrowDown = [ArrowOptions.DOWN, ArrowOptions.BOTH].includes(scrollArrows);
-  const displayArrowUp = [ArrowOptions.UP, ArrowOptions.BOTH].includes(scrollArrows);
+  const renderItem: ListRenderItem<ItemData> = React.useCallback(
+    ({ item }) => {
+      const backgroundColor: any = item.value === selectedValue ? `#6e3b6e` : `#f9c2ff`;
+      const color: any = item.value === selectedValue ? `white` : `black`;
+      return (
+        <Item
+          item={item}
+          onPressItem={onPressItem}
+          backgroundColor={backgroundColor}
+          textColor={color}
+        />
+      );
+    },
+    [selectedValue, onPressItem]
+  );
 
   return (
     <>
-      <FlatList
+      <FlatList<ItemData>
         data={options}
-        renderItem={(itemData) =>
-          renderItem({
-            item: itemData.item,
-            selectedValue,
-            onPressItem,
-          })
-        }
+        renderItem={renderItem}
         style={styles.optionList}
-        snapToOffsets={options?.map((_value, index) => index * ITEM_HEIGHT)}
+        snapToOffsets={options.map((_value, index) => index * ITEM_HEIGHT)}
         onMomentumScrollEnd={(event) => {
           const scrollEndPosY = event.nativeEvent.contentOffset.y;
           const snapIndex = Math.round(scrollEndPosY / ITEM_HEIGHT);
-          setSelectedItem({ ...options[snapIndex], indexArray: snapIndex });
+          if (options[snapIndex].value !== selectedValue) {
+            setSelectedItem({ ...options[snapIndex], indexArray: snapIndex });
+          }
           updateScrollArrows({
             itemIndex: snapIndex,
             listLength: options.length,
@@ -142,10 +133,9 @@ const styles = StyleSheet.create({
   optionText: {
     textAlignVertical: `center`,
     fontSize: 20,
-    width: `80%`,
+    width: `100%`,
     height: `100%`,
     padding: 2,
-    marginHorizontal: `10%`,
     textAlign: `center`,
     color: `black`,
     fontWeight: `500`,

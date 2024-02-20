@@ -14,7 +14,7 @@ export const mapArmorToOptions = (equipmentList: ArmorPiece[]): ItemData[] => {
   }));
 };
 
-const useGetArmorOptions = () => {
+const LoadArmorOptions = () => {
   const optionsHead = mapArmorToOptions(armorListHead);
   const optionsChest = mapArmorToOptions(armorListChest);
   const optionsArms = mapArmorToOptions(armorListArms);
@@ -35,4 +35,4 @@ const useGetArmorOptions = () => {
   };
 };
 
-export default useGetArmorOptions;
+export default LoadArmorOptions;

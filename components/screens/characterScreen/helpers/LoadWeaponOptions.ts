@@ -22,7 +22,7 @@ export const parseWeaponValueToLabel = (value: string) => {
   return arr;
 };
 
-const getWeaponTypeOptions = () => {
+const getWeaponTypeOptions = (): ItemData[] => {
   return Object.values(Weapons).map((weapon) => ({
     label: parseWeaponValueToLabel(weapon),
     value: weapon,
@@ -35,7 +35,7 @@ const mapWeaponToOptions = (equipmentList: WeaponPiece[]): ItemData[] => {
   }));
 };
 
-const loadWeaponList = (
+const GetWeaponList = (
   type: WeaponTypes
 ): {
   weaponOptions: ItemData[];
@@ -74,13 +74,13 @@ const loadWeaponList = (
   }
 };
 
-const useGetWeaponOptions = () => {
+const LoadWeaponOptions = () => {
   const weaponTypeOptions = getWeaponTypeOptions();
 
   return {
     weaponTypeOptions,
-    loadWeaponList,
+    GetWeaponList,
   };
 };
 
-export default useGetWeaponOptions;
+export default LoadWeaponOptions;
