@@ -23,12 +23,26 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  const { background, tabIconSelected, tabIconDefault, text, tint } =
+    Colors[colorScheme ?? `light`];
+  const backgroundColor = colorScheme === `dark` ? background : `#fff`;
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? `light`].tabIconSelected,
-        tabBarInactiveTintColor: Colors[colorScheme ?? `light`].tabIconDefault,
+        tabBarActiveTintColor: tabIconSelected,
+        tabBarInactiveTintColor: tabIconDefault,
+        tabBarStyle: {
+          backgroundColor,
+          shadowColor: colorScheme === `dark` ? `transparent` : undefined,
+          borderTopColor: colorScheme === `dark` ? `#6668` : undefined,
+        },
+        headerTitleStyle: {
+          color: text,
+        },
+        headerStyle: {
+          shadowColor: colorScheme === `dark` ? `transparent` : undefined,
+          backgroundColor,
+        },
       }}
     >
       <Tabs.Screen
@@ -43,7 +57,7 @@ export default function TabLayout() {
                   <FontAwesome
                     name="plus"
                     size={25}
-                    color={Colors[colorScheme ?? `light`].text}
+                    color={tint}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
                 )}
@@ -71,7 +85,7 @@ export default function TabLayout() {
                   <FontAwesome
                     name="plus"
                     size={25}
-                    color={Colors[colorScheme ?? `light`].text}
+                    color={tint}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
                 )}

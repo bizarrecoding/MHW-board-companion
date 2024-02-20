@@ -3,11 +3,12 @@ import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { Platform, StatusBar, useColorScheme } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
 import { Text } from "../components/Themed";
+import Colors from "../constants/Colors";
 import { DarkTheme, DefaultTheme } from "../constants/theme";
 import { persistor, store } from "../util/redux/store";
 
@@ -50,14 +51,34 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-
+  const statusBarStyle = colorScheme === `dark` ? `light-content` : `dark-content`;
+  const { background, text } = Colors[colorScheme ?? `light`];
   return (
     <ThemeProvider value={colorScheme === `dark` ? DarkTheme : DefaultTheme}>
       <Provider store={store}>
         <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
-          <Stack>
+          <StatusBar barStyle={statusBarStyle} />
+          <Stack
+            screenOptions={{
+              statusBarColor: background,
+            }}
+          >
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="modal" options={{ presentation: `modal` }} />
+            <Stack.Screen
+              name="modal"
+              options={{
+                // ios modal statusBar are always light text
+                statusBarColor: Platform.select({ ios: `#000`, default: background }),
+                presentation: `modal`,
+                headerTintColor: text,
+                headerStyle: {
+                  backgroundColor: background,
+                },
+                headerTitleStyle: {
+                  color: text,
+                },
+              }}
+            />
           </Stack>
         </PersistGate>
       </Provider>

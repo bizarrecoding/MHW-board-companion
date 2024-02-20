@@ -1,3 +1,4 @@
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import {
   Image,
@@ -6,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ViewStyle,
+  useColorScheme,
 } from "react-native";
 
 import { View } from "./Themed";
@@ -169,11 +171,11 @@ export default function InventoryIcon({ type, name }: InventoryIconProps) {
 
 type MonsterIconProps = {
   type: MonsterKind;
-  rank?: RankType;
+  rank?: RankType | `failed`;
   style?: StyleProp<ImageStyle>;
 };
 
-const MonsterIcon_: React.FC<MonsterIconProps> = ({ type }) => {
+const MonsterIconBG: React.FC<MonsterIconProps> = ({ type }) => {
   switch (type) {
     case `Barroth`:
       return <Image style={styles.MonsterIcon} resizeMode="contain" source={Barroth} />;
@@ -191,27 +193,47 @@ const MonsterIcon_: React.FC<MonsterIconProps> = ({ type }) => {
 };
 
 const TRANSPARENCY_MOD = `88`;
-const BORDER_MAP: Record<RankType, string> = {
-  "Low Rank": `#3333`,
-  "High Rank": `#8888`,
-  "Master Rank": `#FC68`,
+const BORDER_MAP: Record<RankType | `failed`, string> = {
+  "Low Rank": `#A63`,
+  "High Rank": `#AAA`,
+  "Master Rank": `#EB5`,
+  failed: `#A00`,
 };
 export const MonsterIcon = (props: MonsterIconProps) => {
   const { rank, type } = props;
-  const borderColor = BORDER_MAP[rank ?? `Low Rank`];
+  const theme = useColorScheme();
+  const borderColor = BORDER_MAP[rank ?? `Low Rank`] + (theme === `dark` ? `C` : `8`);
+  const backgroundColor = type ? ColorMap[type] + TRANSPARENCY_MOD : `#8888`;
   return (
     <View
       style={[
         styles.MonsterIconWrapper,
         {
-          backgroundColor: type ? ColorMap[type] + TRANSPARENCY_MOD ?? `#8888` : `#8888`,
+          backgroundColor,
           borderWidth: 3,
           borderColor,
         },
         props.style,
       ]}
     >
-      <MonsterIcon_ {...props} />
+      <MonsterIconBG {...props} />
+      {rank === `failed` ? (
+        <FontAwesome
+          name="times"
+          size={22}
+          //remove transparency from color
+          color={BORDER_MAP.failed}
+          style={styles.IconBadge}
+        />
+      ) : (
+        <MaterialCommunityIcons
+          name="crown"
+          size={18}
+          //remove transparency from color
+          color={BORDER_MAP[rank ?? `Low Rank`]}
+          style={styles.IconBadge}
+        />
+      )}
     </View>
   );
 };
@@ -279,4 +301,5 @@ const styles = StyleSheet.create({
     width: ICON_SIZES.medium - 8,
     height: ICON_SIZES.medium - 8,
   },
+  IconBadge: { position: `absolute`, bottom: -5, right: -5 },
 });

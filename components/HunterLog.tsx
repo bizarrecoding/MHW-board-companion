@@ -2,9 +2,9 @@ import React from "react";
 import { Alert, FlatList, ListRenderItem, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 
-import Divider from "./Divider";
 import { MonsterIcon } from "./InventoryIcon";
 import { IconButton, Text, View } from "./Themed";
+import { useThemeColor } from "./themed/useThemeColor";
 import { LogEntry, deleteLogEntry } from "../util/redux/LogSlice";
 
 type HunterLogProps = {
@@ -13,6 +13,7 @@ type HunterLogProps = {
 
 export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
   const dispatch = useDispatch();
+  const backgroundColor = useThemeColor({}, `background`);
   const renderItem: ListRenderItem<LogEntry> = ({ item }) => {
     const deleteItem = () => {
       Alert.alert(`Delete Hunt ${item.monster}?`, `This action cannot be undone.`, [
@@ -30,7 +31,7 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
     };
     return (
       <View style={styles.itemCard}>
-        <MonsterIcon type={item.monster} rank={item.rank} />
+        <MonsterIcon type={item.monster} rank={item.carts === 3 ? `failed` : item.rank} />
         <View style={{ flex: 1 }}>
           <Text variant="caption">{item.monster}</Text>
           <View
@@ -56,15 +57,13 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
   return (
     <FlatList
       data={data}
+      style={[styles.container, { backgroundColor }]}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       ListHeaderComponent={
-        <View style={styles.container}>
-          <Text variant="subtitle" style={styles.title}>
-            Total hunts: {data.length}
-          </Text>
-          <Divider />
-        </View>
+        <Text variant="subtitle" style={styles.title}>
+          Total hunts: {data.length}
+        </Text>
       }
     />
   );
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
   },
   title: {
     padding: 16,
-    paddingBottom: 8,
+    marginBottom: 16,
   },
   itemCard: {
     padding: 16,

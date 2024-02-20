@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, ListRenderItem, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import InventoryIcon from "../../components/InventoryIcon";
 import NumberInput from "../../components/NumberInput";
-import { IconButton, Text, View } from "../../components/Themed";
+import { IconButton, Text, TextInput, View } from "../../components/Themed";
+import { useThemeColor } from "../../components/themed/useThemeColor";
 import {
   InventoryEntry,
   deleteInventoryEntry,
@@ -12,11 +13,15 @@ import {
 } from "../../util/redux/InventorySlice";
 import { RootState } from "../../util/redux/store";
 
+const stickyIndex = [0];
+
 export default function Inventory() {
   const dispatch = useDispatch();
+  const backgroundColor = useThemeColor({}, `background`);
   const [edit, setEdit] = useState<number | null>(null);
   const [amount, setAmount] = useState(0);
   const inventory = useSelector((state: RootState) => state.inventory.inventory);
+  const [filterableInventory, setFilterableInventory] = useState(inventory);
   const renderItem: ListRenderItem<InventoryEntry> = ({ item, index }) => {
     const setupEdit = () => {
       setEdit(index);
@@ -55,12 +60,29 @@ export default function Inventory() {
     );
   };
   const keyExtractor = (i: InventoryEntry) => i.name;
+
+  const filterBy = (text: string) => {
+    const newData = inventory.filter((i) => i.name.toLowerCase().includes(text.toLowerCase()));
+    setFilterableInventory(newData);
+  };
+  useEffect(() => {
+    // update filterableInventory when inventory changes
+    setFilterableInventory(inventory);
+  }, [inventory]);
   return (
     <FlatList<InventoryEntry>
-      data={inventory}
+      data={filterableInventory}
+      ListHeaderComponent={
+        <TextInput
+          style={{ padding: 16, margin: 16 }}
+          onChangeText={filterBy}
+          placeholder="Filter by..."
+        />
+      }
+      stickyHeaderIndices={stickyIndex}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
-      style={styles.container}
+      style={[styles.container, { backgroundColor }]}
     />
   );
 }
