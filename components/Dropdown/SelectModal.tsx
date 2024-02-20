@@ -31,7 +31,9 @@ export const SelectModal = ({
           <View style={styles.header}>
             <Text style={styles.modalTitle}>{title}</Text>
           </View>
+
           <View style={styles.body}>{children}</View>
+
           <View style={styles.footer}>
             <View style={styles.controls}>
               <Button

@@ -6,7 +6,7 @@ import {
   ArmorTypes,
   CharacterModalSelectOptions as SelectOptions,
 } from "./ICharacter";
-import { parseWeaponValueToLabel } from "./helpers/useGetWeaponOptions";
+import { parseWeaponValueToLabel } from "./helpers/LoadWeaponOptions";
 import { View, Text } from "../../Themed";
 
 export default function Equipment({

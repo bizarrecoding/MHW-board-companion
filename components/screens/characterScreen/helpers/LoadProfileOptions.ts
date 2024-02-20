@@ -2,7 +2,7 @@ import { HunterProfile } from "../ICharacter";
 
 const profileList: HunterProfile[] = require(`../../../../storage/hunter.json`);
 
-const useGetProfileOptions = () => {
+const LoadProfileOptions = () => {
   const optionsProfile = profileList.map((profile) => ({
     label: profile.name,
     value: profile.profile_id,
@@ -14,4 +14,4 @@ const useGetProfileOptions = () => {
   };
 };
 
-export default useGetProfileOptions;
+export default LoadProfileOptions;
