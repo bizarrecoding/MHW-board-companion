@@ -28,6 +28,7 @@ export default function TabLayout() {
   const backgroundColor = colorScheme === `dark` ? background : `#fff`;
   return (
     <Tabs
+      initialRouteName="index"
       screenOptions={{
         tabBarActiveTintColor: tabIconSelected,
         tabBarInactiveTintColor: tabIconDefault,
@@ -46,7 +47,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="inventory"
         options={{
           title: `Inventory`,
           tabBarIcon: ({ color }) => <TabBarIcon name="briefcase" color={color} />,
@@ -69,6 +70,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="character"
         options={{
+          href: null, // disabled until RNGestureHandler is fixed
           title: `Character`,
           tabBarIcon: ({ color }) => <TabBarIcon name="address-book" color={color} />,
         }}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FlatList, ListRenderItem, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,6 +6,7 @@ import InventoryIcon from "../../components/InventoryIcon";
 import NumberInput from "../../components/NumberInput";
 import { IconButton, Text, TextInput, View } from "../../components/Themed";
 import { useThemeColor } from "../../components/themed/useThemeColor";
+import { UserContext } from "../../context/UserContext";
 import {
   InventoryEntry,
   deleteInventoryEntry,
@@ -16,6 +17,8 @@ import { RootState } from "../../util/redux/store";
 const stickyIndex = [0];
 
 export default function Inventory() {
+  const { user } = useContext(UserContext);
+  console.log(`🚀 ~ Inventory ~ credentials:`, user?.uid);
   const dispatch = useDispatch();
   const backgroundColor = useThemeColor({}, `background`);
   const [edit, setEdit] = useState<number | null>(null);

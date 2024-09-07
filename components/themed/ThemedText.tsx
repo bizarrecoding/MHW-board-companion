@@ -42,3 +42,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 });
+
+export const seamlessTextStyle = styles.body;
