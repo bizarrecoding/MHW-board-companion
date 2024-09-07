@@ -1,29 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, ListRenderItem, StyleSheet } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
 
 import InventoryIcon from "../../components/InventoryIcon";
 import NumberInput from "../../components/NumberInput";
 import { IconButton, Text, TextInput, View } from "../../components/Themed";
 import { useThemeColor } from "../../components/themed/useThemeColor";
-import { UserContext } from "../../context/UserContext";
-import {
-  InventoryEntry,
-  deleteInventoryEntry,
-  replaceInventoryEntry,
-} from "../../util/redux/InventorySlice";
-import { RootState } from "../../util/redux/store";
+import { InventoryEntry, useInventory } from "../../hooks/useInventory";
 
 const stickyIndex = [0];
 
 export default function Inventory() {
-  const { user } = useContext(UserContext);
-  console.log(`🚀 ~ Inventory ~ credentials:`, user?.uid);
-  const dispatch = useDispatch();
+  const { inventory, updateEntry, deleteEntry } = useInventory();
   const backgroundColor = useThemeColor({}, `background`);
   const [edit, setEdit] = useState<number | null>(null);
   const [amount, setAmount] = useState(0);
-  const inventory = useSelector((state: RootState) => state.inventory.inventory);
+
   const [filterableInventory, setFilterableInventory] = useState(inventory);
   const renderItem: ListRenderItem<InventoryEntry> = ({ item, index }) => {
     const setupEdit = () => {
@@ -32,9 +23,9 @@ export default function Inventory() {
     };
     const save = () => {
       if (amount === 0) {
-        dispatch(deleteInventoryEntry(item.name));
+        deleteEntry(item.id);
       } else if (amount !== item.amount) {
-        dispatch(replaceInventoryEntry({ ...item, amount }));
+        updateEntry(item.id, amount);
       }
       setEdit(null);
     };

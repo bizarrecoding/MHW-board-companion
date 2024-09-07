@@ -2,11 +2,10 @@ import { router } from "expo-router";
 import React, { useCallback, useState } from "react";
 import { ListRenderItem, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { useDispatch } from "react-redux";
 
 import { ItemList } from "../../assets/data/items";
 import { ItemEntry } from "../../assets/data/types";
-import { addInventoryEntry } from "../../util/redux/InventorySlice";
+import { useInventory } from "../../hooks/useInventory";
 import Divider from "../Divider";
 import InventoryIcon from "../InventoryIcon";
 import { Text, View, TextInput, IconButton, Button } from "../Themed";
@@ -22,9 +21,9 @@ const within = (value: number, min: number = 0, max: number = 0) => {
 };
 
 export const InventoryEntryModal = () => {
+  const { addEntry } = useInventory();
   const [data, setData] = useState(sortedData);
   const [toAdd, setToAdd] = useState<ItemEntry[]>([] as ItemEntry[]);
-  const dispatch = useDispatch();
 
   const toggleInventoryEntry = useCallback((item: ItemEntry, add?: boolean) => {
     // add/remove from toAdd
@@ -64,7 +63,7 @@ export const InventoryEntryModal = () => {
 
   const commitInventory = () => {
     toAdd.forEach((item) => {
-      dispatch(addInventoryEntry({ name: item.name, type: item.type, amount: 1 }));
+      addEntry({ name: item.name, type: item.type, amount: 1 });
     });
     router.back();
   };
