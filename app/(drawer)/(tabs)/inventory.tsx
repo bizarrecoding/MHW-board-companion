@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, ListRenderItem, StyleSheet } from "react-native";
 
-import InventoryIcon from "../../components/InventoryIcon";
-import NumberInput from "../../components/NumberInput";
-import { IconButton, Text, TextInput, View } from "../../components/Themed";
-import { useThemeColor } from "../../components/themed/useThemeColor";
-import { InventoryEntry, useInventory } from "../../hooks/useInventory";
+import InventoryIcon from "../../../components/InventoryIcon";
+import NumberInput from "../../../components/NumberInput";
+import { Button, IconButton, Text, TextInput, View } from "../../../components/Themed";
+import { useThemeColor } from "../../../components/themed/useThemeColor";
+import { useFireAuth } from "../../../hooks/useFireAuth";
+import { InventoryEntry, useInventory } from "../../../hooks/useInventory";
 
 const stickyIndex = [0];
 
@@ -54,6 +55,7 @@ export default function Inventory() {
     );
   };
   const keyExtractor = (i: InventoryEntry) => i.name;
+  const { logout } = useFireAuth();
 
   const filterBy = (text: string) => {
     const newData = inventory.filter((i) => i.name.toLowerCase().includes(text.toLowerCase()));
@@ -72,6 +74,11 @@ export default function Inventory() {
           onChangeText={filterBy}
           placeholder="Filter by..."
         />
+      }
+      ListFooterComponent={
+        <View style={{ flex: 1 }}>
+          <Button title="Logout" onPress={logout} />
+        </View>
       }
       stickyHeaderIndices={stickyIndex}
       renderItem={renderItem}

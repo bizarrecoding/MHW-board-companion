@@ -2,10 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 
-import { WhetstoneIcon } from "../../components/InventoryIcon";
-import RollDisplay from "../../components/RollDisplay";
-import { Button, View, Text } from "../../components/Themed";
-import { RootState } from "../../util/redux/store";
+import { WhetstoneIcon } from "../../../components/InventoryIcon";
+import RollDisplay from "../../../components/RollDisplay";
+import { Button, View, Text } from "../../../components/Themed";
+import { RootState } from "../../../util/redux/store";
 
 /**
  *  Create a pool of numbers

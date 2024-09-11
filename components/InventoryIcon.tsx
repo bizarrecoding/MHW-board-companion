@@ -169,24 +169,35 @@ export default function InventoryIcon({ type, name }: InventoryIconProps) {
   );
 }
 
+export const MonsterIconKeys = [
+  `Barroth`,
+  `Diablos`,
+  `Jyuratodus`,
+  `Pukei-Pukei`,
+  `Black Diablos`,
+] as MonsterKind[];
+
 type MonsterIconProps = {
   type: MonsterKind;
   rank?: RankType | `failed`;
   style?: StyleProp<ImageStyle>;
+  noRank?: boolean;
 };
 
-const MonsterIconBG: React.FC<MonsterIconProps> = ({ type }) => {
+export const MonsterIconBG: React.FC<MonsterIconProps> = ({ type, style }) => {
   switch (type) {
     case `Barroth`:
-      return <Image style={styles.MonsterIcon} resizeMode="contain" source={Barroth} />;
+      return <Image style={[styles.MonsterIcon, style]} resizeMode="contain" source={Barroth} />;
     case `Pukei-Pukei`:
-      return <Image style={styles.MonsterIcon} resizeMode="contain" source={PukeiPukei} />;
+      return <Image style={[styles.MonsterIcon, style]} resizeMode="contain" source={PukeiPukei} />;
     case `Jyuratodus`:
-      return <Image style={styles.MonsterIcon} resizeMode="contain" source={Jyuratodus} />;
+      return <Image style={[styles.MonsterIcon, style]} resizeMode="contain" source={Jyuratodus} />;
     case `Diablos`:
-      return <Image style={styles.MonsterIcon} resizeMode="contain" source={Diablos} />;
+      return <Image style={[styles.MonsterIcon, style]} resizeMode="contain" source={Diablos} />;
     case `Black Diablos`:
-      return <Image style={styles.MonsterIcon} resizeMode="contain" source={BlackDiablos} />;
+      return (
+        <Image style={[styles.MonsterIcon, style]} resizeMode="contain" source={BlackDiablos} />
+      );
     default:
       return <View />;
   }
@@ -200,7 +211,7 @@ const BORDER_MAP: Record<RankType | `failed`, string> = {
   failed: `#A00`,
 };
 export const MonsterIcon = (props: MonsterIconProps) => {
-  const { rank, type } = props;
+  const { rank, type, noRank } = props;
   const theme = useColorScheme();
   const borderColor = BORDER_MAP[rank ?? `Low Rank`] + (theme === `dark` ? `C` : `8`);
   const backgroundColor = type ? ColorMap[type] + TRANSPARENCY_MOD : `#8888`;
@@ -225,7 +236,7 @@ export const MonsterIcon = (props: MonsterIconProps) => {
           color={BORDER_MAP.failed}
           style={styles.IconBadge}
         />
-      ) : (
+      ) : !noRank ? (
         <MaterialCommunityIcons
           name="crown"
           size={18}
@@ -233,7 +244,7 @@ export const MonsterIcon = (props: MonsterIconProps) => {
           color={BORDER_MAP[rank ?? `Low Rank`]}
           style={styles.IconBadge}
         />
-      )}
+      ) : null}
     </View>
   );
 };
