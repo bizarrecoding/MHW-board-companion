@@ -38,13 +38,15 @@ const Login: React.FC = () => {
     }
   };
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      // purposely set an empty string to clear the error message and still keep the space
-      if (error) setError(` `);
-    }, 5000);
-    return () => {
-      clearTimeout(timeout);
-    };
+    if (error) {
+      const timeout = setTimeout(() => {
+        // purposely set an empty string to clear the error message and still keep the space
+        setError(` `);
+      }, 5000);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
   }, [error]);
 
   return (
