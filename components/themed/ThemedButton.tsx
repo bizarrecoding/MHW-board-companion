@@ -1,6 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React from "react";
-import { StyleProp, TextStyle, TouchableOpacity, StyleSheet } from "react-native";
+import { StyleProp, TextStyle, TouchableOpacity, StyleSheet, View } from "react-native";
 
 import Text from "./ThemedText";
 import { useThemeColor, ThemeProps } from "./useThemeColor";
@@ -11,6 +11,7 @@ export type ButtonProps = ThemeProps &
     round?: boolean;
     variant?: `filled` | `outlined` | `clear`;
     icon?: keyof typeof FontAwesome.glyphMap | React.ReactNode;
+    full?: boolean;
     textStyle?: StyleProp<TextStyle>;
   };
 
@@ -25,6 +26,7 @@ export default function Button(props: ButtonProps) {
     round = true,
     variant = `filled`,
     disabled,
+    full = false,
     ...otherProps
   } = props;
 
@@ -38,6 +40,7 @@ export default function Button(props: ButtonProps) {
   return (
     <TouchableOpacity
       style={[
+        full ? { flex: 1 } : { flex: 0 },
         styles.baseButton,
         round ? styles.round : null,
         variant === `filled` ? { backgroundColor } : null,
@@ -49,14 +52,21 @@ export default function Button(props: ButtonProps) {
       disabled={disabled}
       {...otherProps}
     >
-      {/* @ts-ignore */}
-      {icon && typeof icon === `string` ? <FontAwesome name={icon} size={25} color="#FFF" /> : null}
-      {icon && typeof icon !== `string` ? icon : null}
-      {title ? (
-        <Text variant="button" style={[{ color: textColor }, textStyle]}>
-          {title}
-        </Text>
-      ) : null}
+      <View style={{ flexDirection: `row` }}>
+        {/* @ts-ignore */}
+        {icon && typeof icon === `string` ? (
+          <FontAwesome name={icon as keyof typeof FontAwesome.glyphMap} size={25} color="#FFF" />
+        ) : null}
+        {icon && typeof icon !== `string` ? icon : null}
+        {title ? (
+          <Text
+            variant="button"
+            style={[{ color: textColor, flex: 1, textAlign: `center` }, textStyle]}
+          >
+            {title}
+          </Text>
+        ) : null}
+      </View>
     </TouchableOpacity>
   );
 }

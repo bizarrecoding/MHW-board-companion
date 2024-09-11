@@ -76,16 +76,12 @@ const Login: React.FC = () => {
         textStyle={{ fontSize: 18 }}
         onPress={login}
       />
-      <View style={{ flexDirection: `row`, marginVertical: 10 }}>
-        <Text>Don't have an account?</Text>
-        <Button
-          title=" Sign up"
-          variant="clear"
-          style={styles.register_button}
-          textStyle={{ fontSize: 14, color: accent }}
-          onPress={register}
-        />
-      </View>
+      <Text style={{ textAlign: `center`, marginVertical: 10 }}>
+        Don't have an account?{` `}
+        <Text style={{ color: accent }} onPress={register}>
+          Sign up.
+        </Text>
+      </Text>
     </View>
   );
 };
@@ -98,9 +94,8 @@ const styles = StyleSheet.create({
     alignItems: `center`,
   },
   app_icon: {
-    width: 200,
-    height: 200,
-    marginBottom: 40,
+    width: 320,
+    height: 320,
   },
   error: {
     color: `red`,
@@ -113,12 +108,5 @@ const styles = StyleSheet.create({
   login_button: {
     width: 240,
     marginVertical: 20,
-  },
-  register_button: {
-    minWidth: 0,
-    paddingHorizontal: 0,
-    paddingVertical: 0,
-    marginHorizontal: 0,
-    marginVertical: 0,
   },
 });

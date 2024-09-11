@@ -2,8 +2,9 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { Platform, StatusBar, useColorScheme } from "react-native";
+import { Platform, useColorScheme } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -57,14 +58,14 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-  const statusBarStyle = colorScheme === `dark` ? `light-content` : `dark-content`;
+  const statusBarStyle = colorScheme !== `dark` ? `light` : `dark`;
   const { background, text } = Colors[colorScheme ?? `light`];
   return (
     <ThemeProvider value={colorScheme === `dark` ? DarkTheme : DefaultTheme}>
       <Provider store={store}>
         <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
           <UserContextProvider>
-            <StatusBar barStyle={statusBarStyle} />
+            <StatusBar style={statusBarStyle} />
             <Stack
               initialRouteName="login"
               screenOptions={{

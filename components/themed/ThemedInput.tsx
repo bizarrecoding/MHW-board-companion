@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { TextInput as DefaultTextInput, StyleSheet, View } from "react-native";
 
+import { ThemedIconButton } from "./ThemedButton";
 import { useThemeColor, ThemeProps } from "./useThemeColor";
-import { IconButton } from "../Themed";
 
 export type TextInputProps = ThemeProps &
   DefaultTextInput[`props`] & {
@@ -60,7 +60,7 @@ export default function TextInput(props: TextInputProps) {
             style={[{ flex: 1, color }, styles.body, style]}
             {...otherProps}
           />
-          <IconButton
+          <ThemedIconButton
             icon={visible ? `eye-slash` : `eye`}
             variant="clear"
             style={{ padding: 0, margin: 0 }}
