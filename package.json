@@ -8,12 +8,12 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "yarn run eslint",
-    "eslint": "eslint .",
+    "eslint:all": "eslint .",
     "eslint:fix": "eslint --fix",
     "pretty": "pretty-quick --staged",
     "prepare": "husky install",
     "check-types": "tsc --noEmit --pretty",
-    "prettier": "prettier --write \"./**/*.{ts,tsx}\"",
+    "prettier:fix": "prettier --write \"./**/*.{ts,tsx}\"",
     "publish": " npx eas update --branch beta-1.0.0 -p all"
   },
   "jest": {

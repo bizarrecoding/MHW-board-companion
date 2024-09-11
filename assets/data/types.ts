@@ -29,4 +29,4 @@ export type InventoryKind =
 export type ItemEntry = {
   type: InventoryKind;
   name: string;
-}
+};

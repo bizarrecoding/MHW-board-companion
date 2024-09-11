@@ -27,16 +27,16 @@ export const ItemList: ItemEntry[] = [
     name: "Monster hardbone",
   },
   {
-    type: 'bone',
-    name: 'Quality bone',
+    type: "bone",
+    name: "Quality bone",
   },
   {
-    type: 'bone',
-    name: 'Boulder bone',
+    type: "bone",
+    name: "Boulder bone",
   },
   {
-    type: 'bone',
-    name: 'Ancient bone',
+    type: "bone",
+    name: "Ancient bone",
   },
   // Misc ore
   {
@@ -179,7 +179,7 @@ export const ItemList: ItemEntry[] = [
     type: "ridge",
     name: "Blos Medula",
   },
-  // Black Diablos 
+  // Black Diablos
   {
     type: "shell",
     name: "Black Diablos Carapace",
@@ -196,4 +196,4 @@ export const ItemList: ItemEntry[] = [
     type: "gem",
     name: "Wyvern Gem",
   },
-]
+];
