@@ -1,4 +1,14 @@
-import { collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  QueryDocumentSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import { useCallback, useContext, useLayoutEffect, useState } from "react";
 
 import { InventoryKind } from "../assets/data/types";
@@ -10,51 +20,71 @@ export type InventoryEntry = {
   name: string;
   amount: number;
   id: string;
+  timestamp?: string;
+};
+
+const converter = {
+  toFirestore: (data: InventoryEntry) => data,
+  fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as InventoryEntry,
+};
+
+const getCollection = (userId: string, entry?: string) => {
+  if (entry)
+    return collection(database, `user/${userId}/inventory/${entry}`).withConverter(converter);
+  else return collection(database, `user/${userId}/inventory`).withConverter(converter);
+};
+const getDocument = (userId: string, entry: string) => {
+  return doc(database, `user/${userId}/inventory/${entry}`).withConverter(converter);
 };
 
 export const useInventory = () => {
   const { user } = useContext(UserContext);
   const [inventory, setInventory] = useState<InventoryEntry[]>([]);
 
+  const updateEntry = useCallback(
+    async (entryId: string, amount: number) => {
+      if (!user) return;
+      const entryRef = getDocument(user.uid, entryId);
+      //only update the amount
+      await updateDoc(entryRef, { amount });
+    },
+    [user]
+  );
+
   const addEntry = useCallback(
     (item: Omit<InventoryEntry, `id`>) => {
       if (!user) return;
       const existingItem = inventory.find((i) => i.name === item.name);
-      const entryRef = doc(database, `user/${user.uid}/inventory/${item.name}`);
-      setDoc(
-        entryRef,
-        {
+      // set also lets us set a key, so we can use the item name as the key
+      // addDoc would not let us set the key
+      if (!existingItem)
+        addDoc(getCollection(user.uid, item.name), {
+          id: item.name,
           name: item.name,
           type: item.type,
-          amount: (existingItem?.amount ?? 0) + 1,
+          amount: 1,
           timestamp: new Date().toISOString(),
-        },
-        { merge: true }
-      );
+        });
+      else {
+        updateEntry(existingItem.id, existingItem.amount + 1);
+      }
     },
-    [user, inventory]
-  );
-
-  const updateEntry = useCallback(
-    async (entryId: string, amount: number) => {
-      if (!user) return;
-      const entryRef = doc(database, `user/${user.uid}/inventory/${entryId}`);
-      await setDoc(entryRef, { amount }, { merge: true });
-    },
-    [user]
+    [user, inventory, updateEntry]
   );
 
   const deleteEntry = useCallback(
     async (entryId: string) => {
       if (!user) return;
-      await deleteDoc(doc(database, `user/${user.uid}/inventory/${entryId}`));
+      await deleteDoc(getDocument(user.uid, entryId));
     },
     [user]
   );
 
   useLayoutEffect(() => {
     if (!user) return;
-    const inventoryRef = collection(database, `user/${user.uid}/inventory`);
+    const inventoryRef = collection(database, `user/${user.uid}/inventory`).withConverter(
+      converter
+    );
     const queryInventory = query(inventoryRef, orderBy(`timestamp`));
     const unsubscribe = onSnapshot(queryInventory, (snapshot) => {
       const data = snapshot.docs.map((doc) => ({
@@ -62,7 +92,8 @@ export const useInventory = () => {
         type: doc.data().type,
         name: doc.data().name,
         amount: doc.data().amount,
-      })) as InventoryEntry[];
+        timestamp: doc.data().timestamp,
+      }));
       setInventory(data);
     });
     return unsubscribe;
