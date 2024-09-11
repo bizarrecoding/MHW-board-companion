@@ -24,15 +24,19 @@ export type InventoryEntry = {
 };
 
 const converter = {
-  toFirestore: (data: InventoryEntry) => data,
-  fromFirestore: (snap: QueryDocumentSnapshot) => snap.data() as InventoryEntry,
+  toFirestore: (data: Omit<InventoryEntry, `id`>) => data,
+  fromFirestore: (snap: QueryDocumentSnapshot) => {
+    return {
+      id: snap.id,
+      ...snap.data(),
+    } as InventoryEntry;
+  },
 };
 
-const getCollection = (userId: string, entry?: string) => {
-  if (entry)
-    return collection(database, `user/${userId}/inventory/${entry}`).withConverter(converter);
-  else return collection(database, `user/${userId}/inventory`).withConverter(converter);
+const getCollection = (userId: string) => {
+  return collection(database, `user/${userId}/inventory`).withConverter(converter);
 };
+
 const getDocument = (userId: string, entry: string) => {
   return doc(database, `user/${userId}/inventory/${entry}`).withConverter(converter);
 };
@@ -58,8 +62,7 @@ export const useInventory = () => {
       // set also lets us set a key, so we can use the item name as the key
       // addDoc would not let us set the key
       if (!existingItem)
-        addDoc(getCollection(user.uid, item.name), {
-          id: item.name,
+        addDoc(getCollection(user.uid), {
           name: item.name,
           type: item.type,
           amount: 1,
@@ -87,13 +90,7 @@ export const useInventory = () => {
     );
     const queryInventory = query(inventoryRef, orderBy(`timestamp`));
     const unsubscribe = onSnapshot(queryInventory, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        type: doc.data().type,
-        name: doc.data().name,
-        amount: doc.data().amount,
-        timestamp: doc.data().timestamp,
-      }));
+      const data = snapshot.docs.map((doc) => converter.fromFirestore(doc));
       setInventory(data);
     });
     return unsubscribe;

@@ -70,7 +70,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="character"
         options={{
-          href: null, // disabled until RNGestureHandler is fixed
+          //href: null, // disabled until RNGestureHandler is fixed
           title: `Character`,
           tabBarIcon: ({ color }) => <TabBarIcon name="address-book" color={color} />,
         }}

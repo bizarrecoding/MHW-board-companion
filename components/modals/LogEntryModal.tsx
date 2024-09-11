@@ -1,24 +1,22 @@
 import { router } from "expo-router";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import { useDispatch } from "react-redux";
 
 import { MonsterKind, Monsters, RankType, Ranks } from "../../assets/data/types";
-import { addLogEntry } from "../../util/redux/LogSlice";
+import { useHunterLog } from "../../hooks/useHunterLog";
 import Divider from "../Divider";
 import NumberInput from "../NumberInput";
 import { SelectInput } from "../SelectInput";
 import { Button, Text, View } from "../Themed";
 
 export const LogEntryModal = () => {
-  const dispatch = useDispatch();
   const [monster, setMonster] = useState<MonsterKind>(`Barroth`);
   const [rank, setRank] = useState<RankType>(`Low Rank`);
   const [carts, setCarts] = useState(0);
+  const { addLogEntry } = useHunterLog();
 
-  console.log({ monster, rank, carts });
   const saveLogEntry = () => {
-    dispatch(addLogEntry({ id: Date.now() + ``, monster, rank, carts }));
+    addLogEntry({ monster, rank, carts });
     router.back();
   };
   return (

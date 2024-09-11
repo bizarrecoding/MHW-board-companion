@@ -1,20 +1,16 @@
 import React from "react";
 import { Alert, FlatList, ListRenderItem, StyleSheet } from "react-native";
-import { useDispatch } from "react-redux";
 
 import { MonsterIcon } from "./InventoryIcon";
 import { IconButton, Text, View } from "./Themed";
 import { useThemeColor } from "./themed/useThemeColor";
-import { LogEntry, deleteLogEntry } from "../util/redux/LogSlice";
+import { HunterLogEntry, useHunterLog } from "../hooks/useHunterLog";
 
-type HunterLogProps = {
-  data: LogEntry[];
-};
-
-export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
-  const dispatch = useDispatch();
+export const HunterLog: React.FC = () => {
   const backgroundColor = useThemeColor({}, `background`);
-  const renderItem: ListRenderItem<LogEntry> = ({ item }) => {
+  const { logs, deleteLogEntry } = useHunterLog();
+
+  const renderItem: ListRenderItem<HunterLogEntry> = ({ item }) => {
     const deleteItem = () => {
       Alert.alert(`Delete Hunt ${item.monster}?`, `This action cannot be undone.`, [
         {
@@ -24,7 +20,7 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
         },
         {
           text: `OK`,
-          onPress: () => dispatch(deleteLogEntry(item.id)),
+          onPress: () => deleteLogEntry(item.id),
           style: `destructive`,
         },
       ]);
@@ -55,14 +51,14 @@ export const HunterLog: React.FC<HunterLogProps> = ({ data }) => {
   };
 
   return (
-    <FlatList
-      data={data}
+    <FlatList<HunterLogEntry>
+      data={logs}
       style={[styles.container, { backgroundColor }]}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       ListHeaderComponent={
         <Text variant="subtitle" style={styles.title}>
-          Total hunts: {data.length}
+          Total hunts: {logs.length}
         </Text>
       }
     />

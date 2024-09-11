@@ -12,7 +12,6 @@ import {
 } from "redux-persist";
 
 import characterSlice, { CharacterState } from "./CharacterSlice";
-import logSlice, { HuntingLogState } from "./LogSlice";
 import rollSlice, { RollState } from "./RollSlice";
 
 const persistConfig = <T = object>(key: string = `root`, slice: any) => {
@@ -26,7 +25,6 @@ const persistConfig = <T = object>(key: string = `root`, slice: any) => {
 export const store = configureStore({
   reducer: {
     rolls: persistConfig<RollState>(`rolls`, rollSlice),
-    log: persistConfig<HuntingLogState>(`log`, logSlice),
     character: persistConfig<CharacterState>(`character`, characterSlice),
   },
   middleware: (getDefaultMiddleware) =>
