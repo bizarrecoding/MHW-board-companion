@@ -14,7 +14,7 @@
     "prepare": "husky install",
     "check-types": "tsc --noEmit --pretty",
     "prettier:fix": "prettier --write \"./**/*.{ts,tsx}\"",
-    "publish": " npx eas update --branch beta-1.0.0 -p all"
+    "publish-ota": " npx eas update --branch beta-1.0.0 -p all"
   },
   "jest": {
     "preset": "jest-expo"
