@@ -64,13 +64,11 @@ const Login: React.FC = () => {
         onChangeText={(u) => setUsername(u)}
       />
       <TextInput
-        secureTextEntry
+        variant="password"
         onChangeText={(p) => setPassword(p)}
         style={styles.login_input}
         placeholder="Password"
         placeholderTextColor="gray"
-        keyboardType="visible-password"
-        passwordRules="minlength: 8;"
       />
       <Button
         title="Login"
