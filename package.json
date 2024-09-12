@@ -14,7 +14,8 @@
     "prepare": "husky install",
     "check-types": "tsc --noEmit --pretty",
     "prettier:fix": "prettier --write \"./**/*.{ts,tsx}\"",
-    "publish-ota": " npx eas update --branch beta-1.0.0 -p all"
+    "publish-ota": "npx eas update --branch beta-1.0.0 -p all",
+    "build-apk": "npx eas build -p android --profile='preview' --non-interactive"
   },
   "jest": {
     "preset": "jest-expo"

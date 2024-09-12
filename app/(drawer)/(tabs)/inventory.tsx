@@ -75,11 +75,6 @@ export default function Inventory() {
           placeholder="Filter by..."
         />
       }
-      ListFooterComponent={
-        <View style={{ flex: 1 }}>
-          <Button title="Logout" onPress={logout} />
-        </View>
-      }
       stickyHeaderIndices={stickyIndex}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
