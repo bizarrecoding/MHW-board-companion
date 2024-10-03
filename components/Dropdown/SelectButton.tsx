@@ -1,62 +1,51 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, Pressable } from "react-native";
+import { StyleProp, StyleSheet, ViewStyle } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-import { Text, View } from "../Themed";
+import { Text } from "../Themed";
+import { ThemeProps, useThemeColor } from "../themed/useThemeColor";
 
-interface SelectButtonArgs {
+type SelectButtonArgs = ThemeProps & {
   modalVisible: boolean;
   showSelectModal: () => void;
   selectedLabel?: string;
   placeholder?: string;
-}
+  style?: StyleProp<ViewStyle>;
+};
 
 export const SelectButton = ({
   modalVisible,
   showSelectModal,
   selectedLabel,
   placeholder = ``,
+  style,
+  lightColor,
+  darkColor,
 }: SelectButtonArgs) => {
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `card`);
+  const accentColor = useThemeColor({ light: lightColor, dark: darkColor }, `accent`);
   const iconName = modalVisible ? `caret-up` : `caret-down`;
-  const iconColor = `#333`;
 
   return (
-    <Pressable onPress={showSelectModal}>
-      <View style={styles.button}>
-        <View style={styles.buttonOpen}>
-          <Text style={styles.textStyle}>{selectedLabel ?? placeholder}</Text>
-        </View>
-        <View style={styles.iconContainer}>
-          <FontAwesome name={iconName} size={18} color={iconColor} />
-        </View>
-      </View>
-    </Pressable>
+    <TouchableOpacity onPress={showSelectModal} style={[styles.select, { backgroundColor }, style]}>
+      <>
+        <Text variant="body">{selectedLabel ?? placeholder}</Text>
+        <FontAwesome name={iconName} size={18} color={accentColor} />
+      </>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  button: {
-    // borderRadius: 20,
-    // elevation: 1,
+  select: {
     flexDirection: `row`,
     justifyContent: `space-between`,
-    width: `70%`,
-  },
-  buttonOpen: {
-    // backgroundColor: `#F194FF`,
-    backgroundColor: `#eee`,
-    padding: 10,
-    width: `100%`,
-  },
-  iconContainer: {
-    // width: `5%`,
-    backgroundColor: `#add8e6`,
-    padding: 10,
-    // elevation: 2,
-  },
-  textStyle: {
-    color: `black`,
-    fontWeight: `bold`,
-    textAlign: `center`,
+    alignItems: `center`,
+    minHeight: 40,
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    marginVertical: 8,
+    marginHorizontal: 8,
   },
 });

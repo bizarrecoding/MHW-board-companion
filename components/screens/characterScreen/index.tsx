@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 import Equipment from "./Equipment";
 import { CharacterModalSelectOptions as SelectOptions } from "./ICharacter";
@@ -19,38 +20,33 @@ export default function CharacterScreen() {
   } = useManageCharacter();
 
   return (
-    <>
+    <View style={styles.container}>
       <ModalCharacter
         isSelectingType={isSelectingType}
         hideSelectModal={hideSelectModal}
         onPressConfirm={onPressConfirm}
         renderListValues={renderListValues}
       />
-      <View style={styles.container}>
-        <View>
-          <ProfilePicker
-            profileName={character.profile.name}
-            isActiveSelect={isSelectingType === SelectOptions.PROFILE}
-            showSelectModal={showSelectModal}
-            selectType={SelectOptions.PROFILE}
-          />
-        </View>
-        <View>
-          <Equipment
-            data={character.profile.equipment}
-            isSelectingType={isSelectingType}
-            showSelectModal={showSelectModal}
-          />
-        </View>
-      </View>
-    </>
+      <ScrollView>
+        <ProfilePicker
+          profileName={character.profile.name}
+          isActiveSelect={isSelectingType === SelectOptions.PROFILE}
+          showSelectModal={showSelectModal}
+          selectType={SelectOptions.PROFILE}
+        />
+        <Equipment
+          data={character.profile.equipment}
+          isSelectingType={isSelectingType}
+          showSelectModal={showSelectModal}
+        />
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: `100%`,
-    left: 10,
-    backgroundColor: `black`,
+    flex: 1,
+    padding: 8,
   },
 });

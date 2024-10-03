@@ -1,9 +1,8 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 
 import type { ICharacterArgs } from "./ICharacter";
 import { SelectButton } from "../../Dropdown";
-import { View, Text } from "../../Themed";
+import { Text } from "../../Themed";
 
 export default function ProfilePicker({
   profileName,
@@ -16,27 +15,15 @@ export default function ProfilePicker({
   };
 
   return (
-    <View style={styles.container}>
-      <View>
-        <Text>Hunter Name</Text>
-        <View style={styles.loader}>
-          <SelectButton
-            modalVisible={isActiveSelect}
-            selectedLabel={profileName}
-            showSelectModal={onSelectModal}
-          />
-        </View>
-      </View>
-    </View>
+    <>
+      <Text variant="title" style={{ marginBottom: 12 }}>
+        Hunter Name
+      </Text>
+      <SelectButton
+        modalVisible={isActiveSelect}
+        selectedLabel={profileName}
+        showSelectModal={onSelectModal}
+      />
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: `90%`,
-  },
-  loader: {
-    flexDirection: `row`,
-    justifyContent: `space-between`,
-  },
-});

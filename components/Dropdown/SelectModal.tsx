@@ -1,8 +1,8 @@
 import React, { Dispatch } from "react";
 import { Modal, StyleSheet } from "react-native";
 
-import Button from "../Button";
-import { View, Text } from "../Themed";
+import { View, Text, Button } from "../Themed";
+import { useThemeColor } from "../themed/useThemeColor";
 
 interface SelectModalArgs {
   title?: string;
@@ -24,35 +24,32 @@ export const SelectModal = ({
   onPressCancel,
   children,
 }: SelectModalArgs) => {
+  const backgroundColor = useThemeColor(undefined, `card`);
   return (
     <Modal animationType="slide" transparent={true} visible={modalVisible}>
       <View style={styles.modalView}>
-        <View style={styles.modalContent}>
-          <View style={styles.header}>
-            <Text style={styles.modalTitle}>{title}</Text>
-          </View>
-
-          <View style={styles.body}>{children}</View>
-
-          <View style={styles.footer}>
-            <View style={styles.controls}>
-              <Button
-                label="Cancel"
-                onPress={() => {
-                  console.log(`Cancel`);
-                  setModalVisible(false);
-                  if (onPressCancel) onPressCancel();
-                }}
-              />
-              <Button
-                label="Confirm"
-                onPress={() => {
-                  console.log(`Confirm`);
-                  setModalVisible(false);
-                  if (onPressConfirm) onPressConfirm();
-                }}
-              />
-            </View>
+        <View style={[styles.modalContent, { backgroundColor }]}>
+          <Text variant="subtitle">{title}</Text>
+          <View style={[styles.body, { backgroundColor }]}>{children}</View>
+          <View style={[styles.footer, { backgroundColor }]}>
+            <Button
+              title="Cancel"
+              style={styles.controls}
+              onPress={() => {
+                console.log(`Cancel`);
+                setModalVisible(false);
+                if (onPressCancel) onPressCancel();
+              }}
+            />
+            <Button
+              title="Confirm"
+              style={styles.controls}
+              onPress={() => {
+                console.log(`Confirm`);
+                setModalVisible(false);
+                if (onPressConfirm) onPressConfirm();
+              }}
+            />
           </View>
         </View>
       </View>
@@ -67,12 +64,11 @@ const styles = StyleSheet.create({
     backgroundColor: `rgba(0,0,0,0.5);`,
   },
   modalContent: {
-    backgroundColor: `#eee`,
-    flexDirection: `column`,
     justifyContent: `center`,
     alignItems: `center`,
-    marginHorizontal: 15,
-    borderRadius: 15,
+    marginHorizontal: 16,
+    padding: 16,
+    borderRadius: 16,
     shadowColor: `#000`,
     shadowOffset: {
       width: 0,
@@ -82,15 +78,8 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  header: {
-    marginVertical: 5,
-    width: `90%`,
-    backgroundColor: `#eee`,
-  },
-  modalTitle: {},
   body: {
     position: `relative`,
-    backgroundColor: `#eee`,
     justifyContent: `center`,
     alignItems: `center`,
     width: `100%`,
@@ -99,13 +88,11 @@ const styles = StyleSheet.create({
     height: 100,
   },
   footer: {
-    marginBottom: 10,
+    flexDirection: `row`,
+    justifyContent: `space-between`,
     width: `100%`,
   },
   controls: {
-    backgroundColor: `#eee`,
-    width: `100%`,
-    flexDirection: `row`,
-    justifyContent: `space-around`,
+    flex: 1,
   },
 });

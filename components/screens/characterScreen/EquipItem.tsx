@@ -18,8 +18,11 @@ export default function EquipItem({
 
   return (
     <View style={styles.itemRow}>
-      <Text>{label ?? `Armor Item`}</Text>
+      <Text variant="caption" style={styles.text}>
+        {label ?? `Armor Item`}
+      </Text>
       <SelectButton
+        style={styles.select}
         modalVisible={isActiveSelect}
         selectedLabel={selectedLabel}
         showSelectModal={onSelectModal}
@@ -30,9 +33,21 @@ export default function EquipItem({
 
 const styles = StyleSheet.create({
   itemRow: {
+    flex: 1,
     flexDirection: `row`,
-    marginTop: 10,
-    justifyContent: `space-between`,
     alignItems: `center`,
+    justifyContent: `space-between`,
+    borderWidth: 1,
+  },
+  text: {
+    flex: 0,
+    width: `30%`,
+    marginLeft: 8,
+    borderWidth: 1,
+  },
+  select: {
+    borderWidth: 1,
+    minWidth: 210,
+    flex: 1,
   },
 });

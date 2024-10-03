@@ -23,6 +23,10 @@ const ModalCharacter = ({
     onPressConfirm(isFocusedItem);
   };
 
+  const onPressItem = (index: number) => {
+    setIsFocusedItem({ ...renderListValues.listOptions[index], indexArray: index });
+  };
+
   return (
     <SelectModal
       title="Select Profile"
@@ -35,6 +39,7 @@ const ModalCharacter = ({
           options={renderListValues.listOptions}
           selectedValue={renderListValues.value}
           setSelectedItem={setIsFocusedItem}
+          onPressItem={onPressItem}
         />
       )}
     </SelectModal>
