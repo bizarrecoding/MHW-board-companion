@@ -1,6 +1,10 @@
 import { ItemEntry } from "./types";
 
 export const ItemList: ItemEntry[] = [
+  {
+    type: "potion",
+    name: "Potion",
+  },
   // Misc bones
   {
     type: "bone",
@@ -49,7 +53,7 @@ export const ItemList: ItemEntry[] = [
   },
   {
     type: "ore",
-    name: "Fucium ore",
+    name: "Fucium Ore",
   },
   {
     type: "ore",

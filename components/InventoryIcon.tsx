@@ -49,12 +49,20 @@ type InventoryIconProps = {
   style?: StyleProp<ImageStyle>;
 };
 
-const InventoryIcon_ = ({ type }: InventoryIconProps) => {
+const InventoryIcon_ = ({ type, style }: InventoryIconProps) => {
   switch (type) {
+    case `potion`:
+      return (
+        <Image
+          style={[styles.InventoryIcon, style]}
+          resizeMode="contain"
+          source={require(`../assets/images/materials/Potion.webp`)}
+        />
+      );
     case `ore`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Ore.webp`)}
         />
@@ -62,7 +70,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
     case `shell`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Shell.webp`)}
         />
@@ -70,7 +78,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
     case `bone`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Bone.webp`)}
         />
@@ -78,7 +86,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
     case `wing`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Wing.webp`)}
         />
@@ -86,7 +94,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
     case `sac`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Sac.webp`)}
         />
@@ -94,7 +102,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
     case `mud`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Dung.webp`)}
         />
@@ -102,7 +110,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
     case `scale`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Scale.webp`)}
         />
@@ -110,7 +118,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
     case `gem`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Gem.webp`)}
         />
@@ -118,7 +126,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
     case `tail`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Tail.webp`)}
         />
@@ -126,7 +134,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
     case `claw`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Claw.webp`)}
         />
@@ -134,7 +142,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
     case `ridge`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Ridge.webp`)}
         />
@@ -142,7 +150,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
     case `hide`:
       return (
         <Image
-          style={styles.InventoryIcon}
+          style={[styles.InventoryIcon, style]}
           resizeMode="contain"
           source={require(`../assets/images/materials/Hide.webp`)}
         />
@@ -151,7 +159,7 @@ const InventoryIcon_ = ({ type }: InventoryIconProps) => {
       return <View />;
   }
 };
-export default function InventoryIcon({ type, name }: InventoryIconProps) {
+export default function InventoryIcon({ type, name, style }: InventoryIconProps) {
   const [key] = name?.split(` `) || [];
   return (
     <View
@@ -162,6 +170,7 @@ export default function InventoryIcon({ type, name }: InventoryIconProps) {
           borderWidth: 1,
           borderColor: `#3333`,
         },
+        style,
       ]}
     >
       <InventoryIcon_ type={type} />

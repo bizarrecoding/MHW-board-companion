@@ -10,12 +10,15 @@ import TextInput from "./themed/ThemedInput";
 import Text from "./themed/ThemedText";
 import { useThemeColor, ThemeProps } from "./themed/useThemeColor";
 
-export type ViewProps = ThemeProps & DefaultView[`props`];
+export type ViewProps = ThemeProps &
+  DefaultView[`props`] & {
+    transparent?: boolean;
+  };
 
 export function View(props: ViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `background`);
-
+  const _backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `background`);
+  const backgroundColor = props.transparent ? undefined : _backgroundColor;
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
 

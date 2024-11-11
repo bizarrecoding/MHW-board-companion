@@ -13,6 +13,7 @@ export const Ranks: RankType[] = [`Low Rank`, `High Rank`, `Master Rank`];
 export type Result = `Success` | `Failure`;
 
 export type InventoryKind =
+  | `potion`
   | `ore`
   | `shell`
   | `bone`
