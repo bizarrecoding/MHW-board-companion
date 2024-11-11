@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     justifyContent: `center`,
     width: ICON_SIZES.medium,
     height: ICON_SIZES.medium,
-    borderRadius: 60,
+    borderRadius: 999,
     marginRight: 16,
     padding: 8,
     backgroundColor: `#888`,

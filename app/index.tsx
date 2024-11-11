@@ -31,7 +31,7 @@ const Login: React.FC = () => {
         return;
       }
       await loginUser(username, password);
-      router.replace(`/inventory`);
+      router.replace(`/story`);
     } catch (error) {
       setError(`Please enter a valid username or password.`);
       console.error(error);

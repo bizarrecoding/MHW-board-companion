@@ -128,10 +128,11 @@ const styles = StyleSheet.create({
     alignItems: `center`,
   },
   title: {
-    marginTop: 48,
+    marginTop: 12,
   },
   btnCommit: {
     margin: 16,
     width: `92%`,
+    marginBottom: 32,
   },
 });

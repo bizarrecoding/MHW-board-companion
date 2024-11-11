@@ -23,8 +23,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const { background, tabIconSelected, tabIconDefault, text, tint } =
-    Colors[colorScheme ?? `light`];
+  const { background, tabIconSelected, tabIconDefault, text } = Colors[colorScheme ?? `light`];
   const backgroundColor = colorScheme === `dark` ? background : `#fff`;
   return (
     <Tabs
@@ -47,27 +46,6 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="inventory"
-        options={{
-          title: `Inventory`,
-          tabBarIcon: ({ color }) => <TabBarIcon name="briefcase" color={color} />,
-          headerRight: () => (
-            <Link href="/modal?type=item" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="plus"
-                    size={25}
-                    color={tint}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="Story"
         options={{
           title: `Story`,
@@ -75,32 +53,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="character"
+        name="Monster"
         options={{
-          //href: null, // disabled until RNGestureHandler is fixed
-          title: `Character`,
-          tabBarIcon: ({ color }) => <TabBarIcon name="address-book" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="log"
-        options={{
-          title: `Hunting log`,
-          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
-          headerRight: () => (
-            <Link href="/modal?type=log" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="plus"
-                    size={25}
-                    color={tint}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          title: `Monster`,
+          tabBarIcon: ({ color }) => <TabBarIcon name="bug" color={color} />,
         }}
       />
       <Tabs.Screen

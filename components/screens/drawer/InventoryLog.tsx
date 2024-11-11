@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, ListRenderItem, StyleSheet } from "react-native";
 
-import InventoryIcon from "../../../components/InventoryIcon";
-import NumberInput from "../../../components/NumberInput";
-import { IconButton, Text, TextInput, View } from "../../../components/Themed";
-import { useThemeColor } from "../../../components/themed/useThemeColor";
 import { InventoryEntry, useInventory } from "../../../hooks/useInventory";
+import InventoryIcon from "../../InventoryIcon";
+import NumberInput from "../../NumberInput";
+import { IconButton, Text, TextInput, View } from "../../Themed";
+import { useThemeColor } from "../../themed/useThemeColor";
 
 const stickyIndex = [0];
 
-export default function Inventory() {
+export default function InventoryLog() {
   const { inventory, updateEntry, deleteEntry } = useInventory();
   const backgroundColor = useThemeColor({}, `background`);
   const [edit, setEdit] = useState<number | null>(null);
