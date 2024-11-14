@@ -14,11 +14,15 @@ import { StyleSheet, useWindowDimensions } from "react-native";
 import { MonsterKind } from "../../../assets/data/types";
 import { MonsterIcon } from "../../../components/InventoryIcon";
 import { View, Text } from "../../../components/Themed";
+import { PartCard } from "../../../components/monster/PartCard";
+import ResistanceTabs from "../../../components/monster/ResistanceTabs";
 
 const Monster = () => {
   //const data = useSegments();
   const [monster, _setMonster] = useState<MonsterKind>(`Barroth`);
+  const [HP, _setHP] = useState(60);
   const width = useWindowDimensions().width;
+
   return (
     <View style={styles.container}>
       <Tabs.Screen
@@ -28,23 +32,23 @@ const Monster = () => {
       />
       <View style={{ flexDirection: `row`, alignItems: `center` }}>
         <MonsterIcon
-          noRank
+          rank="Low Rank"
           type={monster}
           style={{ width: width / 3, height: width / 3, alignSelf: `center` }}
         />
-        <View style={{ flexDirection: `row` }}>
-          <View>
-            <Text style={styles.title}>HP: 65/65</Text>
-            <Text style={styles.title}>Head: 1</Text>
-            <Text style={styles.title}>Legs: 0</Text>
-          </View>
-          <View>
-            <Text style={styles.title}> </Text>
-            <Text style={styles.title}>Front: 0</Text>
-            <Text style={styles.title}>Tail: 1</Text>
-          </View>
+        <Text style={styles.hp}>{HP}</Text>
+      </View>
+      <View style={{ flexDirection: `row`, padding: 12, paddingVertical: 12 }}>
+        <View style={{ flex: 1 }}>
+          <PartCard type="Head" def={1} breakRes={0} />
+          <PartCard type="Back" def={0} breakRes={0} />
+        </View>
+        <View style={{ flex: 1 }}>
+          <PartCard type="Legs" def={0} breakRes={0} />
+          <PartCard type="Tail" def={0} breakRes={0} />
         </View>
       </View>
+      <ResistanceTabs />
     </View>
   );
 };
@@ -56,8 +60,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  title: {
-    fontSize: 18,
+  hp: {
+    flex: 1,
+    textAlign: `center`,
+    fontSize: 48,
     marginVertical: 2,
   },
 });
