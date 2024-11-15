@@ -8,7 +8,7 @@ export const useFireAuth = () => {
   const registerUser = useCallback(async (user: string, password: string) => {
     try {
       await createUserWithEmailAndPassword(auth, user, password);
-      router.replace(`/inventory`);
+      router.replace(`/(drawer)/(tabs)/Story`);
     } catch (error) {
       console.error(`[RegisterError]`, (error as Error).message);
       throw error;

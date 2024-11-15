@@ -21,7 +21,7 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
       console.log(`🚀 ~ onAuthStateChanged:`, user?.uid);
       if (user) {
         setUser(user);
-        router.replace(`/inventory`);
+        router.replace(`/(Drawer)/inventory`);
       } else {
         setUser(null);
         router.replace(`/`);

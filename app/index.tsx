@@ -9,21 +9,12 @@ import { useFireAuth } from "../hooks/useFireAuth";
 const Login: React.FC = () => {
   const colorScheme = useColorScheme();
   const { background, accent } = Colors[colorScheme ?? `light`];
-  const { loginUser, registerUser } = useFireAuth();
+  const { loginUser } = useFireAuth();
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [error, setError] = useState<string>();
-  const register = async () => {
-    try {
-      if (!username || !password) {
-        setError(`Please enter a valid username or password.`);
-        return;
-      }
-      await registerUser(username, password);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const goToRegister = () => router.replace(`/modal?type=register`);
+
   const login = async () => {
     try {
       if (!username || !password) {
@@ -31,7 +22,7 @@ const Login: React.FC = () => {
         return;
       }
       await loginUser(username, password);
-      router.replace(`/story`);
+      router.replace(`/(drawer)/inventory`);
     } catch (error) {
       setError(`Please enter a valid username or password.`);
       console.error(error);
@@ -78,7 +69,7 @@ const Login: React.FC = () => {
       />
       <Text style={{ textAlign: `center`, marginVertical: 10 }}>
         Don't have an account?{` `}
-        <Text style={{ color: accent }} onPress={register}>
+        <Text style={{ color: accent }} onPress={goToRegister}>
           Sign up.
         </Text>
       </Text>

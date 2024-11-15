@@ -1,4 +1,4 @@
-import { router } from "expo-router";
+import { router, Stack } from "expo-router";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 
@@ -21,6 +21,7 @@ export const LogEntryModal = () => {
   };
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ title: `Hunt Entry` }} />
       <Text variant="title" style={styles.title}>
         Hunt Entry
       </Text>
