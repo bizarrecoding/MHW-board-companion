@@ -155,6 +155,14 @@ const InventoryIcon_ = ({ type, style }: InventoryIconProps) => {
           source={require(`../assets/images/materials/Hide.webp`)}
         />
       );
+    case `head`:
+      return (
+        <Image
+          style={[styles.InventoryIcon, style]}
+          resizeMode="contain"
+          source={require(`../assets/images/materials/Head.png`)}
+        />
+      );
     default:
       return <View />;
   }

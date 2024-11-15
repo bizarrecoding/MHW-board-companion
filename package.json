@@ -17,6 +17,11 @@
     "publish-ota": "npx eas update --branch beta-1.0.0 -p all",
     "build-apk": "npx eas build -p android --profile='preview' --non-interactive"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "jest": {
     "preset": "jest-expo"
   },

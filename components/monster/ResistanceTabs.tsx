@@ -6,13 +6,13 @@ import ResistanceIcon, { Ailments, Elements } from "./ResistanceIcon";
 import { View, Text } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
 
-const ResistanceTabs = () => {
+const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = ({ data }) => {
   const [activeTab, setActiveTab] = useState(`status`);
-  const [sleepRes, _setSleepRes] = useState(2);
-  const [paraRes, _setParaRes] = useState(1);
-  const [poisonRes, _setPoisonRes] = useState(1);
-  const [stunRes, _setStunRes] = useState(0);
-  const [blastRes, _setBlastRes] = useState(1);
+  const [sleepRes, setSleepRes] = useState(data.Sleep);
+  const [paraRes, setParaRes] = useState(data.Paralysis);
+  const [poisonRes, setPoisonRes] = useState(data.Poison);
+  const [stunRes, setStunRes] = useState(data.Stun);
+  const [blastRes, setBlastRes] = useState(data.Blast);
 
   const _panelColor = useThemeColor({}, `card`);
   const panelColor = `${_panelColor}8`;
@@ -44,26 +44,37 @@ const ResistanceTabs = () => {
         <View style={{ flexDirection: `row`, justifyContent: `space-around` }}>
           {activeTab === `status` ? (
             <>
+              {/* Elements do not change, value is set to data.element and minimum 1 to show red cross */}
               <View style={{ flex: 1 }}>
-                <Resistance type="Fire" value={0} max={0} />
-                <Resistance type="Water" value={2} max={2} />
-                <Resistance type="Thunder" value={0} max={0} />
+                <Resistance type="Fire" value={data.Fire ?? 1} max={data.Fire} />
+                <Resistance type="Water" value={data.Water ?? 1} max={data.Water} />
+                <Resistance type="Thunder" value={data.Thunder ?? 1} max={data.Thunder} />
               </View>
               <View style={{ flex: 1 }}>
-                <Resistance type="Ice" value={2} max={2} />
-                <Resistance type="Dragon" value={0} max={0} />
+                <Resistance type="Ice" value={data.Ice ?? 1} max={data.Ice} />
+                <Resistance type="Dragon" value={data.Dragon ?? 1} max={data.Dragon} />
               </View>
             </>
           ) : (
             <>
               <View style={{ flex: 1 }}>
-                <Resistance type="Paralysis" value={paraRes} max={1} setValue={_setParaRes} />
-                <Resistance type="Poison" value={poisonRes} max={1} setValue={_setPoisonRes} />
-                <Resistance type="Sleep" value={sleepRes} max={2} setValue={_setSleepRes} />
+                <Resistance
+                  type="Paralysis"
+                  value={paraRes}
+                  max={data.Paralysis}
+                  setValue={setParaRes}
+                />
+                <Resistance
+                  type="Poison"
+                  value={poisonRes}
+                  max={data.Poison}
+                  setValue={setPoisonRes}
+                />
+                <Resistance type="Sleep" value={sleepRes} max={data.Sleep} setValue={setSleepRes} />
               </View>
               <View style={{ flex: 1 }}>
-                <Resistance type="Blast" value={blastRes} max={1} setValue={_setBlastRes} />
-                <Resistance type="Stun" value={stunRes} max={0} setValue={_setStunRes} />
+                <Resistance type="Blast" value={blastRes} max={data.Blast} setValue={setBlastRes} />
+                <Resistance type="Stun" value={stunRes} max={data.Stun} setValue={setStunRes} />
               </View>
             </>
           )}
@@ -82,16 +93,18 @@ type ResistanceProps = {
   setValue?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const ColorMap: Record<`light` | `dark`, Record<`red` | `gray` | `green`, string>> = {
+const ColorMap: Record<`light` | `dark`, Record<`red` | `gray` | `green` | `yellow`, string>> = {
   light: {
     gray: `#888A`,
     red: `#F33A`,
     green: `#383A`,
+    yellow: `#CC3F`,
   },
   dark: {
     gray: `#8888`,
     red: `#F338`,
     green: `#3F36`,
+    yellow: `#FF3C`,
   },
 };
 
@@ -114,8 +127,8 @@ const Resistance: React.FC<ResistanceProps> = ({ type, value, max, setValue }) =
               key={`${type}-${i}}`}
               name="close"
               color={colors.red}
-              size={32}
-              style={{ width: 32 }}
+              size={22}
+              style={{ margin: 5 }}
             />
           );
         if (i >= max && i >= value)
@@ -134,17 +147,17 @@ const Resistance: React.FC<ResistanceProps> = ({ type, value, max, setValue }) =
               key={`${type}-${i}}`}
               name="circle-o"
               color={colors.red}
-              size={32}
-              style={{ width: 32 }}
+              size={22}
+              style={{ margin: 5 }}
             />
           );
         return (
           <FontAwesome
             key={`${type}-${i}}`}
-            name="circle"
-            color={colors.green}
-            size={32}
-            style={{ width: 32 }}
+            name="star"
+            color={colors.yellow}
+            size={22}
+            style={{ margin: 5 }}
           />
         );
       })}

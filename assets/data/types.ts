@@ -25,7 +25,8 @@ export type InventoryKind =
   | `tail`
   | `claw`
   | `ridge`
-  | `hide`;
+  | `hide`
+  | `head`;
 
 export type ItemEntry = {
   type: InventoryKind;
