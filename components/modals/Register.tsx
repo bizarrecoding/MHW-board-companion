@@ -1,4 +1,3 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { router, Stack } from "expo-router";
 import React, { useState } from "react";
 import { useColorScheme, StyleSheet } from "react-native";
@@ -6,16 +5,7 @@ import { useColorScheme, StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
 import { useFireAuth } from "../../hooks/useFireAuth";
 import { View, Text, Button, TextInput } from "../Themed";
-import { useThemeColor } from "../themed/useThemeColor";
-
-type BackProps = {
-  onPress: () => void;
-};
-
-const Back: React.FC<BackProps> = ({ onPress }) => {
-  const color = useThemeColor({}, `accent`);
-  return <MaterialIcons name="arrow-back-ios" size={24} color={color} onPress={onPress} />;
-};
+import { Back } from "../screens/Back";
 
 export const Register = () => {
   const colorScheme = useColorScheme() ?? `light`;
@@ -44,7 +34,7 @@ export const Register = () => {
       setLoading(false);
     }
   };
-  const goBack = () => router.replace(`/`);
+  const goBack = () => router.back();
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
       <Stack.Screen
@@ -54,6 +44,7 @@ export const Register = () => {
           presentation: `modal`,
         }}
       />
+      <Text variant="title">Create your account</Text>
       <Text variant="caption" style={styles.error}>
         {error}
       </Text>
@@ -61,7 +52,7 @@ export const Register = () => {
         placeholder="Email"
         keyboardType="email-address"
         autoCapitalize="none"
-        style={styles.login_input}
+        style={[styles.login_input, { minHeight: 36 }]}
         placeholderTextColor="gray"
         onChangeText={(u) => setUsername(u)}
       />
@@ -103,10 +94,10 @@ const styles = StyleSheet.create({
     textAlign: `center`,
   },
   login_input: {
-    width: 240,
+    width: 300,
   },
   login_button: {
-    width: 240,
+    width: 300,
     marginVertical: 20,
   },
 });

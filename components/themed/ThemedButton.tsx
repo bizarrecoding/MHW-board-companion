@@ -91,7 +91,7 @@ export const ThemedIconButton = (props: IconButtonProps) => {
     >
       {icon && typeof icon === `string` ? (
         // @ts-ignore
-        <FontAwesome name={icon} size={25} color={`${colorBase}${TRANSPARENCY_MOD}`} />
+        <FontAwesome name={icon} size={20} color={`${colorBase}${TRANSPARENCY_MOD}`} />
       ) : (
         icon
       )}

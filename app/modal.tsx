@@ -7,6 +7,7 @@ import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { InventoryEntryModal } from "../components/modals/InventoryEntryModal";
 import { LogEntryModal } from "../components/modals/LogEntryModal";
+import { RecoverPassword } from "../components/modals/RecoverPassword";
 import { Register } from "../components/modals/Register";
 import { RollPoolModal } from "../components/modals/RollPoolModal";
 
@@ -16,6 +17,7 @@ export default function ModalScreen() {
   if (type === `roll`) return <RollPoolModal />;
   if (type === `item`) return <InventoryEntryModal />;
   if (type === `register`) return <Register />;
+  if (type === `recover`) return <RecoverPassword />;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Modal {type}</Text>

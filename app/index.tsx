@@ -13,7 +13,8 @@ const Login: React.FC = () => {
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [error, setError] = useState<string>();
-  const goToRegister = () => router.replace(`/modal?type=register`);
+  const goToRegister = () => router.push(`/modal?type=register`);
+  const goToRecover = () => router.push(`/modal?type=recover`);
 
   const login = async () => {
     try {
@@ -50,7 +51,7 @@ const Login: React.FC = () => {
         placeholder="Email"
         keyboardType="email-address"
         autoCapitalize="none"
-        style={styles.login_input}
+        style={[styles.login_input, { minHeight: 36 }]}
         placeholderTextColor="gray"
         onChangeText={(u) => setUsername(u)}
       />
@@ -67,6 +68,12 @@ const Login: React.FC = () => {
         textStyle={{ fontSize: 18 }}
         onPress={login}
       />
+      <Text style={{ textAlign: `center`, marginVertical: 10 }}>
+        Don't remember your password?{` `}
+        <Text style={{ color: accent }} onPress={goToRecover}>
+          Recover it.
+        </Text>
+      </Text>
       <Text style={{ textAlign: `center`, marginVertical: 10 }}>
         Don't have an account?{` `}
         <Text style={{ color: accent }} onPress={goToRegister}>
@@ -94,10 +101,10 @@ const styles = StyleSheet.create({
     textAlign: `center`,
   },
   login_input: {
-    width: 240,
+    width: 300,
   },
   login_button: {
-    width: 240,
+    width: 300,
     marginVertical: 20,
   },
 });
