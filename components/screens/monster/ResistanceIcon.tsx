@@ -11,16 +11,16 @@ type ResistanceProps = {
 };
 
 const IMAGE_MAP: Record<Elements | Ailments | `none`, any> = {
-  Fire: require(`../../assets/images/resistance/elem-fire.webp`),
-  Water: require(`../../assets/images/resistance/elem-water.webp`),
-  Thunder: require(`../../assets/images/resistance/elem-thunder.webp`),
-  Ice: require(`../../assets/images/resistance/elem-ice.webp`),
-  Dragon: require(`../../assets/images/resistance/elem-dragon.webp`),
-  Paralysis: require(`../../assets/images/resistance/status-paralysis.webp`),
-  Poison: require(`../../assets/images/resistance/status-poison.webp`),
-  Sleep: require(`../../assets/images/resistance/status-sleep.webp`),
-  Blast: require(`../../assets/images/resistance/status-blast.webp`),
-  Stun: require(`../../assets/images/resistance/status-stun.webp`),
+  Fire: require(`../../../assets/images/resistance/elem-fire.webp`),
+  Water: require(`../../../assets/images/resistance/elem-water.webp`),
+  Thunder: require(`../../../assets/images/resistance/elem-thunder.webp`),
+  Ice: require(`../../../assets/images/resistance/elem-ice.webp`),
+  Dragon: require(`../../../assets/images/resistance/elem-dragon.webp`),
+  Paralysis: require(`../../../assets/images/resistance/status-paralysis.webp`),
+  Poison: require(`../../../assets/images/resistance/status-poison.webp`),
+  Sleep: require(`../../../assets/images/resistance/status-sleep.webp`),
+  Blast: require(`../../../assets/images/resistance/status-blast.webp`),
+  Stun: require(`../../../assets/images/resistance/status-stun.webp`),
   none: undefined,
 };
 

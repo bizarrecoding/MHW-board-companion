@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TouchableOpacity, Button, useColorScheme, StyleSheet } from "react-native";
 
-import { View, Text } from "../Themed";
+import { View, Text } from "../../Themed";
 
 const ColorMap: Record<`light` | `dark`, Record<`red` | `green`, string>> = {
   light: {

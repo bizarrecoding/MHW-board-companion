@@ -2,11 +2,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 
-import { PartsData } from "../../assets/data/hunt";
-import { InventoryKind } from "../../assets/data/types";
-import InventoryIcon from "../InventoryIcon";
-import { View, Text } from "../Themed";
-import { useThemeColor } from "../themed/useThemeColor";
+import { PartsData } from "../../../assets/data/hunt";
+import { InventoryKind } from "../../../assets/data/types";
+import InventoryIcon from "../../InventoryIcon";
+import { View, Text } from "../../Themed";
+import { useThemeColor } from "../../themed/useThemeColor";
 
 type PartCardProps = {
   type: keyof PartsData;
@@ -55,7 +55,7 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
         />
 
         <ImageBackground
-          source={require(`../../assets/images/Defense.png`)}
+          source={require(`../../../assets/images/Defense.png`)}
           style={[styles.part, styles.partDef]}
         >
           <Text bold style={[styles.title, { color: `#EEE` }]}>
@@ -64,7 +64,7 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
         </ImageBackground>
         <TouchableOpacity onPress={damagePart}>
           <ImageBackground
-            source={require(`../../assets/images/break.png`)}
+            source={require(`../../../assets/images/break.png`)}
             style={[styles.part, styles.partBreak]}
           >
             <Text bold style={[styles.title, { color: `#333` }]}>

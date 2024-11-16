@@ -1,8 +1,8 @@
 import React from "react";
 
 import { PartCard } from "./PartCard";
-import { PartsData } from "../../assets/data/hunt";
-import { View } from "../Themed";
+import { PartsData } from "../../../assets/data/hunt";
+import { View } from "../../Themed";
 
 type MonsterPartsProps = {
   data: PartsData;

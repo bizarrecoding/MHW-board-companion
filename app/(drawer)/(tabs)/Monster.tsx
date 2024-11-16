@@ -6,9 +6,9 @@ import { MonsterHuntData, PartsData } from "../../../assets/data/hunt";
 import { MonsterKind } from "../../../assets/data/types";
 import { MonsterIcon } from "../../../components/InventoryIcon";
 import { View, Text } from "../../../components/Themed";
-import { HPCounter } from "../../../components/monster/HPCounter";
-import MonsterParts from "../../../components/monster/MonsterParts";
-import ResistanceTabs from "../../../components/monster/ResistanceTabs";
+import { HPCounter } from "../../../components/screens/monster/HPCounter";
+import MonsterParts from "../../../components/screens/monster/MonsterParts";
+import ResistanceTabs from "../../../components/screens/monster/ResistanceTabs";
 
 const baseHunt = MonsterHuntData[`Barroth`];
 
