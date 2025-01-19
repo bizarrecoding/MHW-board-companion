@@ -148,6 +148,10 @@ export const ItemList: ItemEntry[] = [
   },
   {
     type: "sac",
+    name: "Pukei-Pukei Sac",
+  },
+  {
+    type: "sac",
     name: "Poison Sac",
   },
   {
