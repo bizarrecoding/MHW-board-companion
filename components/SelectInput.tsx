@@ -7,9 +7,9 @@ import { Text, View } from "./Themed";
 const SNAP_WIDTH = 360;
 
 type SelectInputProps<T> = {
-  label: string;
   data: T[];
   setValue: React.Dispatch<React.SetStateAction<T>>;
+  label?: string;
 };
 
 // injected dependency: force options to have a toString method, primitive types already have a cast
@@ -28,12 +28,16 @@ export const SelectInput = <T extends string | number | { toString: () => string
   };
   return (
     <View style={{ marginBottom: 16, width: SNAP_WIDTH }}>
-      <Text
-        variant="subtitle"
-        style={{ paddingHorizontal: 16, paddingVertical: 6, marginBottom: 8 }}
-      >
-        {label}:
-      </Text>
+      {label ? (
+        <Text
+          variant="subtitle"
+          style={{ paddingHorizontal: 16, paddingVertical: 6, marginBottom: 8 }}
+        >
+          {label}:
+        </Text>
+      ) : (
+        <View style={{ height: 10 }} />
+      )}
       <FlatList<T>
         horizontal
         data={data}

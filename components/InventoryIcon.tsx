@@ -199,22 +199,23 @@ type MonsterIconProps = {
   rank?: RankType | `failed`;
   style?: StyleProp<ImageStyle>;
   noRank?: boolean;
+  disabled?: boolean;
 };
 
-export const MonsterIconBG: React.FC<MonsterIconProps> = ({ type, style }) => {
+export const MonsterIconBG: React.FC<MonsterIconProps> = ({ type, style, disabled }) => {
+  const disabledStyle = disabled ? { opacity: 0.5 } : {};
+  const iconStyles = [styles.MonsterIcon, style, disabledStyle];
   switch (type) {
     case `Barroth`:
-      return <Image style={[styles.MonsterIcon, style]} resizeMode="contain" source={Barroth} />;
+      return <Image style={iconStyles} resizeMode="contain" source={Barroth} />;
     case `Pukei-Pukei`:
-      return <Image style={[styles.MonsterIcon, style]} resizeMode="contain" source={PukeiPukei} />;
+      return <Image style={iconStyles} resizeMode="contain" source={PukeiPukei} />;
     case `Jyuratodus`:
-      return <Image style={[styles.MonsterIcon, style]} resizeMode="contain" source={Jyuratodus} />;
+      return <Image style={iconStyles} resizeMode="contain" source={Jyuratodus} />;
     case `Diablos`:
-      return <Image style={[styles.MonsterIcon, style]} resizeMode="contain" source={Diablos} />;
+      return <Image style={iconStyles} resizeMode="contain" source={Diablos} />;
     case `Black Diablos`:
-      return (
-        <Image style={[styles.MonsterIcon, style]} resizeMode="contain" source={BlackDiablos} />
-      );
+      return <Image style={iconStyles} resizeMode="contain" source={BlackDiablos} />;
     default:
       return <View />;
   }
@@ -228,7 +229,7 @@ const BORDER_MAP: Record<RankType | `failed`, string> = {
   failed: `#A00`,
 };
 export const MonsterIcon = (props: MonsterIconProps) => {
-  const { rank, type, noRank } = props;
+  const { rank, type, noRank, disabled } = props;
   const theme = useColorScheme();
   const borderColor = BORDER_MAP[rank ?? `Low Rank`] + (theme === `dark` ? `C` : `8`);
   const backgroundColor = type ? ColorMap[type] + TRANSPARENCY_MOD : `#8888`;
@@ -237,7 +238,7 @@ export const MonsterIcon = (props: MonsterIconProps) => {
       style={[
         styles.MonsterIconWrapper,
         {
-          backgroundColor,
+          backgroundColor: disabled ? `#555` : backgroundColor,
           borderWidth: 3,
           borderColor,
         },
