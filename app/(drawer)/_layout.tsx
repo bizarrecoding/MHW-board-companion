@@ -7,6 +7,7 @@ import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
 import { MonsterIcon, MonsterIconKeys } from "../../components/InventoryIcon";
 import { Button, Text } from "../../components/Themed";
 import Colors from "../../constants/Colors";
+import { build } from "../../constants/build";
 import { UserContext } from "../../context/UserContext";
 import { useFireAuth } from "../../hooks/useFireAuth";
 
@@ -52,6 +53,7 @@ const SideBarContent = () => {
         />
       </View>
       <Button title="Logout" onPress={logout} />
+      <Text style={{ padding: 16 }}>v{build}</Text>
     </View>
   );
 };
