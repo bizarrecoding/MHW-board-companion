@@ -10,6 +10,7 @@ type MonsterPartsProps = {
 };
 const MonsterParts: React.FC<MonsterPartsProps> = ({ data, onBreak }) => {
   const { Head, Back, Legs, Tail } = data;
+  console.log(`🚀 ~ data:`, data);
   return (
     <View style={{ flexDirection: `row`, paddingHorizontal: 12, paddingTop: 12 }}>
       <View style={{ flex: 1 }}>

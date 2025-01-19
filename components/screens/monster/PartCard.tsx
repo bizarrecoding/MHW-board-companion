@@ -1,5 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 
 import { PartsData } from "../../../assets/data/hunt";
@@ -37,6 +37,10 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
     if (breakDmg === 0) onBreak(type);
     if (breakDmg === 1) onBreak(type);
   };
+
+  useEffect(() => {
+    if (breakRes) setBreakDmg(breakRes);
+  }, [breakRes]);
 
   const backgroundColor = breakDmg === 0 ? `#F336` : `#FB7A`;
   return (

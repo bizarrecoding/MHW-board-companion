@@ -1,4 +1,4 @@
-import { Ailments,Elements } from "../../components/monster/ResistanceIcon";
+import { Ailments,Elements } from "../../components/screens/monster/ResistanceIcon";
 import { MonsterKind, RankType } from "./types"
 
 export type PartsData =  Record<"Head"|"Back"|"Legs"|"Tail", { def: number; breakRes: number; effect?: string }>
@@ -27,19 +27,19 @@ export const MonsterHuntData: MonsterData = {
     "High Rank": {
       maxHP: 60,
       parts: {
-        Head: { def: 1, breakRes: 3, effect: "Behaviors with Head have -1 Mov" },
-        Back: { def: 0, breakRes: 3, effect: "Behaviors with Water have -1 Dodge" },
-        Legs: { def: 0, breakRes: 2 },
-        Tail: { def: 0, breakRes: 2 },
+        Head: { def: 2, breakRes: 4, effect: "Behaviors with Head have -1 Mov" },
+        Back: { def: 1, breakRes: 4, effect: "Behaviors with Water have -1 Dodge" },
+        Legs: { def: 0, breakRes: 3, effect: "Discard the top card of the behavior deck" },
+        Tail: { def: 0, breakRes: 3 },
       },
     },
     "Master Rank": {
       maxHP: 65,
       parts: {
-        Head: { def: 1, breakRes: 3, effect: "Behaviors with Head have -1 Mov" },
-        Back: { def: 0, breakRes: 3, effect: "Behaviors with Water have -1 Dodge" },
-        Legs: { def: 0, breakRes: 2 },
-        Tail: { def: 0, breakRes: 2 },
+        Head: { def: 3, breakRes: 5, effect: "Behaviors with Head have -1 Mov" },
+        Back: { def: 2, breakRes: 5, effect: "Behaviors with Water have -1 Dodge" },
+        Legs: { def: 1, breakRes: 4, effect: "Discard the top card of the behavior deck" },
+        Tail: { def: 1, breakRes: 4, effect: "No longer removes Break tokens on ponds" },
       },
     },
     effects: `The first time Barroth moves onto a pond node, remove 1 break token from each body part that isn't broken.`,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TouchableOpacity, Button, useColorScheme, StyleSheet } from "react-native";
 
 import { View, Text } from "../../Themed";
@@ -22,6 +22,10 @@ export const HPCounter: React.FC<{ max: number }> = ({ max }) => {
     if (sign === 1) setHP((hp) => (hp < max ? hp + 1 : max));
     else setHP((hp) => (hp > 0 ? hp - 1 : 0));
   };
+
+  useEffect(() => {
+    if (max) setHP(max);
+  }, [max]);
 
   const onLongPress = () => (sign === 1 ? setHP(max) : null);
 

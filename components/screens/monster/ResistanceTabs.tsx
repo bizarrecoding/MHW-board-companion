@@ -8,6 +8,11 @@ import { useThemeColor } from "../../themed/useThemeColor";
 
 const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = ({ data }) => {
   const [activeTab, setActiveTab] = useState(`status`);
+  const [fireRes, setFireRes] = useState(data.Fire);
+  const [waterRes, setWaterRes] = useState(data.Water);
+  const [iceRes, setIceRes] = useState(data.Ice);
+  const [thunderRes, setThunderRes] = useState(data.Thunder);
+  const [dragonRes, setDragonRes] = useState(data.Dragon);
   const [sleepRes, setSleepRes] = useState(data.Sleep);
   const [paraRes, setParaRes] = useState(data.Paralysis);
   const [poisonRes, setPoisonRes] = useState(data.Poison);
@@ -46,13 +51,28 @@ const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = 
             <>
               {/* Elements do not change, value is set to data.element and minimum 1 to show red cross */}
               <View style={{ flex: 1 }}>
-                <Resistance type="Fire" value={data.Fire ?? 1} max={data.Fire} />
-                <Resistance type="Water" value={data.Water ?? 1} max={data.Water} />
-                <Resistance type="Thunder" value={data.Thunder ?? 1} max={data.Thunder} />
+                <Resistance type="Fire" value={fireRes} max={data.Fire} setValue={setFireRes} />
+                <Resistance
+                  type="Water"
+                  value={waterRes ?? 1}
+                  max={data.Water}
+                  setValue={setWaterRes}
+                />
+                <Resistance
+                  type="Thunder"
+                  value={thunderRes}
+                  max={data.Thunder}
+                  setValue={setThunderRes}
+                />
               </View>
               <View style={{ flex: 1 }}>
-                <Resistance type="Ice" value={data.Ice ?? 1} max={data.Ice} />
-                <Resistance type="Dragon" value={data.Dragon ?? 1} max={data.Dragon} />
+                <Resistance type="Ice" value={iceRes} max={data.Ice} setValue={setIceRes} />
+                <Resistance
+                  type="Dragon"
+                  value={dragonRes}
+                  max={data.Dragon}
+                  setValue={setDragonRes}
+                />
               </View>
             </>
           ) : (
