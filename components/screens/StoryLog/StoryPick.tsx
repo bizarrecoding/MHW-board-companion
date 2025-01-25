@@ -22,8 +22,8 @@ const Monsters: MonsterKind[] = [
 ];
 
 type StoryPickerProps = {
-  setMonster: React.Dispatch<React.SetStateAction<MonsterKind | undefined>>;
-  setRank: React.Dispatch<React.SetStateAction<RankType>>;
+  setMonster: (monster: MonsterKind) => void;
+  setRank: (rank: RankType) => void;
   allowedChoices?: MonsterKind[];
   title?: string;
   style?: StyleProp<ViewStyle>;

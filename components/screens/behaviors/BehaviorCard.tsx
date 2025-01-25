@@ -1,6 +1,13 @@
+// cspell:ignore crosshairs
 import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
-import { useWindowDimensions, StyleSheet, useColorScheme } from "react-native";
+import {
+  useWindowDimensions,
+  StyleSheet,
+  useColorScheme,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 
 import DirectionalIcon from "./DirectionalIcon";
 import { Behavior } from "../../../assets/data/behaviors";
@@ -30,9 +37,18 @@ const getIconFromPart = (part: string): InventoryKind => {
   }
 };
 
-const ColorMap = {
-  Melee: `#F33`, // legal/gavel
-  Ranged: `#FF3`, // crosshairs / ey
+type TargetIconProps = {
+  target: string;
+  style?: StyleProp<ViewStyle>;
+};
+
+const TargetIcon: React.FC<TargetIconProps> = ({ target, style }) => {
+  const icon = target === `Melee` ? `gavel` : `crosshairs`;
+  return (
+    <View style={[{ flexDirection: `row`, alignItems: `center`, width: 32, height: 32 }, style]}>
+      <FontAwesome name={icon} size={32} color="#FFF" />
+    </View>
+  );
 };
 
 export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) => {
@@ -43,7 +59,6 @@ export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) 
   if (!behavior) return <EmptyCard hidden={hidden} />;
   if (hidden) return <HiddenCard behavior={behavior} />;
 
-  const target = ColorMap[behavior?.target];
   return (
     <View
       style={{
@@ -58,15 +73,7 @@ export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) 
       <View style={styles.centerRow}>
         <InventoryIcon type={getIconFromPart(behavior.part)} />
         <Text variant="subtitle">{behavior?.name}</Text>
-        <View
-          style={{
-            backgroundColor: target,
-            marginLeft: 12,
-            width: 40,
-            height: 40,
-            borderRadius: 20,
-          }}
-        />
+        <TargetIcon target={behavior.target} style={{ marginLeft: 12 }} />
       </View>
       <View style={styles.dataRow}>
         <Text variant="caption">Potential Damage: {behavior.damage}</Text>
@@ -105,19 +112,19 @@ export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) 
 const HiddenCard: React.FC<Pick<BehaviorCardProps, `behavior`>> = ({ behavior }) => {
   const width = useWindowDimensions().width;
   const height = (width ?? 0 - 32) / 2;
-  const target = ColorMap[behavior?.target ?? `Melee`];
+  const target = behavior?.target ?? `Melee`;
   return (
     <View
-      style={{
-        height,
-        width: width - 32,
-        backgroundColor: `#FCA`,
-        borderRadius: width / 15,
-        justifyContent: `center`,
-        alignItems: `center`,
-      }}
+      style={[
+        {
+          height,
+          width: width - 32,
+          borderRadius: width / 15,
+        },
+        styles.cardStyle,
+      ]}
     >
-      <View style={{ backgroundColor: target, width: 60, height: 60, borderRadius: 30 }} />
+      <TargetIcon target={target} style={styles.nextCardIcon} />
     </View>
   );
 };
@@ -125,13 +132,15 @@ const HiddenCard: React.FC<Pick<BehaviorCardProps, `behavior`>> = ({ behavior })
 const EmptyCard: React.FC<Pick<BehaviorCardProps, `hidden`>> = ({ hidden }) => {
   const width = useWindowDimensions().width - 32;
   const height = hidden ? width / 2 : width;
+  const scheme = useColorScheme();
+  const { text: borderColor } = Colors[scheme ?? `light`];
   return (
     <View
       style={{
         width,
         height,
+        borderColor,
         borderWidth: 1,
-        borderColor: `#fff`,
         borderStyle: `dashed`,
         borderRadius: width / 15,
       }}
@@ -169,5 +178,17 @@ const styles = StyleSheet.create({
     padding: 8,
     paddingHorizontal: 12,
     marginVertical: 8,
+  },
+  cardStyle: {
+    backgroundColor: `#FCA`,
+    justifyContent: `center`,
+    alignItems: `center`,
+  },
+  nextCardIcon: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: `center`,
+    justifyContent: `center`,
   },
 });

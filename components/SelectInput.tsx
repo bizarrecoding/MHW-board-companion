@@ -8,7 +8,7 @@ const SNAP_WIDTH = 360;
 
 type SelectInputProps<T> = {
   data: T[];
-  setValue: React.Dispatch<React.SetStateAction<T>>;
+  setValue: React.Dispatch<React.SetStateAction<T>> | ((value: T) => void);
   label?: string;
 };
 

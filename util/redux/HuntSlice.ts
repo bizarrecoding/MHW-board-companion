@@ -24,10 +24,13 @@ export const huntSlice = createSlice({
     setRank: (state, action: PayloadAction<RankType>) => {
       state.rank = action.payload;
     },
+    setMonster: (state, action: PayloadAction<MonsterKind>) => {
+      state.monster = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setHunt, setRank } = huntSlice.actions;
+export const { setHunt, setRank, setMonster } = huntSlice.actions;
 
 export default huntSlice.reducer;
