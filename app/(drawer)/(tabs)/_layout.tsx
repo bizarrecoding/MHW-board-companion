@@ -74,6 +74,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="Behaviors"
+        options={{
+          title: `Behaviors`,
+          tabBarIcon: ({ color }) => <TabBarIcon name="header" color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="rolls"
         options={{
           title: `Damage Rolls`,
