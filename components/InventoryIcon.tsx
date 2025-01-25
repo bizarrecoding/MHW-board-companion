@@ -196,7 +196,7 @@ export const MonsterIconKeys = [
 
 type MonsterIconProps = {
   type: MonsterKind;
-  rank?: RankType | `failed`;
+  rank?: RankType | `failed` | `none`;
   style?: StyleProp<ImageStyle>;
   noRank?: boolean;
   disabled?: boolean;
@@ -222,11 +222,12 @@ export const MonsterIconBG: React.FC<MonsterIconProps> = ({ type, style, disable
 };
 
 const TRANSPARENCY_MOD = `88`;
-const BORDER_MAP: Record<RankType | `failed`, string> = {
+const BORDER_MAP: Record<RankType | `failed` | `none`, string> = {
   "Low Rank": `#A63`,
   "High Rank": `#AAA`,
   "Master Rank": `#EB5`,
   failed: `#A00`,
+  none: `#0000`,
 };
 export const MonsterIcon = (props: MonsterIconProps) => {
   const { rank, type, noRank, disabled } = props;

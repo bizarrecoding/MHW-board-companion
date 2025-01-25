@@ -15,6 +15,7 @@
     "check-types": "tsc --noEmit --pretty",
     "prettier:fix": "prettier --write \"./**/*.{ts,tsx}\"",
     "publish-ota": "npx eas update --branch beta-1.0.0 -p all",
+    "publish-ota-preview": "npx eas update --branch preview -p all",
     "build-apk": "npx eas build -p android --profile='preview' --non-interactive"
   },
   "husky": {

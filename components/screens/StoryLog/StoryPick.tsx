@@ -1,5 +1,12 @@
 import React from "react";
-import { ImageStyle, StyleSheet, TouchableOpacity, useWindowDimensions } from "react-native";
+import {
+  ImageStyle,
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  useWindowDimensions,
+  ViewStyle,
+} from "react-native";
 
 import { MonsterKind, Ranks, RankType } from "../../../assets/data/types";
 import { MonsterIcon } from "../../InventoryIcon";
@@ -17,9 +24,18 @@ const Monsters: MonsterKind[] = [
 type StoryPickerProps = {
   setMonster: React.Dispatch<React.SetStateAction<MonsterKind | undefined>>;
   setRank: React.Dispatch<React.SetStateAction<RankType>>;
+  allowedChoices?: MonsterKind[];
+  title?: string;
+  style?: StyleProp<ViewStyle>;
 };
 
-const StoryPicker: React.FC<StoryPickerProps> = ({ setMonster, setRank }) => {
+const StoryPicker: React.FC<StoryPickerProps> = ({
+  setMonster,
+  setRank,
+  allowedChoices = Monsters,
+  title = `Choose a monster to start your story:`,
+  style,
+}) => {
   const width = useWindowDimensions().width;
   const columnSize = width / 2 - 16;
   const styleOverride: ImageStyle = {
@@ -28,26 +44,29 @@ const StoryPicker: React.FC<StoryPickerProps> = ({ setMonster, setRank }) => {
     borderColor: `#0000`,
   };
   return (
-    <View style={styles.container}>
-      <Text>Choose a monster to start your story in:</Text>
+    <View style={[styles.container, style]}>
+      <Text>{title}</Text>
       <SelectInput<RankType> data={Ranks} setValue={setRank} />
       <View style={{ flexDirection: `row`, flexWrap: `wrap` }}>
-        {Monsters.map((monster) => (
-          <TouchableOpacity
-            key={monster}
-            onPress={() => setMonster(monster)}
-            disabled={monster !== `Barroth`}
-            style={{ width: columnSize, alignItems: `center`, marginVertical: 20 }}
-          >
-            <MonsterIcon
-              noRank={monster === `Barroth`}
-              rank={monster === `Barroth` ? undefined : `failed`}
-              type={monster}
-              style={styleOverride}
-              disabled={monster !== `Barroth`}
-            />
-          </TouchableOpacity>
-        ))}
+        {Monsters.map((monster) => {
+          const allowed = allowedChoices.includes(monster);
+          return (
+            <TouchableOpacity
+              key={monster}
+              onPress={() => setMonster(monster)}
+              disabled={!allowed}
+              style={{ width: columnSize, alignItems: `center`, marginVertical: 20 }}
+            >
+              <MonsterIcon
+                noRank={!allowed}
+                rank={allowed ? `none` : `failed`}
+                type={monster}
+                style={styleOverride}
+                disabled={!allowed}
+              />
+            </TouchableOpacity>
+          );
+        })}
       </View>
     </View>
   );

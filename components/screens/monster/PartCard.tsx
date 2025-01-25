@@ -1,9 +1,11 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
+import { useSelector } from "react-redux";
 
 import { PartsData } from "../../../assets/data/hunt";
 import { InventoryKind } from "../../../assets/data/types";
+import { RootState } from "../../../util/redux/store";
 import InventoryIcon from "../../InventoryIcon";
 import { View, Text } from "../../Themed";
 import { useThemeColor } from "../../themed/useThemeColor";
@@ -22,15 +24,24 @@ const map: Record<string, InventoryKind> = {
   Tail: `tail`,
 };
 
-const caret_map: Record<string, `caret-up` | `caret-down` | `caret-left`> = {
+const caret_map: Record<string, `caret-up` | `caret-down` | `caret-left` | `caret-right`> = {
   Head: `caret-up`,
   Back: `caret-left`,
   Legs: `caret-left`,
+  "Left Leg": `caret-left`,
+  "Right Leg": `caret-right`,
   Tail: `caret-down`,
+};
+
+const getPartLabel = (monster: string, type: string) => {
+  if (monster === `Jyuratodus` && type === `Back`) return `Right Leg`;
+  if (monster === `Jyuratodus` && type === `Legs`) return `Left Leg`;
+  return type;
 };
 
 export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak }) => {
   const textColor = useThemeColor({}, `text`);
+  const { monster } = useSelector((state: RootState) => state.hunt);
   const [breakDmg, setBreakDmg] = useState(breakRes);
   const damagePart = () => {
     setBreakDmg((hp) => (hp > 0 ? hp - 1 : breakRes));
@@ -42,19 +53,24 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
     if (breakRes) setBreakDmg(breakRes);
   }, [breakRes]);
 
+  if (monster === `Pukei-Pukei` && type === `Back`) return null;
+
   const backgroundColor = breakDmg === 0 ? `#F336` : `#FB7A`;
+  const partLabel = getPartLabel(monster, type);
+  const caretIcon = caret_map[partLabel];
+  const partIcon = map[partLabel.includes(`Leg`) ? `Legs` : type];
   return (
     <>
       <View style={{ flexDirection: `row`, alignItems: `center`, gap: 5 }}>
-        <Text variant="caption">{type}</Text>
-        <FontAwesome name={caret_map[type]} color={textColor} size={16} />
-        {caret_map[type] === `caret-left` ? (
+        <Text variant="caption">{partLabel}</Text>
+        <FontAwesome name={caretIcon} color={textColor} size={16} />
+        {[`Legs`, `Back`].includes(partLabel) ? (
           <FontAwesome name="caret-right" color={textColor} size={16} />
         ) : null}
       </View>
       <View style={styles.partCard}>
         <InventoryIcon
-          type={map[type]}
+          type={partIcon}
           style={[styles.part, styles.partIcon, { backgroundColor }]}
         />
 

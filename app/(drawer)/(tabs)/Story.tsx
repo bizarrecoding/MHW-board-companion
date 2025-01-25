@@ -24,7 +24,8 @@ const Story = () => {
       },
     });
   }, [navigation, monster]);
-  if (!monster) return <StoryPicker setMonster={setMonster} setRank={setRank} />;
+  if (!monster)
+    return <StoryPicker setMonster={setMonster} setRank={setRank} allowedChoices={[`Barroth`]} />;
 
   return <StoryContent monster={monster} rank={rank} />;
 };

@@ -1,20 +1,21 @@
 import { Tabs } from "expo-router";
 import React, { useCallback, useMemo, useState } from "react";
 import { StyleSheet, useWindowDimensions, ScrollView, TouchableOpacity } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import { MonsterHuntData, PartsData } from "../../../assets/data/hunt";
-import { MonsterKind, RankType } from "../../../assets/data/types";
 import { MonsterIcon } from "../../../components/InventoryIcon";
 import { View, Text } from "../../../components/Themed";
 import { HPCounter } from "../../../components/screens/monster/HPCounter";
 import MonsterParts from "../../../components/screens/monster/MonsterParts";
 import ResistanceTabs from "../../../components/screens/monster/ResistanceTabs";
-
-const baseHunt = MonsterHuntData[`Barroth`];
+import { setRank } from "../../../util/redux/HuntSlice";
+import { RootState } from "../../../util/redux/store";
 
 const Monster = () => {
-  const [monster, _setMonster] = useState<MonsterKind>(`Barroth`);
-  const [rank, setRank] = useState<RankType>(`Low Rank`);
+  const dispatch = useDispatch();
+  const { monster, rank } = useSelector((state: RootState) => state.hunt);
+  const baseHunt = MonsterHuntData[monster ?? `Barroth`];
   const width = useWindowDimensions().width;
   const [effects, setEffects] = useState<(keyof PartsData)[]>([]);
   const onBreak = useCallback((part: keyof PartsData) => {
@@ -25,21 +26,22 @@ const Monster = () => {
   }, []);
 
   const toggle = () => {
-    if (rank === `Low Rank`) setRank(`High Rank`);
-    if (rank === `High Rank`) setRank(`Master Rank`);
-    if (rank === `Master Rank`) setRank(`Low Rank`);
+    if (rank === `Low Rank`) dispatch(setRank(`High Rank`));
+    if (rank === `High Rank`) dispatch(setRank(`Master Rank`));
+    if (rank === `Master Rank`) dispatch(setRank(`Low Rank`));
     //reset visible effects
     setEffects([]);
   };
 
   const effectsText = useMemo(() => {
-    let msg = baseHunt?.effects;
+    let msg = baseHunt?.[rank]?.effects;
     effects.forEach((effect) => {
       const partEffect = baseHunt?.[rank]?.parts[effect]?.effect;
       if (msg && partEffect) msg = `${msg}\n - ${partEffect}`;
     });
     return msg;
-  }, [effects, rank]);
+  }, [baseHunt, effects, rank]);
+
   return (
     <View style={styles.container}>
       <Tabs.Screen

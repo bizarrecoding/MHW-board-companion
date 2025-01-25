@@ -57,6 +57,20 @@ export default function TabLayout() {
         options={{
           title: `Monster`,
           tabBarIcon: ({ color }) => <TabBarIcon name="bug" color={color} />,
+          headerRight: () => (
+            <Link href="/modal?type=monster" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name="refresh"
+                    size={25}
+                    color={Colors[colorScheme ?? `light`].accent}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
         }}
       />
       <Tabs.Screen

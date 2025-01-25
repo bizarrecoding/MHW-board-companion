@@ -12,6 +12,7 @@ import {
 } from "redux-persist";
 
 import characterSlice, { CharacterState } from "./CharacterSlice";
+import huntSlice, { HuntState } from "./HuntSlice";
 import rollSlice, { RollState } from "./RollSlice";
 
 const persistConfig = <T = object>(key: string = `root`, slice: any) => {
@@ -26,6 +27,7 @@ export const store = configureStore({
   reducer: {
     rolls: persistConfig<RollState>(`rolls`, rollSlice),
     character: persistConfig<CharacterState>(`character`, characterSlice),
+    hunt: persistConfig<HuntState>(`hunt`, huntSlice),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
