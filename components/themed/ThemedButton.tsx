@@ -1,12 +1,12 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React from "react";
-import { StyleProp, TextStyle, TouchableOpacity, StyleSheet, View } from "react-native";
+import { StyleProp, TextStyle, TouchableOpacity, StyleSheet, View, TouchableOpacityProps } from "react-native";
 
 import Text from "./ThemedText";
 import { useThemeColor, ThemeProps } from "./useThemeColor";
 
 export type ButtonProps = ThemeProps &
-  TouchableOpacity[`props`] & {
+  TouchableOpacityProps & {
     title?: string;
     round?: boolean;
     variant?: `filled` | `outlined` | `clear`;

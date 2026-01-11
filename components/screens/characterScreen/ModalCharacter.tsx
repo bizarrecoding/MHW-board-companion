@@ -11,7 +11,7 @@ type ModalCharacterArgs = {
   renderListValues: {
     listOptions?: ItemData[];
     value?: string;
-  };
+  } | null;
 };
 
 const ModalCharacter = ({
