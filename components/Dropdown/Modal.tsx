@@ -7,12 +7,12 @@ import { View } from "../Themed";
 /**
  * TODO: convert into General-use Modal, or delete
  */
-interface ModalArgs {
+type ModalArgs = React.PropsWithChildren<{
   title?: string;
-  onPressCancel?: ({ ...args }: any) => void;
-  onPressConfirm?: ({ ...args }: any) => void;
-  children?: any;
-}
+  onPressCancel?: () => void;
+  onPressConfirm?: () => void;
+}>;
+
 const Modal = ({ title, onPressCancel, onPressConfirm, children }: ModalArgs) => {
   return (
     <View style={styles.background}>
@@ -21,24 +21,8 @@ const Modal = ({ title, onPressCancel, onPressConfirm, children }: ModalArgs) =>
         <View style={styles.content}>{children}</View>
         <View style={styles.footer}>
           <View style={styles.controls}>
-            <Button
-              label="Cancel"
-              onPress={
-                onPressCancel ??
-                (() => {
-                  console.log(`Cancel`);
-                })
-              }
-            />
-            <Button
-              label="Confirm"
-              onPress={
-                onPressConfirm ??
-                (() => {
-                  console.log(`Confirm`);
-                })
-              }
-            />
+            <Button label="Cancel" onPress={onPressCancel} />
+            <Button label="Confirm" onPress={onPressConfirm} />
           </View>
         </View>
       </View>

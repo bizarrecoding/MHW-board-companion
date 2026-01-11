@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, Reducer } from "@reduxjs/toolkit";
 import {
   FLUSH,
   PAUSE,
@@ -15,7 +15,7 @@ import characterSlice, { CharacterState } from "./CharacterSlice";
 import huntSlice, { HuntState } from "./HuntSlice";
 import rollSlice, { RollState } from "./RollSlice";
 
-const persistConfig = <T = object>(key: string = `root`, slice: any) => {
+const persistConfig = <T = object>(key: string = `root`, slice: Reducer<T>) => {
   const baseConfig = {
     key,
     storage: AsyncStorage,

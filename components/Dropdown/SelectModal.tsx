@@ -4,14 +4,13 @@ import { Modal, StyleSheet } from "react-native";
 import { View, Text, Button } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
 
-interface SelectModalArgs {
+type SelectModalArgs = React.PropsWithChildren<{ 
   title?: string;
   onPressConfirm?: () => void;
   onPressCancel?: () => void;
   modalVisible: boolean;
   setModalVisible: Dispatch<boolean>;
-  children: any;
-}
+}>;
 /**
  * Modal to be used in conjunction with the Select component
  */
@@ -36,7 +35,6 @@ export const SelectModal = ({
               title="Cancel"
               style={styles.controls}
               onPress={() => {
-                console.log(`Cancel`);
                 setModalVisible(false);
                 if (onPressCancel) onPressCancel();
               }}
@@ -45,7 +43,6 @@ export const SelectModal = ({
               title="Confirm"
               style={styles.controls}
               onPress={() => {
-                console.log(`Confirm`);
                 setModalVisible(false);
                 if (onPressConfirm) onPressConfirm();
               }}

@@ -15,7 +15,7 @@ export const HunterLog: React.FC = () => {
       Alert.alert(`Delete Hunt ${item.monster}?`, `This action cannot be undone.`, [
         {
           text: `Cancel`,
-          onPress: () => console.log(`Cancel Pressed`),
+          onPress: () => null,
           style: `cancel`,
         },
         {

@@ -24,7 +24,7 @@ export const getAsyncStorageObject = async (key: string) => {
  * @param {String} key Key that will be used to store the value
  * @param {*} value Desired value to store in async storage
  */
-export const setAsyncStorageObject = async (key: string, value: any) => {
+export const setAsyncStorageObject = async (key: string, value: unknown) => {
   const valueObj = JSON.stringify(value);
   try {
     // console.log(`valueObj stringified`, valueObj);

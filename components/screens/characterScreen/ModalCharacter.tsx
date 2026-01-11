@@ -2,13 +2,16 @@ import { useState } from "react";
 
 import { CharacterModalSelectOptions as SelectOptions } from "./ICharacter";
 import { SelectModal, SelectList } from "../../Dropdown";
-import type { SelectedItemReturnType } from "../../Dropdown";
+import type { ItemData, SelectedItemReturnType } from "../../Dropdown";
 
 type ModalCharacterArgs = {
-  isSelectingType: any;
-  hideSelectModal: any;
-  onPressConfirm: any;
-  renderListValues: any;
+  isSelectingType: string;
+  hideSelectModal: () => void;
+  onPressConfirm: (item: SelectedItemReturnType) => void;
+  renderListValues: {
+    listOptions?: ItemData[];
+    value?: string;
+  };
 };
 
 const ModalCharacter = ({
@@ -24,7 +27,10 @@ const ModalCharacter = ({
   };
 
   const onPressItem = (index: number) => {
-    setIsFocusedItem({ ...renderListValues.listOptions[index], indexArray: index });
+    if (renderListValues?.listOptions) setIsFocusedItem({
+      ...renderListValues.listOptions[index],
+      indexArray: index
+    });
   };
 
   return (
@@ -36,8 +42,8 @@ const ModalCharacter = ({
     >
       {!renderListValues ? null : (
         <SelectList
-          options={renderListValues.listOptions}
-          selectedValue={renderListValues.value}
+          options={renderListValues?.listOptions}
+          selectedValue={renderListValues?.value}
           setSelectedItem={setIsFocusedItem}
           onPressItem={onPressItem}
         />
