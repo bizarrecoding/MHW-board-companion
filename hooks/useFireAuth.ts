@@ -1,10 +1,11 @@
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useCallback } from "react";
 
 import { auth } from "../service/firebase";
 
 export const useFireAuth = () => {
+  const router = useRouter();
   const registerUser = useCallback(async (user: string, password: string) => {
     try {
       await createUserWithEmailAndPassword(auth, user, password);

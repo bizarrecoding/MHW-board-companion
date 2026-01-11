@@ -69,7 +69,7 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const statusBarStyle = colorScheme !== `dark` ? `light` : `dark`;
   const { background, text } = Colors[colorScheme ?? `light`];
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const router = useRouter();
   useEffect(() => {
     // Fast login
@@ -88,30 +88,26 @@ function RootLayoutNav() {
   return (
     <>
       <StatusBar style={statusBarStyle} />
-      <Stack
-        initialRouteName="login"
-        screenOptions={{
-          statusBarColor: background,
-        }}
-      >
+      <Stack initialRouteName={user ? `/(drawer)` : `index`}>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-        {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-        <Stack.Screen
-          name="modal"
-          options={{
-            // ios modal statusBar are always light text
-            statusBarColor: Platform.select({ ios: `#000`, default: background }),
-            presentation: `modal`,
-            headerTintColor: text,
-            headerStyle: {
-              backgroundColor: background,
-            },
-            headerTitleStyle: {
-              color: text,
-            },
-          }}
-        />
+        <Stack.Protected guard={!!user}>
+          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="modal"
+            options={{
+              // ios modal statusBar are always light text/black background
+              statusBarStyle: Platform.select({ ios: `light`, default: colorScheme === `dark` ? `light` : `dark` }),
+              presentation: `modal`,
+              headerTintColor: text,
+              headerStyle: {
+                backgroundColor: background,
+              },
+              headerTitleStyle: {
+                color: text,
+              },
+            }}
+          />
+        </Stack.Protected>
       </Stack>
     </>
   );

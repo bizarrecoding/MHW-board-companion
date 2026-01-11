@@ -26,7 +26,8 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.lokih.mhwboardcompanion"
+      "package": "com.lokih.mhwboardcompanion",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",
