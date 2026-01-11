@@ -1,34 +1,17 @@
-import { router } from "expo-router";
 import { User } from "firebase/auth";
-import React, { useEffect, useState } from "react";
-
-import { auth } from "../service/firebase";
+import React, { useState } from "react";
 
 export type TUserContext = {
   user: User | null;
+  setUser: (user: User | null) => void;
 };
 
 export const UserContext = React.createContext<TUserContext>({
   user: null,
+  setUser: () => { },
 });
 
 export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    // Fast login
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log(`🚀 ~ onAuthStateChanged:`, user?.uid);
-      if (user) {
-        setUser(user);
-        router.replace(`/(drawer)/inventory`);
-      } else {
-        setUser(null);
-        router.replace(`/`);
-      }
-    });
-    return unsubscribe;
-  }, [setUser]);
-
-  return <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 };

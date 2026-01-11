@@ -1,9 +1,9 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { SplashScreen, Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Platform, useColorScheme } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
@@ -12,8 +12,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Text } from "../components/Themed";
 import Colors from "../constants/Colors";
 import { DarkTheme, DefaultTheme } from "../constants/theme";
-import { UserContextProvider } from "../context/UserContext";
+import { UserContext, UserContextProvider } from "../context/UserContext";
 import { persistor, store } from "../util/redux/store";
+import { auth } from "../service/firebase";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -29,6 +30,7 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const colorScheme = useColorScheme();
   const [loaded, error] = useFonts({
     SpaceMono: require(`../assets/fonts/SpaceMono-Regular.ttf`),
     ...FontAwesome.font,
@@ -48,10 +50,17 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <RootLayoutNav />
+      <ThemeProvider value={colorScheme === `dark` ? DarkTheme : DefaultTheme}>
+        <Provider store={store}>
+          <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+            <UserContextProvider>
+              <RootLayoutNav />
+            </UserContextProvider>
+          </PersistGate>
+        </Provider>
+      </ThemeProvider>
     </GestureHandlerRootView>
   );
 }
@@ -60,40 +69,50 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const statusBarStyle = colorScheme !== `dark` ? `light` : `dark`;
   const { background, text } = Colors[colorScheme ?? `light`];
+  const { setUser } = useContext(UserContext);
+  const router = useRouter();
+  useEffect(() => {
+    // Fast login
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log(`🚀 ~ onAuthStateChanged:`, user?.uid);
+      if (user) {
+        setUser(user);
+        router.replace(`/(drawer)/inventory`);
+      } else {
+        setUser(null);
+        router.replace(`/`);
+      }
+    });
+    return unsubscribe;
+  }, [setUser]);
   return (
-    <ThemeProvider value={colorScheme === `dark` ? DarkTheme : DefaultTheme}>
-      <Provider store={store}>
-        <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
-          <UserContextProvider>
-            <StatusBar style={statusBarStyle} />
-            <Stack
-              initialRouteName="login"
-              screenOptions={{
-                statusBarColor: background,
-              }}
-            >
-              <Stack.Screen name="index" options={{ headerShown: false }} />
-              <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-              {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-              <Stack.Screen
-                name="modal"
-                options={{
-                  // ios modal statusBar are always light text
-                  statusBarColor: Platform.select({ ios: `#000`, default: background }),
-                  presentation: `modal`,
-                  headerTintColor: text,
-                  headerStyle: {
-                    backgroundColor: background,
-                  },
-                  headerTitleStyle: {
-                    color: text,
-                  },
-                }}
-              />
-            </Stack>
-          </UserContextProvider>
-        </PersistGate>
-      </Provider>
-    </ThemeProvider>
+    <>
+      <StatusBar style={statusBarStyle} />
+      <Stack
+        initialRouteName="login"
+        screenOptions={{
+          statusBarColor: background,
+        }}
+      >
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+        {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
+        <Stack.Screen
+          name="modal"
+          options={{
+            // ios modal statusBar are always light text
+            statusBarColor: Platform.select({ ios: `#000`, default: background }),
+            presentation: `modal`,
+            headerTintColor: text,
+            headerStyle: {
+              backgroundColor: background,
+            },
+            headerTitleStyle: {
+              color: text,
+            },
+          }}
+        />
+      </Stack>
+    </>
   );
 }
