@@ -51,14 +51,14 @@ const Login: React.FC = () => {
         placeholder="Email"
         keyboardType="email-address"
         autoCapitalize="none"
-        style={[styles.login_input, { minHeight: 36 }]}
+        contentContainerStyle={styles.login_input}
         placeholderTextColor="gray"
         onChangeText={(u) => setUsername(u)}
       />
       <TextInput
         variant="password"
         onChangeText={(p) => setPassword(p)}
-        style={styles.login_input}
+        contentContainerStyle={styles.login_input}
         placeholder="Password"
         placeholderTextColor="gray"
       />
@@ -100,8 +100,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     textAlign: `center`,
   },
-  login_input: {
-    width: 300,
+  login_input: { 
+    maxWidth: 300,
+    minHeight: 36,
   },
   login_button: {
     width: 300,

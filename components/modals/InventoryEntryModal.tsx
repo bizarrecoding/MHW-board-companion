@@ -83,7 +83,7 @@ export const InventoryEntryModal = () => {
         />
         <FlatList<ItemEntry>
           ListHeaderComponent={
-            <TextInput style={{ padding: 16 }} onChangeText={filterBy} placeholder="Filter by..." />
+            <TextInput contentContainerStyle={{ padding: 16 }} onChangeText={filterBy} placeholder="Filter by..." />
           }
           stickyHeaderIndices={stickyIndex}
           data={data}

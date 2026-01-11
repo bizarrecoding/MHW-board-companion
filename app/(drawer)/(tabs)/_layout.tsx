@@ -27,7 +27,7 @@ export default function TabLayout() {
   const backgroundColor = colorScheme === `dark` ? background : `#fff`;
   return (
     <Tabs
-      initialRouteName="index"
+      initialRouteName="Story"
       screenOptions={{
         tabBarActiveTintColor: tabIconSelected,
         tabBarInactiveTintColor: tabIconDefault,

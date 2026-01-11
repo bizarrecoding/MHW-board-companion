@@ -68,7 +68,7 @@ export default function InventoryLog() {
       data={filterableInventory}
       ListHeaderComponent={
         <TextInput
-          style={{ padding: 16, margin: 16 }}
+          contentContainerStyle={{ padding: 16, margin: 16 }}
           onChangeText={filterBy}
           placeholder="Filter by..."
         />

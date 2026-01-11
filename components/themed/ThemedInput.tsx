@@ -1,82 +1,52 @@
 import { useState } from "react";
-import { TextInput as DefaultTextInput, StyleSheet, View } from "react-native";
+import { TextInput as NativeTextInput, StyleProp, StyleSheet, View, ViewStyle, TextInputProps as NativeTextInputProps } from "react-native";
 
 import { ThemedIconButton } from "./ThemedButton";
 import { useThemeColor, ThemeProps } from "./useThemeColor";
 
 export type TextInputProps = ThemeProps &
-  DefaultTextInput[`props`] & {
+  NativeTextInputProps & {
     variant?: `title` | `subtitle` | `button` | `caption` | `body` | `password`;
-  };
+  style?: StyleProp<ViewStyle>;
+  contentContainerStyle?: StyleProp<ViewStyle>;
+}
 
 const TRANSPARENCY_MOD = `D`;
 
 export default function TextInput(props: TextInputProps) {
-  const { style, lightColor, darkColor, variant = `body`, ...otherProps } = props;
+  const { style, lightColor, darkColor, variant = `body`, contentContainerStyle, ...otherProps } = props;
   const [visible, setVisible] = useState(false);
   const color = useThemeColor({ light: lightColor, dark: darkColor }, `text`);
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `card`);
 
-  switch (variant) {
-    case `title`:
-      return (
-        <DefaultTextInput
+  if (variant !== `password`) {
+    return (
+      <View style={[{ backgroundColor }, styles.base, contentContainerStyle]}>
+        <NativeTextInput
           placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
-          style={[{ color, backgroundColor }, styles.base, styles.title, style]}
+          style={[{ color }, styles[variant], style]}
           {...otherProps}
         />
-      );
-    case `subtitle`:
-      return (
-        <DefaultTextInput
+      </View>
+    );
+  } else {
+    return (
+      <View style={[{ backgroundColor }, styles.base, contentContainerStyle]}>
+        <NativeTextInput
           placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
-          style={[{ color, backgroundColor }, styles.base, styles.subtitle, style]}
+          secureTextEntry={!visible}
+          passwordRules="minlength: 8;"
+          style={[{ flex: 1, color }, styles.body, style]}
           {...otherProps}
         />
-      );
-    case `button`:
-      return (
-        <DefaultTextInput
-          placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
-          style={[{ color, backgroundColor }, styles.base, styles.button, style]}
-          {...otherProps}
+        <ThemedIconButton
+          icon={visible ? `eye-slash` : `eye`}
+          variant="clear"
+          style={{ padding: 0, margin: 0 }}
+          onPress={() => setVisible((v) => !v)}
         />
-      );
-    case `caption`:
-      return (
-        <DefaultTextInput
-          placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
-          style={[{ color, backgroundColor }, styles.base, styles.caption, style]}
-          {...otherProps}
-        />
-      );
-    case `password`:
-      return (
-        <View style={[{ backgroundColor }, styles.passwordWrapper, styles.base, style]}>
-          <DefaultTextInput
-            placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
-            secureTextEntry={!visible}
-            passwordRules="minlength: 8;"
-            style={[{ flex: 1, color }, styles.body, style]}
-            {...otherProps}
-          />
-          <ThemedIconButton
-            icon={visible ? `eye-slash` : `eye`}
-            variant="clear"
-            style={{ padding: 0, margin: 0 }}
-            onPress={() => setVisible((v) => !v)}
-          />
-        </View>
-      );
-    case `body`:
-    default:
-      return (
-        <DefaultTextInput
-          placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
-          style={[{ color, backgroundColor }, styles.base, styles.body, style]}
-          {...otherProps}
-        />
-      );
+      </View>
+    );
   }
 }
 
@@ -86,8 +56,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 99,
-  },
-  passwordWrapper: {
     flexDirection: `row`,
     alignItems: `center`,
   },
