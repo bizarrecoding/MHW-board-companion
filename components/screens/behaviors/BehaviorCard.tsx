@@ -10,8 +10,7 @@ import {
 } from "react-native";
 
 import DirectionalIcon from "./DirectionalIcon";
-import { Behavior } from "../../../assets/data/behaviors";
-import { InventoryKind } from "../../../assets/data/types";
+import { Behavior, InventoryKind } from "../../../assets/data/types";
 import Colors from "../../../constants/Colors";
 import InventoryIcon from "../../InventoryIcon";
 import { View, Text } from "../../Themed";
@@ -59,6 +58,7 @@ export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) 
   if (!behavior) return <EmptyCard hidden={hidden} />;
   if (hidden) return <HiddenCard behavior={behavior} />;
 
+  const [movement, direction] = behavior.movement ?? [0, null];
   return (
     <View
       style={{
@@ -89,13 +89,12 @@ export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) 
       </View>
       <View style={styles.columns}>
         <View style={{ flex: 1, minHeight: 60 + 16, marginVertical: 12, alignItems: `center` }}>
-          <Text variant="caption">AoE: {behavior.area}</Text>
-          <DirectionalIcon size={60} />
+          <Text variant="caption" numberOfLines={2}>AoE:</Text>
+          <DirectionalIcon size={60} directions={behavior.area} />
         </View>
         <View style={{ flex: 1, minHeight: 60 + 16, marginVertical: 12, alignItems: `center` }}>
-          <Text variant="caption">Movement: {behavior.movement[0]}</Text>
-          <Text variant="caption">Direction: {behavior.movement[1]}</Text>
-          <DirectionalIcon size={60} />
+          <Text variant="caption">Movement: {movement}</Text>
+          <DirectionalIcon size={60} directions={direction ? [direction] : null} />
         </View>
       </View>
       <View style={styles.dataRow2}>

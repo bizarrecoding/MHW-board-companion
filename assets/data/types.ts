@@ -55,7 +55,7 @@ export type StoryEntry = {
   monster?: MonsterKind
 }
 
-type Direction = "Front" | "Back" | "Left" | "Right";
+export type Direction = "Front" | "Back" | "Left" | "Right";
 export type Behavior = {
   name: string;
   rank?: RankType;

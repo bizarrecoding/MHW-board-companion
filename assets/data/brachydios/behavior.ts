@@ -49,10 +49,9 @@ const Behaviors: Behavior[] = [
     target: "Melee",
     damage: 0,
     range: 0,
-    dodge: 5,
+    dodge: 0,
     actions: 1,
     turns: 1,
-    // Note: This could be a buff behavior in the game logic
   },
   {
     name: "Jumping Smash",
