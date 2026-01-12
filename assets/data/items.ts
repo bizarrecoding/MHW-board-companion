@@ -1,6 +1,16 @@
+import barroth from "./barroth";
+import brachydios from "./brachydios";
+import diablos from "./diablos";
+import jyuratodus from "./jyuratodus";
+import pukei_pukei from "./pukei_pukei";
 import { ItemEntry } from "./types";
 
 export const ItemList: ItemEntry[] = [
+  ...barroth.items,
+  ...brachydios.items,
+  ...jyuratodus.items,
+  ...pukei_pukei.items,
+  ...diablos.items,
   {
     type: "potion",
     name: "Potion",
@@ -79,114 +89,6 @@ export const ItemList: ItemEntry[] = [
     type: "hide",
     name: "Wingdrake hide",
   },
-  // Barroth
-  {
-    type: "claw",
-    name: "Barroth Claw",
-  },
-  {
-    type: "shell",
-    name: "Barroth Shell",
-  },
-  {
-    type: "shell",
-    name: "Barroth Carapace",
-  },
-  {
-    type: "ridge",
-    name: "Barroth Ridge",
-  },
-  // Jyuratodus
-  {
-    type: "ridge",
-    name: "Jyuratodus Fin",
-  },
-  {
-    type: "claw",
-    name: "Jyuratodus Fang",
-  },
-  {
-    type: "scale",
-    name: "Jyuratodus Scale",
-  },
-  {
-    type: "shell",
-    name: "Jyuratodus Shell",
-  },
-  {
-    type: "shell",
-    name: "Jyuratodus Carapace",
-  },
-  {
-    type: "scale",
-    name: "Gajau Scale",
-  },
-  {
-    type: "sac",
-    name: "Aqua Sac",
-  },
-  // Pukei-Pukei
-  {
-    type: "wing",
-    name: "Pukei-Pukei Wing",
-  },
-  {
-    type: "scale",
-    name: "Pukei-Pukei Scale",
-  },
-  {
-    type: "wing",
-    name: "Pukei-Pukei Quill",
-  },
-  {
-    type: "shell",
-    name: "Pukei-Pukei Carapace",
-  },
-  {
-    type: "tail",
-    name: "Pukei-Pukei Tail",
-  },
-  {
-    type: "sac",
-    name: "Pukei-Pukei Sac",
-  },
-  {
-    type: "sac",
-    name: "Poison Sac",
-  },
-  {
-    type: "sac",
-    name: "Toxic Sac",
-  },
-  // Diablos
-  {
-    type: "shell",
-    name: "Diablos Shell",
-  },
-  {
-    type: "shell",
-    name: "Diablos Carapace",
-  },
-  {
-    type: "claw",
-    name: "Twisted Horn",
-  },
-  {
-    type: "claw",
-    name: "Majestic Horn",
-  },
-  {
-    type: "claw",
-    name: "Diablos Fang",
-  },
-  {
-    type: "ridge",
-    name: "Diablos Ridge",
-  },
-  {
-    type: "ridge",
-    name: "Blos Medula",
-  },
   // Black Diablos
   {
     type: "shell",
@@ -204,4 +106,6 @@ export const ItemList: ItemEntry[] = [
     type: "gem",
     name: "Wyvern Gem",
   },
+  //
+
 ];
