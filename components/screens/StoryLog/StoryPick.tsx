@@ -8,18 +8,10 @@ import {
   ViewStyle,
 } from "react-native";
 
-import { MonsterKind, Ranks, RankType } from "../../../assets/data/types";
+import { MonsterKind, Monsters, Ranks, RankType } from "../../../assets/data/types";
 import { MonsterIcon } from "../../InventoryIcon";
 import { SelectInput } from "../../SelectInput";
 import { Text, View } from "../../Themed";
-
-const Monsters: MonsterKind[] = [
-  `Barroth`,
-  `Pukei-Pukei`,
-  `Jyuratodus`,
-  `Diablos`,
-  `Black Diablos`,
-];
 
 type StoryPickerProps = {
   setMonster: (monster: MonsterKind) => void;

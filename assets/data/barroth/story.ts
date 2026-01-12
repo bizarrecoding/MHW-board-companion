@@ -1,21 +1,6 @@
-import { MonsterKind } from "./types"
+import { StoryEntry } from "../types"
 
-export type StoryOption = {
-  text: string,
-  effect?: string[],
-  condition?: string,
-  get?: string[],
-  roll?: string[],
-  next: number
-}
-export type StoryEntry = {
-  entry: number,
-  content: string,
-  options?: StoryOption[],
-  get?: string[],
-  roll?: string[]
-  monster?: MonsterKind
-}
+
 const story: StoryEntry[] = [{
   entry: 1,
   get: ["Potion"],

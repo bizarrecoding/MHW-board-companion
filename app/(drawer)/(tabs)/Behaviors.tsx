@@ -2,8 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 
-import { Behavior, BehaviorData } from "../../../assets/data/behaviors";
-import { MonsterKind, RankType } from "../../../assets/data/types";
+import { BehaviorData } from "../../../assets/data/behaviors";
+import { Behavior, MonsterKind, RankType } from "../../../assets/data/types";
 import { View, Text } from "../../../components/Themed";
 import { BehaviorCard } from "../../../components/screens/behaviors/BehaviorCard";
 import { RootState } from "../../../util/redux/store";
@@ -31,7 +31,7 @@ const Behaviors: React.FC = () => {
   const [index, setIndex] = useState(0);
   const deck = useMemo(() => {
     const baseBehaviors = getBehaviors(monster, rank);
-    return shuffleArray<Behavior | null>(baseBehaviors);
+    return [null, ...shuffleArray<Behavior | null>(baseBehaviors)];
   }, [monster, rank]);
 
   useEffect(() => {

@@ -51,11 +51,11 @@ const Monster = () => {
       />
       <ScrollView style={{ padding: 16 }}>
         <View style={{ flexDirection: `row`, alignItems: `center` }}>
-          <TouchableOpacity onPress={toggle}>
+          <TouchableOpacity onPress={toggle} style={{ marginLeft: 16 }}>
             <MonsterIcon
               rank={rank}
               type={monster}
-              style={{ width: width / 3, height: width / 3, alignSelf: `center`, marginLeft: 20 }}
+              style={{ width: width / 3, height: width / 3, alignSelf: `center` }}
             />
           </TouchableOpacity>
           <HPCounter max={baseHunt?.[rank]?.maxHP ?? 60} />
@@ -65,7 +65,7 @@ const Monster = () => {
           <Text variant="caption">Effects</Text>
           <Text>{effectsText}</Text>
         </View>
-        {baseHunt?.weakness ? <ResistanceTabs data={baseHunt.weakness} /> : null}
+        {baseHunt?.weakness ? <ResistanceTabs key={monster} data={baseHunt.weakness} /> : null}
       </ScrollView>
     </View>
   );

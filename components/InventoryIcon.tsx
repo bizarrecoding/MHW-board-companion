@@ -12,23 +12,21 @@ import {
 
 import { View } from "./Themed";
 import { InventoryKind, MonsterKind, RankType } from "../assets/data/types";
+import MonsterColorMap from "../assets/data/palette";
 
 const Barroth = require(`../assets/images/monster/MHW-Barroth_Icon.webp`);
 const Diablos = require(`../assets/images/monster/MHW-Diablos_Icon.webp`);
 const Jyuratodus = require(`../assets/images/monster/MHW-Jyuratodus_Icon.webp`);
 const PukeiPukei = require(`../assets/images/monster/MHW-Pukei-Pukei_Icon.webp`);
 const BlackDiablos = require(`../assets/images/monster/MHW-Black_Diablos_Icon.webp`);
+const Brachydios = require(`../assets/images/monster/MHW-Brachydios_Icon.png`);
 
 const ColorMap: Record<string, string> = {
-  Barroth: `#D5A683`,
-  Diablos: `#F5A623`,
+  ...MonsterColorMap,
   Blos: `#F5A623`,
   Twisted: `#F5A623`,
   Majestic: `#F5A623`,
-  Jyuratodus: `#4499EE`,
-  "Pukei-Pukei": `#77AA22`,
   Black: `#444`,
-  "Black Diablos": `#666666`,
   Fucium: `#F8A`,
   Carbalite: `#A8F`,
   Dragonite: `#8C8`,
@@ -186,14 +184,6 @@ export default function InventoryIcon({ type, name, style }: InventoryIconProps)
   );
 }
 
-export const MonsterIconKeys = [
-  `Barroth`,
-  `Diablos`,
-  `Jyuratodus`,
-  `Pukei-Pukei`,
-  `Black Diablos`,
-] as MonsterKind[];
-
 type MonsterIconProps = {
   type: MonsterKind;
   rank?: RankType | `failed` | `none`;
@@ -216,8 +206,10 @@ export const MonsterIconBG: React.FC<MonsterIconProps> = ({ type, style, disable
       return <Image style={iconStyles} resizeMode="contain" source={Diablos} />;
     case `Black Diablos`:
       return <Image style={iconStyles} resizeMode="contain" source={BlackDiablos} />;
+    case `Brachydios`:
+      return <Image style={iconStyles} resizeMode="contain" source={Brachydios} />;
     default:
-      return <View />;
+      return <View style={[iconStyles, { borderColor: `#F33`, borderWidth: 1 }]} />;
   }
 };
 

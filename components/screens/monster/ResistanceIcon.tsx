@@ -1,8 +1,6 @@
 import React from "react";
 import { View, Image, ViewStyle, StyleSheet, StyleProp } from "react-native";
-
-export type Elements = `Fire` | `Water` | `Thunder` | `Ice` | `Dragon`;
-export type Ailments = `Paralysis` | `Poison` | `Sleep` | `Blast` | `Stun`;
+import { Elements, Ailments } from "../../../assets/data/types";
 
 type ResistanceProps = {
   type: Elements | Ailments;

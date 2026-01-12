@@ -2,9 +2,10 @@ import { FontAwesome } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity, useColorScheme } from "react-native";
 
-import ResistanceIcon, { Ailments, Elements } from "./ResistanceIcon";
+import ResistanceIcon from "./ResistanceIcon";
 import { View, Text } from "../../Themed";
 import { useThemeColor } from "../../themed/useThemeColor";
+import { Ailments, Elements } from "../../../assets/data/types";
 
 const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = ({ data }) => {
   const [activeTab, setActiveTab] = useState(`status`);

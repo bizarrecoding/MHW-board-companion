@@ -4,12 +4,13 @@ import { Drawer } from "expo-router/drawer";
 import React, { useContext } from "react";
 import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
 
-import { MonsterIcon, MonsterIconKeys } from "../../components/InventoryIcon";
+import { MonsterIcon } from "../../components/InventoryIcon";
 import { Button, Text } from "../../components/Themed";
 import Colors from "../../constants/Colors";
 import { build } from "../../constants/build";
 import { UserContext } from "../../context/UserContext";
 import { useFireAuth } from "../../hooks/useFireAuth";
+import { Monsters as MonsterIconKeys } from "../../assets/data/types";
 
 const getImageSource = (s: string | null = ``) => {
   if (s === null) return MonsterIconKeys[0];

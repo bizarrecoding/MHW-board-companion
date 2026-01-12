@@ -3,22 +3,19 @@ import React, { useState } from "react";
 import { StyleProp, StyleSheet, ViewStyle } from "react-native";
 
 import { ItemList } from "../../../assets/data/items";
-import barrothStory, { StoryEntry, StoryOption } from "../../../assets/data/story-barroth";
-import { ItemEntry, MonsterKind, RankType } from "../../../assets/data/types";
+import { ItemEntry, MonsterKind, RankType, StoryEntry, StoryOption } from "../../../assets/data/types";
 import EventModal from "../../Dropdown/EventModal";
 import InventoryIcon, { MonsterIcon } from "../../InventoryIcon";
 import { View, Text, Button } from "../../Themed";
+import { story } from "../../../assets/data/story";
 
 type StoryProps = {
   monster: MonsterKind;
   rank: RankType;
 };
 
-const getMonsterStory = (monster?: MonsterKind) => {
-  if (monster === `Barroth`) return barrothStory;
-  if (monster === `Pukei-Pukei`) return barrothStory;
-  //TODO: Add more monsters story entries
-  return barrothStory;
+const getMonsterStory = (monster: MonsterKind) => {
+  return story[monster] ?? story.Barroth;
 };
 
 const random = (start: number, end: number) => {

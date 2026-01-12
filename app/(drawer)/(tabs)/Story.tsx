@@ -8,6 +8,7 @@ import StoryContent from "../../../components/screens/StoryLog/StoryContent";
 import StoryPicker from "../../../components/screens/StoryLog/StoryPick";
 import { setRank, setMonster } from "../../../util/redux/HuntSlice";
 import { RootState } from "../../../util/redux/store";
+import { story } from "../../../assets/data/story";
 
 const Story = () => {
   const navigation = useNavigation();
@@ -36,12 +37,17 @@ const Story = () => {
       },
     });
   }, [navigation, monster]);
+
+  const availableMonsters = Object.entries(story)
+    .filter(([_, v]) => v.length > 0)
+    .map(([k]) => k) as MonsterKind[];
+
   if (needToPick)
     return (
       <StoryPicker
         setMonster={dispatchMonster}
         setRank={dispatchRank}
-        allowedChoices={[`Barroth`]}
+        allowedChoices={availableMonsters}
       />
     );
 
