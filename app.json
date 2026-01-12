@@ -2,7 +2,7 @@
   "expo": {
     "name": "mhw-board-companion",
     "slug": "mhw-board-companion",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "privacy": "hidden",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
