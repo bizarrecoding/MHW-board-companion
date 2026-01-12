@@ -9,16 +9,16 @@ type MonsterPartsProps = {
   onBreak: (part: keyof PartsData) => void;
 };
 const MonsterParts: React.FC<MonsterPartsProps> = ({ data, onBreak }) => {
-  const { Head, Back, Legs, Tail } = data;
+  const { Head, Back, Legs, Tail } = data ?? {};
   return (
     <View style={{ flexDirection: `row`, paddingHorizontal: 12, paddingTop: 12 }}>
       <View style={{ flex: 1 }}>
-        <PartCard type="Head" def={Head.def} breakRes={Head.breakRes} onBreak={onBreak} />
-        <PartCard type="Back" def={Back.def} breakRes={Back.breakRes} onBreak={onBreak} />
+        <PartCard type="Head" def={Head?.def ?? 0} breakRes={Head?.breakRes ?? 0} onBreak={onBreak} />
+        <PartCard type="Back" def={Back?.def ?? 0} breakRes={Back?.breakRes ?? 0} onBreak={onBreak} />
       </View>
       <View style={{ flex: 1 }}>
-        <PartCard type="Legs" def={Legs.def} breakRes={Legs.breakRes} onBreak={onBreak} />
-        <PartCard type="Tail" def={Tail.def} breakRes={Tail.breakRes} onBreak={onBreak} />
+        <PartCard type="Legs" def={Legs?.def ?? 0} breakRes={Legs?.breakRes ?? 0} onBreak={onBreak} />
+        <PartCard type="Tail" def={Tail?.def ?? 0} breakRes={Tail?.breakRes ?? 0} onBreak={onBreak} />
       </View>
     </View>
   );
