@@ -1,0 +1,163 @@
+import { Behavior } from "../types"
+
+const Behaviors: Behavior[] = [
+  {
+    name: "Slime Punch",
+    part: "Head",
+    effect: null,
+    movement: [2, "Front"],
+    area: ["Front"],
+    target: "Melee",
+    damage: 8,
+    range: 1,
+    dodge: 4,
+    actions: 2,
+    turns: 1
+  },
+  {
+    name: "Explosive Headbutt",
+    part: "Head",
+    effect: "Blast",
+    movement: [1, "Front"],
+    area: ["Front"],
+    target: "Melee",
+    damage: 10,
+    range: 1,
+    dodge: 3,
+    actions: 3,
+    turns: 2
+  },
+  {
+    name: "Slime Line",
+    part: "Head",
+    effect: "Blast",
+    movement: [3, "Back"],
+    area: ["Front"],
+    target: "Ranged",
+    damage: 7,
+    range: 3,
+    dodge: 4,
+    actions: 2,
+    turns: 2
+  },
+  {
+    name: "Licking Fists",
+    part: "Head",
+    effect: null,
+    movement: [0, null],
+    area: [],
+    target: "Melee",
+    damage: 0,
+    range: 0,
+    dodge: 5,
+    actions: 1,
+    turns: 1,
+    // Note: This could be a buff behavior in the game logic
+  },
+  {
+    name: "Jumping Smash",
+    part: "Head",
+    effect: "Blast",
+    movement: [4, "Front"],
+    area: ["Front", "Left", "Right"],
+    target: "Ranged",
+    damage: 12,
+    range: 2,
+    dodge: 2,
+    actions: 3,
+    turns: 3
+  },
+  {
+    name: "Lateral Charge",
+    part: "Legs",
+    effect: null,
+    movement: [3, "Left"],
+    area: ["Left"],
+    target: "Melee",
+    damage: 7,
+    range: 1,
+    dodge: 4,
+    actions: 2,
+    turns: 1
+  },
+  {
+    name: "Quick Step",
+    part: "Legs",
+    effect: null,
+    movement: [2, "Right"],
+    area: ["Right"],
+    target: "Melee",
+    damage: 6,
+    range: 1,
+    dodge: 5,
+    actions: 2,
+    turns: 1
+  },
+  {
+    name: "Ground Pound",
+    part: "Legs",
+    effect: "Blast",
+    movement: [1, "Front"],
+    area: ["Front", "Left", "Right", "Back"],
+    target: "Melee",
+    damage: 9,
+    range: 1,
+    dodge: 3,
+    actions: 2,
+    turns: 2
+  },
+  {
+    name: "Slime Trail",
+    part: "Legs",
+    effect: "Blast",
+    movement: [4, "Front"],
+    area: ["Back"],
+    target: "Melee",
+    damage: 6,
+    range: 1,
+    dodge: 4,
+    actions: 2,
+    turns: 2
+  },
+  {
+    name: "Tail Swing",
+    part: "Tail",
+    effect: null,
+    movement: [2, "Back"],
+    area: ["Back", "Left", "Right"],
+    target: "Melee",
+    damage: 8,
+    range: 2,
+    dodge: 4,
+    actions: 2,
+    turns: 1
+  },
+  {
+    name: "Tail Slam",
+    part: "Tail",
+    effect: "Blast",
+    movement: [1, "Back"],
+    area: ["Back"],
+    target: "Melee",
+    damage: 11,
+    range: 2,
+    dodge: 3,
+    actions: 2,
+    turns: 2
+  },
+  {
+    name: "Spinning Hook",
+    part: "Tail",
+    effect: null,
+    movement: [0, null],
+    area: ["Front", "Back", "Left", "Right"],
+    target: "Melee",
+    damage: 9,
+    range: 2,
+    dodge: 3,
+    actions: 2,
+    turns: 1
+  }
+]
+
+export default Behaviors
