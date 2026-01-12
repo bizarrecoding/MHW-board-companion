@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     textAlign: `center`,
   },
   login_input: { 
-    maxWidth: 300,
+    width: 300,
     minHeight: 36,
   },
   login_button: {
