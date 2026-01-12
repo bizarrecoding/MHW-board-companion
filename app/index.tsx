@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, useColorScheme, Image } from "react-native";
+import { StyleSheet, useColorScheme, Image, KeyboardAvoidingView } from "react-native";
 
 import { Button, Text, TextInput } from "../components/Themed";
 import Colors from "../constants/Colors";
@@ -42,7 +42,7 @@ const Login: React.FC = () => {
   }, [error]);
 
   return (
-    <View style={[styles.container, { backgroundColor: background }]}>
+    <KeyboardAvoidingView behavior="padding" style={[styles.container, { backgroundColor: background }]}>
       <Image source={require(`../assets/images/icon.png`)} style={styles.app_icon} />
       <Text variant="caption" style={styles.error}>
         {error}
@@ -80,7 +80,7 @@ const Login: React.FC = () => {
           Sign up.
         </Text>
       </Text>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 export default Login;
