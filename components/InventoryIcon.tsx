@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   ViewStyle,
   useColorScheme,
+  View,
 } from "react-native";
 
-import { View } from "./Themed";
 import { InventoryKind, MonsterKind, RankType } from "../assets/data/types";
 import MonsterColorMap from "../assets/data/palette";
 
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
     width: ICON_SIZES.small,
     height: ICON_SIZES.small,
     borderRadius: 60,
-    marginRight: 16,
+    // marginRight: 16,
   },
   InventoryIcon: {
     width: ICON_SIZES.small - 16,

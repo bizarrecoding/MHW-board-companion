@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import React, { useCallback, useState } from "react";
-import { ListRenderItem, StyleSheet } from "react-native";
+import { ListRenderItem, View, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import { ItemList } from "../../assets/data/items";
@@ -8,7 +8,7 @@ import { ItemEntry } from "../../assets/data/types";
 import { useInventory } from "../../hooks/useInventory";
 import Divider from "../Divider";
 import InventoryIcon from "../InventoryIcon";
-import { Text, View, TextInput, IconButton, Button } from "../Themed";
+import { Text, TextInput, IconButton, Button } from "../Themed";
 
 // default non-filtered data
 const sortedData = ItemList.sort((a, b) => a.type.localeCompare(b.type));
@@ -113,7 +113,7 @@ const InventoryItem: React.FC<InventoryItemProps> = ({ item, onPress, add }) => 
   const _onPress = () => onPress(item, add);
   return (
     <View style={{ flexDirection: `row`, padding: 16, alignItems: `center` }}>
-      <InventoryIcon type={item.type} name={item.name} />
+      <InventoryIcon type={item.type} name={item.name} style={styles.icon} />
       <Text variant="caption" style={{ flex: 1 }}>
         {item.name}
       </Text>
@@ -134,5 +134,8 @@ const styles = StyleSheet.create({
     margin: 16,
     width: `92%`,
     marginBottom: 32,
+  },
+  icon: {
+    marginRight: 12,
   },
 });

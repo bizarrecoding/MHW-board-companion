@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ListRenderItem, StyleSheet } from "react-native";
+import { FlatList, ListRenderItem, StyleSheet, View } from "react-native";
 
 import { InventoryEntry, useInventory } from "../../../hooks/useInventory";
 import InventoryIcon from "../../InventoryIcon";
 import NumberInput from "../../NumberInput";
-import { IconButton, Text, TextInput, View } from "../../Themed";
+import { IconButton, Text, TextInput } from "../../Themed";
 import { useThemeColor } from "../../themed/useThemeColor";
 
 const stickyIndex = [0];
@@ -32,7 +32,7 @@ export default function InventoryLog() {
     return (
       <View style={{ padding: 16, alignItems: `center` }}>
         <View style={{ flexDirection: `row` }}>
-          <InventoryIcon type={item.type} name={item.name} />
+          <InventoryIcon type={item.type} name={item.name} style={styles.icon} />
           <View style={{ flex: 1 }}>
             <Text variant="caption">{item.name}</Text>
             <Text variant="body">x {item.amount}</Text>
@@ -88,5 +88,8 @@ const styles = StyleSheet.create({
   counter: {
     flex: 1,
     textAlign: `center`,
+  },
+  icon: {
+    marginRight: 12,
   },
 });
