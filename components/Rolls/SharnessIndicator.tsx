@@ -1,7 +1,10 @@
-import { View, StyleSheet, useWindowDimensions, useColorScheme } from "react-native";
+import { View, StyleSheet, useWindowDimensions, useColorScheme, useAnimatedValue } from "react-native";
+import Animated, { useSharedValue, withTiming } from 'react-native-reanimated';
+
 import { WhetstoneIcon } from "../InventoryIcon";
 import { Text } from "../Themed";
 import { tintColor } from "../../constants/Colors";
+import { useEffect } from "react";
 
 type SharnessIndicatorProps = {
   sharpness: number;
@@ -21,6 +24,14 @@ const SharpnessIndicator: React.FC<SharnessIndicatorProps> = ({ sharpness, total
   const colorScheme = useColorScheme() ?? `light`;
   const sharpnessValue = Math.floor(sharpness / total * (SharpnessValues[colorScheme].length - 1));
   const bladeColor = SharpnessValues[colorScheme][sharpnessValue];
+
+  const sharpnessAnimated = useSharedValue(width * (sharpness / total));
+
+  useEffect(() => {
+    sharpnessAnimated.value = withTiming(width * (sharpness / total), {
+      duration: 600,
+    });
+  }, [sharpness, total]);
 
   const glowStyle = {
     ...styles.shadowStyle,
@@ -45,10 +56,10 @@ const SharpnessIndicator: React.FC<SharnessIndicatorProps> = ({ sharpness, total
           width,
           borderBottomRightRadius: SharpnessBarHeight * 3
         }]}>
-          <View style={{
+          <Animated.View style={{
             backgroundColor: bladeColor,
             height: SharpnessBarHeight * 3,
-            width: width * (sharpness / total),
+            width: sharpnessAnimated,
             borderBottomRightRadius: SharpnessBarHeight * 3
           }} />
         </View>
