@@ -297,8 +297,6 @@ const styles = StyleSheet.create({
     height: ICON_SIZES.small - 16,
   },
   whetstoneIconWrapper: {
-    marginVertical: 8,
-    marginHorizontal: 16,
     alignItems: `center`,
     justifyContent: `center`,
     //adding 4 to match complementary button size

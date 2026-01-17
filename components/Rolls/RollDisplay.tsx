@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
-import { ImageBackground, ScrollView, StyleSheet, useWindowDimensions } from "react-native";
+import { ImageBackground, View, ScrollView, StyleSheet, useWindowDimensions } from "react-native";
 
-import { Text, View } from "./Themed";
-import { useThemeColor } from "./themed/useThemeColor";
+import { Text } from "../Themed";
+import { useThemeColor } from "../themed/useThemeColor";
 
 type RollDisplayProps = {
   roll: number[];
@@ -62,8 +62,9 @@ type CardPanelProps = {
 const CardPanel: React.FC<CardPanelProps> = ({ cardSize, rollValue }) => {
   const { padding, fontSize, imageSize } = getStyleValuesForCard(cardSize);
   const backgroundColor = useThemeColor({}, `card`);
+  const cardBorderColor = useThemeColor({}, `cardBorder`);
   return (
-    <View style={[styles.cardWrapper, { padding, backgroundColor }]}>
+    <View style={[styles.cardWrapper, styles.shadowStyle, { padding, backgroundColor, borderColor: cardBorderColor }]}>
       <ImageBackground
         source={require(`../assets/images/Blast-MHW_Icon.png`)}
         resizeMode="contain"
@@ -114,5 +115,12 @@ const styles = StyleSheet.create({
     // textShadowColor: `#fff`,
     // textShadowRadius: 4,
     // textShadowOffset: { width: 1, height: 1 },
+  },
+  shadowStyle: {
+    elevation: 4,
+    shadowColor: '#FB8',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.35,
+    shadowRadius: 2,
   },
 });

@@ -4,10 +4,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 type DiceValue = [number, number, number, number];
 export interface RollState {
   rollPool: DiceValue;
+  total: number;
 }
 
 const initialState: RollState = {
   rollPool: [5, 5, 0, 1],
+  total: 11,
 };
 
 export const rollSlice = createSlice({
@@ -16,6 +18,7 @@ export const rollSlice = createSlice({
   reducers: {
     setRollPool: (state, action: PayloadAction<DiceValue>) => {
       state.rollPool = action.payload;
+      state.total = action.payload.reduce((acc, val) => acc + val, 0);
     },
   },
 });

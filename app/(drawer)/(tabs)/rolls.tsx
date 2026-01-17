@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useSelector } from "react-redux";
 
-import { WhetstoneIcon } from "../../../components/InventoryIcon";
-import RollDisplay from "../../../components/RollDisplay";
-import { Button, View, Text } from "../../../components/Themed";
+import RollDisplay from "../../../components/Rolls/RollDisplay";
+import SharpnessIndicator from "../../../components/Rolls/SharnessIndicator";
+import { Button, Text } from "../../../components/Themed";
 import { RootState } from "../../../util/redux/store";
 
 /**
@@ -24,7 +24,7 @@ const createDamagePool = (values: number[]) => {
 };
 
 export default function TabTwoScreen() {
-  const { rollPool } = useSelector((state: RootState) => state.rolls);
+  const { rollPool, total } = useSelector((state: RootState) => state.rolls);
   const [numberToRoll, setNumberToRoll] = useState(1);
   const [pool, setPool] = useState<number[]>([]);
   const [roll, setRoll] = useState<number[]>([]);
@@ -57,9 +57,7 @@ export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
       <View style={{ minHeight: 500, flexDirection: `column` }}>
-        <Text variant="title" style={{ padding: 16, textAlign: `center` }}>
-          Rolls until Sharpen: {pool.length}
-        </Text>
+        <SharpnessIndicator sharpness={pool.length} total={total} reset={reset} />
         <View style={[styles.center_row, styles.container]}>
           <RollDisplay roll={roll} />
         </View>
@@ -71,7 +69,6 @@ export default function TabTwoScreen() {
       </View>
       <View style={{ flexDirection: `row` }}>
         <Button title="Roll" style={{ flex: 4 }} onPress={rollDamage} />
-        <WhetstoneIcon style={{ flex: 1 }} onPress={reset} />
       </View>
     </View>
   );
@@ -88,5 +85,12 @@ const styles = StyleSheet.create({
   },
   buttons: {
     padding: 6,
+  },
+  shadowStyle: {
+    elevation: 4,
+    shadowColor: '#037b21',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 8,
   },
 });
