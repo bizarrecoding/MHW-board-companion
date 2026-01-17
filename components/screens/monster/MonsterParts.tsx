@@ -2,7 +2,7 @@ import React from "react";
 
 import { PartCard } from "./PartCard";
 import { PartsData } from "../../../assets/data/hunt";
-import { View } from "../../Themed";
+import { View } from "react-native";
 
 type MonsterPartsProps = {
   data: PartsData;
@@ -11,7 +11,7 @@ type MonsterPartsProps = {
 const MonsterParts: React.FC<MonsterPartsProps> = ({ data, onBreak }) => {
   const { Head, Back, Legs, Tail } = data ?? {};
   return (
-    <View style={{ flexDirection: `row`, paddingHorizontal: 12, paddingTop: 12 }}>
+    <View style={{ flexDirection: `row`, paddingTop: 12 }}>
       <View style={{ flex: 1 }}>
         <PartCard type="Head" def={Head?.def ?? 0} breakRes={Head?.breakRes ?? 0} onBreak={onBreak} />
         <PartCard type="Back" def={Back?.def ?? 0} breakRes={Back?.breakRes ?? 0} onBreak={onBreak} />

@@ -1,19 +1,24 @@
 import { Tabs } from "expo-router";
 import React, { useCallback, useMemo, useState } from "react";
-import { StyleSheet, useWindowDimensions, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, useWindowDimensions, View, ScrollView, TouchableOpacity, useColorScheme } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { MonsterHuntData, PartsData } from "../../../assets/data/hunt";
 import { MonsterIcon } from "../../../components/InventoryIcon";
-import { View, Text } from "../../../components/Themed";
+import { Text } from "../../../components/Themed";
 import { HPCounter } from "../../../components/screens/monster/HPCounter";
 import MonsterParts from "../../../components/screens/monster/MonsterParts";
 import ResistanceTabs from "../../../components/screens/monster/ResistanceTabs";
 import { setRank } from "../../../util/redux/HuntSlice";
 import { RootState } from "../../../util/redux/store";
+import { useThemeColor } from "../../../components/themed/useThemeColor";
 
 const Monster = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
+  const accentColor = useThemeColor({}, `accent`);
+  const cardColor = useThemeColor({}, `card`);
+  const cardBorderColor = useThemeColor({}, `cardBorder`); 
+
   const { monster, rank } = useSelector((state: RootState) => state.hunt);
   const baseHunt = MonsterHuntData[monster ?? `Barroth`];
   const width = useWindowDimensions().width;
@@ -24,6 +29,11 @@ const Monster = () => {
       return [...effects, part];
     });
   }, []);
+
+  const cardStyle = {
+    backgroundColor: cardColor,
+    borderColor: cardBorderColor,
+  };
 
   const toggle = () => {
     if (rank === `Low Rank`) dispatch(setRank(`High Rank`));
@@ -38,6 +48,7 @@ const Monster = () => {
     effects.forEach((effect) => {
       const partEffect = baseHunt?.[rank]?.parts[effect]?.effect;
       if (msg && partEffect) msg = `${msg}\n - ${partEffect}`;
+      else if (partEffect) msg = partEffect;
     });
     return msg;
   }, [baseHunt, effects, rank]);
@@ -46,24 +57,34 @@ const Monster = () => {
     <View style={styles.container}>
       <Tabs.Screen
         options={{
-          headerTitle: monster + ` - ` + rank,
+          headerTitle: `${monster.toUpperCase()} | ${rank}`,
+          headerTitleStyle: { fontSize: 16, letterSpacing: 1 },
         }}
       />
-      <ScrollView style={{ padding: 16 }}>
-        <View style={{ flexDirection: `row`, alignItems: `center` }}>
-          <TouchableOpacity onPress={toggle} style={{ marginLeft: 16 }}>
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
+        <View style={[styles.mainCard, cardStyle]}>
+          <TouchableOpacity onPress={toggle}>
             <MonsterIcon
               rank={rank}
               type={monster}
-              style={{ width: width / 3, height: width / 3, alignSelf: `center` }}
+              style={{ width: width / 3.5, height: width / 3.5 }}
             />
           </TouchableOpacity>
           <HPCounter max={baseHunt?.[rank]?.maxHP ?? 60} />
         </View>
+
+        <View style={styles.sectionHeader}>
+          <Text bold style={[styles.sectionTitle, { borderLeftColor: accentColor, color: accentColor }]}>MONSTER PARTS</Text>
+        </View>
         <MonsterParts data={baseHunt?.[rank]?.parts!} onBreak={onBreak} />
-        <View style={styles.effects}>
-          <Text variant="caption">Effects</Text>
-          <Text>{effectsText}</Text>
+
+        <View style={[styles.effectsCard, cardStyle]}>
+          <Text bold style={[styles.effectsLabel, { color: accentColor }]}>HUNT EFFECTS</Text>
+          <Text style={styles.effectsText}>{effectsText}</Text>
+        </View>
+
+        <View style={[styles.sectionHeader, { marginTop: 16 }]}>
+          <Text bold style={[styles.sectionTitle, { borderLeftColor: accentColor, color: accentColor }]}>RESISTANCES</Text>
         </View>
         {baseHunt?.weakness ? <ResistanceTabs key={monster} data={baseHunt.weakness} /> : null}
       </ScrollView>
@@ -77,8 +98,46 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  scroll: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: 16,
+    paddingBottom: 40,
+  },
+  mainCard: {
+    flexDirection: `row`,
+    alignItems: `center`, 
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1,
+    marginBottom: 24,
+    gap: 16,
+  },
+  sectionHeader: {
+    marginBottom: 12,
+    borderLeftWidth: 3,
+    paddingLeft: 12,
+  },
+  sectionTitle: {
+    fontSize: 14,
+    letterSpacing: 2, 
+  },
+  effectsCard: { 
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    marginTop: 8,
+  },
+  effectsLabel: {
+    fontSize: 10,
+    marginBottom: 8,
+    letterSpacing: 1,
+  },
+  effectsText: {
+    lineHeight: 20,
+  },                                              
   effects: {
-    marginTop: 10,
-    marginBottom: 15,
+    display: `none`,
   },
 });

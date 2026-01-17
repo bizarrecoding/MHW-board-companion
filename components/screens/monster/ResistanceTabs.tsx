@@ -1,9 +1,9 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity, useColorScheme } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import ResistanceIcon from "./ResistanceIcon";
-import { View, Text } from "../../Themed";
+import { Text } from "../../Themed";
 import { useThemeColor } from "../../themed/useThemeColor";
 import { Ailments, Elements } from "../../../assets/data/types";
 
@@ -20,80 +20,53 @@ const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = 
   const [stunRes, setStunRes] = useState(data.Stun);
   const [blastRes, setBlastRes] = useState(data.Blast);
 
-  const _panelColor = useThemeColor({}, `card`);
-  const panelColor = `${_panelColor}8`;
+  const panelColor = useThemeColor({}, `card`);
+  const tintColor = useThemeColor({}, `tint`);
+  const activePanelStyle = { backgroundColor: `${tintColor}` };
+
   return (
-    <View style={{ flex: 1, width: `100%` }}>
-      <View style={[styles.tabHolder, { borderBottomColor: panelColor, borderBottomWidth: 1 }]}>
+    <View style={styles.container}>
+      <View style={[styles.tabBar, { backgroundColor: panelColor }]}>
         <TouchableOpacity
           onPress={() => setActiveTab(`status`)}
-          style={{
-            flex: 1,
-            borderTopLeftRadius: 8,
-            backgroundColor: activeTab === `status` ? panelColor : undefined,
-          }}
+          style={[styles.tab, activeTab === `status` && activePanelStyle]}
         >
-          <Text style={styles.tab}>Status</Text>
+          <Text style={[styles.tabText, activeTab === `status` && styles.activeTabText]}>
+            ELEMENTS
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setActiveTab(`ailment`)}
-          style={{
-            flex: 1,
-            borderTopRightRadius: 8,
-            backgroundColor: activeTab === `ailment` ? panelColor : undefined,
-          }}
+          style={[styles.tab, activeTab === `ailment` && activePanelStyle]}
         >
-          <Text style={styles.tab}>Ailments</Text>
+          <Text style={[styles.tabText, activeTab === `ailment` && styles.activeTabText]}>
+            AILMENTS
+          </Text>
         </TouchableOpacity>
       </View>
-      <View>
-        <View style={{ flexDirection: `row`, justifyContent: `space-around` }}>
+
+      <View style={styles.content}>
+        <View style={styles.grid}>
           {activeTab === `status` ? (
             <>
-              {/* Elements do not change, value is set to data.element and minimum 1 to show red cross */}
-              <View style={{ flex: 1 }}>
+              <View style={styles.column}>
                 <Resistance type="Fire" value={fireRes} max={data.Fire} setValue={setFireRes} />
-                <Resistance
-                  type="Water"
-                  value={waterRes ?? 1}
-                  max={data.Water}
-                  setValue={setWaterRes}
-                />
-                <Resistance
-                  type="Thunder"
-                  value={thunderRes}
-                  max={data.Thunder}
-                  setValue={setThunderRes}
-                />
+                <Resistance type="Water" value={waterRes ?? 1} max={data.Water} setValue={setWaterRes} />
+                <Resistance type="Thunder" value={thunderRes} max={data.Thunder} setValue={setThunderRes} />
               </View>
-              <View style={{ flex: 1 }}>
+              <View style={styles.column}>
                 <Resistance type="Ice" value={iceRes} max={data.Ice} setValue={setIceRes} />
-                <Resistance
-                  type="Dragon"
-                  value={dragonRes}
-                  max={data.Dragon}
-                  setValue={setDragonRes}
-                />
+                <Resistance type="Dragon" value={dragonRes} max={data.Dragon} setValue={setDragonRes} />
               </View>
             </>
           ) : (
             <>
-              <View style={{ flex: 1 }}>
-                <Resistance
-                  type="Paralysis"
-                  value={paraRes}
-                  max={data.Paralysis}
-                  setValue={setParaRes}
-                />
-                <Resistance
-                  type="Poison"
-                  value={poisonRes}
-                  max={data.Poison}
-                  setValue={setPoisonRes}
-                />
+                <View style={styles.column}>
+                  <Resistance type="Paralysis" value={paraRes} max={data.Paralysis} setValue={setParaRes} />
+                  <Resistance type="Poison" value={poisonRes} max={data.Poison} setValue={setPoisonRes} />
                 <Resistance type="Sleep" value={sleepRes} max={data.Sleep} setValue={setSleepRes} />
               </View>
-              <View style={{ flex: 1 }}>
+                <View style={styles.column}>
                 <Resistance type="Blast" value={blastRes} max={data.Blast} setValue={setBlastRes} />
                 <Resistance type="Stun" value={stunRes} max={data.Stun} setValue={setStunRes} />
               </View>
@@ -114,93 +87,93 @@ type ResistanceProps = {
   setValue?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const ColorMap: Record<`light` | `dark`, Record<`red` | `gray` | `green` | `yellow`, string>> = {
-  light: {
-    gray: `#888A`,
-    red: `#F33A`,
-    green: `#383A`,
-    yellow: `#CC3F`,
-  },
-  dark: {
-    gray: `#8888`,
-    red: `#F338`,
-    green: `#3F36`,
-    yellow: `#FF3C`,
-  },
+const ColorMap = {
+  gray: `#444`,
+  red: `#F33`,
+  yellow: `#FFD700`,
 };
 
 const Resistance: React.FC<ResistanceProps> = ({ type, value, max, setValue }) => {
-  const scheme = useColorScheme() ?? `light`;
-  const colors = ColorMap[scheme];
   const onPressStatus = () => {
     if (!setValue || max === 0) return;
     setValue((v) => (v > 0 ? v - 1 : max));
   };
+
   return (
-    <View style={styles.partCard}>
+    <View style={styles.resContainer}>
       <TouchableOpacity onPress={onPressStatus}>
-        <ResistanceIcon type={type} size={32} />
+        <ResistanceIcon type={type} size={36} />
       </TouchableOpacity>
-      {[0, 0, 0].map((_, i) => {
-        if (i === 0 && max === 0)
-          return (
-            <FontAwesome
-              key={`${type}-${i}}`}
-              name="close"
-              color={colors.red}
-              size={22}
-              style={{ margin: 5 }}
-            />
-          );
-        if (i >= max && i >= value)
-          return (
-            <FontAwesome
-              key={`${type}-${i}}`}
-              name="circle"
-              color={colors.gray}
-              size={12}
-              style={{ margin: 10 }}
-            />
-          );
-        if (value < max && i >= value)
-          return (
-            <FontAwesome
-              key={`${type}-${i}}`}
-              name="circle-o"
-              color={colors.red}
-              size={22}
-              style={{ margin: 5 }}
-            />
-          );
-        return (
-          <FontAwesome
-            key={`${type}-${i}}`}
-            name="star"
-            color={colors.yellow}
-            size={22}
-            style={{ margin: 5 }}
-          />
-        );
-      })}
+      <View style={styles.stars}>
+        {[0, 1, 2].map((i) => {
+          if (i === 0 && max === 0) {
+            return <FontAwesome key={i} name="close" color={ColorMap.red} size={20} />;
+          }
+          if (i >= max) return <View key={i} style={styles.dot} />;
+          if (i >= value) return <FontAwesome key={i} name="star-o" color={ColorMap.gray} size={24} />;
+          return <FontAwesome key={i} name="star" color={ColorMap.yellow} size={24} />;
+        })}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  // Tabs
-  tabHolder: {
+  container: {
+    flex: 1,
+    marginTop: 8,
+  },
+  tabBar: {
     flexDirection: `row`,
-    justifyContent: `space-around`,
+    //backgroundColor: `#1A1A1A`,
+    borderRadius: 12,
+    padding: 4,
+    marginBottom: 16,
   },
   tab: {
-    textAlign: `center`,
-    fontSize: 24,
-    padding: 12,
+    flex: 1,
+    paddingVertical: 10,
+    alignItems: `center`,
+    borderRadius: 8,
   },
-  // PartCard
-  partCard: {
+  activeTab: {
+    backgroundColor: `#333`,
+  },
+  tabText: {
+    fontSize: 12,
+    fontWeight: `600`,
+    color: `#777`,
+    letterSpacing: 1,
+  },
+  activeTabText: {
+    color: `#FFF`,
+  },
+  content: {
+    paddingHorizontal: 4,
+  },
+  grid: {
+    flexDirection: `row`,
+    gap: 16,
+  },
+  column: {
+    flex: 1,
+    gap: 12,
+  },
+  resContainer: {
     flexDirection: `row`,
     alignItems: `center`,
-    padding: 12,
+    gap: 8,
+  },
+  stars: {
+    flexDirection: `row`,
+    alignItems: `center`,
+    gap: 4,
+  },
+  dot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: `#222`,
+    marginHorizontal: 8,
   },
 });

@@ -1,13 +1,13 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
-import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
+import { ImageBackground, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 
 import { PartsData } from "../../../assets/data/hunt";
 import { InventoryKind } from "../../../assets/data/types";
 import { RootState } from "../../../util/redux/store";
 import InventoryIcon from "../../InventoryIcon";
-import { View, Text } from "../../Themed";
+import { Text } from "../../Themed";
 import { useThemeColor } from "../../themed/useThemeColor";
 
 type PartCardProps = {
@@ -33,6 +33,8 @@ const caret_map: Record<string, `caret-up` | `caret-down` | `caret-left` | `care
   Tail: `caret-down`,
 };
 
+const ICON_SIZE = 50;
+
 const getPartLabel = (monster: string, type: string) => {
   if (monster === `Jyuratodus` && type === `Back`) return `Right Leg`;
   if (monster === `Jyuratodus` && type === `Legs`) return `Left Leg`;
@@ -41,12 +43,21 @@ const getPartLabel = (monster: string, type: string) => {
 
 export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak }) => {
   const textColor = useThemeColor({}, `text`);
+  const textSecondaryColor = useThemeColor({ light: `#666`, dark: `#AAA` }, `textSecondary`);
+  const cardColor = useThemeColor({}, `card`);
+  const cardBorderColor = useThemeColor({}, `cardBorder`);
+  const cardStyle = {
+    backgroundColor: cardColor,
+    borderColor: cardBorderColor,
+  };
   const { monster } = useSelector((state: RootState) => state.hunt);
   const [breakDmg, setBreakDmg] = useState(breakRes);
+  const isBroken = breakDmg === 0;
+
   const damagePart = () => {
     setBreakDmg((hp) => (hp > 0 ? hp - 1 : breakRes));
-    if (breakDmg === 0) onBreak(type);
     if (breakDmg === 1) onBreak(type);
+    if (breakDmg === 0) onBreak(type); // Toggle back
   };
 
   useEffect(() => {
@@ -55,77 +66,118 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
 
   if (monster === `Pukei-Pukei` && type === `Back`) return null;
 
-  const backgroundColor = breakDmg === 0 ? `#F336` : `#FB7A`;
   const partLabel = getPartLabel(monster, type);
   const caretIcon = caret_map[partLabel];
   const partIcon = map[partLabel.includes(`Leg`) ? `Legs` : type];
+
+  const partIconBorderColor = isBroken ? `#F33` : `#D95`;
+
   return (
-    <>
-      <View style={{ flexDirection: `row`, alignItems: `center`, gap: 5 }}>
-        <Text variant="caption">{partLabel}</Text>
-        <FontAwesome name={caretIcon} color={textColor} size={16} />
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text bold variant="body" style={[styles.label, { color: textSecondaryColor }]}>
+          {partLabel.toUpperCase()}
+        </Text>
+        <FontAwesome name={caretIcon} color={textColor} size={14} /> 
         {[`Legs`, `Back`].includes(partLabel) ? (
-          <FontAwesome name="caret-right" color={textColor} size={16} />
+          <FontAwesome name="caret-right" color={textColor} size={14} />
         ) : null}
       </View>
-      <View style={styles.partCard}>
-        <InventoryIcon
-          type={partIcon}
-          style={[styles.part, styles.partIcon, { backgroundColor }]}
-        />
 
-        <ImageBackground
-          source={require(`../../../assets/images/Defense.png`)}
-          style={[styles.part, styles.partDef]}
-        >
-          <Text bold style={[styles.title, { color: `#EEE` }]}>
-            {def}
-          </Text>
-        </ImageBackground>
-        <TouchableOpacity onPress={damagePart}>
+      <View style={[styles.content, cardStyle]}>
+        <View style={[styles.iconWrapper, { borderColor: partIconBorderColor }]}>
+          <InventoryIcon
+            type={partIcon}
+            style={[styles.partIcon, isBroken && { opacity: 0.5 }]}
+          />
+          {isBroken && (
+            <View style={styles.brokenOverlay}>
+              <FontAwesome name="close" color="#F33" size={32} />
+            </View>
+          )}
+        </View>
+
+        <View style={styles.stats}>
           <ImageBackground
-            source={require(`../../../assets/images/break.png`)}
-            style={[styles.part, styles.partBreak]}
+            source={require(`../../../assets/images/Defense.png`)}
+            style={styles.statBox}
           >
-            <Text bold style={[styles.title, { color: `#333` }]}>
-              {breakDmg}
+            <Text bold style={styles.statText}>
+              {def}
             </Text>
           </ImageBackground>
-        </TouchableOpacity>
+
+          <TouchableOpacity onPress={damagePart}>
+            <ImageBackground
+              source={require(`../../../assets/images/break.png`)}
+              style={styles.statBox}
+            >
+              <Text bold style={[styles.statText, { color: `#333` }]}>
+                {breakDmg}
+              </Text>
+            </ImageBackground>
+          </TouchableOpacity>
+        </View>
       </View>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 18,
+  container: {
+    marginBottom: 16,
+    paddingHorizontal: 4,
   },
-  partCard: {
+  header: {
     flexDirection: `row`,
-    paddingVertical: 8,
-    marginBottom: 8,
+    alignItems: `center`,
+    gap: 6,
+    marginBottom: 6,
   },
-  part: {
-    width: 48,
-    height: 48,
-    borderRadius: 8,
-    marginRight: 0,
+  label: {
+    fontSize: 12,
+    letterSpacing: 1,
+  },
+  content: {
+    flexDirection: `row`,
+    alignItems: `center`,
+    borderRadius: 12,
+    padding: 8,
+    borderWidth: 1,
+  },
+  iconWrapper: {
+    width: ICON_SIZE,
+    height: ICON_SIZE,
+    borderRadius: ICON_SIZE / 2,
+    borderWidth: 2,
+    alignItems: `center`,
+    justifyContent: `center`,
+    overflow: `hidden`,
   },
   partIcon: {
-    borderWidth: 2,
-    borderRadius: 24,
-    borderColor: `#FB7`,
+    width: ICON_SIZE,
+    height: ICON_SIZE,
   },
-  partDef: {
+  brokenOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: `rgba(255,0,0,0.1)`,
     alignItems: `center`,
     justifyContent: `center`,
   },
-  partBreak: {
+  stats: {
+    flex: 1,
+    flexDirection: `row`,
+    justifyContent: `flex-end`,
+    gap: 8,
+  },
+  statBox: {
+    width: ICON_SIZE - 6,
+    height: ICON_SIZE - 6,
     alignItems: `center`,
     justifyContent: `center`,
-    marginTop: 3,
-    width: 42,
-    height: 42,
+  },
+  statText: {
+    fontSize: 18,
+    color: `#EEE`,
   },
 });
