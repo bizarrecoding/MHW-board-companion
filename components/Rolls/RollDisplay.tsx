@@ -17,24 +17,33 @@ const getTotalDamage = (roll: number[]) => {
   return total;
 };
 
+const getFitAmount = (length: number) => {
+  if (length > 6) return 4;
+  if (length > 4) return 3;
+  return 2;
+};
+
+const ROLL_GAP = 12;
+const ROLL_PADDING = 16;
+
 const RollDisplay: React.FC<RollDisplayProps> = ({ roll = [] }) => {
-  const width = useWindowDimensions().width * 0.8;
+  const width = useWindowDimensions().width;
   const totalDamage = getTotalDamage(roll);
   const cardColor = useThemeColor({}, `card`);
   const cardBorderColor = useThemeColor({}, `cardBorder`);
   const cardStyle = {
     backgroundColor: cardColor,
     borderColor: cardBorderColor,
-  };
-
+  }; 
 
   const cardSize = useMemo(() => {
     if (roll.length === 0) return 0;
-    if (roll.length === 1) return 160;
-    const padding = 16;
-    const gap = 12;
-    const cols = roll.length <= 4 ? 2 : 3;
-    return (width - padding * 2 - gap * (cols - 1)) / cols - 24;
+    if (roll.length < 3) return 145;
+    if (roll.length < 5) return 100;
+    const perRow = getFitAmount(roll.length);
+    const negativeSpacing = (ROLL_GAP + ROLL_PADDING * 2) * (perRow - 1);
+    const itemWidth = (width - negativeSpacing) / perRow - ROLL_PADDING;
+    return itemWidth;
   }, [width, roll.length]);
 
   if (roll.length === 0) return null;
@@ -63,9 +72,10 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   header: {
+    minWidth: 300,
     alignItems: `center`,
     marginHorizontal: 16,
-    marginBottom: 20,
+    marginBottom: 10,
     padding: 12,
     borderRadius: 12,
     borderWidth: 1,
@@ -76,7 +86,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   totalValue: {
-    fontSize: 48,
+    fontSize: 36,
     fontWeight: `900`,
     fontVariant: [`tabular-nums`],
   },
@@ -85,6 +95,6 @@ const styles = StyleSheet.create({
     flexDirection: `row`,
     flexWrap: `wrap`,
     justifyContent: `center`,
-    gap: 12,
+    gap: ROLL_GAP,
   },
 });
