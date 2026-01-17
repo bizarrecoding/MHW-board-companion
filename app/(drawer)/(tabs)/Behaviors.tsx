@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 
 import { BehaviorData } from "../../../assets/data/behaviors";
 import { Behavior, MonsterKind, RankType } from "../../../assets/data/types";
 import { View, Text } from "../../../components/Themed";
-import { BehaviorCard } from "../../../components/screens/behaviors/BehaviorCard";
+import { BehaviorCard } from "../../../components/Behaviors/BehaviorCard";
 import { RootState } from "../../../util/redux/store";
 
 /**

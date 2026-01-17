@@ -1,10 +1,9 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-import { View } from "../../Themed";
-import { useThemeColor } from "../../themed/useThemeColor";
-import { Direction } from "../../../assets/data/types";
+import { useThemeColor } from "../themed/useThemeColor";
+import { Direction } from "../../assets/data/types";
 
 interface DirectionalIconProps {
   size?: number;
@@ -20,8 +19,7 @@ const DirectionalIcon = ({ size = 16, directions }: DirectionalIconProps) => {
   const front = directions?.includes(`Front`);
   const back = directions?.includes(`Back`);
   const left = directions?.includes(`Left`);
-  const right = directions?.includes(`Right`);
-  console.log(directions, front, back, left, right);
+  const right = directions?.includes(`Right`); 
   return (
     <View style={{ flex: 1, minHeight: size, minWidth: size }}>
       <View style={[styles.row, rowStyle]}>
@@ -55,6 +53,7 @@ export default DirectionalIcon;
 
 const styles = StyleSheet.create({
   tile: {
+    borderColor: "#8881",
     borderWidth: 1,
     alignItems: `center`,
     justifyContent: `center`,

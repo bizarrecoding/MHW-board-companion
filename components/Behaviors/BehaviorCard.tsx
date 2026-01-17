@@ -7,14 +7,17 @@ import {
   useColorScheme,
   StyleProp,
   ViewStyle,
+  View,
 } from "react-native";
 
 import DirectionalIcon from "./DirectionalIcon";
-import { Behavior, InventoryKind } from "../../../assets/data/types";
-import Colors from "../../../constants/Colors";
-import InventoryIcon from "../../InventoryIcon";
-import { View, Text } from "../../Themed";
-import ResistanceIcon from "../monster/ResistanceIcon";
+import { Behavior, InventoryKind } from "../../assets/data/types";
+import Colors from "../../constants/Colors";
+import InventoryIcon from "../InventoryIcon";
+import { Text } from "../Themed";
+import ResistanceIcon from "../screens/monster/ResistanceIcon";
+import TargetIcon from "./TargetIcon";
+import { useThemeColor } from "../themed/useThemeColor";
 
 type BehaviorCardProps = {
   behavior: Behavior | null;
@@ -36,24 +39,12 @@ const getIconFromPart = (part: string): InventoryKind => {
   }
 };
 
-type TargetIconProps = {
-  target: string;
-  style?: StyleProp<ViewStyle>;
-};
-
-const TargetIcon: React.FC<TargetIconProps> = ({ target, style }) => {
-  const icon = target === `Melee` ? `gavel` : `crosshairs`;
-  return (
-    <View style={[{ flexDirection: `row`, alignItems: `center`, width: 32, height: 32 }, style]}>
-      <FontAwesome name={icon} size={32} color="#FFF" />
-    </View>
-  );
-};
-
 export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) => {
   const width = useWindowDimensions().width - 32;
   const colorScheme = useColorScheme();
-  const { text } = Colors[colorScheme ?? `light`];
+  const textColor = useThemeColor({}, `text`);
+  const borderColor = useThemeColor({}, `cardBorder`);
+  const backgroundColor = useThemeColor({}, `card`); 
 
   if (!behavior) return <EmptyCard hidden={hidden} />;
   if (hidden) return <HiddenCard behavior={behavior} />;
@@ -65,14 +56,15 @@ export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) 
         width,
         height: width,
         borderWidth: 1,
-        borderColor: `#888`,
+        borderColor,
         borderRadius: width / 15,
         padding: 16,
+        backgroundColor,
       }}
     >
-      <View style={styles.centerRow}>
+      <View style={[styles.centerRow, { justifyContent: "space-around" }]}>
         <InventoryIcon type={getIconFromPart(behavior.part)} />
-        <Text variant="subtitle">{behavior?.name}</Text>
+        <Text variant="subtitle" style={{ letterSpacing: 1 }}>{behavior?.name}</Text>
         <TargetIcon target={behavior.target} style={{ marginLeft: 12 }} />
       </View>
       <View style={styles.dataRow}>
@@ -98,10 +90,10 @@ export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) 
         </View>
       </View>
       <View style={styles.dataRow2}>
-        <FontAwesome name="users" color={text} size={16} style={{ marginRight: 4 }} />
+        <FontAwesome name="users" color={textColor} size={16} style={{ marginRight: 4 }} />
         <Text variant="caption">Turns: {behavior.turns}</Text>
         <View style={{ flex: 1 }} />
-        <FontAwesome name="crosshairs" color={text} size={16} style={{ marginRight: 4 }} />
+        <FontAwesome name="crosshairs" color={textColor} size={16} style={{ marginRight: 4 }} />
         <Text variant="caption">Actions: {behavior.actions}</Text>
       </View>
     </View>
@@ -179,6 +171,8 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   cardStyle: {
+    borderColor: '#B74',
+    borderWidth: 3,
     backgroundColor: `#FCA`,
     justifyContent: `center`,
     alignItems: `center`,
