@@ -3,124 +3,88 @@ import { ImageBackground, View, ScrollView, StyleSheet, useWindowDimensions } fr
 
 import { Text } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
+import DamageDice from "./DamageDice";
 
 type RollDisplayProps = {
   roll: number[];
 };
 
-const CHUNK_MAP = [0, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4];
-
-const getStyleValuesForCard = (size: number) => {
-  // font/image size scaling is not linear
-  // the smaller the card/padding, the less the font/image size is scaled down to keep readability
-  if (size > 66) return { padding: 16, fontSize: 60, imageSize: size };
-  if (size > 36) return { padding: 12, fontSize: 40, imageSize: size + 4 };
-  return { padding: 8, fontSize: 36, imageSize: size + 8 };
+const getTotalDamage = (roll: number[]) => {
+  let total = 0;
+  for (let i = 0; i < roll.length; i++) {
+    total += roll[i];
+  }
+  return total;
 };
 
 const RollDisplay: React.FC<RollDisplayProps> = ({ roll = [] }) => {
-  const { width } = useWindowDimensions();
+  const width = useWindowDimensions().width * 0.8;
+  const totalDamage = getTotalDamage(roll);
+  const cardColor = useThemeColor({}, `card`);
+  const cardBorderColor = useThemeColor({}, `cardBorder`);
+  const cardStyle = {
+    backgroundColor: cardColor,
+    borderColor: cardBorderColor,
+  };
+
+
   const cardSize = useMemo(() => {
     if (roll.length === 0) return 0;
-    if (roll.length === 1) return 180;
-    // parent screen default padding = 16, chunk gap =16
-    const offsetSum = 16 * 4;
-    const size = width / CHUNK_MAP[roll.length] - offsetSum;
-    return size;
+    if (roll.length === 1) return 160;
+    const padding = 16;
+    const gap = 12;
+    const cols = roll.length <= 4 ? 2 : 3;
+    return (width - padding * 2 - gap * (cols - 1)) / cols - 24;
   }, [width, roll.length]);
 
-  const chunkedRoll = useMemo(() => {
-    const chunk_size = CHUNK_MAP[roll.length];
-    if (chunk_size === 0) return [];
-    return roll.reduce((acc, _, i) => {
-      if (i % chunk_size === 0) acc.push(roll.slice(i, i + chunk_size));
-      return acc;
-    }, [] as number[][]);
-  }, [roll]);
+  if (roll.length === 0) return null;
+
   return (
-    <ScrollView style={styles.container}>
-      {chunkedRoll.map((row, i) => {
-        return (
-          <View key={i} style={styles.center_row}>
-            {row.map((rollValue, j) => {
-              return <CardPanel key={`${i}-${j}`} cardSize={cardSize} rollValue={rollValue} />;
-            })}
-          </View>
-        );
-      })}
-    </ScrollView>
+    <View style={styles.container}>
+      <View style={[styles.header, cardStyle]}>
+        <Text bold style={styles.totalLabel}>TOTAL DAMAGE</Text>
+        <Text bold style={styles.totalValue}>{totalDamage}</Text>
+      </View>
+
+      <View style={styles.grid}>
+        {roll.map((rollValue, index) => (
+          <DamageDice key={index} cardSize={cardSize} rollValue={rollValue} />
+        ))}
+      </View>
+    </View>
   );
 };
 
 export default RollDisplay;
 
-type CardPanelProps = {
-  cardSize: number;
-  rollValue: number;
-};
-
-const CardPanel: React.FC<CardPanelProps> = ({ cardSize, rollValue }) => {
-  const { padding, fontSize, imageSize } = getStyleValuesForCard(cardSize);
-  const backgroundColor = useThemeColor({}, `card`);
-  const cardBorderColor = useThemeColor({}, `cardBorder`);
-  return (
-    <View style={[styles.cardWrapper, styles.shadowStyle, { padding, backgroundColor, borderColor: cardBorderColor }]}>
-      <ImageBackground
-        source={require(`../assets/images/Blast-MHW_Icon.png`)}
-        resizeMode="contain"
-        style={[
-          styles.ImageBackground,
-          {
-            width: imageSize,
-            height: imageSize,
-          },
-        ]}
-      >
-        <Text variant="title" style={[styles.rollValue, { fontSize, opacity: 0.9 }]}>
-          {rollValue}
-        </Text>
-      </ImageBackground>
-    </View>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    paddingVertical: 16,
+  },
+  header: {
+    alignItems: `center`,
+    marginHorizontal: 16,
+    marginBottom: 20,
+    padding: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+  },
+  totalLabel: {
+    fontSize: 10,
+    letterSpacing: 2,
+    marginBottom: 4,
+  },
+  totalValue: {
+    fontSize: 48,
+    fontWeight: `900`,
+    fontVariant: [`tabular-nums`],
+  },
+  grid: {
+    flex: 1,
     flexDirection: `row`,
     flexWrap: `wrap`,
-  },
-  center_row: {
-    flexDirection: `row`,
-    alignItems: `center`,
     justifyContent: `center`,
-  },
-  cardWrapper: {
-    alignItems: `center`,
-    justifyContent: `center`,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: `#8888`,
-    padding: 16,
-    margin: 16,
-  },
-  ImageBackground: {
-    alignItems: `center`,
-    justifyContent: `center`,
-    minHeight: 45,
-    minWidth: 45,
-  },
-  rollValue: {
-    //color: `#333`,
-    fontWeight: `bold`,
-    // textShadowColor: `#fff`,
-    // textShadowRadius: 4,
-    // textShadowOffset: { width: 1, height: 1 },
-  },
-  shadowStyle: {
-    elevation: 4,
-    shadowColor: '#FB8',
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.35,
-    shadowRadius: 2,
+    gap: 12,
   },
 });
