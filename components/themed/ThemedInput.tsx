@@ -24,7 +24,7 @@ export default function TextInput(props: TextInputProps) {
       <View style={[{ backgroundColor }, styles.base, contentContainerStyle]}>
         <NativeTextInput
           placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
-          style={[{ color }, styles[variant], style]}
+          style={[{ color, width: '100%' }, styles[variant], style]}
           {...otherProps}
         />
       </View>
