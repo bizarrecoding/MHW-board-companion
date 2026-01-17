@@ -67,7 +67,7 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-  const statusBarStyle = colorScheme !== `dark` ? `light` : `dark`;
+  const statusBarStyle = colorScheme === `dark` ? `light` : `dark`;
   const { background, text } = Colors[colorScheme ?? `light`];
   const { user, setUser } = useContext(UserContext);
   const router = useRouter();
@@ -96,7 +96,7 @@ function RootLayoutNav() {
             name="modal"
             options={{
               // ios modal statusBar are always light text/black background
-              statusBarStyle: Platform.select({ ios: `light`, default: colorScheme === `dark` ? `light` : `dark` }),
+              statusBarStyle: Platform.select({ ios: `light`, default: statusBarStyle }),
               presentation: `modal`,
               headerTintColor: text,
               headerStyle: {
