@@ -26,20 +26,32 @@ const shuffleArray = <T,>(array: T[]) => {
   return array;
 };
 
+const shuffleDeck = (monster: MonsterKind, rank: RankType) => {
+  const baseBehaviors = getBehaviors(monster, rank);
+  return [null, ...shuffleArray<Behavior | null>(baseBehaviors)];
+};
+
 const Behaviors: React.FC = () => {
   const { monster, rank } = useSelector((state: RootState) => state.hunt);
   const [index, setIndex] = useState(0);
-  const deck = useMemo(() => {
-    const baseBehaviors = getBehaviors(monster, rank);
-    return [null, ...shuffleArray<Behavior | null>(baseBehaviors)];
-  }, [monster, rank]);
+  const [deck, setDeck] = useState<(Behavior | null)[]>([]);
 
   useEffect(() => {
+    setDeck(shuffleDeck(monster, rank));
     setIndex(0);
-  }, [deck]);
+  }, [monster, rank]);
 
   const rollback = () => setIndex((index) => (index - 1 + deck.length) % deck.length);
-  const discard = () => setIndex((index) => (index + 1) % deck.length);
+
+  const discard = () => {
+    if (index === deck.length - 1) {
+      // Reshuffle when we reach the end
+      setDeck(shuffleDeck(monster, rank));
+      setIndex(0);
+    } else {
+      setIndex((index) => index + 1);
+    }
+  };
 
   const remaining = deck.length - index - 1;
 
