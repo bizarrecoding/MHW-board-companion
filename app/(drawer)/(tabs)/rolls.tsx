@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 
 import RollDisplay from "../../../components/Rolls/RollDisplay";
 import SharpnessIndicator from "../../../components/Rolls/SharnessIndicator";
-import { Button, Text } from "../../../components/Themed";
 import { RootState } from "../../../util/redux/store";
+import { RollControls } from "../../../components/Rolls/RollControls";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 /**
  *  Create a pool of numbers
@@ -25,11 +26,9 @@ const createDamagePool = (values: number[]) => {
 
 export default function TabTwoScreen() {
   const { rollPool, total } = useSelector((state: RootState) => state.rolls);
-  const [numberToRoll, setNumberToRoll] = useState(1);
+  const paddingTop = useSafeAreaInsets().top;
   const [pool, setPool] = useState<number[]>([]);
-  const [roll, setRoll] = useState<number[]>([]);
-  const increment = () => setNumberToRoll((n) => (n < 10 ? n + 1 : n));
-  const decrement = () => setNumberToRoll((n) => (n > 0 ? n - 1 : 0));
+  const [roll, setRoll] = useState<number[]>([]); 
 
   const reset = useCallback(() => {
     const pool = createDamagePool(rollPool);
@@ -38,7 +37,7 @@ export default function TabTwoScreen() {
     setRoll([]);
   }, [rollPool]);
 
-  const rollDamage = () => {
+  const rollDamage = (numberToRoll: number) => {
     if (pool.length < numberToRoll) {
       setRoll(pool);
       setPool([]);
@@ -55,21 +54,12 @@ export default function TabTwoScreen() {
   }, [reset, rollPool]);
 
   return (
-    <View style={styles.container}>
-      <View style={{ minHeight: 500, flexDirection: `column` }}>
+    <View style={[styles.container, { paddingTop }]}>
+      <View style={{ flex: 1 }}>
         <SharpnessIndicator sharpness={pool.length} total={total} reset={reset} />
-        <View style={[styles.center_row, styles.container]}>
-          <RollDisplay roll={roll} />
-        </View>
+        <RollDisplay roll={roll} />
       </View>
-      <View style={[styles.center_row, { marginVertical: 16 }]}>
-        <Button title="-" style={styles.buttons} onPress={decrement} />
-        <Text variant="subtitle">{numberToRoll}</Text>
-        <Button title="+" style={styles.buttons} onPress={increment} />
-      </View>
-      <View style={{ flexDirection: `row` }}>
-        <Button title="Roll" style={{ flex: 4 }} onPress={rollDamage} />
-      </View>
+      <RollControls rollDamage={rollDamage} />
     </View>
   );
 }
@@ -77,20 +67,5 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  center_row: {
-    flexDirection: `row`,
-    alignItems: `center`,
-    justifyContent: `center`,
-  },
-  buttons: {
-    padding: 6,
-  },
-  shadowStyle: {
-    elevation: 4,
-    shadowColor: '#037b21',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 1,
-    shadowRadius: 8,
   },
 });
