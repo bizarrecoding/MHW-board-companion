@@ -9,24 +9,30 @@ type TargetIconProps = {
 
 const TargetIcon: React.FC<TargetIconProps> = ({ target, style }) => {
   const icon = target === `Melee` ? `gavel` : `crosshairs`;
-  const textColor = useThemeColor({}, `text`) + 'C';
-  const backgroundColor = useThemeColor({ light: '#A64', dark: `#A64` }, `card`);
+  const backgroundColor = useThemeColor({ light: '#B74', dark: `#B74` }, `card`);
   const borderColor = useThemeColor({ light: `#FA7`, dark: `#FA7` }, `cardBorder`);
   return (
-    <View style={[styles.icon, { backgroundColor, borderColor }, style]}>
-      <FontAwesome name={icon} size={32} color={textColor} />
+    <View style={[styles.iconWrapper, { backgroundColor, borderColor }, style]}>
+      <FontAwesome name={icon} size={32} color="#333" style={styles.icon} />
     </View>
   );
 };
 
 export default TargetIcon;
 
+const iconSize = 40;
+
 const styles = StyleSheet.create({
   icon: {
-    width: 32,
-    height: 32,
+    textAlignVertical: `center`,
+    textAlign: `center`,
+    lineHeight: iconSize,
+  },
+  iconWrapper: {
+    width: iconSize * 1.1,
+    height: iconSize * 1.1,
     borderWidth: 1,
-    borderRadius: 16,
+    borderRadius: iconSize,
     alignItems: `center`,
     justifyContent: `center`,
   },

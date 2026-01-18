@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-import { View, Text, Button } from "./Themed";
+import { Text, Button } from "./Themed";
 
 type NumberInputProps = {
   label?: string;

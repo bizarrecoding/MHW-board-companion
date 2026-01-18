@@ -9,41 +9,47 @@ interface DirectionalIconProps {
   size?: number;
   directions?: Direction[] | null;
 }
+type DirectionIconName = "caret-up" | "caret-down" | "caret-left" | "caret-right";
+type DirectionIconProps = {
+  size?: number;
+  active?: boolean;
+  label: DirectionIconName;
+}
 
-const DirectionalIcon = ({ size = 16, directions }: DirectionalIconProps) => {
-  const textColor = useThemeColor({}, `text`);
-  const textColorOff = useThemeColor({}, `textSecondary`);
-  const tileStyle = { minWidth: size / 3, height: size / 3, maxHeight: size / 3 };
-  const rowStyle = { minWidth: size, height: size / 3, maxHeight: size / 3 };
+const Diagonal = ({ size = 16 }) => <View style={[styles.tile, { width: size / 3, height: size / 3 }]} />
 
+const DirectionIcon: React.FC<DirectionIconProps> = ({ size = 16, active = false, label }) => {
+  const tileStyle = { width: size / 3, height: size / 3 };
+  const accentColor = useThemeColor({}, `accent`);
+  const textColor = useThemeColor({}, `tabIconDefault`);
+  return (
+    <View style={[styles.tile, tileStyle, active && { backgroundColor: `${accentColor}20`, borderColor: accentColor }]}>
+      <FontAwesome name={label} color={active ? accentColor : textColor} size={size / 4} />
+    </View>
+  )
+}
+
+const DirectionalIcon: React.FC<DirectionalIconProps> = ({ size = 16, directions }) => { 
   const front = directions?.includes(`Front`);
   const back = directions?.includes(`Back`);
   const left = directions?.includes(`Left`);
-  const right = directions?.includes(`Right`); 
+  const right = directions?.includes(`Right`);  
   return (
-    <View style={{ flex: 1, minHeight: size, minWidth: size }}>
-      <View style={[styles.row, rowStyle]}>
-        <View style={[styles.tile, tileStyle]} />
-        <View style={[styles.tile, tileStyle]}>
-          <FontAwesome name="caret-up" color={front ? textColor : textColorOff} size={16} />
-        </View>
-        <View style={[styles.tile, tileStyle]} />
+    <View style={{ width: size, height: size }}>
+      <View style={styles.row}>
+        <Diagonal size={size} />
+        <DirectionIcon size={size} active={front} label="caret-up" />
+        <Diagonal size={size} />
       </View>
-      <View style={[styles.row, rowStyle]}>
-        <View style={[styles.tile, tileStyle]}>
-          <FontAwesome name="caret-left" color={left ? textColor : textColorOff} size={16} />
-        </View>
-        <View style={[styles.tile, tileStyle]} />
-        <View style={[styles.tile, tileStyle]}>
-          <FontAwesome name="caret-right" color={right ? textColor : textColorOff} size={16} />
-        </View>
+      <View style={styles.row}>
+        <DirectionIcon size={size} active={left} label="caret-left" />
+        <Diagonal size={size} />
+        <DirectionIcon size={size} active={right} label="caret-right" />
       </View>
-      <View style={[styles.row, rowStyle]}>
-        <View style={[styles.tile, tileStyle]} />
-        <View style={[styles.tile, tileStyle]}>
-          <FontAwesome name="caret-down" color={back ? textColor : textColorOff} size={16} />
-        </View>
-        <View style={[styles.tile, tileStyle]} />
+      <View style={styles.row}>
+        <Diagonal size={size} />
+        <DirectionIcon size={size} active={back} label="caret-down" />
+        <Diagonal size={size} />
       </View>
     </View>
   );
@@ -53,13 +59,12 @@ export default DirectionalIcon;
 
 const styles = StyleSheet.create({
   tile: {
-    borderColor: "#8881",
+    borderColor: "rgba(0,0,0,0.03)",
     borderWidth: 1,
     alignItems: `center`,
     justifyContent: `center`,
   },
   row: {
     flexDirection: `row`,
-    flex: 1,
   },
 });

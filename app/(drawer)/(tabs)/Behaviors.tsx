@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 
 import { BehaviorData } from "../../../assets/data/behaviors";
 import { Behavior, MonsterKind, RankType } from "../../../assets/data/types";
-import { View, Text } from "../../../components/Themed";
-import { BehaviorCard } from "../../../components/Behaviors/BehaviorCard";
+import { Text } from "../../../components/Themed";
+import { BehaviorCard } from "../../../components/Behaviors/Cards/FaceUpCard";
 import { RootState } from "../../../util/redux/store";
+import Animated, { SlideInRight, SlideOutLeft, SlideInLeft, SlideOutRight } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 /**
  * get monster behaviors based on rank
@@ -32,20 +34,25 @@ const shuffleDeck = (monster: MonsterKind, rank: RankType) => {
 };
 
 const Behaviors: React.FC = () => {
+  const paddingTop = useSafeAreaInsets().top;
   const { monster, rank } = useSelector((state: RootState) => state.hunt);
   const [index, setIndex] = useState(0);
   const [deck, setDeck] = useState<(Behavior | null)[]>([]);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
 
   useEffect(() => {
     setDeck(shuffleDeck(monster, rank));
     setIndex(0);
   }, [monster, rank]);
 
-  const rollback = () => setIndex((index) => (index - 1 + deck.length) % deck.length);
+  const rollback = () => {
+    setDirection("prev");
+    setIndex((index) => (index - 1 + deck.length) % deck.length);
+  };
 
   const discard = () => {
+    setDirection("next");
     if (index === deck.length - 1) {
-      // Reshuffle when we reach the end
       setDeck(shuffleDeck(monster, rank));
       setIndex(0);
     } else {
@@ -56,22 +63,73 @@ const Behaviors: React.FC = () => {
   const remaining = deck.length - index - 1;
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onLongPress={rollback}>
-        <BehaviorCard behavior={deck[index]} />
+    <ScrollView style={[styles.container, { paddingTop }]}>
+      <View style={styles.content}>
+        <Animated.View
+          key={index}
+          entering={direction === "next" ? SlideInRight : SlideInLeft}
+          exiting={direction === "next" ? SlideOutLeft : SlideOutRight}
+        >
+          <TouchableOpacity activeOpacity={0.9} onLongPress={rollback}>
+            <BehaviorCard behavior={deck[index]} />
+          </TouchableOpacity>
+        </Animated.View>
+
+        <View style={styles.counterWrapper}>
+          <Text style={styles.remainingText}>
+            {remaining >= 0 ? remaining : 0}
+          </Text>
+          <Text style={styles.remainingLabel}>CARDS REMAINING</Text>
+        </View>
+      </View>
+
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={discard}
+        style={styles.nextCardArea}
+      >
+        <Text style={styles.nextCardLabel}>TAP TO DISCARD</Text>
+        <BehaviorCard hidden behavior={deck[(index + 1) % deck.length]} />
       </TouchableOpacity>
-      <Text variant="caption" style={{ textAlign: `center`, marginTop: 12 }}>
-        {remaining >= 0 ? remaining : 0} cards left
-      </Text>
-      <TouchableOpacity onPress={discard} style={{ marginTop: 24 }}>
-        <BehaviorCard hidden behavior={deck[index + (1 % deck.length)]} />
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
+  container: {
+    flex: 1,
+    padding: 16,
+    gap: 16,
+  },
+  content: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  counterWrapper: {
+    alignItems: "center",
+    marginTop: 18,
+  },
+  remainingText: {
+    fontSize: 36,
+    fontWeight: "900",
+    opacity: 0.5,
+  },
+  remainingLabel: {
+    fontSize: 10,
+    letterSpacing: 2,
+    opacity: 0.5,
+    marginTop: -4,
+  },
+  nextCardArea: {
+    alignItems: "center",
+    gap: 12,
+  },
+  nextCardLabel: {
+    fontSize: 9,
+    letterSpacing: 2,
+    opacity: 0.5,
+    fontWeight: "bold",
+  }
 });
 
 export default Behaviors;

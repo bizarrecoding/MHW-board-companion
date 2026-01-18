@@ -77,6 +77,7 @@ export default function TabLayout() {
         name="Behaviors"
         options={{
           title: `Behaviors`,
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="header" color={color} />,
         }}
       />
