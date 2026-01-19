@@ -23,7 +23,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const { background, tabIconSelected, tabIconDefault, text } = Colors[colorScheme ?? `light`];
+  const { background, tabIconSelected, tabIconDefault, tint, text } = Colors[colorScheme ?? `light`];
   const backgroundColor = colorScheme === `dark` ? background : `#fff`;
   return (
     <Tabs
@@ -49,6 +49,7 @@ export default function TabLayout() {
         name="Story"
         options={{
           title: `Story`,
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
         }}
       />
@@ -64,7 +65,7 @@ export default function TabLayout() {
                   <FontAwesome
                     name="refresh"
                     size={25}
-                    color={Colors[colorScheme ?? `light`].accent}
+                    color={tint}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
                 )}

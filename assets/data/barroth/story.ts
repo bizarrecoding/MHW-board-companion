@@ -102,8 +102,8 @@ const story: StoryEntry[] = [{
   }]
 }, {
   entry: 17,
-  get: ["Monster Bone medium"],
-  content: "Creatures get sucked into the marsh land around here all the time. One step too deep, the quicksand seizes them...and this is the result. This beast died a few weeks ago. The carcass is picked clean, only a few strands of mummified flesh cling to the skeleton of the beast, like ragged banners above a slaughtered army. But there's no time to dwell on such things. Your hunt needs to continue. Each hunter gains 1 Monster Bone medium.",
+  get: ["Monster Bone M"],
+  content: "Creatures get sucked into the marsh land around here all the time. One step too deep, the quicksand seizes them...and this is the result. This beast died a few weeks ago. The carcass is picked clean, only a few strands of mummified flesh cling to the skeleton of the beast, like ragged banners above a slaughtered army. But there's no time to dwell on such things. Your hunt needs to continue. Each hunter gains 1 Monster Bone M.",
   options: [{
     text: "Press on.",
     effect: ["Gain 1 track token", "Discard 1 time card"],

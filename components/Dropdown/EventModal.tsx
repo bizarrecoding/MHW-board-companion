@@ -1,9 +1,9 @@
 import React from "react";
-import { Modal, StyleSheet } from "react-native";
+import { Modal, StyleSheet, View } from "react-native";
 
-import { StoryOption } from "../../assets/data/story-barroth";
-import { View, Text, Button } from "../Themed";
+import { Text, Button } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
+import { StoryOption } from "../../assets/data/types";
 
 type EventModalProps = React.PropsWithChildren<{
   visible: boolean;
@@ -13,12 +13,11 @@ type EventModalProps = React.PropsWithChildren<{
 
 const EventModal: React.FC<EventModalProps> = ({ visible, onClose, content, children }) => {
   const backgroundColor = useThemeColor(undefined, `card`);
-
   return (
-    <Modal animationType="slide" transparent={true} visible={visible && !!content}>
+    <Modal animationType="fade" transparent={true} visible={visible && !!content}>
       <View style={styles.modalView}>
         <View style={[styles.modalContent, { backgroundColor }]}>
-          <Text variant="subtitle" style={{ marginBottom: 10 }}>
+          <Text variant="subtitle" style={{ textAlign: `center`, marginBottom: 10 }}>
             {content?.text}
           </Text>
           {content?.effect?.map((ef, index) => (
@@ -26,8 +25,8 @@ const EventModal: React.FC<EventModalProps> = ({ visible, onClose, content, chil
               {ef}
             </Text>
           ))}
-          <View style={[styles.body, { backgroundColor }]}>{children}</View>
-          <View style={[styles.footer, { backgroundColor }]}>
+          <View style={styles.body}>{children}</View>
+          <View style={styles.footer}>
             <Button title="Confirm" style={styles.controls} onPress={onClose} />
           </View>
         </View>
@@ -70,6 +69,8 @@ const styles = StyleSheet.create({
   },
   controls: {
     flex: 1,
+    borderRadius: 16,
+    marginVertical: 16,
   },
 });
 

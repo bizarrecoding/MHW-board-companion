@@ -74,12 +74,12 @@ export default function Button(props: ButtonProps) {
 type IconButtonProps = Pick<
   ButtonProps,
   `style` | `lightColor` | `darkColor` | `icon` | `onPress` | `variant`
->;
+  > & { size?: number };
 
 const TRANSPARENCY_MOD = `cc`;
 
 export const ThemedIconButton = (props: IconButtonProps) => {
-  const { style, lightColor, darkColor, icon, onPress, variant = `clear` } = props;
+  const { style, lightColor, darkColor, icon, onPress, size = 20, variant = `clear` } = props;
 
   const colorBase = useThemeColor({ light: darkColor, dark: lightColor }, `tint`);
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, `card`);
@@ -91,7 +91,7 @@ export const ThemedIconButton = (props: IconButtonProps) => {
     >
       {icon && typeof icon === `string` ? (
         // @ts-ignore
-        <FontAwesome name={icon} size={20} color={`${colorBase}${TRANSPARENCY_MOD}`} />
+        <FontAwesome name={icon} size={size} color={`${colorBase}${TRANSPARENCY_MOD}`} />
       ) : (
         icon
       )}

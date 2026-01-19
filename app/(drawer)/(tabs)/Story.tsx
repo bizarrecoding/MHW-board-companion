@@ -1,18 +1,22 @@
 import { useNavigation } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { StyleSheet, View } from "react-native";
 
 import { MonsterKind, RankType } from "../../../assets/data/types";
-import { IconButton } from "../../../components/Themed";
-import StoryContent from "../../../components/screens/StoryLog/StoryContent";
-import StoryPicker from "../../../components/screens/StoryLog/StoryPick";
+import { IconButton, Text } from "../../../components/Themed";
+import StoryContent from "../../../components/Story/StoryContent";
+import StoryPicker from "../../../components/Story/StoryPick";
 import { setRank, setMonster } from "../../../util/redux/HuntSlice";
 import { RootState } from "../../../util/redux/store";
 import { story } from "../../../assets/data/story";
+import { RankSlider } from "../../../components/RankSlider";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Story = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const paddingTop = useSafeAreaInsets().top;
   const [needToPick, setNeedToPick] = useState(true);
   const { monster, rank } = useSelector((state: RootState) => state.hunt);
 
@@ -42,16 +46,32 @@ const Story = () => {
     .filter(([_, v]) => v.length > 0)
     .map(([k]) => k) as MonsterKind[];
 
-  if (needToPick)
-    return (
-      <StoryPicker
-        setMonster={dispatchMonster}
-        setRank={dispatchRank}
+  return (
+    <View style={{ flex: 1, paddingTop }}>
+      {needToPick ? (
+        <StoryPicker
+          setMonster={dispatchMonster}
         allowedChoices={availableMonsters}
-      />
-    );
-
-  return <StoryContent monster={monster} rank={rank} />;
+        >
+          <Text style={styles.title}>Choose a monster to start your story:</Text>
+          <RankSlider value={rank} onValueChange={dispatchRank} />
+        </StoryPicker>
+      ) : (
+        <StoryContent monster={monster} rank={rank} onReset={() => setNeedToPick(true)} />
+      )}
+    </View>
+  );
 };
 
 export default Story;
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 14,
+    textTransform: "uppercase",
+    letterSpacing: 2,
+    opacity: 0.7,
+    marginBottom: 8,
+    textAlign: "center",
+  },
+});
