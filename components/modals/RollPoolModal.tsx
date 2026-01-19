@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setRollPool } from "../../util/redux/RollSlice";
 import { RootState } from "../../util/redux/store";
 import Divider from "../Divider";
-import NumberInput from "../NumberInput";
+import NumberInput from "../Rolls/DiceNumberInput";
 import { View, Text, Button } from "../Themed";
 
 export const RollPoolModal = () => {
@@ -22,25 +22,29 @@ export const RollPoolModal = () => {
   };
   return (
     <View style={styles.container}>
-      <NumberInput label="# of dices of 1:" setValue={setDice1}>
-        <Text variant="subtitle" style={styles.counter}>
-          {dice1}
-        </Text>
+      <NumberInput setValue={setDice1}>
+        <View style={{ alignItems: "center" }}>
+          <Text variant="button"># of dices of 1:</Text>
+          <Text variant="subtitle">{dice1}</Text>
+        </View>
       </NumberInput>
-      <NumberInput label="# of dices of 2:" setValue={setDice2}>
-        <Text variant="subtitle" style={{ flex: 1, textAlign: `center` }}>
-          {dice2}
-        </Text>
+      <NumberInput setValue={setDice2}>
+        <View style={{ alignItems: "center" }}>
+          <Text variant="button"># of dices of 2:</Text>
+          <Text variant="subtitle">{dice2}</Text>
+        </View>
       </NumberInput>
-      <NumberInput label="# of dices of 3:" setValue={setDice3}>
-        <Text variant="subtitle" style={{ flex: 1, textAlign: `center` }}>
-          {dice3}
-        </Text>
+      <NumberInput setValue={setDice3}>
+        <View style={{ alignItems: "center" }}>
+          <Text variant="button"># of dices of 3:</Text>
+          <Text variant="subtitle">{dice3}</Text>
+        </View>
       </NumberInput>
-      <NumberInput label="# of dices of 4:" setValue={setDice4}>
-        <Text variant="subtitle" style={{ flex: 1, textAlign: `center` }}>
-          {dice4}
-        </Text>
+      <NumberInput setValue={setDice4}>
+        <View style={{ alignItems: "center" }}>
+          <Text variant="button"># of dices of 4:</Text>
+          <Text variant="subtitle">{dice4}</Text>
+        </View>
       </NumberInput>
       <Divider />
       <View style={{ flex: 1 }}>
@@ -52,8 +56,4 @@ export const RollPoolModal = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  counter: {
-    flex: 1,
-    textAlign: `center`,
-  },
 });
