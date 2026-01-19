@@ -1,12 +1,12 @@
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { StyleProp, StyleSheet, ViewStyle } from "react-native";
+import { StyleProp, View, StyleSheet, ViewStyle } from "react-native";
 
 import { ItemList } from "../../../assets/data/items";
 import { ItemEntry, MonsterKind, RankType, StoryEntry, StoryOption } from "../../../assets/data/types";
 import EventModal from "../../Dropdown/EventModal";
 import InventoryIcon, { MonsterIcon } from "../../InventoryIcon";
-import { View, Text, Button } from "../../Themed";
+import { Text, Button } from "../../Themed";
 import { story } from "../../../assets/data/story";
 
 type StoryProps = {
@@ -94,13 +94,13 @@ const ItemRewards: React.FC<ItemRewardsProps> = ({ rewards, roll, style }) => {
       <Text variant="caption" style={{ marginVertical: 10 }}>
         Rewards:
       </Text>
-      <View transparent style={[styles.row, styles.center, style]}>
+      <View style={[styles.row, styles.center, style]}>
         {rewardsList.map((item, _index) => {
           const entry = ItemList.find((entry) => entry.name === item);
           if (!entry) return null;
           const { type, name } = entry as ItemEntry;
           return (
-            <View transparent key={item} style={[styles.center, { marginHorizontal: 10 }]}>
+            <View key={item} style={[styles.center, { marginHorizontal: 10 }]}>
               <InventoryIcon type={type} name={name} style={{ marginHorizontal: 16 }} />
               <Text style={{ marginTop: 10 }}>{item}</Text>
             </View>
