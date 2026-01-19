@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import ResistanceIcon from "./ResistanceIcon";
-import { Text } from "../../Themed";
-import { useThemeColor } from "../../themed/useThemeColor";
-import { Ailments, Elements } from "../../../assets/data/types";
+import { Text } from "../Themed";
+import { useThemeColor } from "../themed/useThemeColor";
+import { Ailments, Elements } from "../../assets/data/types";
 
 const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = ({ data }) => {
   const [activeTab, setActiveTab] = useState(`status`);

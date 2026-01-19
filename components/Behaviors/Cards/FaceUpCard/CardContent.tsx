@@ -1,10 +1,10 @@
 import { View, StyleSheet, ColorValue, StyleProp, ViewStyle } from 'react-native'
 import React from 'react'
 import { Behavior } from '../../../../assets/data/types';
-import ResistanceIcon from '../../../screens/monster/ResistanceIcon';
 import { useThemeColor } from '../../../themed/useThemeColor';
 import DirectionalIcon from '../../DirectionalIcon';
 import { Text } from '../../../Themed';
+import ResistanceIcon from '../../../monster/ResistanceIcon';
 
 type CardContentProps = {
   behavior: Behavior;

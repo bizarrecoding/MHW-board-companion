@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Image, ViewStyle, StyleSheet, StyleProp } from "react-native";
-import { Elements, Ailments } from "../../../assets/data/types";
+import { Elements, Ailments } from "../../assets/data/types";
 
 type ResistanceProps = {
   type: Elements | Ailments;

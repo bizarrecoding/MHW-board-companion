@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Alert, FlatList, ListRenderItem, StyleSheet } from "react-native";
 
-import { HunterLogEntry, useHunterLog } from "../../../hooks/useHunterLog";
-import { CrownRankIcon, MonsterIcon } from "../../InventoryIcon";
-import { IconButton, Text, View } from "../../Themed";
-import { useThemeColor } from "../../themed/useThemeColor";
+import { HunterLogEntry, useHunterLog } from "../../hooks/useHunterLog";
+import { MonsterIcon } from "../InventoryIcon";
+import { IconButton, Text, View } from "../Themed";
+import { useThemeColor } from "../themed/useThemeColor";
+import { useNavigation } from "expo-router";
 
 const formatTimestamp = (timestamp: number) => {
   const date = new Date(timestamp);
@@ -12,24 +13,26 @@ const formatTimestamp = (timestamp: number) => {
 };
 
 export const HunterLog: React.FC = () => {
+  const navigation = useNavigation();
   const backgroundColor = useThemeColor({}, `background`);
-  const { logs, deleteLogEntry } = useHunterLog();
+  const { logs = [], deleteLogEntry } = useHunterLog();
+
+  const deleteItem = (item: HunterLogEntry) => {
+    Alert.alert(`Delete Hunt ${item.monster}?`, `This action cannot be undone.`, [
+      {
+        text: `Cancel`,
+        onPress: () => null,
+        style: `cancel`,
+      },
+      {
+        text: `OK`,
+        onPress: () => deleteLogEntry(item.id),
+        style: `destructive`,
+      },
+    ]);
+  };
 
   const renderItem: ListRenderItem<HunterLogEntry> = ({ item }) => {
-    const deleteItem = () => {
-      Alert.alert(`Delete Hunt ${item.monster}?`, `This action cannot be undone.`, [
-        {
-          text: `Cancel`,
-          onPress: () => null,
-          style: `cancel`,
-        },
-        {
-          text: `OK`,
-          onPress: () => deleteLogEntry(item.id),
-          style: `destructive`,
-        },
-      ]);
-    };
     return (
       <View style={styles.itemCard}>
         <MonsterIcon type={item.monster} rank={item.carts === 3 ? `failed` : item.rank} />
@@ -44,10 +47,20 @@ export const HunterLog: React.FC = () => {
             ) : null}
           </View>
         </View>
-        <IconButton icon="times-circle" onPress={deleteItem} />
+        <IconButton icon="times-circle" onPress={() => deleteItem(item)} />
       </View>
     );
   };
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: (
+        <Text style={styles.title}>
+          TOTAL HUNTS: {logs.length}
+        </Text>
+      ),
+    });
+  }, [logs]);
 
   return (
     <FlatList<HunterLogEntry>
@@ -56,11 +69,6 @@ export const HunterLog: React.FC = () => {
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       contentContainerStyle={{ gap: 16 }}
-      ListHeaderComponent={
-        <Text variant="subtitle" style={styles.title}>
-          TOTAL HUNTS: {logs.length}
-        </Text>
-      }
     />
   );
 };

@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import { ImageBackground, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 
-import { PartsData } from "../../../assets/data/hunt";
-import { InventoryKind } from "../../../assets/data/types";
-import { RootState } from "../../../util/redux/store";
-import InventoryIcon from "../../InventoryIcon";
-import { Text } from "../../Themed";
-import { useThemeColor } from "../../themed/useThemeColor";
+import { PartsData } from "../../assets/data/hunt";
+import { InventoryKind } from "../../assets/data/types";
+import { RootState } from "../../util/redux/store";
+import InventoryIcon from "../InventoryIcon";
+import { Text } from "../Themed";
+import { useThemeColor } from "../themed/useThemeColor";
 
 type PartCardProps = {
   type: keyof PartsData;

@@ -5,7 +5,7 @@ import Drawer from "expo-router/drawer";
 import * as React from "react";
 import { Pressable, useColorScheme } from "react-native";
 
-import { HunterLog } from "../../components/screens/drawer/HunterLog";
+import { HunterLog } from "../../components/huntingLog/HunterLog";
 import Colors from "../../constants/Colors";
 
 export default function HunterLogScreen() {

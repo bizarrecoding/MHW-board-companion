@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity, View, useColorScheme, StyleSheet } from "react-native";
 
-import { Text } from "../../Themed";
-import { tintColor, alertColor } from "../../../constants/Colors";
+import { Text } from "../Themed";
+import { tintColor, alertColor } from "../../constants/Colors";
 
 export const HPCounter: React.FC<{ max: number }> = ({ max }) => {
   const colorScheme = useColorScheme(); 

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { PartCard } from "./PartCard";
-import { PartsData } from "../../../assets/data/hunt";
+import { PartsData } from "../../assets/data/hunt";
 import { View } from "react-native";
 
 type MonsterPartsProps = {
