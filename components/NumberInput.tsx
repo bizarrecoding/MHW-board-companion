@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, StyleProp, ViewStyle } from "react-native";
 
 import { Text, Button } from "./Themed";
 
@@ -9,14 +9,17 @@ type NumberInputProps = {
   children: React.ReactNode;
   min?: number;
   max?: number;
+  style?: StyleProp<ViewStyle>;
 };
 
+/** @deprecated */
 export default function NumberInput({
   label,
   setValue,
   children,
   min = 0,
   max = 10,
+  style,
 }: NumberInputProps) {
   const increment = () => setValue((n) => (n < max ? n + 1 : n));
   const decrement = () => setValue((n) => (n > min ? n - 1 : 0));
@@ -27,7 +30,7 @@ export default function NumberInput({
           {label}
         </Text>
       ) : null}
-      <View style={[styles.center_row, { marginVertical: 16 }]}>
+      <View style={[styles.center_row, style]}>
         <Button title="-" style={styles.buttons} onPress={decrement} />
         {children}
         <Button title="+" style={styles.buttons} onPress={increment} />
@@ -47,6 +50,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   buttons: {
+    borderRadius: 12,
     padding: 6,
   },
 });

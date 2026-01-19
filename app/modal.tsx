@@ -12,13 +12,23 @@ import { Register } from "../components/modals/Register";
 import { RollPoolModal } from "../components/modals/RollPoolModal";
 import { useEffect } from "react";
 
+type ModalType = `log` | `roll` | `item` | `register` | `recover` | `monster`;
+
+const ModalTitleMap: Record<ModalType, string> = {
+  log: `Log Entry`,
+  roll: `Roll Pool`,
+  item: `Add Inventory Entry`,
+  register: `Register`,
+  recover: `Recover Password`,
+  monster: `Monster`,
+};
+
 export default function ModalScreen() {
   const navigation = useNavigation();
-  const { type } = useGlobalSearchParams();
+  const { type } = useGlobalSearchParams<{ type: ModalType }>();
   useEffect(() => {
-    const title = typeof type === `string` ? type : type?.join(" ");
     navigation.setOptions({
-      title: title?.toUpperCase(),
+      title: ModalTitleMap[type] ?? type?.toUpperCase(),
     });
   }, [type]);
 

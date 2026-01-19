@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ListRenderItem, StyleSheet, View } from "react-native";
+import { FlatList, ListRenderItem, StyleSheet, TouchableOpacity, View } from "react-native";
 
-import { InventoryEntry, useInventory } from "../../../hooks/useInventory";
-import InventoryIcon from "../../InventoryIcon";
-import NumberInput from "../../NumberInput";
-import { IconButton, Text, TextInput } from "../../Themed";
-import { useThemeColor } from "../../themed/useThemeColor";
+import { InventoryEntry, useInventory } from "../../hooks/useInventory";
+import InventoryIcon from "../InventoryIcon";
+import NumberInput from "../themed/inputs/NumberInput";
+import { IconButton, Text, TextInput } from "../Themed";
+import { useThemeColor } from "../themed/useThemeColor";
+import { FontAwesome } from "@expo/vector-icons";
+import SearchInput from "../themed/inputs/SearchInput";
 
 const stickyIndex = [0];
 
@@ -26,29 +28,23 @@ export default function InventoryLog() {
         deleteEntry(item.id);
       } else if (amount !== item.amount) {
         updateEntry(item.id, amount);
-      }
+      } 
       setEdit(null);
     };
     return (
-      <View style={{ padding: 16, alignItems: `center` }}>
-        <View style={{ flexDirection: `row` }}>
+      <View style={styles.itemWrapper}>
+        <TouchableOpacity style={styles.row} onPress={setupEdit}> 
           <InventoryIcon type={item.type} name={item.name} style={styles.icon} />
           <View style={{ flex: 1 }}>
-            <Text variant="caption">{item.name}</Text>
-            <Text variant="body">x {item.amount}</Text>
+            <Text variant="caption" style={styles.itemLabel}>{item.name}</Text>
+            <Text style={styles.itemAmount}>x {item.amount}</Text>
           </View>
-          {edit === index ? (
-            <IconButton icon="save" variant="clear" onPress={save} />
-          ) : (
-            <IconButton icon="edit" variant="clear" onPress={setupEdit} />
-          )}
-        </View>
+          {edit === index ? <IconButton icon="check" variant="clear" onPress={save} /> : null}
+        </TouchableOpacity>
         {edit === index ? (
-          <NumberInput setValue={setAmount}>
-            <Text variant="body" style={styles.counter}>
-              {amount}
-            </Text>
-          </NumberInput>
+          <View key="edit" style={[styles.row, { marginVertical: 12, justifyContent: "space-around" }]}>
+            <NumberInput setValue={setAmount} value={amount} style={styles.countEditor} />
+          </View>
         ) : null}
       </View>
     );
@@ -67,11 +63,7 @@ export default function InventoryLog() {
     <FlatList<InventoryEntry>
       data={filterableInventory}
       ListHeaderComponent={
-        <TextInput
-          contentContainerStyle={{ padding: 16, margin: 16 }}
-          onChangeText={filterBy}
-          placeholder="Filter by..."
-        />
+        <SearchInput onChangeText={filterBy} />
       }
       stickyHeaderIndices={stickyIndex}
       renderItem={renderItem}
@@ -85,9 +77,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  counter: {
-    flex: 1,
-    textAlign: `center`,
+  itemWrapper: {
+    padding: 12,
+    backgroundColor: `#8883`,
+    borderRadius: 16,
+    marginHorizontal: 16,
+    marginVertical: 6,
+  },
+  row: {
+    flexDirection: `row`,
+    alignItems: `center`,
+  },
+  itemLabel: {
+    fontWeight: 600,
+  },
+  itemAmount: {
+    fontSize: 16,
+    opacity: 0.75
+  },
+  countEditor: {
+    flex: 4,
   },
   icon: {
     marginRight: 12,

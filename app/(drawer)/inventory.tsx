@@ -3,10 +3,11 @@ import { DrawerToggleButton } from "@react-navigation/drawer";
 import { Link } from "expo-router";
 import Drawer from "expo-router/drawer";
 import React from "react";
-import { Pressable, useColorScheme } from "react-native";
+import { Pressable, useColorScheme, View, StyleSheet } from "react-native";
 
-import InventoryLog from "../../components/screens/drawer/InventoryLog";
+import InventoryLog from "../../components/inventory/InventoryLog";
 import Colors from "../../constants/Colors";
+import { Text } from "../../components/Themed";
 
 export default function HunterLogScreen() {
   const colorScheme = useColorScheme();
@@ -26,12 +27,15 @@ export default function HunterLogScreen() {
             <Link href="/modal?type=item" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome
-                    name="plus"
-                    size={25}
-                    color={tint}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
+                  <View style={styles.addBtn}>
+                    <Text style={styles.addBtnText}>Add Item</Text>
+                    <FontAwesome
+                      name="plus"
+                      size={22}
+                      color={tint}
+                      style={[styles.addBtnIcon, { opacity: pressed ? 0.5 : 1 }]}
+                    />
+                  </View>
                 )}
               </Pressable>
             </Link>
@@ -42,3 +46,17 @@ export default function HunterLogScreen() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  addBtn: {
+    flexDirection: `row`,
+    alignItems: `center`,
+  },
+  addBtnText: {
+    fontSize: 16,
+  },
+  addBtnIcon: {
+    marginRight: 12,
+    marginLeft: 6,
+  },
+});
