@@ -2,9 +2,14 @@ import React from "react";
 import { Alert, FlatList, ListRenderItem, StyleSheet } from "react-native";
 
 import { HunterLogEntry, useHunterLog } from "../../../hooks/useHunterLog";
-import { MonsterIcon } from "../../InventoryIcon";
+import { CrownRankIcon, MonsterIcon } from "../../InventoryIcon";
 import { IconButton, Text, View } from "../../Themed";
 import { useThemeColor } from "../../themed/useThemeColor";
+
+const formatTimestamp = (timestamp: number) => {
+  const date = new Date(timestamp);
+  return `${date.toISOString().split(`T`)[0]}`;
+};
 
 export const HunterLog: React.FC = () => {
   const backgroundColor = useThemeColor({}, `background`);
@@ -28,20 +33,14 @@ export const HunterLog: React.FC = () => {
     return (
       <View style={styles.itemCard}>
         <MonsterIcon type={item.monster} rank={item.carts === 3 ? `failed` : item.rank} />
-        <View style={{ flex: 1 }}>
-          <Text variant="caption">{item.monster}</Text>
-          <View
-            style={{
-              flexDirection: `row`,
-            }}
-          >
-            <Text variant="body" style={{ flex: 1 }}>
-              {item.rank}
-            </Text>
+        <View style={{ flex: 1, marginLeft: 12, gap: 12 }}>
+          <View style={[styles.row, {}]}>
+            <Text bold variant="caption" style={{ fontSize: 18, letterSpacing: 1 }}>{item.monster}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text variant="body" style={styles.subTitle}>{formatTimestamp(item.timestamp)}</Text>
             {item?.carts ? (
-              <Text variant="body" style={{ flex: 1 }}>
-                Carted: {item.carts}
-              </Text>
+              <Text variant="body" style={styles.subTitle}>Carted: {item.carts}</Text>
             ) : null}
           </View>
         </View>
@@ -56,9 +55,10 @@ export const HunterLog: React.FC = () => {
       style={[styles.container, { backgroundColor }]}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
+      contentContainerStyle={{ gap: 16 }}
       ListHeaderComponent={
         <Text variant="subtitle" style={styles.title}>
-          Total hunts: {logs.length}
+          TOTAL HUNTS: {logs.length}
         </Text>
       }
     />
@@ -69,13 +69,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  title: {
-    padding: 16,
-    marginBottom: 16,
+  row: {
+    flexDirection: `row`,
+    alignItems: `center`,
+    justifyContent: `space-between`,
+    gap: 8,
   },
+  title: {
+    fontWeight: `bold`,
+    letterSpacing: 1,
+    padding: 16,
+  },
+  subTitle: {},
   itemCard: {
     padding: 16,
     flexDirection: `row`,
     alignItems: `center`,
+    marginHorizontal: 12,
+    backgroundColor: "#8883",
+    borderWidth: 1,
+    borderRadius: 12,
+    borderColor: "#8886",
   },
 });

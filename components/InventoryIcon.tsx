@@ -219,8 +219,19 @@ const BORDER_MAP: Record<RankType | `failed` | `none`, string> = {
   "High Rank": `#AAA`,
   "Master Rank": `#EB5`,
   failed: `#A00`,
-  none: `#0000`,
+  none: `#000`,
 };
+
+export const CrownRankIcon: React.FC<{ rank: RankType }> = ({ rank }) => {
+  return (
+    <MaterialCommunityIcons
+      name="crown"
+      size={18}
+      color={BORDER_MAP[rank ?? `Low Rank`]}
+    />
+  );
+};
+
 export const MonsterIcon = (props: MonsterIconProps) => {
   const { rank, type, noRank, disabled } = props;
   const theme = useColorScheme();
