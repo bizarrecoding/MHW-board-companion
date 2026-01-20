@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, useWindowDimensions, Pressable } from 'react-native';
+import { StyleSheet, View, useWindowDimensions, Pressable, ViewStyle, StyleProp } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
@@ -7,43 +7,46 @@ import Animated, {
   useAnimatedReaction,
   withTiming,
 } from 'react-native-reanimated';
-import { useThemeColor } from './themed/useThemeColor';
-import { Text } from './Themed';
-import { RankType, Ranks } from '../assets/data/types';
 import { scheduleOnRN } from 'react-native-worklets';
+import { useThemeColor } from '../useThemeColor';
+import Text from '../ThemedText';
 
 interface RankSliderProps {
-  value: RankType;
-  onValueChange: (value: RankType) => void;
-  containerStyle?: any;
+  data: (string|number)[];
+  value: string|number;
+  onValueChange: (value: string|number) => void;
+  renderLabel?: (value: string) => string;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
 const THUMB_SIZE = 32;
 const TRACK_HEIGHT = 8;
-const SEGMENTS = Ranks.length;
 
-export const RankSlider: React.FC<RankSliderProps> = ({
+export const Slider: React.FC<RankSliderProps> = ({
+  data,
   value,
   onValueChange,
+  renderLabel,
   containerStyle,
 }) => {
   const { width: screenWidth } = useWindowDimensions();
+  const SEGMENTS = data.length;
   const PADDING = 40;
   const SLIDER_WIDTH = screenWidth - PADDING * 2;
-  const SEGMENT_WIDTH = SLIDER_WIDTH / (SEGMENTS - 1);
+  const SEGMENT_WIDTH = SLIDER_WIDTH / (data.length - 1);
 
   const accentColor = useThemeColor({}, 'accent');
   const textColor = useThemeColor({}, 'text');
   const trackBg = useThemeColor({ light: '#DDD', dark: '#222' }, 'card');
   const borderColor = useThemeColor({}, 'cardBorder');
 
-  const currentIndex = Ranks.indexOf(value);
+  const currentIndex = data.indexOf(value);
   const translateX = useSharedValue(currentIndex * SEGMENT_WIDTH);
   const isPressed = useSharedValue(false);
   const startX = useSharedValue(0);
 
   useEffect(() => {
-    const targetX = Ranks.indexOf(value) * SEGMENT_WIDTH;
+    const targetX = data.indexOf(value) * SEGMENT_WIDTH;
     translateX.value = withTiming(targetX);
   }, [value, SEGMENT_WIDTH]);
 
@@ -57,7 +60,7 @@ export const RankSlider: React.FC<RankSliderProps> = ({
     () => snapToIndex(translateX.value),
     (nextIndex, prevIndex) => {
       if (nextIndex !== prevIndex && isPressed.value) {
-        scheduleOnRN(onValueChange,Ranks[nextIndex]);
+        scheduleOnRN(onValueChange, data[nextIndex]);
       }
     }
   );
@@ -75,7 +78,7 @@ export const RankSlider: React.FC<RankSliderProps> = ({
       isPressed.value = false;
       const finalIndex = snapToIndex(translateX.value);
       translateX.value = withTiming(finalIndex * SEGMENT_WIDTH);
-      scheduleOnRN(onValueChange,Ranks[finalIndex]);
+      scheduleOnRN(onValueChange, data[finalIndex]);
     });
 
   const thumbStyle = useAnimatedStyle(() => ({
@@ -92,6 +95,11 @@ export const RankSlider: React.FC<RankSliderProps> = ({
     backgroundColor: accentColor,
   }));
 
+  const _renderLabel = (value: string) => {
+    if(renderLabel) return renderLabel(value);
+    return value;
+  };
+
   return (
     <View style={[styles.container, containerStyle]}>
       <View style={[styles.trackWrapper, { width: SLIDER_WIDTH }]}>
@@ -101,16 +109,16 @@ export const RankSlider: React.FC<RankSliderProps> = ({
         </View>
 
         {/* Discrete Markers */}
-        {Ranks.map((rank, index) => {
+        {data.map((item, index) => {
           const markerX = index * SEGMENT_WIDTH;
           return (
             <Pressable 
-              key={rank} 
+              key={item} 
               style={[styles.markerWrapper, { left: markerX - 20 }]}
-              onPress={() => onValueChange(rank)}
+              onPress={() => onValueChange(item)}
             >
               <View style={[styles.marker, { backgroundColor: currentIndex >= index ? accentColor : borderColor }]} />
-              <Text 
+              <Text
                 style={[
                   styles.rankLabel, 
                   { 
@@ -120,7 +128,7 @@ export const RankSlider: React.FC<RankSliderProps> = ({
                   }
                 ]}
               >
-                {rank.split(' ')[0]}
+                {_renderLabel(item as string)}
               </Text>
             </Pressable>
           );

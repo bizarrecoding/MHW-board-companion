@@ -1,13 +1,14 @@
 import { View, useWindowDimensions, StyleSheet } from "react-native";
-import { BehaviorCardProps, cardStyles } from "./common";
+import { BehaviorCardProps } from "./common";
 import TargetIcon from "../TargetIcon";
+import { commonStyles } from "../../themed/styles";
 
 const HiddenCard: React.FC<Pick<BehaviorCardProps, `behavior`>> = ({ behavior }) => {
   const { width: screenWidth } = useWindowDimensions();
   const width = screenWidth - 32; 
   const target = behavior?.target ?? `Melee`;
   return (
-    <View style={[styles.cardWrapper, cardStyles.shadows, { width, minHeight: 150 }]}>
+    <View style={[styles.cardWrapper, commonStyles.shadows, { width, minHeight: 150 }]}>
       <View style={styles.hiddenCardPattern} />
       <View style={styles.hiddenCardContent}>
         <TargetIcon target={target} style={{ width: 80, height: 80, borderRadius: 40 }} />

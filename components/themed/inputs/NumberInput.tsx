@@ -3,6 +3,7 @@ import { View, StyleSheet, StyleProp, ViewStyle, TouchableOpacity } from "react-
 import Text from "../ThemedText";
 import Button from "../ThemedButton";
 import { useThemeColor } from "../useThemeColor";
+import { commonStyles } from "../styles";
  
 
 type NumberInputProps = {
@@ -40,10 +41,8 @@ export default function NumberInput({
 
 const styles = StyleSheet.create({
   center_row: {
-    flex:1,
-    flexDirection: `row`,
-    alignItems: `center`,
-    justifyContent: `center`,
+    ...commonStyles.row,
+    ...commonStyles.center,
     backgroundColor: `#8883`,
     borderRadius: 12,
     borderWidth: 0,

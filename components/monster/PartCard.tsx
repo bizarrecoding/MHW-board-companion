@@ -9,6 +9,7 @@ import { RootState } from "../../util/redux/store";
 import InventoryIcon from "../InventoryIcon";
 import { Text } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
+import { commonStyles } from "../themed/styles";
 
 type PartCardProps = {
   type: keyof PartsData;
@@ -44,12 +45,7 @@ const getPartLabel = (monster: string, type: string) => {
 export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak }) => {
   const textColor = useThemeColor({}, `text`);
   const textSecondaryColor = useThemeColor({ light: `#666`, dark: `#AAA` }, `textSecondary`);
-  const cardColor = useThemeColor({}, `card`);
-  const cardBorderColor = useThemeColor({}, `cardBorder`);
-  const cardStyle = {
-    backgroundColor: cardColor,
-    borderColor: cardBorderColor,
-  };
+
   const { monster } = useSelector((state: RootState) => state.hunt);
   const [breakDmg, setBreakDmg] = useState(breakRes);
   const isBroken = breakDmg === 0;
@@ -84,7 +80,7 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
         ) : null}
       </View>
 
-      <View style={[styles.content, cardStyle]}>
+      <View style={[styles.content, commonStyles.cardBackground]}>
         <View style={[styles.iconWrapper, { borderColor: partIconBorderColor }]}>
           <InventoryIcon
             type={partIcon}
@@ -99,7 +95,7 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
 
         <View style={styles.stats}>
           <ImageBackground
-            source={require(`../../../assets/images/Defense.png`)}
+            source={require(`../../assets/images/Defense.png`)}
             style={styles.statBox}
           >
             <Text bold style={styles.statText}>
@@ -109,7 +105,7 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
 
           <TouchableOpacity onPress={damagePart}>
             <ImageBackground
-              source={require(`../../../assets/images/break.png`)}
+              source={require(`../../assets/images/break.png`)}
               style={styles.statBox}
             >
               <Text bold style={[styles.statText, { color: `#333` }]}>
@@ -139,11 +135,8 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   content: {
-    flexDirection: `row`,
-    alignItems: `center`,
-    borderRadius: 12,
-    padding: 8,
-    borderWidth: 1,
+    ...commonStyles.row,
+    ...commonStyles.card, 
   },
   iconWrapper: {
     width: ICON_SIZE,

@@ -4,11 +4,11 @@ import { useDispatch } from "react-redux";
 import { StyleSheet } from "react-native";
 
 import { MonsterHuntData } from "../../assets/data/hunt";
-import { MonsterKind, RankType } from "../../assets/data/types";
+import { MonsterKind, Ranks, RankType } from "../../assets/data/types";
 import { setHunt } from "../../util/redux/HuntSlice";
 import StoryPicker from "../Story/StoryPick";
 import { Text } from "../Themed";
-import { RankSlider } from "../RankSlider";
+import { Slider } from "../themed/inputs/Slider";
 
 const allowedChoices = Object.keys(MonsterHuntData).filter(
   (key) => MonsterHuntData[key as MonsterKind] !== null
@@ -33,7 +33,12 @@ export const MonsterModal: React.FC = () => {
       allowedChoices={allowedChoices}
     >
       <Text style={styles.title}>Choose a monster to see its details:</Text>
-      <RankSlider value={rank} onValueChange={setRank} />
+      <Slider
+        data={Ranks}
+        value={rank}
+        onValueChange={(rank) => setRank(rank as RankType)}
+        renderLabel={(rank) => rank.split(" ")[0]}
+      />
     </StoryPicker>
   );
 };

@@ -1,17 +1,16 @@
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { StyleProp, View, StyleSheet, ViewStyle } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-import { ItemList } from "../../assets/data/items";
-import { ItemEntry, MonsterKind, RankType, StoryEntry, StoryOption } from "../../assets/data/types";
+import { MonsterKind, RankType, StoryEntry, StoryOption } from "../../assets/data/types";
 import EventModal from "../Dropdown/EventModal";
-import InventoryIcon, { MonsterIcon } from "../InventoryIcon";
+import { MonsterIcon } from "../InventoryIcon";
 import { Text, Button, IconButton } from "../Themed";
 import { story } from "../../assets/data/story";
 import { useThemeColor } from "../themed/useThemeColor";
 import EntryOptions from "./EntryOptions";
 import ItemRewards from "./ItemRewards";
-import { cardStyles } from "../Behaviors/Cards/common";
+import { commonStyles } from "../themed/styles";
 
 type StoryProps = {
   monster: MonsterKind;
@@ -94,14 +93,11 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   content: {
-    backgroundColor: `#8883`,
-    borderColor: `#8888`,
-    borderWidth: 1,
+    ...commonStyles.card,
+    ...commonStyles.shadows,
     padding: 16,
     paddingVertical: 32,
-    borderRadius: 16,
     marginBottom: 16,
-    ...cardStyles.shadows,
   },
   entryTitle: {
     fontSize: 16,

@@ -16,11 +16,11 @@ type ModalType = `log` | `roll` | `item` | `register` | `recover` | `monster`;
 
 const ModalTitleMap: Record<ModalType, string> = {
   log: `Log Entry`,
-  roll: `Roll Pool`,
+  roll: `Draw pool configuration`,
   item: `Add Inventory Entry`,
   register: `Register`,
   recover: `Recover Password`,
-  monster: `Monster`,
+  monster: `Monster selection`,
 };
 
 export default function ModalScreen() {

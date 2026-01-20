@@ -2,6 +2,7 @@ import { TouchableOpacity, StyleSheet } from "react-native";
 import { ItemEntry } from "../../assets/data/types";
 import InventoryIcon from "../InventoryIcon";
 import { IconButton, Text } from "../Themed";
+import { commonStyles } from "../themed/styles";
 
 type InventoryItemProps = {
   item: ItemEntry;
@@ -26,11 +27,8 @@ export default InventoryItem;
 
 const styles = StyleSheet.create({
   itemWrapper: {
-    padding: 12,
-    flexDirection: `row`,
-    alignItems: `center`,
-    backgroundColor: `#8883`,
-    borderRadius: 16,
+    ...commonStyles.row,
+    ...commonStyles.card,
     marginHorizontal: 16,
     marginVertical: 6,
   },

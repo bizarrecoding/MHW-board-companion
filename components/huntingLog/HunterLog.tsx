@@ -6,6 +6,7 @@ import { MonsterIcon } from "../InventoryIcon";
 import { IconButton, Text, View } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
 import { useNavigation } from "expo-router";
+import { commonStyles } from "../themed/styles";
 
 const formatTimestamp = (timestamp: number) => {
   const date = new Date(timestamp);
@@ -36,7 +37,7 @@ export const HunterLog: React.FC = () => {
     return (
       <View style={styles.itemCard}>
         <MonsterIcon type={item.monster} rank={item.carts === 3 ? `failed` : item.rank} />
-        <View style={{ flex: 1, marginLeft: 12, gap: 12 }}>
+        <View style={{ flex: 1, marginHorizontal: 12, gap: 12 }}>
           <View style={[styles.row, {}]}>
             <Text bold variant="caption" style={{ fontSize: 18, letterSpacing: 1 }}>{item.monster}</Text>
           </View>
@@ -47,7 +48,7 @@ export const HunterLog: React.FC = () => {
             ) : null}
           </View>
         </View>
-        <IconButton icon="times-circle" onPress={() => deleteItem(item)} />
+        <IconButton icon="times-circle" size={24} onPress={() => deleteItem(item)} />
       </View>
     );
   };
@@ -68,7 +69,7 @@ export const HunterLog: React.FC = () => {
       style={[styles.container, { backgroundColor }]}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
-      contentContainerStyle={{ gap: 16 }}
+      contentContainerStyle={{ gap: 6 }}
     />
   );
 };
@@ -90,13 +91,9 @@ const styles = StyleSheet.create({
   },
   subTitle: {},
   itemCard: {
-    padding: 16,
-    flexDirection: `row`,
-    alignItems: `center`,
+    ...commonStyles.row,
+    ...commonStyles.card, 
     marginHorizontal: 12,
-    backgroundColor: "#8883",
-    borderWidth: 1,
-    borderRadius: 12,
-    borderColor: "#8886",
+    marginVertical: 6,
   },
 });

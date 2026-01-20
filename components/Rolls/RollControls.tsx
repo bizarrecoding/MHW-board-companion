@@ -4,6 +4,7 @@ import { Text } from '../Themed';
 import { useThemeColor } from '../themed/useThemeColor';
 import { Link } from 'expo-router';
 import { FontAwesome } from '@expo/vector-icons';
+import { commonStyles } from '../themed/styles';
 
 type RollControlsProps = {
   rollDamage: (numberToRoll: number) => void;
@@ -75,15 +76,10 @@ const ConfigLink: React.FC = () => {
 
 const styles = StyleSheet.create({
   controlsCard: {
+    ...commonStyles.card,
+    ...commonStyles.shadows,
     margin: 16,
     padding: 16,
-    borderRadius: 24,
-    borderWidth: 1,
-    elevation: 8,
-    shadowColor: `#000`,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
   },
   pickerSection: {
     alignItems: `center`,
@@ -124,15 +120,10 @@ const styles = StyleSheet.create({
     fontVariant: [`tabular-nums`],
   },
   rollActionBtn: {
-    height: 48,
+    paddingVertical: 12,
     borderRadius: 16,
     alignItems: `center`,
-    justifyContent: `center`,
-    shadowColor: `#CCC`,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
-    elevation: 4,
+    justifyContent: `center`, 
   },
   rollActionText: {
     fontSize: 18,

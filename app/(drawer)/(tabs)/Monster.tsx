@@ -12,12 +12,11 @@ import ResistanceTabs from "../../../components/monster/ResistanceTabs";
 import { setRank } from "../../../util/redux/HuntSlice";
 import { RootState } from "../../../util/redux/store";
 import { useThemeColor } from "../../../components/themed/useThemeColor";
+import { commonStyles } from "../../../components/themed/styles";
 
 const Monster = () => {
   const dispatch = useDispatch(); 
   const accentColor = useThemeColor({}, `accent`);
-  const cardColor = useThemeColor({}, `card`);
-  const cardBorderColor = useThemeColor({}, `cardBorder`); 
 
   const { monster, rank } = useSelector((state: RootState) => state.hunt);
   const baseHunt = MonsterHuntData[monster ?? `Barroth`];
@@ -29,11 +28,6 @@ const Monster = () => {
       return [...effects, part];
     });
   }, []);
-
-  const cardStyle = {
-    backgroundColor: cardColor,
-    borderColor: cardBorderColor,
-  };
 
   const toggle = () => {
     if (rank === `Low Rank`) dispatch(setRank(`High Rank`));
@@ -62,7 +56,7 @@ const Monster = () => {
         }}
       />
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-        <View style={[styles.mainCard, cardStyle]}>
+        <View style={styles.mainCard}>
           <TouchableOpacity onPress={toggle}>
             <MonsterIcon
               rank={rank}
@@ -78,7 +72,7 @@ const Monster = () => {
         </View>
         <MonsterParts data={baseHunt?.[rank]?.parts!} onBreak={onBreak} />
 
-        <View style={[styles.effectsCard, cardStyle]}>
+        <View style={[styles.effectsCard]}>
           <Text bold style={[styles.effectsLabel, { color: accentColor }]}>HUNT EFFECTS</Text>
           <Text style={styles.effectsText}>{effectsText}</Text>
         </View>
@@ -106,11 +100,9 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   mainCard: {
-    flexDirection: `row`,
-    alignItems: `center`, 
-    borderRadius: 16,
-    padding: 16,
-    borderWidth: 1,
+    ...commonStyles.row,
+    ...commonStyles.card,
+    paddingHorizontal: 16,
     marginBottom: 24,
     gap: 16,
   },
@@ -124,9 +116,8 @@ const styles = StyleSheet.create({
     letterSpacing: 2, 
   },
   effectsCard: { 
-    borderRadius: 12,
-    padding: 16,
-    borderWidth: 1,
+    ...commonStyles.card,
+    paddingHorizontal: 16,
     marginTop: 8,
   },
   effectsLabel: {

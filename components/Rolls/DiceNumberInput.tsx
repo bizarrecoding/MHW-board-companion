@@ -3,6 +3,7 @@ import { View, StyleSheet } from "react-native";
 
 import { Text, Button } from "../Themed";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { commonStyles } from "../themed/styles";
 
 type NumberInputProps = {
   setValue: React.Dispatch<React.SetStateAction<number>>;
@@ -30,15 +31,11 @@ export default function NumberInput({
 
 const styles = StyleSheet.create({
   content: {
-    flexDirection: `row`,
-    alignItems: `center`,
+    ...commonStyles.row,
+    ...commonStyles.card,
     justifyContent: `center`,
-    backgroundColor: "#8883",
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#888A",
     paddingVertical: 6,
-    marginVertical: 12,
+    marginVertical: 6,
     marginHorizontal: 16,
   },
   buttons: {

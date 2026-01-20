@@ -4,6 +4,7 @@ import { StyleProp, TextStyle, TouchableOpacity, StyleSheet, View, TouchableOpac
 
 import Text from "./ThemedText";
 import { useThemeColor, ThemeProps } from "./useThemeColor";
+import { commonStyles } from "./styles";
 
 export type ButtonProps = ThemeProps &
   TouchableOpacityProps & {
@@ -23,7 +24,7 @@ export default function Button(props: ButtonProps) {
     title = ``,
     icon,
     textStyle,
-    round = true,
+    round = false,
     variant = `filled`,
     disabled,
     full = false,
@@ -33,8 +34,8 @@ export default function Button(props: ButtonProps) {
   const backgroundBase = useThemeColor({ light: lightColor, dark: darkColor }, `tint`);
   const backgroundColor = backgroundBase + (disabled ? `88` : ``);
 
-  const textBase = useThemeColor({ light: darkColor, dark: lightColor }, `text`);
-  const textAccent = useThemeColor({ light: lightColor, dark: darkColor }, `textSecondary`);
+  const textBase = useThemeColor({}, `text`);
+  const textAccent = useThemeColor({ dark: '#fff' }, `textSecondary`);
   const textColor = variant === `filled` ? textAccent : textBase;
 
   return (
@@ -42,7 +43,7 @@ export default function Button(props: ButtonProps) {
       style={[
         full ? { flex: 1 } : { flex: 0 },
         styles.baseButton,
-        round ? styles.round : null,
+        { borderRadius: round ? 99 : commonStyles.card.borderRadius },
         variant === `filled` ? { backgroundColor } : null,
         variant === `outlined` ? { borderColor: textColor, borderWidth: 1 } : null,
         variant === `clear` ? { backgroundColor: `transparent` } : null,
@@ -60,6 +61,7 @@ export default function Button(props: ButtonProps) {
         {icon && typeof icon !== `string` ? icon : null}
         {title ? (
           <Text
+            bold
             variant="button"
             style={[{ color: textColor, flex: 1, textAlign: `center` }, textStyle]}
           >
@@ -116,6 +118,6 @@ const styles = StyleSheet.create({
     justifyContent: `center`,
   },
   round: {
-    borderRadius: 99,
+    borderRadius: 12,
   },
 });

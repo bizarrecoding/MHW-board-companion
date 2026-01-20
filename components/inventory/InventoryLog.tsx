@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ListRenderItem, StyleSheet, TouchableOpacity, View } from "react-native";
+import { FlatList, ListRenderItem, Pressable, StyleProp, StyleSheet, TouchableNativeFeedback, TouchableOpacity, View, ViewStyle } from "react-native";
 
 import { InventoryEntry, useInventory } from "../../hooks/useInventory";
 import InventoryIcon from "../InventoryIcon";
@@ -8,6 +8,8 @@ import { IconButton, Text, TextInput } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
 import { FontAwesome } from "@expo/vector-icons";
 import SearchInput from "../themed/inputs/SearchInput";
+import { commonStyles } from "../themed/styles";
+import { Link, router } from "expo-router";
 
 const stickyIndex = [0];
 
@@ -35,11 +37,12 @@ export default function InventoryLog() {
       <View style={styles.itemWrapper}>
         <TouchableOpacity style={styles.row} onPress={setupEdit}> 
           <InventoryIcon type={item.type} name={item.name} style={styles.icon} />
-          <View style={{ flex: 1 }}>
-            <Text variant="caption" style={styles.itemLabel}>{item.name}</Text>
-            <Text style={styles.itemAmount}>x {item.amount}</Text>
-          </View>
-          {edit === index ? <IconButton icon="check" variant="clear" onPress={save} /> : null}
+          <Text variant="caption" style={styles.itemLabel}>{item.name}</Text>
+          {edit === index ? (
+            <IconButton icon="check" variant="clear" onPress={save} />
+          ) : (
+            <Text style={styles.itemAmount}> x {item.amount}</Text>
+          )}
         </TouchableOpacity>
         {edit === index ? (
           <View key="edit" style={[styles.row, { marginVertical: 12, justifyContent: "space-around" }]}>
@@ -59,17 +62,55 @@ export default function InventoryLog() {
     // update filterableInventory when inventory changes
     setFilterableInventory(inventory);
   }, [inventory]);
+
   return (
-    <FlatList<InventoryEntry>
-      data={filterableInventory}
-      ListHeaderComponent={
-        <SearchInput onChangeText={filterBy} />
-      }
-      stickyHeaderIndices={stickyIndex}
-      renderItem={renderItem}
-      keyExtractor={keyExtractor}
-      style={[styles.container, { backgroundColor }]}
-    />
+    <View style={styles.container}>
+      <FlatList<InventoryEntry>
+        data={filterableInventory}
+        ListHeaderComponent={
+          <SearchInput onChangeText={filterBy} />
+        }
+        stickyHeaderIndices={stickyIndex}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor} 
+        contentContainerStyle={{ paddingBottom: 96 }}
+      />
+
+      <FloatingActionButton icon="plus" size={56} style={styles.fabPosition} onPress={() => {
+        router.push(`/modal?type=item`);
+      }} />
+    </View>
+  );
+}
+
+type FloatingActionButtonProps = {
+  icon: "plus";
+  size: number;
+  style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
+}
+
+const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({ icon, size, style, onPress }) => {
+  const accentColor = useThemeColor({}, `textSecondary`);
+  const backgroundColor = useThemeColor({}, `accent`);
+  const customStyles = {
+    width: size,
+    height: size,
+    borderRadius: size / 2,
+    backgroundColor,
+  };
+  return (
+    <View style={style}>
+      <TouchableNativeFeedback onPress={onPress}>
+        <View style={[styles.fab, commonStyles.shadows, customStyles]}>
+          <FontAwesome
+            name={icon}
+            size={size / 2}
+            color={accentColor}
+          />
+        </View>
+      </TouchableNativeFeedback>
+    </View>
   );
 }
 
@@ -77,18 +118,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  fabPosition: {
+    position: `absolute`,
+    bottom: 32,
+    right: 32,
+  },
+  fab: {
+    justifyContent: `center`,
+    alignItems: `center`,
+  },
   itemWrapper: {
-    padding: 12,
-    backgroundColor: `#8883`,
-    borderRadius: 16,
+    ...commonStyles.card,
     marginHorizontal: 16,
     marginVertical: 6,
   },
-  row: {
-    flexDirection: `row`,
-    alignItems: `center`,
-  },
+  row: commonStyles.row,
   itemLabel: {
+    flex: 1,
     fontWeight: 600,
   },
   itemAmount: {

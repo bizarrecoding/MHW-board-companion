@@ -29,13 +29,12 @@ const Panel: React.FC<PanelProps> = ({ children, label, color = `#0001`, style }
 const DirectionSize = 64;
 
 export const CardContent:React.FC<CardContentProps> = ({ behavior }) => {
-  const accentColor = useThemeColor({}, `accent`);
+  const accentColor = useThemeColor({ light: `#b0bab7`, dark: `#1e2a20` }, `accent`);
   const panelColor = useThemeColor({ light: `#0001`, dark: `#FFF1` }, `card`);
-  const [movement, direction] = behavior.movement ?? [0, null];
-
+  const [movement, direction] = behavior.movement ?? [0, null]; 
   return (
     <View style={styles.statsContainer}>
-      <Panel label="POTENTIAL DAMAGE" color={`${accentColor}15`} style={{ minHeight: 60 }}>
+      <Panel label="POTENTIAL DAMAGE" color={accentColor} style={{ minHeight: 60 }}>
         <View style={styles.damageValueRow}>
           <Text bold style={styles.damageValue}>{behavior.damage}</Text>
           {behavior.effect && <ResistanceIcon type={behavior.effect} size={20} style={{ top: 4 }} />}

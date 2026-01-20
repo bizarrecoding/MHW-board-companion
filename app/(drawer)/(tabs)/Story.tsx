@@ -3,15 +3,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, View } from "react-native";
 
-import { MonsterKind, RankType } from "../../../assets/data/types";
+import { MonsterKind, Ranks, RankType } from "../../../assets/data/types";
 import { IconButton, Text } from "../../../components/Themed";
 import StoryContent from "../../../components/Story/StoryContent";
 import StoryPicker from "../../../components/Story/StoryPick";
 import { setRank, setMonster } from "../../../util/redux/HuntSlice";
 import { RootState } from "../../../util/redux/store";
 import { story } from "../../../assets/data/story";
-import { RankSlider } from "../../../components/RankSlider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Slider } from "../../../components/themed/inputs/Slider";
 
 const Story = () => {
   const navigation = useNavigation();
@@ -54,7 +54,12 @@ const Story = () => {
         allowedChoices={availableMonsters}
         >
           <Text style={styles.title}>Choose a monster to start your story:</Text>
-          <RankSlider value={rank} onValueChange={dispatchRank} />
+          <Slider
+            data={Ranks}
+            value={rank}
+            onValueChange={(rank) => dispatchRank(rank as RankType)}
+            renderLabel={(rank) => rank.split(" ")[0]}
+          />
         </StoryPicker>
       ) : (
         <StoryContent monster={monster} rank={rank} onReset={() => setNeedToPick(true)} />

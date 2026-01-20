@@ -6,6 +6,7 @@ import ResistanceIcon from "./ResistanceIcon";
 import { Text } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
 import { Ailments, Elements } from "../../assets/data/types";
+import { commonStyles } from "../themed/styles";
 
 const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = ({ data }) => {
   const [activeTab, setActiveTab] = useState(`status`);
@@ -26,7 +27,7 @@ const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = 
 
   return (
     <View style={styles.container}>
-      <View style={[styles.tabBar, { backgroundColor: panelColor }]}>
+      <View style={[styles.tabBar, { backgroundColor: commonStyles.card.backgroundColor }]}>
         <TouchableOpacity
           onPress={() => setActiveTab(`status`)}
           style={[styles.tab, activeTab === `status` && activePanelStyle]}

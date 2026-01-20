@@ -3,6 +3,7 @@ import { ItemList } from "../../assets/data/items";
 import { ItemEntry } from "../../assets/data/types";
 import InventoryIcon from "../InventoryIcon";
 import { Text } from "../Themed";
+import { commonStyles } from "../themed/styles";
 
 const getFromRoll = (roll: string[]) => {
   const rand = Math.floor(Math.random() * roll.length);
@@ -57,11 +58,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   rewards: {
-    flex: 1,
-    backgroundColor: `#8883`,
-    borderColor: `#8888`,
-    borderWidth: 1,
+    ...commonStyles.card,
     padding: 16,
-    borderRadius: 16,
+    flex: 1,
   },
 });

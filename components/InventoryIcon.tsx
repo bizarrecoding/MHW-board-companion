@@ -209,7 +209,7 @@ export const MonsterIconBG: React.FC<MonsterIconProps> = ({ type, style, disable
     case `Brachydios`:
       return <Image style={iconStyles} resizeMode="contain" source={Brachydios} />;
     default:
-      return <View style={[iconStyles, { borderColor: `#F33`, borderWidth: 1 }]} />;
+      return <View style={iconStyles} />;
   }
 };
 

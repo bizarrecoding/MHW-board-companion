@@ -1,5 +1,4 @@
-import { Behavior } from "../../../assets/data/types";
-import { StyleSheet } from "react-native";
+import { Behavior } from "../../../assets/data/types"; 
 
 export type BehaviorCardProps = {
   behavior: Behavior | null;
@@ -7,12 +6,3 @@ export type BehaviorCardProps = {
 };
 
 
-export const cardStyles = StyleSheet.create({
-  shadows: {
-    elevation: 10,
-    shadowColor: "#000A",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-  },
-});

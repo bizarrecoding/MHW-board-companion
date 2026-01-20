@@ -5,10 +5,10 @@ import { Behavior } from "../../../../assets/data/types";
 import { useThemeColor } from "../../../themed/useThemeColor";
 import EmptyCard from "../EmptyCard";
 import HiddenCard from "../HiddenCard";
-import { cardStyles } from "../common";
 import CardFooter from "../FaceUpCard/CardFooter";
 import { CardHeader } from "../FaceUpCard/CardHeader";
 import { CardContent } from "../FaceUpCard/CardContent";
+import { commonStyles } from "../../../themed/styles";
 
 type BehaviorCardProps = {
   behavior: Behavior | null;
@@ -28,7 +28,7 @@ export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) 
     <View
       style={[
         styles.cardContainer,
-        cardStyles.shadows,
+        commonStyles.shadows,
         {
           width,
           borderColor,
