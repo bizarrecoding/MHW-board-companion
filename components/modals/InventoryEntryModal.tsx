@@ -1,21 +1,22 @@
 import { router } from "expo-router";
 import React, { useCallback, useState } from "react";
-import { View, StyleSheet, SectionList, SectionListRenderItemInfo, TouchableOpacity } from "react-native";
+import { View, StyleSheet, SectionList, SectionListRenderItemInfo } from "react-native";
 
 import { ItemList } from "../../assets/data/items";
 import { ItemEntry } from "../../assets/data/types";
 import { useInventory } from "../../hooks/useInventory";
-import InventoryIcon from "../InventoryIcon";
-import { Text, IconButton, Button } from "../Themed";
+import { Text, Button } from "../Themed";
 import SearchInput from "../themed/inputs/SearchInput";
 import Divider from "../Divider";
 import InventoryItem from "../inventory/InventoryItem";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // default non-filtered data
 const sortedData = ItemList.sort((a, b) => a.type.localeCompare(b.type));
 
 export const InventoryEntryModal = () => {
   const { addEntry } = useInventory();
+  const paddingBottom = useSafeAreaInsets().bottom;
   const [data, setData] = useState(sortedData);
   const [toAdd, setToAdd] = useState<ItemEntry[]>([] as ItemEntry[]);
 
@@ -61,7 +62,7 @@ export const InventoryEntryModal = () => {
   ];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: 0 }]}>
       <SearchInput onChangeText={filterBy} placeholder="Search materials..." />
       <SectionList
         sections={sections}
@@ -72,7 +73,7 @@ export const InventoryEntryModal = () => {
         }}
         keyExtractor={keyExtractor}
         stickySectionHeadersEnabled={false}
-        contentContainerStyle={{ paddingBottom: 96 }}
+        contentContainerStyle={{ paddingBottom: paddingBottom + 64 }}
       />
       <Button title="Add to inventory" onPress={commitInventory} style={styles.btnCommit} />
     </View>
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   },
   btnCommit: {
     position: `absolute`,
-    bottom: 0,
+    bottom: 24,
     margin: 16,
     width: `92%`,
     marginBottom: 32,

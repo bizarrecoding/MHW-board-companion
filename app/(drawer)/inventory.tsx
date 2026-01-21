@@ -23,23 +23,6 @@ export default function HunterLogScreen() {
             shadowColor: colorScheme === `dark` ? `transparent` : undefined,
           },
           headerLeft: () => <DrawerToggleButton tintColor={tint} />,
-          headerRight: () => (
-            <Link href="/modal?type=item" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <View style={styles.addBtn}>
-                    <Text style={styles.addBtnText}>Add Item</Text>
-                    <FontAwesome
-                      name="plus"
-                      size={22}
-                      color={tint}
-                      style={[styles.addBtnIcon, { opacity: pressed ? 0.5 : 1 }]}
-                    />
-                  </View>
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
       />
       <InventoryLog />

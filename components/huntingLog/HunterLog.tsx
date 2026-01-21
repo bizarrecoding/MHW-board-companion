@@ -7,6 +7,7 @@ import { IconButton, Text, View } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
 import { useNavigation } from "expo-router";
 import { commonStyles } from "../themed/styles";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const formatTimestamp = (timestamp: number) => {
   const date = new Date(timestamp);
@@ -15,6 +16,7 @@ const formatTimestamp = (timestamp: number) => {
 
 export const HunterLog: React.FC = () => {
   const navigation = useNavigation();
+  const paddingBottom = useSafeAreaInsets().bottom;
   const backgroundColor = useThemeColor({}, `background`);
   const { logs = [], deleteLogEntry } = useHunterLog();
 
@@ -69,7 +71,7 @@ export const HunterLog: React.FC = () => {
       style={[styles.container, { backgroundColor }]}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
-      contentContainerStyle={{ gap: 6 }}
+      contentContainerStyle={{ gap: 6, paddingBottom }}
     />
   );
 };

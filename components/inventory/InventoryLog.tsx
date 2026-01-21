@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ListRenderItem, Pressable, StyleProp, StyleSheet, TouchableNativeFeedback, TouchableOpacity, View, ViewStyle } from "react-native";
+import { FlatList, ListRenderItem, StyleProp, StyleSheet, TouchableNativeFeedback, TouchableOpacity, View, ViewStyle } from "react-native";
 
 import { InventoryEntry, useInventory } from "../../hooks/useInventory";
 import InventoryIcon from "../InventoryIcon";
 import NumberInput from "../themed/inputs/NumberInput";
-import { IconButton, Text, TextInput } from "../Themed";
+import { IconButton, Text } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
 import { FontAwesome } from "@expo/vector-icons";
 import SearchInput from "../themed/inputs/SearchInput";
 import { commonStyles } from "../themed/styles";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const stickyIndex = [0];
 
 export default function InventoryLog() {
+  const paddingBottom = useSafeAreaInsets().bottom;
   const { inventory, updateEntry, deleteEntry } = useInventory();
-  const backgroundColor = useThemeColor({}, `background`);
   const [edit, setEdit] = useState<number | null>(null);
   const [amount, setAmount] = useState(0);
 
@@ -64,7 +65,7 @@ export default function InventoryLog() {
   }, [inventory]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom }]}>
       <FlatList<InventoryEntry>
         data={filterableInventory}
         ListHeaderComponent={
@@ -76,7 +77,7 @@ export default function InventoryLog() {
         contentContainerStyle={{ paddingBottom: 96 }}
       />
 
-      <FloatingActionButton icon="plus" size={56} style={styles.fabPosition} onPress={() => {
+      <FloatingActionButton icon="plus" size={56} style={[styles.fabPosition, { paddingBottom }]} onPress={() => {
         router.push(`/modal?type=item`);
       }} />
     </View>
@@ -120,8 +121,8 @@ const styles = StyleSheet.create({
   },
   fabPosition: {
     position: `absolute`,
-    bottom: 32,
-    right: 32,
+    bottom: 16,
+    right: 16,
   },
   fab: {
     justifyContent: `center`,
