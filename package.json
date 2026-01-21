@@ -1,7 +1,7 @@
 {
   "name": "mhw-board-companion",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
@@ -14,9 +14,10 @@
     "prepare": "husky install",
     "check-types": "tsc --noEmit --pretty",
     "prettier:fix": "prettier --write \"./**/*.{ts,tsx}\"",
-    "publish-ota": "npx eas update --branch beta-1.0.0 -p all",
-    "publish-ota-preview": "npx eas update --branch preview -p all",
-    "build-apk": "npx eas build -p android --profile='preview' --non-interactive"
+    "publish-ota": "npx eas-cli update --branch production -p all",
+    "publish-ota-dev": "npx eas-cli update --branch development -p all",
+    "publish-ota-preview": "npx eas-cli update --branch preview -p all",
+    "build-apk": "npx eas-cli build -p android --profile='preview' --non-interactive"
   },
   "husky": {
     "hooks": {
