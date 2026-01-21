@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setRollPool } from "../../util/redux/RollSlice";
 import { RootState } from "../../util/redux/store";
 import Divider from "../Divider";
-import NumberInput from "../Rolls/DiceNumberInput";
 import { View, Text, Button } from "../Themed";
 import { commonStyles } from "../themed/styles";
 import { useThemeColor } from "../themed/useThemeColor";

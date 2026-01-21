@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import React, { useCallback, useMemo, useState } from "react";
-import { StyleSheet, useWindowDimensions, View, ScrollView, TouchableOpacity, useColorScheme } from "react-native";
+import { StyleSheet, useWindowDimensions, View, ScrollView, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { MonsterHuntData, PartsData } from "../../../assets/data/hunt";
@@ -127,8 +127,5 @@ const styles = StyleSheet.create({
   },
   effectsText: {
     lineHeight: 20,
-  },                                              
-  effects: {
-    display: `none`,
   },
 });

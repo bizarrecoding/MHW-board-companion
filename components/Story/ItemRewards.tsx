@@ -1,3 +1,4 @@
+import React from "react";
 import { StyleProp, ViewStyle, View, StyleSheet } from "react-native";
 import { ItemList } from "../../assets/data/items";
 import { ItemEntry } from "../../assets/data/types";

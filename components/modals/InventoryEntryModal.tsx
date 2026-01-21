@@ -84,9 +84,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1, 
   },
-  title: {
-    marginTop: 12,
-  },
   btnCommit: {
     position: `absolute`,
     bottom: 24,

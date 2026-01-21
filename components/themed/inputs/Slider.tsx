@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, useWindowDimensions, Pressable, ViewStyle, StyleProp } from 'react-native';
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle, useWindowDimensions } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
   useAnimatedReaction,
+  useAnimatedStyle,
+  useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
-import { useThemeColor } from '../useThemeColor';
 import Text from '../ThemedText';
+import { useThemeColor } from '../useThemeColor';
 
 interface RankSliderProps {
   data: (string|number)[];
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     height: 12,
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.3)',
+    borderColor: 'rgba(255, 255, 255, 0.3)',
     marginBottom: 28, // Position above track
   },
   rankLabel: {
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     width: THUMB_SIZE,
     height: THUMB_SIZE,
     borderRadius: THUMB_SIZE / 2,
-    top: -THUMB_SIZE/2-5,
+    top: -THUMB_SIZE / 2 - 5,
     borderWidth: 4,
     borderColor: '#FFF',
     elevation: 8,

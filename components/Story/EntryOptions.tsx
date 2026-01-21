@@ -1,3 +1,4 @@
+import React from "react";
 import { StoryEntry, StoryOption } from "../../assets/data/types";
 import Button from "../themed/ThemedButton";
 

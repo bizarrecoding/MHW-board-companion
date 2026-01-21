@@ -24,7 +24,7 @@ export default function TextInput(props: TextInputProps) {
       <View style={[{ backgroundColor }, styles.base, contentContainerStyle]}>
         <NativeTextInput
           placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
-          style={[{ color, width: '100%' }, styles[variant], style]}
+          style={[{ color, width: '100%' }, styles.body, style]}
           {...otherProps}
         />
       </View>
@@ -58,19 +58,6 @@ const styles = StyleSheet.create({
     borderRadius: 99,
     flexDirection: `row`,
     alignItems: `center`,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: `bold`,
-  },
-  subtitle: {
-    fontSize: 24,
-  },
-  button: {
-    fontSize: 20,
-  },
-  caption: {
-    fontSize: 16,
   },
   body: {
     fontSize: 14,

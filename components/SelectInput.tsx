@@ -69,10 +69,6 @@ export const SelectInput = <T extends string | number | { toString: () => string
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: `center`,
-  },
   label: {
     paddingHorizontal: 16,
     paddingVertical: 6,

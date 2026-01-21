@@ -21,7 +21,6 @@ const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = 
   const [stunRes, setStunRes] = useState(data.Stun);
   const [blastRes, setBlastRes] = useState(data.Blast);
 
-  const panelColor = useThemeColor({}, `card`);
   const tintColor = useThemeColor({}, `tint`);
   const activePanelStyle = { backgroundColor: `${tintColor}` };
 
@@ -136,9 +135,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     alignItems: `center`,
     borderRadius: 8,
-  },
-  activeTab: {
-    backgroundColor: `#333`,
   },
   tabText: {
     fontSize: 12,

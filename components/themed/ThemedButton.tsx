@@ -117,7 +117,4 @@ const styles = StyleSheet.create({
     alignItems: `center`,
     justifyContent: `center`,
   },
-  round: {
-    borderRadius: 12,
-  },
 });

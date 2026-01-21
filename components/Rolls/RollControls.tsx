@@ -1,10 +1,10 @@
-import { View, StyleSheet, TouchableOpacity, Pressable } from 'react-native'
-import React, { useState } from 'react' 
-import { Text } from '../Themed';
-import { useThemeColor } from '../themed/useThemeColor';
-import { Link } from 'expo-router';
 import { FontAwesome } from '@expo/vector-icons';
+import { Link } from 'expo-router';
+import React, { useState } from 'react';
+import { Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Text } from '../Themed';
 import { commonStyles } from '../themed/styles';
+import { useThemeColor } from '../themed/useThemeColor';
 
 type RollControlsProps = {
   rollDamage: (numberToRoll: number) => void;

@@ -1,9 +1,10 @@
-import React from "react";
-import { View, StyleSheet, StyleProp, ViewStyle, Platform } from "react-native";
-import { TextInput } from "../../Themed";
 import { FontAwesome } from "@expo/vector-icons";
-import { useThemeColor } from "../useThemeColor";
+import React from "react";
+import { Platform, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+
+import { TextInput } from "../../Themed";
 import { commonStyles } from "../styles";
+import { useThemeColor } from "../useThemeColor";
 
 type SearchInputProps = {
   onChangeText: (text: string) => void;

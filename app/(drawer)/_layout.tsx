@@ -122,7 +122,4 @@ const style = StyleSheet.create({
     paddingHorizontal: 16,
     marginBottom: 16,
   },
-  logoutButton: {
-    backgroundColor: Colors.light.card,
-  },
 });

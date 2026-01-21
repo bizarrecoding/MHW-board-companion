@@ -1,3 +1,4 @@
+import React from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { ItemEntry } from "../../assets/data/types";
 import InventoryIcon from "../InventoryIcon";

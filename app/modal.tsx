@@ -30,7 +30,7 @@ export default function ModalScreen() {
     navigation.setOptions({
       title: ModalTitleMap[type] ?? type?.toUpperCase(),
     });
-  }, [type]);
+  }, [type, navigation]);
 
   if (type === `log`) return <LogEntryModal />;
   if (type === `roll`) return <RollPoolModal />;

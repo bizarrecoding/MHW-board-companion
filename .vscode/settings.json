@@ -1,4 +1,8 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll.eslint": "explicit"
+  },
   "workbench.colorCustomizations": {
     "activityBar.background": "#381066",
     "titleBar.activeBackground": "#4E168F",

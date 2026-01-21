@@ -1,10 +1,10 @@
-import { View, StyleSheet, ColorValue, StyleProp, ViewStyle } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { ColorValue, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { Behavior } from '../../../../assets/data/types';
-import { useThemeColor } from '../../../themed/useThemeColor';
-import DirectionalIcon from '../../DirectionalIcon';
 import { Text } from '../../../Themed';
 import ResistanceIcon from '../../../monster/ResistanceIcon';
+import { useThemeColor } from '../../../themed/useThemeColor';
+import DirectionalIcon from '../../DirectionalIcon';
 
 type CardContentProps = {
   behavior: Behavior;
@@ -61,11 +61,6 @@ export const CardContent:React.FC<CardContentProps> = ({ behavior }) => {
 }
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    borderRadius: 24,
-    borderWidth: 2,
-    padding: 16,
-  },
   statsContainer: {
     gap: 12,
   },

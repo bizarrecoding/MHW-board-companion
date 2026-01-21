@@ -1,4 +1,4 @@
-import { View, StyleSheet, useWindowDimensions, useColorScheme, useAnimatedValue } from "react-native";
+import { View, StyleSheet, useWindowDimensions, useColorScheme } from "react-native";
 import Animated, { useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { WhetstoneIcon } from "../InventoryIcon";
@@ -71,11 +71,6 @@ const SharpnessIndicator: React.FC<SharnessIndicatorProps> = ({ sharpness, total
 export default SharpnessIndicator;
 
 const styles = StyleSheet.create({
-  center_row: {
-    flexDirection: `row`,
-    alignItems: `center`,
-    justifyContent: `center`,
-  },
   container: {
     paddingHorizontal: 16,
     marginVertical: 12,

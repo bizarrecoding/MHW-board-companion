@@ -35,13 +35,13 @@ module.exports = {
     "prettier/prettier": [
       `error`,
       {
-        printWidth: 100,
+        printWidth: 130,
         trailingComma: `es5`,
-        singleQuote: false,
+        singleQuote: false, 
       },
     ],
     camelcase: `off`,
-    quotes: [1, `backtick`, { avoidEscape: true }],
+    //quotes: [0, `backtick`, { avoidEscape: true }],
     "array-callback-return": `error`,
     "block-scoped-var": `error`,
     complexity: [`warn`, 18],
@@ -86,7 +86,6 @@ module.exports = {
     "react-native/no-unused-styles": `warn`,
     "react-native/split-platform-components": [`warn`],
     "react-native/no-inline-styles": `off`,
-    "react-native/no-color-literals": `error`,
     "react-native/no-raw-text": `off`,
     "react-native/no-single-element-style-arrays": `error`,
     "no-restricted-syntax": [

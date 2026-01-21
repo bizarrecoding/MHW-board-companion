@@ -50,32 +50,4 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     borderWidth: 2,
   },
-  statsContainer: {
-    gap: 12,
-  },
-  damageValueRow: {
-    flexDirection: "row",
-  },
-  damageValue: {
-    fontSize: 24,
-    marginRight: 8,
-  },
-  horizontalStats: {
-    flexDirection: "row",
-    gap: 12,
-  },
-  panel: {
-    padding: 10,
-    borderRadius: 10,
-    alignItems: "center",
-    flex: 1,
-  },
-  smallLabel: {
-    fontSize: 9,
-    letterSpacing: 2,
-    marginBottom: 2,
-  },
-  statValue: {
-    fontSize: 20,
-  },
 });

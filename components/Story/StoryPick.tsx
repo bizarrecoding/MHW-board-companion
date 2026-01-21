@@ -30,14 +30,14 @@ const StoryPicker: React.FC<StoryPickerProps> = ({
   const textColor = useThemeColor({}, `text`);
   const width = useWindowDimensions().width;
   const columnSize = width / 2 - 28;
-  const styleOverride: ImageStyle = {
-    width: width / 3,
-    height: width / 3,
-    borderColor: `#0000`,
-    marginBottom: 8,
-  };
 
   const renderItem: ListRenderItem<MonsterKind> = useCallback(({ item }) => {
+    const styleOverride: ImageStyle = {
+      width: width / 3,
+      height: width / 3,
+      borderColor: `#0000`,
+      marginBottom: 8,
+    };
     const disabled = !allowedChoices.includes(item);
     return (
       <TouchableOpacity
@@ -56,7 +56,7 @@ const StoryPicker: React.FC<StoryPickerProps> = ({
         </Text>
       </TouchableOpacity>
     )
-  }, [allowedChoices, columnSize, setMonster, styleOverride, textColor]);
+  }, [allowedChoices, columnSize, setMonster, width, textColor]);
 
   return (
     <FlatList<MonsterKind>

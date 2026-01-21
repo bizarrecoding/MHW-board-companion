@@ -63,7 +63,7 @@ export const HunterLog: React.FC = () => {
         </Text>
       ),
     });
-  }, [logs]);
+  }, [logs, navigation]);
 
   return (
     <FlatList<HunterLogEntry>

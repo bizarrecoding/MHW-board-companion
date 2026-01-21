@@ -1,7 +1,6 @@
 import React from "react";
 import { View, StyleSheet, StyleProp, ViewStyle, TouchableOpacity } from "react-native";
 import Text from "../ThemedText";
-import Button from "../ThemedButton";
 import { useThemeColor } from "../useThemeColor";
 import { commonStyles } from "../styles";
  

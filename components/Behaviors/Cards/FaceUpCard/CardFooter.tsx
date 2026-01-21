@@ -1,6 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React from "react";
-import { View, ViewStyle, StyleSheet, StyleProp } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useThemeColor } from "../../../themed/useThemeColor";
 import { Text } from "../../../Themed";
 import { Behavior } from "../../../../assets/data/types";
