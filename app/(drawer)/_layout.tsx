@@ -11,26 +11,32 @@ import { build } from "../../constants/build";
 import { UserContext } from "../../context/UserContext";
 import { useFireAuth } from "../../hooks/useFireAuth";
 import { Monsters as MonsterIconKeys } from "../../assets/data/types";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useThemeColor } from "../../components/themed/useThemeColor";
+import { commonStyles } from "../../components/themed/styles";
 
 const getImageSource = (s: string | null = ``) => {
   if (s === null) return MonsterIconKeys[0];
-  const key = s.length % MonsterIconKeys.length;
+  const key = (s.length + 3) % MonsterIconKeys.length;
   return MonsterIconKeys[key];
 };
 
 const SideBarContent = () => {
-  const colorScheme = useColorScheme();
+  const backgroundColor = useThemeColor({}, 'background');
+  const textColor = useThemeColor({}, 'text');
+  const { top: paddingTop, bottom: paddingBottom } = useSafeAreaInsets();
   const { user } = useContext(UserContext);
   const { logout } = useFireAuth();
-  const { background } = Colors[colorScheme ?? `light`];
   return (
-    <View style={[style.container, { backgroundColor: background }]}>
-      <View style={{ flex: 1 }}>
-        <MonsterIcon noRank type={getImageSource(user?.email)} style={style.avatar} />
-        <Text variant="caption">User:</Text>
-        <Text variant="caption" style={{ marginBottom: 24 }}>
-          {user?.email}
-        </Text>
+    <View style={[style.container, { backgroundColor, paddingTop, paddingBottom }]}>
+      <View style={{ flex: 1, padding: 16 }}>
+        <View style={style.avatarCard}>
+          <MonsterIcon noRank type={getImageSource(user?.email)} style={style.avatar} />
+          <Text style={style.cardLabel}>User:</Text>
+          <Text bold style={style.cardLabel}>
+            {user?.email}
+          </Text>
+        </View>
 
         <DrawerItem
           title="Hunt"
@@ -43,18 +49,18 @@ const SideBarContent = () => {
           onPress={() => router.navigate(`/(drawer)/log`)}
         />
         <DrawerItem
-          title="Character"
-          icon="address-book"
-          onPress={() => router.navigate(`/(drawer)/character`)}
-        />
-        <DrawerItem
           title="Inventory"
           icon="briefcase"
           onPress={() => router.navigate(`/(drawer)/inventory`)}
         />
+        <DrawerItem
+          title="Character"
+          icon="address-book"
+          onPress={() => router.navigate(`/(drawer)/character`)}
+        />
       </View>
-      <Button title="Logout" onPress={logout} />
-      <Text style={{ padding: 16 }}>v{build}</Text>
+      <Button title="Logout" style={{ backgroundColor: "#8883" }} textStyle={{ color: textColor }} onPress={logout} />
+      <Text style={{ padding: 16, alignSelf: "flex-end", fontSize: 12, color: "#888" }}>v{build}</Text>
     </View>
   );
 };
@@ -94,17 +100,29 @@ export default function MainDrawer() {
 }
 
 const style = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
+  container: { flex: 1 },
+  avatarCard: {
+    ...commonStyles.card,
+    alignItems: `center`,
+    padding: 16,
+    marginBottom: 24,
+  },
+  cardLabel: {
+    fontSize: 18,
+  },
   avatar: {
-    margin: 30,
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
   },
   drawerItem: {
-    flexDirection: `row`,
+    ...commonStyles.row,
+    ...commonStyles.card,
     paddingVertical: 12,
     paddingHorizontal: 16,
-    alignItems: `center`,
+    marginBottom: 16,
+  },
+  logoutButton: {
+    backgroundColor: Colors.light.card,
   },
 });
