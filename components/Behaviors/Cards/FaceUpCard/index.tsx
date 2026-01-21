@@ -19,7 +19,7 @@ export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) 
   const { width: screenWidth } = useWindowDimensions();
   const width = screenWidth - 32;
   const borderColor = useThemeColor({}, `cardBorder`);
-  const backgroundColor = useThemeColor({ light: "#FCA2", dark: "#FCA2" }, `card`);
+  const backgroundColor = useThemeColor({ light: "#f5ebe7", dark: "#221B17" }, `card`);
 
   if (!behavior) return <EmptyCard hidden={hidden} />;
   if (hidden) return <HiddenCard behavior={behavior} />;
@@ -28,9 +28,8 @@ export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) 
     <View
       style={[
         styles.cardContainer,
-        commonStyles.shadows,
         {
-          width,
+          width: width - 12,
           borderColor,
           backgroundColor,
         }
@@ -46,9 +45,10 @@ export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) 
 
 const styles = StyleSheet.create({
   cardContainer: {
+    ...commonStyles.shadows,
+    ...commonStyles.card,
     borderRadius: 24,
     borderWidth: 2,
-    padding: 16,
   },
   statsContainer: {
     gap: 12,

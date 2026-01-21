@@ -1,8 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import { Text, Button } from "../Themed";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { Button } from "../Themed";
 import { commonStyles } from "../themed/styles";
 
 type NumberInputProps = {

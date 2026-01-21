@@ -25,7 +25,10 @@ export const RollPoolModal = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.caption}>The pool is used to calculate the number of times a value will appear in the roll</Text>
-      <Text style={styles.caption}>Total draws until sharpen: {dice1 + dice2 + dice3 + dice4}</Text>
+      <View style={styles.totalDrawsContainer}>
+        <Text style={styles.caption}>Total draws until sharpen: </Text>
+        <Text bold style={styles.totalDraws}>{dice1 + dice2 + dice3 + dice4}</Text>
+      </View>
       <View style={styles.configRow}>
         <DiceController dice={dice1} face={1} setDice={setDice1} />
         <DiceController dice={dice2} face={2} setDice={setDice2} />
@@ -44,10 +47,12 @@ export const RollPoolModal = () => {
 
 const DiceController = ({ dice, setDice, face }: { dice: number, setDice: React.Dispatch<React.SetStateAction<number>>, face: number }) => {
   const accentColor = useThemeColor({}, `accent`);
+  const backgroundColor = useThemeColor({}, `card`);
+  const borderColor = useThemeColor({}, `cardBorder`);
   const bgAdd = `${accentColor}88`;
   const bgSub = `#8884`;
   return (
-    <View style={styles.configCard}>
+    <View style={[styles.configCard, { backgroundColor, borderColor }]}>
       <Text variant="subtitle" style={styles.faceAmount}>{dice}</Text>
       <Text variant="button">Face {face}:</Text>
       <View style={styles.controlRow}>
@@ -65,6 +70,17 @@ const DiceController = ({ dice, setDice, face }: { dice: number, setDice: React.
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  totalDrawsContainer: {
+    ...commonStyles.row,
+    ...commonStyles.card,
+    justifyContent: 'center',
+    margin: 16,
+  },
+  totalDraws: {
+    fontSize: 24,
+    fontWeight: "bold",
+    letterSpacing: 1,
+  },
   caption: {
     textAlign: "center",
     fontSize: 16,
@@ -80,6 +96,7 @@ const styles = StyleSheet.create({
   },
   configCard: {
     ...commonStyles.card,
+    ...commonStyles.shadows,
     overflow: "hidden",
     padding: 0,
     alignItems: "center",

@@ -39,6 +39,8 @@ const StoryContent: React.FC<StoryProps> = ({ monster, rank, onReset }) => {
   const router = useRouter();
   const story = getMonsterStory(monster);
   const accentColor = useThemeColor({}, "accent")
+  const cardColor = useThemeColor({}, "card");
+  const cardBorderColor = useThemeColor({}, "cardBorder");
   const [currentEntry, setCurrentEntry] = useState<StoryEntry>(getMonsterEntry(story, rank));
   const [option, setOption] = useState<StoryOption>();
   const onOptionDismiss = () => {
@@ -53,7 +55,7 @@ const StoryContent: React.FC<StoryProps> = ({ monster, rank, onReset }) => {
       {currentEntry?.monster ? (
         <MonsterIcon noRank type={currentEntry.monster} style={styles.monsterIcon} />
       ) : null}
-      <View style={styles.content}>
+      <View style={[styles.content, { backgroundColor: cardColor, borderColor: cardBorderColor }]}>
         <Text style={[styles.entryTitle, { color: accentColor }]}>
           Entry #{currentEntry.entry}
         </Text>
