@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, StyleProp, ViewStyle } from "react-native";
+import { View, StyleSheet, StyleProp, ViewStyle, Platform } from "react-native";
 import { TextInput } from "../../Themed";
 import { FontAwesome } from "@expo/vector-icons";
 import { useThemeColor } from "../useThemeColor";
@@ -23,7 +23,7 @@ export default function SearchInput({
       <FontAwesome name="search" size={18} color={textColor} />
       <TextInput
         onChangeText={onChangeText}
-        contentContainerStyle={{ backgroundColor: "#8880", marginVertical: 2 }}
+        contentContainerStyle={{ backgroundColor: "#8880", marginVertical: Platform.OS === 'ios' ? 2 : -4 }}
         placeholder={placeholder}
       />
     </View>
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     ...commonStyles.card,
     ...commonStyles.shadows,
     paddingVertical: 1,
+    paddingHorizontal: 16,
     margin: 16,
     borderRadius: 32,
     borderColor: '#8883',
