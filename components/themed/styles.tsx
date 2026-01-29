@@ -30,4 +30,8 @@ export const commonStyles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 10,
   },
+  webCenter: {
+    justifyContent: "center",
+    margin: "auto"
+  }
 });

@@ -1,16 +1,16 @@
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
+import { story } from "../../assets/data/story";
 import { MonsterKind, RankType, StoryEntry, StoryOption } from "../../assets/data/types";
 import EventModal from "../Dropdown/EventModal";
 import { MonsterIcon } from "../InventoryIcon";
-import { Text, Button, IconButton } from "../Themed";
-import { story } from "../../assets/data/story";
+import { Button, IconButton, Text } from "../Themed";
+import { commonStyles } from "../themed/styles";
 import { useThemeColor } from "../themed/useThemeColor";
 import EntryOptions from "./EntryOptions";
 import ItemRewards from "./ItemRewards";
-import { commonStyles } from "../themed/styles";
 
 type StoryProps = {
   monster: MonsterKind;
@@ -50,7 +50,7 @@ const StoryContent: React.FC<StoryProps> = ({ monster, rank, onReset }) => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 16, justifyContent: `center`, alignItems: `center` }}>
+    <View style={styles.container}>
       <IconButton size={32} icon="refresh" onPress={onReset} style={{ position: `absolute`, top: 16, right: 16 }} />
       {currentEntry?.monster ? (
         <MonsterIcon noRank type={currentEntry.monster} style={styles.monsterIcon} />
@@ -89,6 +89,14 @@ export default StoryContent;
 
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    margin: "auto",
+    maxWidth: 800,
+    padding: 16,
+    justifyContent: `center`,
+    alignItems: `center`
+  },
   monsterIcon: {
     width: 150,
     height: 150,

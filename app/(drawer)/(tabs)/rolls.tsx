@@ -2,11 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useSelector } from "react-redux";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { RollControls } from "../../../components/Rolls/RollControls";
 import RollDisplay from "../../../components/Rolls/RollDisplay";
 import SharpnessIndicator from "../../../components/Rolls/SharnessIndicator";
+import { useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
 import { RootState } from "../../../util/redux/store";
-import { RollControls } from "../../../components/Rolls/RollControls";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 /**
  *  Create a pool of numbers
@@ -24,7 +25,8 @@ const createDamagePool = (values: number[]) => {
   }, [] as number[]);
 };
 
-export default function TabTwoScreen() {
+export default function RollTab() {
+  const width = useResponsiveWidth().width
   const { rollPool, total } = useSelector((state: RootState) => state.rolls);
   const paddingTop = useSafeAreaInsets().top;
   const [pool, setPool] = useState<number[]>([]);
@@ -54,7 +56,7 @@ export default function TabTwoScreen() {
   }, [reset, rollPool]);
 
   return (
-    <View style={[styles.container, { paddingTop }]}>
+    <View style={[styles.container, { width, paddingTop }]}>
       <View style={{ flex: 1 }}>
         <SharpnessIndicator sharpness={pool.length} total={total} reset={reset} />
         <RollDisplay roll={roll} />
@@ -67,5 +69,6 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: "auto"
   },
 });

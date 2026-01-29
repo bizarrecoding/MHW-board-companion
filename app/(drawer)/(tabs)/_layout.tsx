@@ -5,6 +5,7 @@ import React from "react";
 import { Pressable, useColorScheme } from "react-native";
 
 import Colors from "../../../constants/Colors";
+import { useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -23,6 +24,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const width = useResponsiveWidth().width;
   const { background, tabIconSelected, tabIconDefault, tint, text } = Colors[colorScheme ?? `light`];
   const backgroundColor = colorScheme === `dark` ? background : `#fff`;
   return (
@@ -74,14 +76,16 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="Behaviors"
-        options={{
-          title: `Behaviors`,
-          headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="header" color={color} />,
-        }}
-      />
+      <Tabs.Protected guard={width < 700}>
+        <Tabs.Screen
+          name="Behaviors"
+          options={{
+            title: `Behaviors`,
+            headerShown: false,
+            tabBarIcon: ({ color }) => <TabBarIcon name="header" color={color} />,
+          }}
+        />
+      </Tabs.Protected>
       <Tabs.Screen
         name="rolls"
         options={{

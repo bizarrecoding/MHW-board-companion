@@ -1,9 +1,10 @@
 import React from "react";
 import { Modal, StyleSheet, View } from "react-native";
 
-import { Text, Button } from "../Themed";
-import { useThemeColor } from "../themed/useThemeColor";
 import { StoryOption } from "../../assets/data/types";
+import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
+import { Button, Text } from "../Themed";
+import { useThemeColor } from "../themed/useThemeColor";
 
 type EventModalProps = React.PropsWithChildren<{
   visible: boolean;
@@ -11,12 +12,16 @@ type EventModalProps = React.PropsWithChildren<{
   content?: StoryOption;
 }>;
 
+const clamp = (value: number, [min, max]: [number, number]) => Math.max(min, Math.min(value, max));
+
 const EventModal: React.FC<EventModalProps> = ({ visible, onClose, content, children }) => {
   const backgroundColor = useThemeColor(undefined, `card`);
+  const { width: screenWidth } = useResponsiveWidth();
+  const width = clamp(screenWidth, [300, 600]);
   return (
     <Modal animationType="fade" transparent={true} visible={visible && !!content}>
       <View style={styles.modalView}>
-        <View style={[styles.modalContent, { backgroundColor }]}>
+        <View style={[styles.modalContent, { backgroundColor, width }]}>
           <Text variant="subtitle" style={{ textAlign: `center`, marginBottom: 10 }}>
             {content?.text}
           </Text>
@@ -37,14 +42,14 @@ const EventModal: React.FC<EventModalProps> = ({ visible, onClose, content, chil
 
 const styles = StyleSheet.create({
   modalView: {
-    flex: 1,
+    flex: 1, 
     justifyContent: `center`,
     backgroundColor: `rgba(0,0,0,0.5);`,
   },
   modalContent: {
+    margin: "auto",
     justifyContent: `center`,
     alignItems: `center`,
-    marginHorizontal: 16,
     padding: 16,
     borderRadius: 16,
     shadowColor: `#000`,

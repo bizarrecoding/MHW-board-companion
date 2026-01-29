@@ -1,4 +1,4 @@
-import { StoryEntry } from "../types"
+import { StoryEntry } from "../types";
 
 const story: StoryEntry[] = []
 

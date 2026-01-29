@@ -1,7 +1,7 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from '../Themed';
 import { commonStyles } from '../themed/styles';
 import { useThemeColor } from '../themed/useThemeColor';
@@ -20,7 +20,11 @@ export const RollControls:React.FC<RollControlsProps> = ({ rollDamage }) => {
   const increment = () => setNumberToRoll((n) => (n < 10 ? n + 1 : n));
   const decrement = () => setNumberToRoll((n) => (n > 0 ? n - 1 : 0));
   return (
-     <View style={[styles.controlsCard, { backgroundColor: cardColor, borderColor: cardBorderColor }]}>
+    <View style={[styles.controlsCard, {
+      backgroundColor: cardColor,
+      borderColor: cardBorderColor,
+      marginBottom: Platform.OS === "web" ? 16 : 0
+    }]}>
       <View style={styles.pickerSection}>
         <Text bold style={styles.pickerLabel}>DICE TO ROLL</Text>
         <View style={styles.pickerRow}>
@@ -78,7 +82,8 @@ const styles = StyleSheet.create({
   controlsCard: {
     ...commonStyles.card,
     ...commonStyles.shadows,
-    margin: 16,
+    maxWidth: 600,
+    marginHorizontal: `auto`, 
     padding: 16,
   },
   pickerSection: {

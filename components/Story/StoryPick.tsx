@@ -6,11 +6,11 @@ import {
   StyleProp,
   StyleSheet,
   TouchableOpacity,
-  useWindowDimensions,
   ViewStyle,
 } from "react-native";
 
 import { MonsterKind, Monsters } from "../../assets/data/types";
+import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
 import { MonsterIcon } from "../InventoryIcon";
 import { Text } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
@@ -21,6 +21,14 @@ type StoryPickerProps = React.PropsWithChildren<{
   style?: StyleProp<ViewStyle>;
 }>;
 
+const getLayout = (screenWidth: number, baseColumns: number) => {
+  const maxColumns = 3;
+  const numColumns = Math.min(baseColumns + 1, maxColumns);
+  const width = Math.min(screenWidth, 700)
+  const columnSize = width / numColumns - 28;
+  return { numColumns, width, columnSize };
+}
+
 const StoryPicker: React.FC<StoryPickerProps> = ({
   setMonster,
   allowedChoices = Monsters,
@@ -28,8 +36,8 @@ const StoryPicker: React.FC<StoryPickerProps> = ({
   children,
 }) => { 
   const textColor = useThemeColor({}, `text`);
-  const width = useWindowDimensions().width;
-  const columnSize = width / 2 - 28;
+  const { width: screenWidth, numColumns: baseColumns } = useResponsiveWidth();
+  const { numColumns, width, columnSize } = getLayout(screenWidth, baseColumns);
 
   const renderItem: ListRenderItem<MonsterKind> = useCallback(({ item }) => {
     const styleOverride: ImageStyle = {
@@ -37,6 +45,8 @@ const StoryPicker: React.FC<StoryPickerProps> = ({
       height: width / 3,
       borderColor: `#0000`,
       marginBottom: 8,
+      maxWidth: 150,
+      maxHeight: 150,
     };
     const disabled = !allowedChoices.includes(item);
     return (
@@ -60,7 +70,8 @@ const StoryPicker: React.FC<StoryPickerProps> = ({
 
   return (
     <FlatList<MonsterKind>
-      numColumns={2}
+      key={`monster-picker:${numColumns}`}
+      numColumns={numColumns}
       data={Monsters}
       renderItem={renderItem}
       keyExtractor={(item) => item}

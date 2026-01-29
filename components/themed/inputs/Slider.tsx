@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Pressable, StyleProp, StyleSheet, View, ViewStyle, useWindowDimensions } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedReaction,
@@ -8,6 +8,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
+import { useResponsiveWidth } from '../../../hooks/useResponsiveWidth';
 import Text from '../ThemedText';
 import { useThemeColor } from '../useThemeColor';
 
@@ -29,7 +30,7 @@ export const Slider: React.FC<RankSliderProps> = ({
   renderLabel,
   containerStyle,
 }) => {
-  const { width: screenWidth } = useWindowDimensions();
+  const { width: screenWidth } = useResponsiveWidth();
   const SEGMENTS = data.length;
   const PADDING = 40;
   const SLIDER_WIDTH = screenWidth - PADDING * 2;

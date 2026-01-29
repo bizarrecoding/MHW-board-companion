@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
-import { View, StyleSheet, useWindowDimensions } from "react-native";
+import { StyleSheet, View } from "react-native";
 
+import { Orientation, useResponsiveWidth } from "../../hooks/useResponsiveWidth";
 import { Text } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
 import DamageDice from "./DamageDice";
@@ -27,7 +28,7 @@ const ROLL_GAP = 12;
 const ROLL_PADDING = 16;
 
 const RollDisplay: React.FC<RollDisplayProps> = ({ roll = [] }) => {
-  const width = useWindowDimensions().width;
+  const { width, height, orientation } = useResponsiveWidth();
   const totalDamage = getTotalDamage(roll);
   const cardColor = useThemeColor({}, `card`);
   const cardBorderColor = useThemeColor({}, `cardBorder`);
@@ -42,9 +43,11 @@ const RollDisplay: React.FC<RollDisplayProps> = ({ roll = [] }) => {
     if (roll.length < 5) return 100;
     const perRow = getFitAmount(roll.length);
     const negativeSpacing = (ROLL_GAP + ROLL_PADDING * 2) * (perRow - 1);
-    const itemWidth = (width - negativeSpacing) / perRow - ROLL_PADDING;
-    return itemWidth;
-  }, [width, roll.length]);
+    const baseSize = orientation === Orientation.PORTRAIT ? width : height;
+    const itemWidth = (baseSize - negativeSpacing) / perRow - ROLL_PADDING;
+    // ensure desktop web looks good due to width scaling
+    return Math.min(itemWidth, 145);
+  }, [width, roll.length, orientation]);
 
   if (roll.length === 0) return null;
 

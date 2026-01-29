@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { Alert, FlatList, ListRenderItem, StyleSheet } from "react-native";
 
+import { useNavigation } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { HunterLogEntry, useHunterLog } from "../../hooks/useHunterLog";
+import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
 import { MonsterIcon } from "../InventoryIcon";
 import { IconButton, Text, View } from "../Themed";
-import { useThemeColor } from "../themed/useThemeColor";
-import { useNavigation } from "expo-router";
 import { commonStyles } from "../themed/styles";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useThemeColor } from "../themed/useThemeColor";
 
 const formatTimestamp = (timestamp: number) => {
   const date = new Date(timestamp);
@@ -18,6 +19,7 @@ export const HunterLog: React.FC = () => {
   const navigation = useNavigation();
   const paddingBottom = useSafeAreaInsets().bottom;
   const backgroundColor = useThemeColor({}, `background`);
+  const { width } = useResponsiveWidth();
   const { logs = [], deleteLogEntry } = useHunterLog();
 
   const deleteItem = (item: HunterLogEntry) => {
@@ -68,10 +70,10 @@ export const HunterLog: React.FC = () => {
   return (
     <FlatList<HunterLogEntry>
       data={logs}
-      style={[styles.container, { backgroundColor }]}
+      style={[styles.container, { width, backgroundColor }]}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
-      contentContainerStyle={{ gap: 6, paddingBottom }}
+      contentContainerStyle={[styles.center, { paddingBottom }]}
     />
   );
 };
@@ -79,6 +81,11 @@ export const HunterLog: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: "auto"
+  },
+  center: {
+    gap: 6,
+    justifyContent: `center`,
   },
   row: {
     flexDirection: `row`,
@@ -93,6 +100,7 @@ const styles = StyleSheet.create({
   },
   subTitle: {},
   itemCard: {
+    flex: 1,
     ...commonStyles.row,
     ...commonStyles.card, 
     marginHorizontal: 12,

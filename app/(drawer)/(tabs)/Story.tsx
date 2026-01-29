@@ -1,21 +1,23 @@
 import { useNavigation } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { story } from "../../../assets/data/story";
 import { MonsterKind, Ranks, RankType } from "../../../assets/data/types";
-import { IconButton, Text } from "../../../components/Themed";
 import StoryContent from "../../../components/Story/StoryContent";
 import StoryPicker from "../../../components/Story/StoryPick";
-import { setRank, setMonster } from "../../../util/redux/HuntSlice";
-import { RootState } from "../../../util/redux/store";
-import { story } from "../../../assets/data/story";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { IconButton, Text } from "../../../components/Themed";
 import { Slider } from "../../../components/themed/inputs/Slider";
+import { useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
+import { setMonster, setRank } from "../../../util/redux/HuntSlice";
+import { RootState } from "../../../util/redux/store";
 
 const Story = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { width } = useResponsiveWidth();
   const paddingTop = useSafeAreaInsets().top;
   const [needToPick, setNeedToPick] = useState(true);
   const { monster, rank } = useSelector((state: RootState) => state.hunt);
@@ -47,11 +49,11 @@ const Story = () => {
     .map(([k]) => k) as MonsterKind[];
 
   return (
-    <View style={{ flex: 1, paddingTop }}>
+    <View style={{ flex: 1, width, margin: "auto", paddingTop }}>
       {needToPick ? (
         <StoryPicker
           setMonster={dispatchMonster}
-        allowedChoices={availableMonsters}
+          allowedChoices={availableMonsters}
         >
           <Text style={styles.title}>Choose a monster to start your story:</Text>
           <Slider
@@ -71,6 +73,11 @@ const Story = () => {
 export default Story;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    margin: "auto",
+    justifyContent: `center`,
+  },
   title: {
     fontSize: 14,
     textTransform: "uppercase",

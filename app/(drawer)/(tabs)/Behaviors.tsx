@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
+import { ScrollView, StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
 import { useSelector } from "react-redux";
 
+import Animated, { SlideInLeft, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BehaviorData } from "../../../assets/data/behaviors";
 import { Behavior, MonsterKind, RankType } from "../../../assets/data/types";
-import { Text } from "../../../components/Themed";
 import { BehaviorCard } from "../../../components/Behaviors/Cards/FaceUpCard";
+import { Text } from "../../../components/Themed";
 import { RootState } from "../../../util/redux/store";
-import Animated, { SlideInRight, SlideOutLeft, SlideInLeft, SlideOutRight } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 /**
  * get monster behaviors based on rank
@@ -33,7 +33,11 @@ const shuffleDeck = (monster: MonsterKind, rank: RankType) => {
   return [null, ...shuffleArray<Behavior | null>(baseBehaviors)];
 };
 
-const Behaviors: React.FC = () => {
+type BehaviorsProps = {
+  style?: StyleProp<ViewStyle>;
+}
+
+const Behaviors: React.FC<BehaviorsProps> = ({ style }) => {
   const paddingTop = useSafeAreaInsets().top;
   const { monster, rank } = useSelector((state: RootState) => state.hunt);
   const [index, setIndex] = useState(0);
@@ -63,7 +67,7 @@ const Behaviors: React.FC = () => {
   const remaining = deck.length - index - 1;
 
   return (
-    <ScrollView style={[styles.container, { paddingTop }]}>
+    <ScrollView style={[styles.container, { paddingTop }, style]}>
       <View style={styles.content}>
         <Animated.View
           key={index}

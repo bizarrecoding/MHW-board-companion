@@ -1,10 +1,10 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React from "react";
-import { StyleProp, TextStyle, TouchableOpacity, StyleSheet, View, TouchableOpacityProps } from "react-native";
+import { StyleProp, StyleSheet, TextStyle, TouchableOpacity, TouchableOpacityProps, View } from "react-native";
 
-import Text from "./ThemedText";
-import { useThemeColor, ThemeProps } from "./useThemeColor";
 import { commonStyles } from "./styles";
+import Text from "./ThemedText";
+import { ThemeProps, useThemeColor } from "./useThemeColor";
 
 export type ButtonProps = ThemeProps &
   TouchableOpacityProps & {
@@ -41,7 +41,7 @@ export default function Button(props: ButtonProps) {
   return (
     <TouchableOpacity
       style={[
-        full ? { flex: 1 } : { flex: 0 },
+        full ? { flex: 1 } : { flex: 0, minHeight: 40 },
         styles.baseButton,
         { borderRadius: round ? 99 : commonStyles.card.borderRadius },
         variant === `filled` ? { backgroundColor } : null,

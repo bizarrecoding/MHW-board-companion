@@ -2,14 +2,17 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
+import { useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
+import { View } from "../../Themed";
+import { commonStyles } from "../../themed/styles";
 import Equipment from "./Equipment";
 import { CharacterModalSelectOptions as SelectOptions } from "./ICharacter";
 import ModalCharacter from "./ModalCharacter";
 import ProfilePicker from "./ProfilePicker";
 import { useManageCharacter } from "./helpers/useManageCharacter";
-import { View } from "../../Themed";
 
 export default function CharacterScreen() {
+  const width = useResponsiveWidth().width;
   const {
     character,
     isSelectingType,
@@ -20,7 +23,7 @@ export default function CharacterScreen() {
   } = useManageCharacter();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width }]}>
       <ModalCharacter
         isSelectingType={isSelectingType}
         hideSelectModal={hideSelectModal}
@@ -48,5 +51,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    ...commonStyles.webCenter,
   },
 });

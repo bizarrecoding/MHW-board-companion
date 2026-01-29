@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { TextInput as NativeTextInput, StyleProp, StyleSheet, View, ViewStyle, TextInputProps as NativeTextInputProps } from "react-native";
+import { TextInput as NativeTextInput, TextInputProps as NativeTextInputProps, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 import { ThemedIconButton } from "./ThemedButton";
-import { useThemeColor, ThemeProps } from "./useThemeColor";
+import { ThemeProps, useThemeColor } from "./useThemeColor";
 
 export type TextInputProps = ThemeProps &
   NativeTextInputProps & {

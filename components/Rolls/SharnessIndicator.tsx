@@ -1,10 +1,11 @@
-import { View, StyleSheet, useWindowDimensions, useColorScheme } from "react-native";
+import { StyleSheet, useColorScheme, View } from "react-native";
 import Animated, { useSharedValue, withTiming } from 'react-native-reanimated';
 
+import { useEffect } from "react";
+import { tintColor } from "../../constants/Colors";
+import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
 import { WhetstoneIcon } from "../InventoryIcon";
 import { Text } from "../Themed";
-import { tintColor } from "../../constants/Colors";
-import { useEffect } from "react";
 
 type SharnessIndicatorProps = {
   sharpness: number;
@@ -19,19 +20,28 @@ const SharpnessValues: Record<'light' | 'dark', string[]> = {
 
 const SharpnessBarHeight = 12;
 
+const getLayout = (width: number) => {
+  const bladeHilt = Math.min(60, width / 5);
+  return {
+    bladeHilt,
+    bladeWidth: width - bladeHilt,
+  }
+}
+
 const SharpnessIndicator: React.FC<SharnessIndicatorProps> = ({ sharpness, total, reset }) => {
-  const width = useWindowDimensions().width / 2;
+  const _width = useResponsiveWidth().width / 2;
+  const { bladeHilt, bladeWidth } = getLayout(_width);
   const colorScheme = useColorScheme() ?? `light`;
   const sharpnessValue = Math.floor(sharpness / total * (SharpnessValues[colorScheme].length - 1));
   const bladeColor = SharpnessValues[colorScheme][sharpnessValue];
 
-  const sharpnessAnimated = useSharedValue(width * (sharpness / total));
+  const sharpnessAnimated = useSharedValue(bladeWidth * (sharpness / total));
 
   useEffect(() => {
-    sharpnessAnimated.value = withTiming(width * (sharpness / total), {
+    sharpnessAnimated.value = withTiming(bladeWidth * (sharpness / total), {
       duration: 600,
     });
-  }, [sharpness, total]);
+  }, [sharpness, total, bladeWidth]);
 
   const glowStyle = {
     ...styles.shadowStyle,
@@ -48,12 +58,12 @@ const SharpnessIndicator: React.FC<SharnessIndicatorProps> = ({ sharpness, total
         <View style={{
           backgroundColor: bladeColor,
           height: SharpnessBarHeight,
-          width: width / 5
+          width: bladeHilt,
         }} />
         <View style={[glowStyle, {
           backgroundColor: `#888`,
           height: SharpnessBarHeight * 3,
-          width,
+          width: bladeWidth,
           borderBottomRightRadius: SharpnessBarHeight * 3
         }]}>
           <Animated.View style={{
@@ -72,6 +82,7 @@ export default SharpnessIndicator;
 
 const styles = StyleSheet.create({
   container: {
+    margin: "auto",
     paddingHorizontal: 16,
     marginVertical: 12,
     flexDirection: `row`,

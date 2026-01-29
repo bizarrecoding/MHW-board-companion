@@ -24,7 +24,7 @@ export default function SearchInput({
       <FontAwesome name="search" size={18} color={textColor} />
       <TextInput
         onChangeText={onChangeText}
-        contentContainerStyle={{ backgroundColor: "#8880", marginVertical: Platform.OS === 'ios' ? 2 : -4 }}
+        contentContainerStyle={{ width: "100%", backgroundColor: "#8880", marginVertical: Platform.OS === 'ios' ? 2 : -4 }}
         placeholder={placeholder}
       />
     </View>
@@ -33,6 +33,7 @@ export default function SearchInput({
 
 const styles = StyleSheet.create({
   container: {
+    flexGrow: 1,
     ...commonStyles.row,
     ...commonStyles.card,
     ...commonStyles.shadows,

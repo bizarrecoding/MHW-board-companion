@@ -1,14 +1,15 @@
 import React from "react";
-import { useWindowDimensions, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { Behavior } from "../../../../assets/data/types";
+import { Orientation, useResponsiveWidth } from "../../../../hooks/useResponsiveWidth";
+import { commonStyles } from "../../../themed/styles";
 import { useThemeColor } from "../../../themed/useThemeColor";
 import EmptyCard from "../EmptyCard";
-import HiddenCard from "../HiddenCard";
+import { CardContent } from "../FaceUpCard/CardContent";
 import CardFooter from "../FaceUpCard/CardFooter";
 import { CardHeader } from "../FaceUpCard/CardHeader";
-import { CardContent } from "../FaceUpCard/CardContent";
-import { commonStyles } from "../../../themed/styles";
+import HiddenCard from "../HiddenCard";
 
 type BehaviorCardProps = {
   behavior: Behavior | null;
@@ -16,13 +17,13 @@ type BehaviorCardProps = {
 };
 
 export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) => {
-  const { width: screenWidth } = useWindowDimensions();
-  const width = screenWidth - 32;
+  const { width: screenWidth, orientation } = useResponsiveWidth();
+  const width = orientation === Orientation.LANDSCAPE ? 400 : screenWidth - 32;
   const borderColor = useThemeColor({}, `cardBorder`);
   const backgroundColor = useThemeColor({ light: "#f5ebe7", dark: "#221B17" }, `card`);
 
-  if (!behavior) return <EmptyCard hidden={hidden} />;
-  if (hidden) return <HiddenCard behavior={behavior} />;
+  if (!behavior) return <EmptyCard hidden={hidden} width={width} />;
+  if (hidden) return <HiddenCard behavior={behavior} width={width} />;
 
   return (
     <View

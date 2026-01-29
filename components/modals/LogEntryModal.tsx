@@ -1,15 +1,17 @@
 import { router, Stack } from "expo-router";
 import React, { useState } from "react";
-import { StyleSheet, useWindowDimensions } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { MonsterKind, Monsters, Ranks, RankType } from "../../assets/data/types";
 import { useHunterLog } from "../../hooks/useHunterLog";
-import { Button, Text, View } from "../Themed";
+import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
 import { MonsterIcon } from "../InventoryIcon";
+import { Button, Text, View } from "../Themed";
 import { Slider } from "../themed/inputs/Slider";
+import { commonStyles } from "../themed/styles";
 
 export const LogEntryModal = () => {
-  const width = useWindowDimensions().width - 32;
+  const width = useResponsiveWidth().width;
   const [monster, setMonster] = useState<MonsterKind>(`Barroth`);
   const [rank, setRank] = useState<RankType>(`Low Rank`);
   const [carts, setCarts] = useState(0);
@@ -21,7 +23,7 @@ export const LogEntryModal = () => {
     router.back();
   }; 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width }]}>
       <Stack.Screen options={{ title: `Hunt Entry` }} />
       <Text style={styles.title}>
         Log the details of your completedhunt
@@ -65,6 +67,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: `center`,
+    ...commonStyles.webCenter,
   },
   title: {
     marginVertical: 32,

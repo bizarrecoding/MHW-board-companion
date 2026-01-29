@@ -1,51 +1,17 @@
 import { Tabs } from "expo-router";
-import React, { useCallback, useMemo, useState } from "react";
-import { StyleSheet, useWindowDimensions, View, ScrollView, TouchableOpacity } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { useSelector } from "react-redux";
 
-import { MonsterHuntData, PartsData } from "../../../assets/data/hunt";
-import { MonsterIcon } from "../../../components/InventoryIcon";
-import { Text } from "../../../components/Themed";
-import { HPCounter } from "../../../components/monster/HPCounter";
-import MonsterParts from "../../../components/monster/MonsterParts";
-import ResistanceTabs from "../../../components/monster/ResistanceTabs";
-import { setRank } from "../../../util/redux/HuntSlice";
-import { RootState } from "../../../util/redux/store";
-import { useThemeColor } from "../../../components/themed/useThemeColor";
+import MonsterScreen from "../../../components/monster/MonsterScreen";
 import { commonStyles } from "../../../components/themed/styles";
+import { useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
+import { RootState } from "../../../util/redux/store";
+import Behaviors from "./Behaviors";
 
 const Monster = () => {
-  const dispatch = useDispatch(); 
-  const accentColor = useThemeColor({}, `accent`);
-
+  const width = useResponsiveWidth().width;
   const { monster, rank } = useSelector((state: RootState) => state.hunt);
-  const baseHunt = MonsterHuntData[monster ?? `Barroth`];
-  const width = useWindowDimensions().width;
-  const [effects, setEffects] = useState<(keyof PartsData)[]>([]);
-  const onBreak = useCallback((part: keyof PartsData) => {
-    setEffects((effects) => {
-      if (effects.includes(part)) return effects.filter((e) => e !== part);
-      return [...effects, part];
-    });
-  }, []);
-
-  const toggle = () => {
-    if (rank === `Low Rank`) dispatch(setRank(`High Rank`));
-    if (rank === `High Rank`) dispatch(setRank(`Master Rank`));
-    if (rank === `Master Rank`) dispatch(setRank(`Low Rank`));
-    //reset visible effects
-    setEffects([]);
-  };
-
-  const effectsText = useMemo(() => {
-    let msg = baseHunt?.[rank]?.effects;
-    effects.forEach((effect) => {
-      const partEffect = baseHunt?.[rank]?.parts[effect]?.effect;
-      if (msg && partEffect) msg = `${msg}\n - ${partEffect}`;
-      else if (partEffect) msg = partEffect;
-    });
-    return msg;
-  }, [baseHunt, effects, rank]);
 
   return (
     <View style={styles.container}>
@@ -55,33 +21,14 @@ const Monster = () => {
           headerTitleStyle: { fontSize: 16, letterSpacing: 1 },
         }}
       />
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-        <View style={styles.mainCard}>
-          <TouchableOpacity onPress={toggle}>
-            <MonsterIcon
-              rank={rank}
-              type={monster}
-              style={{ width: width / 3.5, height: width / 3.5 }}
-            />
-          </TouchableOpacity>
-          <HPCounter max={baseHunt?.[rank]?.maxHP ?? 60} />
+      {width < 700 ? (
+        <MonsterScreen />
+      ) : (
+        <View style={[styles.MasterDetailScreen, { width }]}>
+          <MonsterScreen style={styles.masterFragment} />
+          <Behaviors style={styles.detailFragment} />
         </View>
-
-        <View style={styles.sectionHeader}>
-          <Text bold style={[styles.sectionTitle, { borderLeftColor: accentColor, color: accentColor }]}>MONSTER PARTS</Text>
-        </View>
-        <MonsterParts data={baseHunt?.[rank]?.parts!} onBreak={onBreak} />
-
-        <View style={[styles.effectsCard]}>
-          <Text bold style={[styles.effectsLabel, { color: accentColor }]}>HUNT EFFECTS</Text>
-          <Text style={styles.effectsText}>{effectsText}</Text>
-        </View>
-
-        <View style={[styles.sectionHeader, { marginTop: 16 }]}>
-          <Text bold style={[styles.sectionTitle, { borderLeftColor: accentColor, color: accentColor }]}>RESISTANCES</Text>
-        </View>
-        {baseHunt?.weakness ? <ResistanceTabs key={monster} data={baseHunt.weakness} /> : null}
-      </ScrollView>
+      )}
     </View>
   );
 };
@@ -90,6 +37,20 @@ export default Monster;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  MasterDetailScreen: {
+    flex: 1,
+    flexDirection: "row",
+    margin: "auto",
+    gap: 16,
+  },
+  masterFragment: {
+    flex: 1,
+  },
+  detailFragment: {
+    marginTop: 16,
+    maxWidth: 500,
     flex: 1,
   },
   scroll: {
