@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /**
+ * @deprecated - not used
  * Retrieve an object from the AsyncStorage.
  * @param {String} key
  * @returns Object from the AsyncStorage or null if not found.

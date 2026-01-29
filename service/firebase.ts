@@ -21,8 +21,6 @@ export const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const auth = initializeAuth(app, {
-  //FIXME: Add persistence to store user session else do it manually
-  //       getRNPersistence not defined in firebase/auth
   persistence: getReactNativePersistence(AsyncStorage),
 });
 
