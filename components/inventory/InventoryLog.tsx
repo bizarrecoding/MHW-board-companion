@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Alert, FlatList, ListRenderItem, StyleProp, StyleSheet, TouchableNativeFeedback, TouchableOpacity, View, ViewStyle } from "react-native";
+import { FlatList, ListRenderItem, Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 
-import { FontAwesome } from "@expo/vector-icons";
-import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { InventoryEntry, useInventory } from "../../hooks/useInventory";
 import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
@@ -11,7 +9,6 @@ import { IconButton, Text } from "../Themed";
 import NumberInput from "../themed/inputs/NumberInput";
 import SearchInput from "../themed/inputs/SearchInput";
 import { commonStyles } from "../themed/styles";
-import { useThemeColor } from "../themed/useThemeColor";
 
 const stickyIndex = [0];
 
@@ -67,7 +64,7 @@ export default function InventoryLog() {
   }, [inventory]);
 
   return (
-    <View style={[styles.container, { paddingBottom, width }]}>
+    <View style={[styles.container, { width, paddingBottom }]}>
       <FlatList<InventoryEntry>
         data={filterableInventory}
         ListHeaderComponent={
@@ -79,58 +76,8 @@ export default function InventoryLog() {
         stickyHeaderIndices={stickyIndex}
         renderItem={renderItem}
         keyExtractor={keyExtractor} 
-        contentContainerStyle={{ paddingBottom: 96 }}
+        contentContainerStyle={styles.list}
       />
-
-      <FloatingActionButton icon="plus" size={56} style={[styles.fabPosition, { paddingBottom }]} onPress={() => {
-        Alert.alert(
-          "Add Item",
-          "Enter the name of the item",
-          [
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel",
-            },
-            {
-              text: "Add",
-              onPress: () => console.log("Add Pressed"),
-            },
-          ]
-        );
-        router.push(`/modal?type=item`);
-      }} />
-    </View>
-  );
-}
-
-type FloatingActionButtonProps = {
-  icon: "plus";
-  size: number;
-  style?: StyleProp<ViewStyle>;
-  onPress?: () => void;
-}
-
-const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({ icon, size, style, onPress }) => {
-  const accentColor = useThemeColor({}, `textSecondary`);
-  const backgroundColor = useThemeColor({}, `accent`);
-  const customStyles = {
-    width: size,
-    height: size,
-    borderRadius: size / 2,
-    backgroundColor,
-  };
-  return (
-    <View style={style}>
-      <TouchableNativeFeedback onPress={onPress}>
-        <View style={[styles.fab, commonStyles.shadows, customStyles]}>
-          <FontAwesome
-            name={icon}
-            size={size / 2}
-            color={accentColor}
-          />
-        </View>
-      </TouchableNativeFeedback>
     </View>
   );
 }
@@ -138,21 +85,14 @@ const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({ icon, size,
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: `center`,
-    justifyContent: `center`,
-    margin: "auto",
+    margin: "auto"
   },
-  fabPosition: {
-    position: `absolute`,
-    bottom: 16,
-    right: 16,
-  },
-  fab: {
-    justifyContent: `center`,
-    alignItems: `center`,
+  list: {
+    paddingBottom: 96,
   },
   itemWrapper: {
-    flex: 1,
+    //ensure items stretch to full width on web
+    flex: Platform.OS === "web" ? 1 : undefined,
     ...commonStyles.card,
     marginHorizontal: 16,
     marginVertical: 6,

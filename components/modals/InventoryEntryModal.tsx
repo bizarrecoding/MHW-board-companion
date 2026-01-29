@@ -1,15 +1,16 @@
 import { router } from "expo-router";
 import React, { useCallback, useState } from "react";
-import { View, StyleSheet, SectionList, SectionListRenderItemInfo } from "react-native";
+import { SectionList, SectionListRenderItemInfo, StyleSheet, View } from "react-native";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ItemList } from "../../assets/data/items";
 import { ItemEntry } from "../../assets/data/types";
 import { useInventory } from "../../hooks/useInventory";
-import { Text, Button } from "../Themed";
-import SearchInput from "../themed/inputs/SearchInput";
+import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
 import Divider from "../Divider";
 import InventoryItem from "../inventory/InventoryItem";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Button, Text } from "../Themed";
+import SearchInput from "../themed/inputs/SearchInput";
 
 // default non-filtered data
 const sortedData = ItemList.sort((a, b) => a.type.localeCompare(b.type));
@@ -17,6 +18,7 @@ const sortedData = ItemList.sort((a, b) => a.type.localeCompare(b.type));
 export const InventoryEntryModal = () => {
   const { addEntry } = useInventory();
   const paddingBottom = useSafeAreaInsets().bottom;
+  const { width, numColumns } = useResponsiveWidth();
   const [data, setData] = useState(sortedData);
   const [toAdd, setToAdd] = useState<ItemEntry[]>([] as ItemEntry[]);
 
@@ -62,7 +64,7 @@ export const InventoryEntryModal = () => {
   ];
 
   return (
-    <View style={[styles.container, { paddingBottom: 0 }]}>
+    <View style={[styles.container, { width, paddingBottom: 0 }]}>
       <SearchInput onChangeText={filterBy} placeholder="Search materials..." />
       <SectionList
         sections={sections}
@@ -83,6 +85,7 @@ export const InventoryEntryModal = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
+    margin: "auto",
   },
   btnCommit: {
     position: `absolute`,
