@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
-import { ImageBackground, View, StyleSheet, TouchableOpacity } from "react-native";
+import { ImageBackground, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 
 import { PartsData } from "../../assets/data/hunt";
@@ -8,8 +8,8 @@ import { InventoryKind } from "../../assets/data/types";
 import { RootState } from "../../util/redux/store";
 import InventoryIcon from "../InventoryIcon";
 import { Text } from "../Themed";
-import { useThemeColor } from "../themed/useThemeColor";
 import { commonStyles } from "../themed/styles";
+import { useThemeColor } from "../themed/useThemeColor";
 
 type PartCardProps = {
   type: keyof PartsData;
@@ -80,7 +80,7 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
         ) : null}
       </View>
 
-      <View style={[styles.content, commonStyles.cardBackground]}>
+      <View style={[styles.content, commonStyles.card]}>
         <View style={[styles.iconWrapper, { borderColor: partIconBorderColor }]}>
           <InventoryIcon
             type={partIcon}

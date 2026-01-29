@@ -1,9 +1,8 @@
 import { useNavigation } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { story } from "../../../assets/data/story";
 import { MonsterKind, Ranks, RankType } from "../../../assets/data/types";
 import StoryContent from "../../../components/Story/StoryContent";
@@ -18,9 +17,9 @@ const Story = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { width } = useResponsiveWidth();
-  const paddingTop = useSafeAreaInsets().top;
   const [needToPick, setNeedToPick] = useState(true);
   const { monster, rank } = useSelector((state: RootState) => state.hunt);
+  console.log("🚀 ~ Story ~ monster:", monster);
 
   const dispatchMonster = (monster: MonsterKind) => {
     dispatch(setMonster(monster));
@@ -32,9 +31,10 @@ const Story = () => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => {
-        if (!monster) return null;
+        if (needToPick) return null;
         return (
           <IconButton
+            size={24}
             icon="refresh"
             style={{ marginRight: 16 }}
             onPress={() => setNeedToPick(true)}
@@ -42,14 +42,14 @@ const Story = () => {
         );
       },
     });
-  }, [navigation, monster]);
+  }, [navigation, needToPick]);
 
   const availableMonsters = Object.entries(story)
     .filter(([_, v]) => v.length > 0)
     .map(([k]) => k) as MonsterKind[];
 
   return (
-    <View style={{ flex: 1, width, margin: "auto", paddingTop }}>
+    <View style={{ flex: 1, width, margin: "auto" }}>
       {needToPick ? (
         <StoryPicker
           setMonster={dispatchMonster}
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: 2,
     opacity: 0.7,
+    marginTop: Platform.OS === "web" ? 0 : 40,
     marginBottom: 8,
     textAlign: "center",
   },

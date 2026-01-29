@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
 import { StyleSheet } from "react-native";
+import { useDispatch } from "react-redux";
 
 import { MonsterHuntData } from "../../assets/data/hunt";
 import { MonsterKind, Ranks, RankType } from "../../assets/data/types";

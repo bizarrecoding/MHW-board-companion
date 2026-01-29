@@ -1,26 +1,15 @@
-import { Tabs } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { useSelector } from "react-redux";
 
 import MonsterScreen from "../../../components/monster/MonsterScreen";
 import { commonStyles } from "../../../components/themed/styles";
 import { useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
-import { RootState } from "../../../util/redux/store";
 import Behaviors from "./Behaviors";
 
 const Monster = () => {
   const width = useResponsiveWidth().width;
-  const { monster, rank } = useSelector((state: RootState) => state.hunt);
-
   return (
     <View style={styles.container}>
-      <Tabs.Screen
-        options={{
-          headerTitle: `${monster.toUpperCase()} | ${rank}`,
-          headerTitleStyle: { fontSize: 16, letterSpacing: 1 },
-        }}
-      />
       {width < 700 ? (
         <MonsterScreen />
       ) : (

@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { RollControls } from "../../../components/Rolls/RollControls";
 import RollDisplay from "../../../components/Rolls/RollDisplay";
 import SharpnessIndicator from "../../../components/Rolls/SharnessIndicator";
+import { useThemeColor } from "../../../components/themed/useThemeColor";
 import { useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
 import { RootState } from "../../../util/redux/store";
 
@@ -27,6 +28,7 @@ const createDamagePool = (values: number[]) => {
 
 export default function RollTab() {
   const width = useResponsiveWidth().width
+  const tint = useThemeColor({}, "tint");
   const { rollPool, total } = useSelector((state: RootState) => state.rolls);
   const paddingTop = useSafeAreaInsets().top;
   const [pool, setPool] = useState<number[]>([]);

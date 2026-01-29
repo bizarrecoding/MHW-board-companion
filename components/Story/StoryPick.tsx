@@ -3,12 +3,14 @@ import {
   FlatList,
   ImageStyle,
   ListRenderItem,
+  Platform,
   StyleProp,
   StyleSheet,
   TouchableOpacity,
   ViewStyle,
 } from "react-native";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MonsterKind, Monsters } from "../../assets/data/types";
 import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
 import { MonsterIcon } from "../InventoryIcon";
@@ -35,6 +37,7 @@ const StoryPicker: React.FC<StoryPickerProps> = ({
   style,
   children,
 }) => { 
+  const paddingTop = Math.max(useSafeAreaInsets().top, 60);
   const textColor = useThemeColor({}, `text`);
   const { width: screenWidth, numColumns: baseColumns } = useResponsiveWidth();
   const { numColumns, width, columnSize } = getLayout(screenWidth, baseColumns);
@@ -76,7 +79,7 @@ const StoryPicker: React.FC<StoryPickerProps> = ({
       renderItem={renderItem}
       keyExtractor={(item) => item}
       columnWrapperStyle={{ gap: 12 }}
-      contentContainerStyle={[styles.container, style]}
+      contentContainerStyle={[styles.container, style, Platform.OS !== "ios" && { paddingTop }]}
       ListHeaderComponent={<>{children}</>}
     />
   );

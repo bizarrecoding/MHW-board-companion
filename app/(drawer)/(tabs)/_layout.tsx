@@ -4,6 +4,7 @@ import { Link, Tabs } from "expo-router";
 import React from "react";
 import { Pressable, useColorScheme } from "react-native";
 
+import { DrawerToggleButton } from "@react-navigation/drawer";
 import Colors from "../../../constants/Colors";
 import { useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
 
@@ -51,7 +52,10 @@ export default function TabLayout() {
         name="Story"
         options={{
           title: `Story`,
-          headerShown: false,
+          headerTitle: "",
+          headerTransparent: true,
+          headerStyle: { backgroundColor: "transparent" },
+          headerLeft: () => <DrawerToggleButton tintColor={tint} />,
           tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
         }}
       />
@@ -59,6 +63,7 @@ export default function TabLayout() {
         name="Monster"
         options={{
           title: `Monster`,
+          headerLeft: () => <DrawerToggleButton tintColor={tint} />,
           tabBarIcon: ({ color }) => <TabBarIcon name="bug" color={color} />,
           headerRight: () => (
             <Link href="/modal?type=monster" asChild>
@@ -66,7 +71,7 @@ export default function TabLayout() {
                 {({ pressed }) => (
                   <FontAwesome
                     name="refresh"
-                    size={25}
+                    size={24}
                     color={tint}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
@@ -89,8 +94,11 @@ export default function TabLayout() {
       <Tabs.Screen
         name="rolls"
         options={{
-          title: `Damage Rolls`,
-          headerShown: false,
+          title: `Battle`,
+          headerTransparent: true,
+          headerTitle: "",
+          headerStyle: { backgroundColor: "transparent" },
+          headerLeft: () => <DrawerToggleButton tintColor={tint} />,
           tabBarIcon: ({ color }) => <TabBarIcon name="dice" color={color} />,
         }}
       />
