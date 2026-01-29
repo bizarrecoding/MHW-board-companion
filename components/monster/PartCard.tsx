@@ -81,6 +81,7 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
       </View>
 
       <View style={[styles.content, commonStyles.card]}>
+        {/* Part Icon */}
         <View style={[styles.iconWrapper, { borderColor: partIconBorderColor }]}>
           <InventoryIcon
             type={partIcon}
@@ -93,27 +94,27 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
           )}
         </View>
 
-        <View style={styles.stats}>
+        {/* Defense */}
+        <ImageBackground
+          source={require(`../../assets/images/Defense.png`)}
+          style={styles.statBox}
+        >
+          <Text bold style={styles.statText}>
+            {def}
+          </Text>
+        </ImageBackground>
+
+        {/* Break Counter*/}
+        <TouchableOpacity onPress={damagePart}>
           <ImageBackground
-            source={require(`../../assets/images/Defense.png`)}
+            source={require(`../../assets/images/break.png`)}
             style={styles.statBox}
           >
-            <Text bold style={styles.statText}>
-              {def}
+            <Text bold style={[styles.statText, { color: `#333` }]}>
+              {breakDmg}
             </Text>
           </ImageBackground>
-
-          <TouchableOpacity onPress={damagePart}>
-            <ImageBackground
-              source={require(`../../assets/images/break.png`)}
-              style={styles.statBox}
-            >
-              <Text bold style={[styles.statText, { color: `#333` }]}>
-                {breakDmg}
-              </Text>
-            </ImageBackground>
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -137,6 +138,9 @@ const styles = StyleSheet.create({
   content: {
     ...commonStyles.row,
     ...commonStyles.card, 
+    paddingHorizontal: 8,
+    justifyContent: `space-between`,
+    gap: 4,
   },
   iconWrapper: {
     width: ICON_SIZE,
@@ -156,12 +160,6 @@ const styles = StyleSheet.create({
     backgroundColor: `rgba(255,0,0,0.1)`,
     alignItems: `center`,
     justifyContent: `center`,
-  },
-  stats: {
-    flex: 1,
-    flexDirection: `row`,
-    justifyContent: `flex-end`,
-    gap: 8,
   },
   statBox: {
     width: ICON_SIZE - 6,

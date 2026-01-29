@@ -7,24 +7,23 @@ export enum Orientation {
 }
 
 export const useResponsiveWidth = () => {
-  const {width: _width, height} = useWindowDimensions();
+  const { width: screenWidth, height } = useWindowDimensions();
   
   const orientation = useMemo(() => {
-    if (_width < height) return Orientation.PORTRAIT;
+    if (screenWidth < height) return Orientation.PORTRAIT;
     return Orientation.LANDSCAPE;
-  }, [_width, height]);
+  }, [screenWidth, height]);
 
   const width = useMemo(() => {
-    if (_width < 700) return _width;
-    return _width * 0.8;
-  }, [_width]);
+    if (screenWidth < 768) return screenWidth;
+    return Math.min(screenWidth * 0.8, 1200);
+  }, [screenWidth]);
 
   const numColumns = useMemo(() => {
-    if (width < 700) return 1;
-    if (width < 900) return 2;
-    if (width < 1200) return 3;
-    return 4;
-  }, [width]);
+    if (screenWidth < 768) return 1;
+    if (screenWidth < 1024) return 2;
+    return 3
+  }, [screenWidth]);
 
-  return { width, height,numColumns, orientation };
+  return { width, height, numColumns, orientation };
 }

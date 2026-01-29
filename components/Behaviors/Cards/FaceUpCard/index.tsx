@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 import { Behavior } from "../../../../assets/data/types";
-import { Orientation, useResponsiveWidth } from "../../../../hooks/useResponsiveWidth";
 import { commonStyles } from "../../../themed/styles";
 import { useThemeColor } from "../../../themed/useThemeColor";
 import EmptyCard from "../EmptyCard";
@@ -10,6 +9,7 @@ import { CardContent } from "../FaceUpCard/CardContent";
 import CardFooter from "../FaceUpCard/CardFooter";
 import { CardHeader } from "../FaceUpCard/CardHeader";
 import HiddenCard from "../HiddenCard";
+import { useCardDimensions } from "../useCardDimensions";
 
 type BehaviorCardProps = {
   behavior: Behavior | null;
@@ -17,20 +17,19 @@ type BehaviorCardProps = {
 };
 
 export const BehaviorCard: React.FC<BehaviorCardProps> = ({ behavior, hidden }) => {
-  const { width: screenWidth, orientation } = useResponsiveWidth();
-  const width = orientation === Orientation.LANDSCAPE ? 400 : screenWidth - 32;
+  const { width } = useCardDimensions();
   const borderColor = useThemeColor({}, `cardBorder`);
   const backgroundColor = useThemeColor({ light: "#f5ebe7", dark: "#221B17" }, `card`);
 
-  if (!behavior) return <EmptyCard hidden={hidden} width={width} />;
-  if (hidden) return <HiddenCard behavior={behavior} width={width} />;
+  if (!behavior) return <EmptyCard hidden={hidden} />;
+  if (hidden) return <HiddenCard behavior={behavior} />;
 
   return (
     <View
       style={[
         styles.cardContainer,
         {
-          width: width - 12,
+          width: width - 12, 
           borderColor,
           backgroundColor,
         }

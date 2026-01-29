@@ -1,21 +1,28 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 
 import MonsterScreen from "../../../components/monster/MonsterScreen";
 import { commonStyles } from "../../../components/themed/styles";
-import { useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
 import Behaviors from "./Behaviors";
 
+const getLayout = (width: number) => {
+  let layoutWidth = width;
+  if (width >= 1024) layoutWidth = Math.min(width * 0.8, 1200);
+  return layoutWidth;
+} 
+
 const Monster = () => {
-  const width = useResponsiveWidth().width;
+  const screenWidth = useWindowDimensions().width;
+  const width = getLayout(screenWidth);
+
   return (
     <View style={styles.container}>
-      {width < 700 ? (
+      {screenWidth < 600 ? (
         <MonsterScreen />
       ) : (
-        <View style={[styles.MasterDetailScreen, { width }]}>
-          <MonsterScreen style={styles.masterFragment} />
-          <Behaviors style={styles.detailFragment} />
+          <View style={[styles.MasterDetailScreen, { width }]}>
+            <MonsterScreen style={[styles.masterFragment, { flex: 3 }]} />
+            <Behaviors style={[styles.detailFragment, { flex: 2 }]} />
         </View>
       )}
     </View>
@@ -35,12 +42,11 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   masterFragment: {
-    flex: 1,
+    flex: 3,
   },
   detailFragment: {
     marginTop: 16,
-    maxWidth: 500,
-    flex: 1,
+    flex: 2,
   },
   scroll: {
     flex: 1,

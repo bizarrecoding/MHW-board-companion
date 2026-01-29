@@ -2,11 +2,10 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome5 from "@expo/vector-icons/build/FontAwesome5";
 import { Link, Tabs } from "expo-router";
 import React from "react";
-import { Pressable, useColorScheme } from "react-native";
+import { Pressable, useColorScheme, useWindowDimensions } from "react-native";
 
 import { DrawerToggleButton } from "@react-navigation/drawer";
 import Colors from "../../../constants/Colors";
-import { useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -25,9 +24,10 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const width = useResponsiveWidth().width;
+  const width = useWindowDimensions().width;
   const { background, tabIconSelected, tabIconDefault, tint, text } = Colors[colorScheme ?? `light`];
   const backgroundColor = colorScheme === `dark` ? background : `#fff`;
+  const isTablet = width >= 768;
   return (
     <Tabs
       initialRouteName="Story"
@@ -81,7 +81,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Protected guard={width < 700}>
+      <Tabs.Protected guard={!isTablet}>
         <Tabs.Screen
           name="Behaviors"
           options={{

@@ -1,15 +1,15 @@
 import { StyleSheet, View } from "react-native";
-import { Orientation, useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
 import { commonStyles } from "../../themed/styles";
 import TargetIcon from "../TargetIcon";
 import { BehaviorCardProps } from "./common";
+import { useCardDimensions } from "./useCardDimensions";
 
-const HiddenCard: React.FC<Pick<BehaviorCardProps, `behavior` | `width`>> = ({ behavior, width = 400 }) => {
-  const { width: screenWidth, orientation } = useResponsiveWidth();
-  const baseWidth = orientation === Orientation.LANDSCAPE ? width : (screenWidth - 32); 
+const HiddenCard: React.FC<Pick<BehaviorCardProps, `behavior`>> = ({ behavior }) => {
+  const { width } = useCardDimensions(true);
+  console.log("🚀 ~ HiddenCard ~ width:", width);
   const target = behavior?.target ?? `Melee`;
   return (
-    <View style={[styles.cardWrapper, commonStyles.shadows, { width: baseWidth, minHeight: 150 }]}>
+    <View style={[styles.cardWrapper, commonStyles.shadows, { width, minHeight: 200 }]}>
       <View style={styles.hiddenCardPattern} />
       <View style={styles.hiddenCardContent}>
         <TargetIcon target={target} style={{ width: 80, height: 80, borderRadius: 40 }} />
