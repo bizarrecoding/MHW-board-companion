@@ -28,7 +28,7 @@ export default function HunterLogScreen() {
                 {({ pressed }) => (
                   <FontAwesome
                     name="plus"
-                    size={25}
+                    size={24}
                     color={tint}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />

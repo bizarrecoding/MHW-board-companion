@@ -13,13 +13,11 @@ import { Text } from "../components/Themed";
 import Colors from "../constants/Colors";
 import { DarkTheme, DefaultTheme } from "../constants/theme";
 import { UserContext, UserContextProvider } from "../context/UserContext";
-import { persistor, store } from "../util/redux/store";
 import { auth } from "../service/firebase";
+import { persistor, store } from "../util/redux/store";
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from "expo-router";
+// Catch any errors thrown by the Layout component.
+export { ErrorBoundary } from "expo-router";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
