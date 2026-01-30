@@ -12,6 +12,8 @@ const initialState: LocalDataState = {
   logs: [],
 };
 
+const generateId = () => Math.random().toString(36).substr(2, 9);
+
 const localDataSlice = createSlice({
   name: "localData",
   initialState,
@@ -24,7 +26,7 @@ const localDataSlice = createSlice({
       } else {
         state.inventory.push({
           ...action.payload,
-          id: Math.random().toString(36).substr(2, 9),
+          id: generateId(),
         });
       }
     },
@@ -42,7 +44,7 @@ const localDataSlice = createSlice({
     addLocalHunterLogEntry: (state, action: PayloadAction<Omit<HunterLogEntry, "id" | "timestamp">>) => {
       state.logs.push({
         ...action.payload,
-        id: Math.random().toString(36).substr(2, 9),
+        id: generateId(),
         timestamp: Date.now(),
       });
     },
