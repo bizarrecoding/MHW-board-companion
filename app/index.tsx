@@ -1,15 +1,17 @@
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, useColorScheme, Image, KeyboardAvoidingView } from "react-native";
+import { Image, KeyboardAvoidingView, StyleSheet, useColorScheme } from "react-native";
 
 import { Button, Text, TextInput } from "../components/Themed";
 import Colors from "../constants/Colors";
+import { UserContext } from "../context/UserContext";
 import { useFireAuth } from "../hooks/useFireAuth";
 
 const Login: React.FC = () => {
   const colorScheme = useColorScheme();
   const { background, accent } = Colors[colorScheme ?? `light`];
   const { loginUser } = useFireAuth();
+  const { setIsGuest } = React.useContext(UserContext);
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [error, setError] = useState<string>();
@@ -22,6 +24,7 @@ const Login: React.FC = () => {
         setError(`Please enter a valid username or password.`);
         return;
       }
+      setIsGuest(false);
       await loginUser(username, password);
       router.replace(`/(drawer)/inventory`);
     } catch (error) {
@@ -29,6 +32,12 @@ const Login: React.FC = () => {
       console.error(error);
     }
   };
+
+  const continueAsGuest = () => {
+    setIsGuest(true);
+    router.replace(`/(drawer)/inventory`);
+  };
+
   useEffect(() => {
     if (error) {
       const timeout = setTimeout(() => {
@@ -67,6 +76,13 @@ const Login: React.FC = () => {
         style={styles.login_button}
         textStyle={{ fontSize: 18 }}
         onPress={login}
+      />
+      <Button
+        title="Continue as Guest"
+        variant="outlined"
+        style={styles.login_button}
+        textStyle={{ fontSize: 18 }}
+        onPress={continueAsGuest}
       />
       <Text style={{ textAlign: `center`, marginVertical: 10 }}>
         Don't remember your password?{` `}

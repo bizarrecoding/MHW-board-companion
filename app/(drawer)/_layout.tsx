@@ -4,16 +4,16 @@ import { Drawer } from "expo-router/drawer";
 import React, { useContext } from "react";
 import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Monsters as MonsterIconKeys } from "../../assets/data/types";
 import { MonsterIcon } from "../../components/InventoryIcon";
 import { Button, Text } from "../../components/Themed";
+import { commonStyles } from "../../components/themed/styles";
+import { useThemeColor } from "../../components/themed/useThemeColor";
 import Colors from "../../constants/Colors";
 import { build } from "../../constants/build";
 import { UserContext } from "../../context/UserContext";
 import { useFireAuth } from "../../hooks/useFireAuth";
-import { Monsters as MonsterIconKeys } from "../../assets/data/types";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useThemeColor } from "../../components/themed/useThemeColor";
-import { commonStyles } from "../../components/themed/styles";
 
 const getImageSource = (s: string | null = ``) => {
   if (s === null) return MonsterIconKeys[0];
@@ -25,7 +25,7 @@ const SideBarContent = () => {
   const backgroundColor = useThemeColor({}, 'background');
   const textColor = useThemeColor({}, 'text');
   const { top: paddingTop, bottom: paddingBottom } = useSafeAreaInsets();
-  const { user } = useContext(UserContext);
+  const { user, isGuest } = useContext(UserContext);
   const { logout } = useFireAuth();
   return (
     <View style={[style.container, { backgroundColor, paddingTop, paddingBottom }]}>
@@ -34,7 +34,7 @@ const SideBarContent = () => {
           <MonsterIcon noRank type={getImageSource(user?.email)} style={style.avatar} />
           <Text style={style.cardLabel}>User:</Text>
           <Text bold style={style.cardLabel}>
-            {user?.email}
+            {isGuest ? "Guest" : user?.email}
           </Text>
         </View>
 

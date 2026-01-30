@@ -9,11 +9,18 @@ import {
   QueryDocumentSnapshot,
   updateDoc,
 } from "firebase/firestore";
-import { useCallback, useContext, useLayoutEffect, useState } from "react";
+import { useCallback, useContext, useLayoutEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { MonsterKind, RankType, Result } from "../assets/data/types";
 import { UserContext } from "../context/UserContext";
 import { database } from "../service/firebase";
+import {
+  addLocalHunterLogEntry,
+  deleteLocalHunterLogEntry,
+  updateLocalHunterLogEntry,
+} from "../util/redux/LocalDataSlice";
+import { RootState } from "../util/redux/store";
 
 export type HunterLogEntry = {
   id: string;
@@ -43,41 +50,69 @@ const getDocument = (userId: string, entry: string) => {
 };
 
 export const useHunterLog = () => {
-  const { user } = useContext(UserContext);
+  const { user, isGuest } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const localLogs = useSelector((state: RootState) => state.localData.logs);
+
   const [logs, setLogs] = useState<HunterLogEntry[]>([]);
   const [order, setOrder] = useState<`asc` | `desc`>(`asc`);
 
   const addLogEntry = useCallback(
     (item: Omit<HunterLogEntry, `id` | `timestamp`>) => {
-      if (!user) return;
-      addDoc(getCollection(user.uid), {
-        ...item,
-        timestamp: Date.now(),
-      });
+      if (isGuest) {
+        dispatch(addLocalHunterLogEntry(item));
+      } else {
+        if (!user) return;
+        addDoc(getCollection(user.uid), {
+          ...item,
+          timestamp: Date.now(),
+        });
+      }
     },
-    [user]
+    [user, isGuest, dispatch]
   );
 
-  // not used
   const updateLogEntry = useCallback(
     (entryId: string, entry: HunterLogEntry) => {
-      if (!user) return;
-      const entryRef = getDocument(user.uid, entryId);
-      updateDoc(entryRef, entry);
+      if (isGuest) {
+        dispatch(updateLocalHunterLogEntry({ id: entryId, entry }));
+      } else {
+        if (!user) return;
+        const entryRef = getDocument(user.uid, entryId);
+        updateDoc(entryRef, entry);
+      }
     },
-    [user]
+    [user, isGuest, dispatch]
   );
 
   const deleteLogEntry = useCallback(
     async (entryId: string) => {
-      if (!user) return;
-      await deleteDoc(getDocument(user.uid, entryId));
+      if (isGuest) {
+        dispatch(deleteLocalHunterLogEntry(entryId));
+      } else {
+        if (!user) return;
+        await deleteDoc(getDocument(user.uid, entryId));
+      }
     },
-    [user]
+    [user, isGuest, dispatch]
   );
 
+  const sortedLocalLogs = useMemo(() => {
+    return [...localLogs].sort((a, b) => {
+      return order === "asc" ? a.timestamp - b.timestamp : b.timestamp - a.timestamp;
+    });
+  }, [localLogs, order]);
+
   useLayoutEffect(() => {
-    if (!user) return;
+    if (isGuest) {
+      setLogs(sortedLocalLogs);
+      return;
+    }
+
+    if (!user) {
+      setLogs([]);
+      return;
+    }
     const logRef = collection(database, `user/${user.uid}/log`).withConverter(converter);
     const queryInventory = query(logRef, orderBy(`timestamp`, order));
     const unsubscribe = onSnapshot(queryInventory, (snapshot) => {
@@ -85,7 +120,7 @@ export const useHunterLog = () => {
       setLogs(data);
     });
     return unsubscribe;
-  }, [user, order]);
+  }, [user, order, isGuest, sortedLocalLogs]);
 
   return {
     logs,

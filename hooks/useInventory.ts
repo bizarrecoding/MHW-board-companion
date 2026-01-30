@@ -10,10 +10,17 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useCallback, useContext, useLayoutEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { InventoryKind } from "../assets/data/types";
 import { UserContext } from "../context/UserContext";
 import { database } from "../service/firebase";
+import {
+  addLocalInventoryEntry,
+  deleteLocalInventoryEntry,
+  updateLocalInventoryEntry,
+} from "../util/redux/LocalDataSlice";
+import { RootState } from "../util/redux/store";
 
 export type InventoryEntry = {
   type: InventoryKind;
@@ -42,49 +49,69 @@ const getDocument = (userId: string, entry: string) => {
 };
 
 export const useInventory = () => {
-  const { user } = useContext(UserContext);
+  const { user, isGuest } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const localInventory = useSelector((state: RootState) => state.localData.inventory);
+
   const [inventory, setInventory] = useState<InventoryEntry[]>([]);
 
   const updateEntry = useCallback(
     async (entryId: string, amount: number) => {
-      if (!user) return;
-      const entryRef = getDocument(user.uid, entryId);
-      //only update the amount
-      await updateDoc(entryRef, { amount });
+      if (isGuest) {
+        dispatch(updateLocalInventoryEntry({ id: entryId, amount }));
+      } else {
+        if (!user) return;
+        const entryRef = getDocument(user.uid, entryId);
+        await updateDoc(entryRef, { amount });
+      }
     },
-    [user]
+    [user, isGuest, dispatch]
   );
 
   const addEntry = useCallback(
     (item: Omit<InventoryEntry, `id`>) => {
-      if (!user) return;
-      const existingItem = inventory.find((i) => i.name === item.name);
-      // set also lets us set a key, so we can use the item name as the key
-      // addDoc would not let us set the key
-      if (!existingItem)
-        addDoc(getCollection(user.uid), {
-          name: item.name,
-          type: item.type,
-          amount: 1,
-          timestamp: new Date().toISOString(),
-        });
-      else {
-        updateEntry(existingItem.id, existingItem.amount + 1);
+      if (isGuest) {
+        dispatch(addLocalInventoryEntry(item));
+      } else {
+        if (!user) return;
+        const existingItem = inventory.find((i) => i.name === item.name);
+        if (!existingItem) {
+          addDoc(getCollection(user.uid), {
+            name: item.name,
+            type: item.type,
+            amount: 1,
+            timestamp: new Date().toISOString(),
+          });
+        } else {
+          updateEntry(existingItem.id, existingItem.amount + 1);
+        }
       }
     },
-    [user, inventory, updateEntry]
+    [user, isGuest, inventory, updateEntry, dispatch]
   );
 
   const deleteEntry = useCallback(
     async (entryId: string) => {
-      if (!user) return;
-      await deleteDoc(getDocument(user.uid, entryId));
+      if (isGuest) {
+        dispatch(deleteLocalInventoryEntry(entryId));
+      } else {
+        if (!user) return;
+        await deleteDoc(getDocument(user.uid, entryId));
+      }
     },
-    [user]
+    [user, isGuest, dispatch]
   );
 
   useLayoutEffect(() => {
-    if (!user) return;
+    if (isGuest) {
+      setInventory(localInventory);
+      return;
+    }
+
+    if (!user) {
+      setInventory([]);
+      return;
+    }
     const inventoryRef = collection(database, `user/${user.uid}/inventory`).withConverter(
       converter
     );
@@ -94,7 +121,7 @@ export const useInventory = () => {
       setInventory(data);
     });
     return unsubscribe;
-  }, [user]);
+  }, [user, isGuest, localInventory]);
 
   return { inventory, addEntry, updateEntry, deleteEntry };
 };

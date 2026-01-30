@@ -67,7 +67,7 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const statusBarStyle = colorScheme === `dark` ? `light` : `dark`;
   const { background, text } = Colors[colorScheme ?? `light`];
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, isGuest, setIsGuest } = useContext(UserContext);
   const router = useRouter();
   useEffect(() => {
     // Fast login
@@ -75,20 +75,21 @@ function RootLayoutNav() {
       console.log(`🚀 ~ onAuthStateChanged:`, user?.uid);
       if (user) {
         setUser(user);
+        setIsGuest(false);
         router.replace(`/(drawer)/inventory`);
-      } else {
+      } else if (!isGuest) {
         setUser(null);
         router.replace(`/`);
       }
     });
     return unsubscribe;
-  }, [setUser]);
+  }, [setUser, isGuest]);
   return (
     <>
       <StatusBar style={statusBarStyle} />
-      <Stack initialRouteName={user ? `/(drawer)` : `index`}>
+      <Stack initialRouteName={user || isGuest ? `/(drawer)` : `index`}>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Protected guard={!!user}>
+        <Stack.Protected guard={!!user || isGuest}>
           <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
           <Stack.Screen
             name="modal"

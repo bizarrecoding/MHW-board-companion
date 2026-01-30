@@ -1,7 +1,8 @@
 import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 
+import { UserContext } from "../context/UserContext";
 import { auth } from "../service/firebase";
 
 export const useFireAuth = () => {
@@ -25,14 +26,17 @@ export const useFireAuth = () => {
     }
   }, []);
 
+  const { setIsGuest } = useContext(UserContext);
+
   const logout = useCallback(async () => {
     try {
+      setIsGuest(false);
       await signOut(auth);
     } catch (error) {
       console.log(`[LogoutError]`, (error as Error).message);
       throw error;
     }
-  }, []);
+  }, [setIsGuest]);
 
   return {
     registerUser,
