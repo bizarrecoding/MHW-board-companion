@@ -19,11 +19,6 @@ import { persistor, store } from "../util/redux/store";
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from "expo-router";
 
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: `login`, //`(tabs)`,
-};
-
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -72,7 +67,7 @@ function RootLayoutNav() {
   useEffect(() => {
     // Fast login
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log(`🚀 ~ onAuthStateChanged:`, user?.uid);
+      //console.log(`🚀 ~ onAuthStateChanged:`, user?.uid);
       if (user) {
         setUser(user);
         setIsGuest(false);
