@@ -18,7 +18,7 @@
     "publish-ota-dev": "npx eas-cli update --branch development -p all",
     "publish-ota-preview": "npx eas-cli update --branch preview -p all",
     "build:apk": "npx eas-cli build -p android --profile='preview' --non-interactive",
-    "build:web": "expo export"
+    "build:web": "expo export -p web --output-dir web-build"
   },
   "husky": {
     "hooks": {
