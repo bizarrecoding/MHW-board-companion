@@ -4,8 +4,10 @@
  */
 
 import { useColorScheme } from "react-native";
+import { useSelector } from "react-redux";
 
 import Colors from "../../constants/Colors";
+import { RootState } from "../../util/redux/store";
 
 export type ThemeProps = {
   lightColor?: string;
@@ -16,7 +18,10 @@ export function useThemeColor(
   props: { light?: string; dark?: string } | undefined,
   colorName: keyof typeof Colors.light & keyof typeof Colors.dark
 ) {
-  const theme = useColorScheme() ?? `light`;
+  const systemColorScheme = useColorScheme() ?? `light`;
+  const themePreference = useSelector((state: RootState) => state.settings.theme);
+
+  const theme = themePreference === "system" ? systemColorScheme : themePreference;
   const colorFromProps = props ? props[theme] : undefined;
 
   if (colorFromProps) {
