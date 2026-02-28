@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { TextInput as NativeTextInput, TextInputProps as NativeTextInputProps, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import {
+  TextInput as NativeTextInput,
+  TextInputProps as NativeTextInputProps,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from "react-native";
 
 import { ThemedIconButton } from "./ThemedButton";
 import { ThemeProps, useThemeColor } from "./useThemeColor";
@@ -7,9 +14,9 @@ import { ThemeProps, useThemeColor } from "./useThemeColor";
 export type TextInputProps = ThemeProps &
   NativeTextInputProps & {
     variant?: `title` | `subtitle` | `button` | `caption` | `body` | `password`;
-  style?: StyleProp<ViewStyle>;
-  contentContainerStyle?: StyleProp<ViewStyle>;
-}
+    style?: StyleProp<ViewStyle>;
+    contentContainerStyle?: StyleProp<ViewStyle>;
+  };
 
 const TRANSPARENCY_MOD = `D`;
 
@@ -24,7 +31,7 @@ export default function TextInput(props: TextInputProps) {
       <View style={[{ backgroundColor }, styles.base, contentContainerStyle]}>
         <NativeTextInput
           placeholderTextColor={`${color}${TRANSPARENCY_MOD}`}
-          style={[{ color, width: '100%' }, styles.body, style]}
+          style={[{ color, width: "100%" }, styles.body, style]}
           {...otherProps}
         />
       </View>

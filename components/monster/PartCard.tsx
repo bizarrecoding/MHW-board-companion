@@ -4,7 +4,7 @@ import { ImageBackground, StyleSheet, TouchableOpacity, View } from "react-nativ
 import { useSelector } from "react-redux";
 
 import { PartsData } from "../../assets/data/hunt";
-import { InventoryKind } from "../../assets/data/types";
+import { InventoryKind, MonsterKind } from "../../assets/data/types";
 import { RootState } from "../../util/redux/store";
 import InventoryIcon from "../InventoryIcon";
 import { Text } from "../Themed";
@@ -22,6 +22,7 @@ const map: Record<string, InventoryKind> = {
   Head: `head`,
   Back: `ridge`,
   Legs: `claw`,
+  Claw: `claw`,
   Tail: `tail`,
 };
 
@@ -29,6 +30,7 @@ const caret_map: Record<string, `caret-up` | `caret-down` | `caret-left` | `care
   Head: `caret-up`,
   Back: `caret-left`,
   Legs: `caret-left`,
+  Claw: "caret-left",
   "Left Leg": `caret-left`,
   "Right Leg": `caret-right`,
   Tail: `caret-down`,
@@ -36,11 +38,17 @@ const caret_map: Record<string, `caret-up` | `caret-down` | `caret-left` | `care
 
 const ICON_SIZE = 50;
 
-const getPartLabel = (monster: string, type: string) => {
+const getPartLabel = (monster: MonsterKind, type: string) => {
   if (monster === `Jyuratodus` && type === `Back`) return `Right Leg`;
   if (monster === `Jyuratodus` && type === `Legs`) return `Left Leg`;
+  if (monster === `Black Diablos` && type === `Back`) return `Claw` 
   return type;
 };
+
+const getPartIcon = (monster: MonsterKind, type: string) => {
+  if (monster === `Black Diablos` && type === `Legs`) return `ridge`
+  return map[type.includes(`Leg`) ? `Legs` : type];
+}
 
 export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak }) => {
   const textColor = useThemeColor({}, `text`);
@@ -64,7 +72,7 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
 
   const partLabel = getPartLabel(monster, type);
   const caretIcon = caret_map[partLabel];
-  const partIcon = map[partLabel.includes(`Leg`) ? `Legs` : type];
+  const partIcon = getPartIcon(monster, partLabel);
 
   const partIconBorderColor = isBroken ? `#F33` : `#D95`;
 
@@ -75,7 +83,7 @@ export const PartCard: React.FC<PartCardProps> = ({ type, def, breakRes, onBreak
           {partLabel.toUpperCase()}
         </Text>
         <FontAwesome name={caretIcon} color={textColor} size={14} /> 
-        {[`Legs`, `Back`].includes(partLabel) ? (
+        {[`Legs`, `Back`, `Claw`].includes(partLabel) ? (
           <FontAwesome name="caret-right" color={textColor} size={14} />
         ) : null}
       </View>

@@ -4,8 +4,9 @@
  */
 
 import { View } from "react-native";
+
 import Button, { ThemedIconButton as IconButton } from "./themed/ThemedButton";
 import TextInput from "./themed/ThemedInput";
 import Text from "./themed/ThemedText";
 
-export { Button, View, Text, TextInput, IconButton };
+export { Button, IconButton, Text, TextInput, View };

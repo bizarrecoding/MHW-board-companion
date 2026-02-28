@@ -1,9 +1,10 @@
-import { Ailments, Elements, MonsterKind, RankType } from "./types"
 import barroth from "./barroth"
-import pukei_pukei from "./pukei_pukei"
-import jyuratodus from "./jyuratodus"
-import diablos from "./diablos" 
+import black_diablos from "./black_diablos"
 import brachydios from "./brachydios"
+import diablos from "./diablos"
+import jyuratodus from "./jyuratodus"
+import pukei_pukei from "./pukei_pukei"
+import { Ailments, Elements, MonsterKind, RankType } from "./types"
 
 export type PartsData =  Record<"Head"|"Back"|"Legs"|"Tail", { def: number; breakRes: number; effect?: string }>
 
@@ -24,5 +25,5 @@ export const MonsterHuntData: MonsterData = {
   Jyuratodus: jyuratodus.hunt,
   Diablos: diablos.hunt,
   Brachydios: brachydios.hunt,
-  "Black Diablos":null
+  "Black Diablos": black_diablos.hunt
 }

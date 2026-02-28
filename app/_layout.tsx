@@ -6,7 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import { useContext, useEffect } from "react";
 import { Platform, useColorScheme } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
 import { Text } from "../components/Themed";
@@ -14,7 +14,7 @@ import Colors from "../constants/Colors";
 import { DarkTheme, DefaultTheme } from "../constants/theme";
 import { UserContext, UserContextProvider } from "../context/UserContext";
 import { auth } from "../service/firebase";
-import { persistor, store } from "../util/redux/store";
+import { RootState, persistor, store } from "../util/redux/store";
 
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from "expo-router";
@@ -45,23 +45,24 @@ export default function RootLayout() {
   }
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider value={colorScheme === `dark` ? DarkTheme : DefaultTheme}>
-        <Provider store={store}>
-          <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
-            <UserContextProvider>
-              <RootLayoutNav />
-            </UserContextProvider>
-          </PersistGate>
-        </Provider>
-      </ThemeProvider>
+      <Provider store={store}>
+        <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+          <UserContextProvider>
+            <RootLayoutNav />
+          </UserContextProvider>
+        </PersistGate>
+      </Provider>
     </GestureHandlerRootView>
   );
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-  const statusBarStyle = colorScheme === `dark` ? `light` : `dark`;
-  const { background, text } = Colors[colorScheme ?? `light`];
+  const systemColorScheme = useColorScheme() ?? `light`;
+  const themePreference = useSelector((state: RootState) => state.settings.theme);
+  const theme = themePreference === "system" ? systemColorScheme : themePreference;
+
+  const statusBarStyle = theme === `dark` ? `light` : `dark`;
+  const { background, text } = Colors[theme];
   const { user, setUser, isGuest, setIsGuest } = useContext(UserContext);
   const router = useRouter();
   useEffect(() => {
@@ -80,7 +81,7 @@ function RootLayoutNav() {
     return unsubscribe;
   }, [setUser, isGuest]);
   return (
-    <>
+    <ThemeProvider value={theme === `dark` ? DarkTheme : DefaultTheme}>
       <StatusBar style={statusBarStyle} />
       <Stack initialRouteName={user || isGuest ? `/(drawer)` : `index`}>
         <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -103,6 +104,6 @@ function RootLayoutNav() {
           />
         </Stack.Protected>
       </Stack>
-    </>
+    </ThemeProvider>
   );
 }

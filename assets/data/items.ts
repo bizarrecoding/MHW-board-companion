@@ -1,4 +1,5 @@
 import barroth from "./barroth";
+import black_diablos from "./black_diablos";
 import brachydios from "./brachydios";
 import diablos from "./diablos";
 import jyuratodus from "./jyuratodus";
@@ -11,6 +12,7 @@ export const ItemList: ItemEntry[] = [
   ...jyuratodus.items,
   ...pukei_pukei.items,
   ...diablos.items,
+  ...black_diablos.items,
   {
     type: "potion",
     name: "Potion",

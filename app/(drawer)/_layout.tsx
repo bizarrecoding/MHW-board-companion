@@ -2,10 +2,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import React, { useContext } from "react";
-import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
+import { Pressable, StyleSheet, TouchableOpacity, useColorScheme, View } from "react-native";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Monsters as MonsterIconKeys } from "../../assets/data/types";
+import { useSelector } from "react-redux";
+import { Monsters as MonsterIconKeys, MonsterKind } from "../../assets/data/types";
 import { MonsterIcon } from "../../components/InventoryIcon";
 import { Button, Text } from "../../components/Themed";
 import { commonStyles } from "../../components/themed/styles";
@@ -14,29 +15,32 @@ import Colors from "../../constants/Colors";
 import { build } from "../../constants/build";
 import { UserContext } from "../../context/UserContext";
 import { useFireAuth } from "../../hooks/useFireAuth";
+import { RootState } from "../../util/redux/store";
 
-const getImageSource = (s: string | null = ``) => {
-  if (s === null) return MonsterIconKeys[0];
-  const key = (s.length + 3) % MonsterIconKeys.length;
+const getImageSource = (email: string | null | undefined, preference?: MonsterKind | null) => {
+  if (preference) return preference;
+  if (!email) return MonsterIconKeys[0];
+  const key = (email.length + 3) % MonsterIconKeys.length;
   return MonsterIconKeys[key];
 };
 
 const SideBarContent = () => {
   const backgroundColor = useThemeColor({}, 'background');
   const textColor = useThemeColor({}, 'text');
+  const { profileIcon } = useSelector((state: RootState) => state.settings);
   const { top: paddingTop, bottom: paddingBottom } = useSafeAreaInsets();
   const { user, isGuest } = useContext(UserContext);
   const { logout } = useFireAuth();
   return (
     <View style={[style.container, { backgroundColor, paddingTop, paddingBottom }]}>
       <View style={{ flex: 1, padding: 16 }}>
-        <View style={style.avatarCard}>
-          <MonsterIcon noRank type={getImageSource(user?.email)} style={style.avatar} />
+        <TouchableOpacity style={style.avatarCard} onPress={() => router.navigate(`/(drawer)/settings`)}>
+          <MonsterIcon noRank type={getImageSource(user?.email, profileIcon)} style={style.avatar} />
           <Text style={style.cardLabel}>User:</Text>
           <Text bold style={style.cardLabel}>
             {isGuest ? "Guest" : user?.email}
           </Text>
-        </View>
+        </TouchableOpacity>
 
         <DrawerItem
           title="Hunt"
@@ -57,6 +61,11 @@ const SideBarContent = () => {
           title="Character"
           icon="address-book"
           onPress={() => router.navigate(`/(drawer)/character`)}
+        />
+        <DrawerItem
+          title="Settings"
+          icon="cog"
+          onPress={() => router.navigate(`/(drawer)/settings`)}
         />
       </View>
       <Button title="Logout" style={{ backgroundColor: "#8883" }} textStyle={{ color: textColor }} onPress={logout} />

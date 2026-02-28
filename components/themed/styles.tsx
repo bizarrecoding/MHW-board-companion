@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
-const cardColor = '#8883';
-const cardBorderColor = '#8884';
+const cardColor = "#8883";
+const cardBorderColor = "#8884";
 // const cardColorLight = '#dadada';
 // const cardColorDark = '#1B1B1B';
 // const cardBorderColorDark = '#383838';
@@ -21,8 +21,8 @@ export const commonStyles = StyleSheet.create({
     backgroundColor: cardColor,
     borderColor: cardBorderColor,
     borderWidth: 1,
-    borderRadius: 16, 
-  }, 
+    borderRadius: 16,
+  },
   shadows: {
     elevation: 10,
     shadowColor: "#000A",
@@ -32,6 +32,6 @@ export const commonStyles = StyleSheet.create({
   },
   webCenter: {
     justifyContent: "center",
-    margin: "auto"
-  }
+    margin: "auto",
+  },
 });

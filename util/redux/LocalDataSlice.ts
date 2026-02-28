@@ -60,7 +60,11 @@ const localDataSlice = createSlice({
     clearLocalData: (state) => {
       state.inventory = [];
       state.logs = [];
-    }
+    },
+    replaceLocalData: (state, action: PayloadAction<LocalDataState>) => {
+      state.inventory = action.payload.inventory;
+      state.logs = action.payload.logs;
+    },
   },
 });
 
@@ -72,6 +76,7 @@ export const {
   deleteLocalHunterLogEntry,
   updateLocalHunterLogEntry,
   clearLocalData,
+  replaceLocalData,
 } = localDataSlice.actions;
 
 export default localDataSlice.reducer;

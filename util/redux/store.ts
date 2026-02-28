@@ -16,6 +16,7 @@ import huntSlice, { HuntState } from "./HuntSlice";
 import rollSlice, { RollState } from "./RollSlice";
 
 import localDataSlice, { LocalDataState } from "./LocalDataSlice";
+import settingsSlice, { SettingsState } from "./SettingsSlice";
 
 const persistConfig = <T = object>(key: string = `root`, slice: Reducer<T>) => {
   const baseConfig = {
@@ -31,6 +32,7 @@ export const store = configureStore({
     character: persistConfig<CharacterState>(`character`, characterSlice),
     hunt: persistConfig<HuntState>(`hunt`, huntSlice),
     localData: persistConfig<LocalDataState>(`localData`, localDataSlice),
+    settings: persistConfig<SettingsState>(`settings`, settingsSlice),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
