@@ -1,18 +1,9 @@
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import {
-  Image,
-  ImageStyle,
-  StyleProp,
-  StyleSheet,
-  TouchableOpacity,
-  ViewStyle,
-  useColorScheme,
-  View,
-} from "react-native";
+import { Image, ImageStyle, StyleProp, StyleSheet, TouchableOpacity, useColorScheme, View, ViewStyle } from "react-native";
 
-import { InventoryKind, MonsterKind, RankType } from "../assets/data/types";
 import MonsterColorMap from "../assets/data/palette";
+import { InventoryKind, MonsterKind, RankType } from "../assets/data/types";
 
 const Barroth = require(`../assets/images/monster/MHW-Barroth_Icon.webp`);
 const Diablos = require(`../assets/images/monster/MHW-Diablos_Icon.webp`);
@@ -223,13 +214,7 @@ const BORDER_MAP: Record<RankType | `failed` | `none`, string> = {
 };
 
 export const CrownRankIcon: React.FC<{ rank: RankType }> = ({ rank }) => {
-  return (
-    <MaterialCommunityIcons
-      name="crown"
-      size={18}
-      color={BORDER_MAP[rank ?? `Low Rank`]}
-    />
-  );
+  return <MaterialCommunityIcons name="crown" size={18} color={BORDER_MAP[rank ?? `Low Rank`]} />;
 };
 
 export const MonsterIcon = (props: MonsterIconProps) => {
@@ -279,11 +264,7 @@ type WhetstoneIconProps = {
 export const WhetstoneIcon: React.FC<WhetstoneIconProps> = ({ style, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.whetstoneIconWrapper, style]}>
-      <Image
-        style={styles.InventoryIcon}
-        resizeMode="contain"
-        source={require(`../assets/images/materials/whetstone.png`)}
-      />
+      <Image style={styles.InventoryIcon} resizeMode="contain" source={require(`../assets/images/materials/whetstone.png`)} />
     </TouchableOpacity>
   );
 };

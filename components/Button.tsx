@@ -1,10 +1,10 @@
 import React from "react";
-import { Pressable, StyleSheet, View, Text, PressableProps } from "react-native";
+import { Pressable, PressableProps, StyleSheet, Text, View } from "react-native";
 
 export interface ButtonProps {
   label: string;
   theme?: `primary` | string;
-  onPress?: PressableProps['onPress'];
+  onPress?: PressableProps["onPress"];
   children?: React.ReactNode;
 }
 
