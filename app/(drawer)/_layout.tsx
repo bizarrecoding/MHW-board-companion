@@ -67,6 +67,11 @@ const SideBarContent = () => {
           icon="cog"
           onPress={() => router.navigate(`/(drawer)/settings`)}
         />
+        <DrawerItem
+          title="About"
+          icon="info"
+          onPress={() => router.navigate(`/(drawer)/about`)}
+        />
       </View>
       <Button title="Logout" style={{ backgroundColor: "#8883" }} textStyle={{ color: textColor }} onPress={logout} />
       <Text style={{ padding: 16, alignSelf: "flex-end", fontSize: 12, color: "#888" }}>v{build}</Text>

@@ -82,9 +82,9 @@ export default function SettingsScreen() {
   };
 
   return (
-    <ScrollView style={[style.container, { width }]}>
+    <ScrollView style={style.container}>
       <DrawerToggleButton tintColor={tintColor} />
-      <View style={style.section}>
+      <View style={[style.section, { width }]}>
         <Text variant="title" style={style.sectionTitle}>Profile Icon</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={style.iconList}>
           {Monsters.map((m) => (
@@ -102,7 +102,7 @@ export default function SettingsScreen() {
         </ScrollView>
       </View>
 
-      <View style={style.section}>
+      <View style={[style.section, { width }]}>
         <Text variant="title" style={style.sectionTitle}>Appearance</Text>
         <View style={style.optionsRow}>
           <ThemeOption label="Light" value="light" />
@@ -113,7 +113,7 @@ export default function SettingsScreen() {
 
       {isGuest && (
         <>
-          <View style={style.section}>
+          <View style={[style.section, { width }]}>
             <Text variant="title" style={style.sectionTitle}>Data Management</Text>
             <View style={style.optionsRow}>
               <Button full title="Export Data" onPress={handleExport} />
@@ -121,7 +121,7 @@ export default function SettingsScreen() {
             </View>
           </View>
 
-          <View style={style.section}>
+          <View style={[style.section, { width }]}>
             <Text variant="title" style={style.sectionTitle}>Account</Text>
             <Text style={{ marginBottom: 16 }}>
               You are currently using a guest account. Create an account to sync your data to the cloud.
@@ -140,14 +140,13 @@ export default function SettingsScreen() {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    margin: "auto"
   },
   section: {
     marginBottom: 32,
     padding: 16,
     borderRadius: 12,
-    backgroundColor: "#8881",
+    backgroundColor: "#8882",
+    margin: "auto",
   },
   sectionTitle: {
     marginBottom: 16,
