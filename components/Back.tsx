@@ -1,7 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 
-import { useThemeColor } from "../themed/useThemeColor";
+import { useThemeColor } from "./themed/useThemeColor";
 
 type BackProps = {
   onPress: () => void;

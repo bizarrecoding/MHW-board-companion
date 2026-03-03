@@ -5,8 +5,8 @@ import { Alert, StyleSheet } from "react-native";
 
 import { EMAIL_REGEXP } from "../../constants/text";
 import { auth } from "../../service/firebase";
-import { View, Text, TextInput, Button } from "../Themed";
-import { Back } from "../screens/Back";
+import { Back } from "../Back";
+import { Button, Text, TextInput, View } from "../Themed";
 
 export const RecoverPassword = () => {
   const [username, setUsername] = useState<string>();

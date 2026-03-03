@@ -1,13 +1,14 @@
 import React from "react";
 import { Pressable, PressableProps, StyleSheet, Text, View } from "react-native";
 
-export interface ButtonProps {
+interface ButtonProps {
   label: string;
   theme?: `primary` | string;
   onPress?: PressableProps["onPress"];
   children?: React.ReactNode;
 }
 
+/** @deprecated not used */
 function Button({ label, theme = `primary`, onPress, children }: ButtonProps) {
   if (theme === `primary`) {
     return (
@@ -20,7 +21,7 @@ function Button({ label, theme = `primary`, onPress, children }: ButtonProps) {
   }
 }
 
-export default Button;
+//export default Button;
 
 const styles = StyleSheet.create({
   buttonContainer: {

@@ -1,11 +1,11 @@
 import { router, Stack } from "expo-router";
 import React, { useState } from "react";
-import { useColorScheme, StyleSheet } from "react-native";
+import { StyleSheet, useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
 import { useFireAuth } from "../../hooks/useFireAuth";
-import { View, Text, Button, TextInput } from "../Themed";
-import { Back } from "../screens/Back";
+import { Back } from "../Back";
+import { Button, Text, TextInput, View } from "../Themed";
 
 export const Register = () => {
   const colorScheme = useColorScheme() ?? `light`;
