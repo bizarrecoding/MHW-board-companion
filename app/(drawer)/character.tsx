@@ -3,7 +3,7 @@ import Drawer from "expo-router/drawer";
 import React from "react";
 import { useColorScheme } from "react-native";
 
-import CharacterScreen from "../../components/screens/characterScreen";
+import Character from "../../components/character/Character";
 import Colors from "../../constants/Colors";
 
 export default function TabCharacterScreen() {
@@ -22,7 +22,7 @@ export default function TabCharacterScreen() {
           headerLeft: () => <DrawerToggleButton tintColor={tint} />,
         }}
       />
-      <CharacterScreen />
+      <Character />
     </>
   );
 }

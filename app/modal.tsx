@@ -6,6 +6,7 @@ import { Platform, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Divider from "../components/Divider";
 import { Text } from "../components/Themed";
+import EquipmentModal from "../components/modals/EquipmentModal";
 import { InventoryEntryModal } from "../components/modals/InventoryEntryModal";
 import { LogEntryModal } from "../components/modals/LogEntryModal";
 import { MonsterModal } from "../components/modals/MonsterModal";
@@ -13,7 +14,7 @@ import { RecoverPassword } from "../components/modals/RecoverPassword";
 import { Register } from "../components/modals/Register";
 import { RollPoolModal } from "../components/modals/RollPoolModal";
 
-type ModalType = `log` | `roll` | `item` | `register` | `recover` | `monster`;
+type ModalType = `log` | `roll` | `item` | `register` | `recover` | `monster` | `equipment`;
 
 const ModalTitleMap: Record<ModalType, string> = {
   log: `Log Entry`,
@@ -22,6 +23,7 @@ const ModalTitleMap: Record<ModalType, string> = {
   register: `Register`,
   recover: `Recover Password`,
   monster: `Monster selection`,
+  equipment: `Equipment selection`,
 };
 
 export default function ModalScreen() {
@@ -40,6 +42,7 @@ export default function ModalScreen() {
   if (type === `register`) return <Register />;
   if (type === `recover`) return <RecoverPassword />;
   if (type === `monster`) return <MonsterModal />;
+  if (type === `equipment`) return <EquipmentModal />;
 
   return (
     <View style={[styles.container, Platform.OS !== "ios" && { paddingTop }]}>

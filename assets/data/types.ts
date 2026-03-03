@@ -70,3 +70,33 @@ export type Behavior = {
   actions: number;
   turns: number;
 }
+
+export type EquipmentEntry = {
+  id: string;
+  type: "armor"
+  kind: string;
+  name: string;
+  def: number;
+  res?: {
+    type: Elements | Ailments;
+    value: number;
+  };
+  effect?: string
+}
+
+export type DiceValue = [number, number, number, number];
+
+export type WeaponKind = "Charge Blade" | "Switch Axe" | "Insect Glaive" | "Light Bowgun";
+
+export type WeaponEntry = {
+  id: string;
+  type: "weapon"
+  kind: WeaponKind;
+  name: string;
+  dices: DiceValue;
+  element: Elements | Ailments | null;
+  effect?: string
+  def?: number
+}
+
+export type SetEntry = [WeaponEntry | null, EquipmentEntry | null, EquipmentEntry | null, EquipmentEntry | null];

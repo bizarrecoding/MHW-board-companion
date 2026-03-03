@@ -1,14 +1,14 @@
 import React from "react";
-import { View, Image, ViewStyle, StyleSheet, StyleProp } from "react-native";
-import { Elements, Ailments } from "../../assets/data/types";
+import { Image, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { Ailments, Elements } from "../../assets/data/types";
 
 type ResistanceProps = {
-  type: Elements | Ailments;
+  type: Elements | Ailments | "Defense";
   size?: number;
   style?: StyleProp<ViewStyle>;
 };
 
-const IMAGE_MAP: Record<Elements | Ailments | `none`, any> = {
+const IMAGE_MAP: Record<Elements | Ailments | `Defense` | `none`, any> = {
   Fire: require(`../../assets/images/resistance/elem-fire.webp`),
   Water: require(`../../assets/images/resistance/elem-water.webp`),
   Thunder: require(`../../assets/images/resistance/elem-thunder.webp`),
@@ -19,6 +19,7 @@ const IMAGE_MAP: Record<Elements | Ailments | `none`, any> = {
   Sleep: require(`../../assets/images/resistance/status-sleep.webp`),
   Blast: require(`../../assets/images/resistance/status-blast.webp`),
   Stun: require(`../../assets/images/resistance/status-stun.webp`),
+  Defense: require(`../../assets/images/Defense.png`),
   none: undefined,
 };
 

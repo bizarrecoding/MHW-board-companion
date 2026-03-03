@@ -1,4 +1,4 @@
-import * as Clipboard from "expo-clipboard";
+// import * as Clipboard from "expo-clipboard";
 import { router } from "expo-router";
 import React, { useContext } from "react";
 import {
@@ -51,23 +51,33 @@ export default function SettingsScreen() {
   const localData = useSelector((state: RootState) => state.localData);
 
   const handleExport = async () => {
-    const dataString = JSON.stringify(localData);
-    await Clipboard.setStringAsync(dataString);
-    Alert.alert("Export Successful", "Data copied to clipboard!");
+    try {
+      const Clipboard = require("expo-clipboard");
+      if (!Clipboard) throw new Error("Cannot access clipboard");
+      const dataString = JSON.stringify(localData);
+      await Clipboard.setStringAsync(dataString);
+      Alert.alert("Export Successful", "Data copied to clipboard!");
+    } catch (error) {
+      const message = (error as Error).message
+      Alert.alert("Export Failed", message ?? "Clipboard does not contain valid data.");
+    }
   };
 
   const handleImport = async () => {
-    const content = await Clipboard.getStringAsync();
     try {
+      const Clipboard = require("expo-clipboard")
+      if (!Clipboard) throw new Error("Cannot access clipboard");
+      const content = await Clipboard.getStringAsync();
       const parsed = JSON.parse(content);
       if (parsed.inventory && Array.isArray(parsed.inventory) && parsed.logs && Array.isArray(parsed.logs)) {
         dispatch(replaceLocalData(parsed));
         Alert.alert("Import Successful", "Data has been restored.");
       } else {
-        throw new Error("Invalid format");
+        throw new Error("Clipboard does not contain valid data.");
       }
     } catch (e) {
-      Alert.alert("Import Failed", "Clipboard does not contain valid data.");
+      const message = (e as Error).message
+      Alert.alert("Import Failed", message ?? "Clipboard does not contain valid data.");
     }
   };
 

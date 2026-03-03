@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { DiceValue } from "../../assets/data/types";
 
-type DiceValue = [number, number, number, number];
 export interface RollState {
   rollPool: DiceValue;
   total: number;
 }
 
 const initialState: RollState = {
-  rollPool: [5, 5, 0, 1],
-  total: 11,
+  rollPool: [0, 0, 0, 0],
+  total: 0,
 };
 
 export const rollSlice = createSlice({
