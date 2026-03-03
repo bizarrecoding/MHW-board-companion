@@ -1,31 +1,31 @@
 const monsterHunt = {
   "Low Rank": {
-    maxHP: 50,
+    maxHP: 60,
     parts: {
-      Head: { def: 0, breakRes: 3, effect: "Head does not apply slime" },
+      Head: { def: 2, breakRes: 3, effect: "Head does not apply slime" },
       Back: { def: 2, breakRes: 2 },
-      Legs: { def: 0, breakRes: 3, effect: "Pounders do not apply slime" },
+      Legs: { def: 2, breakRes: 3, effect: "Pounders do not apply slime" },
       Tail: { def: 1, breakRes: 2 },
     },
     effects: `Brachydios head and legs attacks leave puddles of slime that limits movement(-1) and explode after 3 turns if not cleaned.`,
   },
   "High Rank": {
-    maxHP: 60,
+    maxHP: 70,
     parts: {
-      Head: { def: 1, breakRes: 4, effect: "Head does not apply slime" },
+      Head: { def: 3, breakRes: 4, effect: "Head does not apply slime" },
       Back: { def: 2, breakRes: 3 },
-      Legs: { def: 1, breakRes: 4, effect: "Pounders do not apply slime" },
+      Legs: { def: 3, breakRes: 4, effect: "Pounders do not apply slime" },
       Tail: { def: 2, breakRes: 3 },
     },
     effects: `Brachydios head and legs attacks leave puddles of slime that limits movement(-1) and explode after 2 turns if not cleaned.`,
   },
   "Master Rank": {
-    maxHP: 70,
+    maxHP: 80,
     parts: {
-      Head: { def: 2, breakRes: 5, effect: "Head does not apply slime" },
-      Back: { def: 3, breakRes: 4 },
-      Legs: { def: 2, breakRes: 5, effect: "Pounders do not apply slime" },
-      Tail: { def: 3, breakRes: 4 },
+      Head: { def: 4, breakRes: 5, effect: "Head does not apply slime" },
+      Back: { def: 2, breakRes: 4 },
+      Legs: { def: 3, breakRes: 5, effect: "Pounders do not apply slime" },
+      Tail: { def: 2, breakRes: 4 },
     },
     effects: `Brachydios head and legs attacks leave puddles of slime that limits movement(-1) and explode at the end of the turn if not cleaned.`,
   },
