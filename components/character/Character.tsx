@@ -1,110 +1,118 @@
-import { router } from 'expo-router';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { useSelector } from 'react-redux';
-import { Ailments, Elements } from '../../assets/data/types';
-import { useResponsiveWidth } from '../../hooks/useResponsiveWidth';
-import { RootState } from '../../util/redux/store';
-import ResistanceIcon from '../monster/ResistanceIcon';
-import { Text } from '../Themed';
-import { commonStyles } from '../themed/styles';
-import { useThemeColor } from '../themed/useThemeColor';
-import SetItem from './SetItem';
+import { router } from "expo-router";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { useSelector } from "react-redux";
+import { Ailments, Elements } from "../../assets/data/types";
+import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
+import { RootState } from "../../util/redux/store";
+import ResistanceIcon from "../monster/ResistanceIcon";
+import { Text } from "../Themed";
+import { commonStyles } from "../themed/styles";
+import { useThemeColor } from "../themed/useThemeColor";
+import EquipEffects from "./EquipEffects";
+import SetItem from "./SetItem";
 
-const Character:React.FC = () => {
+const PieceKind = ["weapon", "helm", "armor", "leggins"];
+
+const Character: React.FC = () => {
   const width = useResponsiveWidth().width;
   const cardColor = useThemeColor({}, `card`);
-  const cardBorderColor = useThemeColor({}, `cardBorder`); 
+  const cardBorderColor = useThemeColor({}, `cardBorder`);
   const cardStyle = {
     backgroundColor: cardColor,
     borderColor: cardBorderColor,
   };
-  const { set } = useSelector((state: RootState)=>state.character)
+  const { set } = useSelector((state: RootState) => state.character);
   //const set: SetEntry = [Weapons[0], Armors[9], Armors[16], Armors[14]]
   const effects = set.reduce((acc, item) => {
-    if(!item) return acc;
-    if(item.type === "armor" && item.effect) {
+    if (!item) return acc;
+    if (item.type === "armor" && item.effect) {
       return acc + item.effect + "\n";
     }
     return acc;
   }, "");
 
-  const totals = set.reduce((acc, item) => {
-    if(!item) return acc;
-    if(!acc?.Defense) acc.Defense = 0;
-    if(item.def) acc.Defense += item.def;
-    if(item.type === "armor" && item.res) {
-      if(acc[item.res.type]) {
-        acc[item.res.type] += item.res.value;
-      } else {
-        acc[item.res.type] = item.res.value;
+  const totals = set.reduce(
+    (acc, item) => {
+      if (!item) return acc;
+      if (!acc?.Defense) acc.Defense = 0;
+      if (item.def) acc.Defense += item.def;
+      if (item.type === "armor" && item.res) {
+        if (acc[item.res.type]) {
+          acc[item.res.type] += item.res.value;
+        } else {
+          acc[item.res.type] = item.res.value;
+        }
       }
-    }
-    return acc;
-  }, {} as Record<Elements | Ailments | "Defense", number>);
+      return acc;
+    },
+    {} as Record<Elements | Ailments | "Defense", number>
+  );
 
-  const onSetPiecePress = (type?: string, kind?: string) =>{ 
-    if(!type || !kind) return;
-    router.push(`/modal?type=equipment&replace=${type}-${kind}`)
-  }
+  const onSetPiecePress = (type?: string, kind?: string) => {
+    if (!type || !kind) return;
+    router.push(`/modal?type=equipment&replace=${type}-${kind}`);
+  };
 
   const isTablet = width > 425;
 
   return (
     <View style={[styles.container, { width }]}>
       <View style={[styles.header, cardStyle]}>
-        <Text bold style={styles.titleLabel}>TOTAL</Text>
+        <Text bold style={styles.titleLabel}>
+          TOTAL
+        </Text>
         <View style={styles.totals}>
           {Object.entries(totals).map(([key, value], index) => (
             <View key={index} style={styles.resistanceBox}>
-              <Text bold style={styles.totalValue}>{value}</Text>
+              <Text bold style={styles.totalValue}>
+                {value}
+              </Text>
               <ResistanceIcon type={key as Elements | Ailments | "Defense"} />
             </View>
           ))}
         </View>
-        {effects.length > 0 ? (
-          <>
-            <Text bold style={styles.titleLabel}>EFFECTS</Text>
-            <Text bold style={styles.effects}>{effects}</Text>
-          </> 
-        ) : null}
+        {effects.length > 0 ? <EquipEffects effects={effects} /> : null}
       </View>
       <View style={[styles.list, isTablet && styles.listWrap]}>
         {set.map((armor, index) => {
+          const type = armor?.type ?? (index === 0 ? "weapon" : "armor");
+          const kind = armor?.kind ?? PieceKind[index % 4];
+          console.log("🚀 ~ Character ~ type:", type, kind, "(", armor?.type, ")");
           return (
-            <SetItem 
-              key={index} 
-              item={armor} 
-              onPress={()=>onSetPiecePress(armor?.type, armor?.kind)}
+            <SetItem
+              key={index}
+              item={armor}
+              onPress={() => onSetPiecePress(type, kind)}
               style={{ width: isTablet ? "48%" : "100%" }}
             />
-          )
+          );
         })}
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default Character
+export default Character;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16, 
+    padding: 16,
     ...commonStyles.webCenter,
   },
   header: {
     minWidth: 300,
-    alignItems: `center`, 
+    alignItems: `center`,
     marginBottom: 10,
     padding: 12,
-    borderRadius: 12,
+    borderRadius: 20,
     borderWidth: 1,
   },
-  totals:{
+  totals: {
     flex: 1,
     flexWrap: "wrap",
-    width:"100%",
+    width: "100%",
     justifyContent: "center",
     ...commonStyles.row,
   },
@@ -120,18 +128,10 @@ const styles = StyleSheet.create({
     fontWeight: `900`,
     fontVariant: [`tabular-nums`],
   },
-  resistanceBox:{
+  resistanceBox: {
     marginHorizontal: 8,
     ...commonStyles.row,
     justifyContent: "center",
-  },
-  resistanceIcon:{
-    width: 32,
-    height: 32,
-  },
-  effects: {
-    fontSize: 14,
-    marginBottom: 4,
   },
   list: {
     flex: 1,

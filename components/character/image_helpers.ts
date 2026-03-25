@@ -1,7 +1,7 @@
-import { Ailments, Elements, WeaponKind } from "../../assets/data/types";
+import { Ailments, ArmorKind, Elements, WeaponKind } from "../../assets/data/types";
 
-export const getAttributeSource = (type: Elements | Ailments | "Defense" ) => {
-  switch(type) {
+export const getAttributeSource = (type: Elements | Ailments | "Defense") => {
+  switch (type) {
     case "Fire":
       return require(`../../assets/images/resistance/elem-fire.webp`);
     case "Water":
@@ -25,10 +25,10 @@ export const getAttributeSource = (type: Elements | Ailments | "Defense" ) => {
     default:
       return require(`../../assets/images/Defense.png`);
   }
-}
+};
 
 export const getWeaponSource = (type: WeaponKind) => {
-  switch(type) {
+  switch (type) {
     case "Charge Blade":
       return require(`../../assets/images/weapons/Charge_Blade.webp`);
     case "Switch Axe":
@@ -40,4 +40,17 @@ export const getWeaponSource = (type: WeaponKind) => {
     default:
       return null;
   }
-}
+};
+
+export const getArmorSource = (type: ArmorKind) => {
+  switch (type) {
+    case "helm":
+      return require(`../../assets/images/armor/Helm.webp`);
+    case "armor":
+      return require(`../../assets/images/armor/Chest.webp`);
+    case "leggins":
+      return require(`../../assets/images/armor/Legs.webp`);
+    default:
+      return null;
+  }
+};

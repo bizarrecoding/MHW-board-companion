@@ -38,5 +38,7 @@ const styles = StyleSheet.create({
   wrapper: {
     width: 32,
     height: 32,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
