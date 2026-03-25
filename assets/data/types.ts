@@ -36,7 +36,15 @@ export type InventoryKind =
 export type ItemEntry = {
   type: InventoryKind;
   name: string;
+  category: string;
 };
+
+export type InventoryEntry = ItemEntry & {
+  id: string;
+  amount: number;
+  timestamp?: string;
+};
+
 
 export type StoryOption = {
   text: string,
@@ -70,11 +78,13 @@ export type Behavior = {
   actions: number;
   turns: number;
 }
+export type ArmorKind = "helm" | "armor" | 'leggins'
 
 export type EquipmentEntry = {
   id: string;
   type: "armor"
-  kind: string;
+  rank: number;
+  kind: ArmorKind;
   name: string;
   def: number;
   res?: {
@@ -92,6 +102,7 @@ export type WeaponEntry = {
   id: string;
   type: "weapon"
   kind: WeaponKind;
+  rank: number;
   name: string;
   dices: DiceValue;
   element: Elements | Ailments | null;

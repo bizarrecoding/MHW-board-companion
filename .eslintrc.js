@@ -5,13 +5,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: [
-    `universe/native`,
-    `eslint:recommended`,
-    `plugin:react/recommended`,
-    `plugin:react-hooks/recommended`,
-    `prettier`,
-  ],
+  extends: [`universe/native`, `eslint:recommended`, `plugin:react/recommended`, `plugin:react-hooks/recommended`, `prettier`],
   globals: {
     Atomics: `readonly`,
     SharedArrayBuffer: `readonly`,
@@ -37,7 +31,7 @@ module.exports = {
       {
         printWidth: 130,
         trailingComma: `es5`,
-        singleQuote: false, 
+        singleQuote: false,
       },
     ],
     camelcase: `off`,
@@ -59,6 +53,7 @@ module.exports = {
     indent: [`error`, 2, { SwitchCase: 1, ignoreComments: true }],
     "func-name-matching": `error`,
     "global-require": `off`,
+    "import/order": `off`,
     "import/no-default-export": `off`,
     "import/prefer-default-export": `off`,
     "max-classes-per-file": `off`,
@@ -88,13 +83,7 @@ module.exports = {
     "react-native/no-inline-styles": `off`,
     "react-native/no-raw-text": `off`,
     "react-native/no-single-element-style-arrays": `error`,
-    "no-restricted-syntax": [
-      `error`,
-      `WithStatement`,
-      `BinaryExpression[operator='in']`,
-      `MetaProperty`,
-      `SequenceExpression`,
-    ],
+    "no-restricted-syntax": [`error`, `WithStatement`, `BinaryExpression[operator='in']`, `MetaProperty`, `SequenceExpression`],
     "react-hooks/rules-of-hooks": `error`,
     "react/jsx-boolean-value": `off`,
     "no-unsafe-optional-chaining": `off`,
@@ -114,10 +103,7 @@ module.exports = {
       plugins: [`@typescript-eslint`],
       rules: {
         // '@typescript-eslint/no-unused-vars': [0, { extensions: [`.ts`, `.tsx`] }],
-        "@typescript-eslint/no-unused-vars": [
-          `error`,
-          { argsIgnorePattern: `^_`, varsIgnorePattern: `^_` },
-        ],
+        "@typescript-eslint/no-unused-vars": [`error`, { argsIgnorePattern: `^_`, varsIgnorePattern: `^_` }],
         "react/jsx-filename-extension": [1, { extensions: [`.ts`, `.tsx`] }],
         "react/require-default-props": [0],
         "react/prop-types": `off`,

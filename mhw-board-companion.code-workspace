@@ -6,10 +6,18 @@
 	],
 	"settings": {
 		"workbench.colorCustomizations": {
-			"activityBar.background": "#381066",
-			"titleBar.activeBackground": "#4E168F",
-			"titleBar.activeForeground": "#FCFAFE"
-		},
+      "activityBar.background": "#381066",
+      "titleBar.activeBackground": "#4E168F",
+      "titleBar.activeForeground": "#FCFAFE",
+      "titleBar.inactiveBackground": "#381066",
+      "titleBar.inactiveForeground": "#FCFAFE",
+      "statusBar.background": "#381066",
+      "statusBar.foreground": "#FCFAFE",
+      "statusBar.debuggingBackground": "#381066",
+      "statusBar.debuggingForeground": "#FCFAFE",
+      "statusBar.noFolderBackground": "#381066",
+      "statusBar.noFolderForeground": "#FCFAFE"
+    },
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
@@ -18,9 +26,9 @@
 		},
 		"cSpell.words": [
       "Barroth",
-      "Barroths",
       "bizarrecoding",
       "Blos",
+      "Brachydios",
       "Carbalite",
       "crosshairs",
       "Diablos",

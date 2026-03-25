@@ -6,6 +6,7 @@ export const Armors: EquipmentEntry[] = [
     name: "Leather Helm", 
     type: "armor",
     kind: "helm",
+    rank: 1,
     def: 0, 
     res:{
       type: "Fire",
@@ -17,6 +18,7 @@ export const Armors: EquipmentEntry[] = [
     id: "leather_armor", 
     name: "Leather Armor", 
     kind: "armor", 
+    rank: 1,
     def: 1, 
     res:{
       type: "Water",
@@ -28,6 +30,7 @@ export const Armors: EquipmentEntry[] = [
     id: "leather_leggins", 
     name: "Leather Leggins", 
     kind: "leggins", 
+    rank: 1,
     def: 0,
     res:{
       type: "Fire",
@@ -38,14 +41,16 @@ export const Armors: EquipmentEntry[] = [
   { 
     id: "alloy_helm", 
     name: "Alloy Helm", 
-    kind: "helm", 
+    kind: "helm",
+    rank: 2,
     def: 1, 
     type: "armor" 
   },
   { 
     id: "alloy_armor", 
     name: "Alloy Armor", 
-    kind: "armor", 
+    kind: "armor",
+    rank: 2,
     def: 1, 
     type: "armor" 
   },
@@ -53,6 +58,7 @@ export const Armors: EquipmentEntry[] = [
     id: "alloy_leggins", 
     name: "Alloy Greaves", 
     kind: "leggins", 
+    rank: 2,
     def: 0, 
     type: "armor",
     effect: "Poison resistance: cannot be poisoned" 
@@ -60,7 +66,8 @@ export const Armors: EquipmentEntry[] = [
   { 
     id: "bone_helm", 
     name: "Bone Helm", 
-    kind: "helm", 
+    kind: "helm",
+    rank: 2,
     def: 1, 
     type: "armor" 
   },
@@ -68,6 +75,7 @@ export const Armors: EquipmentEntry[] = [
     id: "bone_armor", 
     name: "Bone Mail", 
     kind: "armor", 
+    rank: 2,
     def: 0, 
     type: "armor",
     effect: "Slugger: Increases stun damage +1 once" 
@@ -76,13 +84,15 @@ export const Armors: EquipmentEntry[] = [
     id: "bone_leggins", 
     name: "Bone Greaves", 
     kind: "leggins", 
+    rank: 2,
     def: 0, 
     type: "armor", 
   },
   { 
     id: "barroth_helm", 
     name: "Barroth Helm", 
-    kind: "helm", 
+    kind: "helm",
+    rank: 3,
     def: 1,
     res:{
       type: "Water",
@@ -95,6 +105,7 @@ export const Armors: EquipmentEntry[] = [
     id: "barroth_armor", 
     name: "Barroth Mail", 
     kind: "armor", 
+    rank: 3,
     def: 1,
     res:{
       type: "Water",
@@ -106,6 +117,7 @@ export const Armors: EquipmentEntry[] = [
     id: "barroth_leggins", 
     name: "Barroth Greaves", 
     kind: "leggins", 
+    rank: 3,
     def: 1,
     res:{
       type: "Water",
@@ -117,6 +129,7 @@ export const Armors: EquipmentEntry[] = [
     id: "pukey-pukey_helm", 
     name: "Pukey Hood", 
     kind: "helm", 
+    rank: 3,
     def: 1, 
     type: "armor", 
     res: {
@@ -129,6 +142,7 @@ export const Armors: EquipmentEntry[] = [
     id: "pukey-pukey_armor", 
     name: "Pukey Mail", 
     kind: "armor", 
+    rank: 3,
     def: 1, 
     type: "armor", 
     res: {
@@ -141,6 +155,7 @@ export const Armors: EquipmentEntry[] = [
     id: "pukey-pukey_leggins", 
     name: "Pukey Greaves", 
     kind: "leggins", 
+    rank: 3,
     def: 1, 
     type: "armor", 
     res: {
@@ -153,6 +168,7 @@ export const Armors: EquipmentEntry[] = [
     id: "jyura_helm", 
     name: "Jyura Helm", 
     kind: "helm", 
+    rank: 3,
     def: 1, 
     type: "armor",
     res: {
@@ -165,6 +181,7 @@ export const Armors: EquipmentEntry[] = [
     id: "jyura_armor", 
     name: "Jyura Mail", 
     kind: "armor", 
+    rank: 3,
     def: 1, 
     type: "armor",
     res: {
@@ -177,6 +194,7 @@ export const Armors: EquipmentEntry[] = [
     id: "jyura_leggins", 
     name: "Jyura Greaves", 
     kind: "leggins", 
+    rank: 3,
     def: 1, 
     type: "armor",
     res: {
@@ -188,6 +206,7 @@ export const Armors: EquipmentEntry[] = [
     id: "diablos_helm", 
     name: "Diablos Helm", 
     kind: "helm", 
+    rank: 4,
     def: 1, 
     type: "armor",
     res: {
@@ -200,6 +219,7 @@ export const Armors: EquipmentEntry[] = [
     id: "diablos_armor", 
     name: "Diablos Mail", 
     kind: "armor", 
+    rank: 4,
     def: 1, 
     type: "armor",
     res: {
@@ -212,6 +232,7 @@ export const Armors: EquipmentEntry[] = [
     id: "diablos_leggins", 
     name: "Diablos Greaves", 
     kind: "leggins", 
+    rank: 4,
     def: 2, 
     type: "armor",
     res: {
@@ -224,6 +245,7 @@ export const Armors: EquipmentEntry[] = [
     id: "black-diablos_helm", 
     name: "Diablos Nero Helm", 
     kind: "helm", 
+    rank: 4,
     def: 1, 
     type: "armor",
     res: {
@@ -236,6 +258,7 @@ export const Armors: EquipmentEntry[] = [
     id: "black-diablos_armor", 
     name: "Diablos Nero Mail", 
     kind: "armor", 
+    rank: 4,
     def: 1, 
     type: "armor",
     res: {
@@ -248,6 +271,7 @@ export const Armors: EquipmentEntry[] = [
     id: "black-diablos_leggins", 
     name: "Diablos Nero Greaves", 
     kind: "leggins", 
+    rank: 4,
     def: 2, 
     type: "armor",
     res: {
@@ -263,6 +287,7 @@ export const Weapons: WeaponEntry[] = [
     id: "proto_commission_axe",
     type: "weapon",
     kind: "Charge Blade",
+    rank: 1,
     name: "Proto Commission Axe",
     dices: [8, 4, 0, 0],
     element: null,
@@ -271,6 +296,7 @@ export const Weapons: WeaponEntry[] = [
     id: "bone_strongarm",
     type: "weapon",
     kind: "Charge Blade",
+    rank: 1,
     name: "Bone Strongarm",
     dices: [5, 5, 0, 0],
     element: null,
@@ -279,6 +305,7 @@ export const Weapons: WeaponEntry[] = [
     id: "elite_commission_axe",
     type: "weapon",
     kind: "Charge Blade",
+    rank: 2,
     name: "Elite Commission Axe",
     dices: [8, 3, 1, 0],
     element: null,
@@ -287,6 +314,7 @@ export const Weapons: WeaponEntry[] = [
     id: "hard_bone_strongarm",
     type: "weapon",
     kind: "Charge Blade",
+    rank: 2,
     name: "Hard Bone Strongarm",
     dices: [4, 5, 1, 0],
     element: null,
@@ -295,6 +323,7 @@ export const Weapons: WeaponEntry[] = [
     id: "chrome_guardian",
     type: "weapon",
     kind: "Charge Blade",
+    rank: 3,
     name: "Chrome Guardian",
     dices: [5, 4, 3, 0],
     element: null,
@@ -304,6 +333,7 @@ export const Weapons: WeaponEntry[] = [
     id: "mighty_strongarm",
     type: "weapon",
     kind: "Charge Blade",
+    rank: 3,
     name: "Mighty Strongarm",
     dices: [3, 4, 3, 0],
     element: null,
@@ -313,6 +343,7 @@ export const Weapons: WeaponEntry[] = [
     id: "mudslide_blade",
     type: "weapon",
     kind: "Charge Blade",
+    rank: 3,
     name: "Mudslide Blade",
     dices: [3, 4, 5, 0],
     element: null,
@@ -322,6 +353,7 @@ export const Weapons: WeaponEntry[] = [
     id: "diablos_wall",
     type: "weapon",
     kind: "Charge Blade",
+    rank: 3,
     name: "Diablos Wall",
     dices: [1, 7, 1, 1],
     element: null,
@@ -331,6 +363,7 @@ export const Weapons: WeaponEntry[] = [
     id: "jyura_depth",
     type: "weapon",
     kind: "Charge Blade",
+    rank: 4,
     name: "Jyura Depth",
     dices: [1, 6, 5, 2],
     element: null,
@@ -340,6 +373,7 @@ export const Weapons: WeaponEntry[] = [
     id: "diablos_tyrannis",
     type: "weapon",
     kind: "Charge Blade",
+    rank: 4,
     name: "Diablos Tyrannis",
     dices: [1, 5, 2, 3],
     element: null,
