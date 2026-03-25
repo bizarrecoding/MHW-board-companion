@@ -1,5 +1,6 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
+
 import { ItemEntry } from "../../assets/data/types";
 import InventoryIcon from "../InventoryIcon";
 import { IconButton, Text } from "../Themed";
@@ -11,7 +12,7 @@ type InventoryItemProps = {
   add?: boolean;
 };
 
-const InventoryItem: React.FC<InventoryItemProps> = ({ item, onPress, add }) => {
+const AddInventoryItem: React.FC<InventoryItemProps> = ({ item, onPress, add }) => {
   const _onPress = () => onPress(item, add);
   return (
     <TouchableOpacity style={styles.itemWrapper} onPress={_onPress}>
@@ -24,7 +25,7 @@ const InventoryItem: React.FC<InventoryItemProps> = ({ item, onPress, add }) => 
   );
 };
 
-export default InventoryItem;
+export default AddInventoryItem;
 
 const styles = StyleSheet.create({
   itemWrapper: {
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
     ...commonStyles.card,
     marginHorizontal: 16,
     marginVertical: 6,
+    flex: 1,
   },
   icon: {
     marginRight: 12,

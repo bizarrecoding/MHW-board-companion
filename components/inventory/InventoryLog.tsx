@@ -1,57 +1,69 @@
-import React, { useEffect, useState } from "react";
-import { FlatList, ListRenderItem, Platform, StyleSheet, TouchableOpacity, View } from "react-native";
-
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { ListRenderItem, Platform, SectionList, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { InventoryEntry, useInventory } from "../../hooks/useInventory";
+
+import { InventoryEntry } from "../../assets/data/types";
+import { findCategory, useInventory } from "../../hooks/useInventory";
 import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
 import InventoryIcon from "../InventoryIcon";
 import { IconButton, Text } from "../Themed";
 import NumberInput from "../themed/inputs/NumberInput";
 import SearchInput from "../themed/inputs/SearchInput";
 import { commonStyles } from "../themed/styles";
+import InventoryHeader from "./InventoryHeader";
+import { InventorySection } from "./InventorySection";
 
-const stickyIndex = [0];
+type EntrySection = {
+  id: string;
+  title: string;
+  data: InventoryEntry[];
+};
 
 export default function InventoryLog() {
   const paddingBottom = useSafeAreaInsets().bottom;
   const { inventory, updateEntry, deleteEntry } = useInventory();
-  const [edit, setEdit] = useState<number | null>(null);
+  const [edit, setEdit] = useState<string | null>(null);
   const [amount, setAmount] = useState(0);
   const { width, numColumns } = useResponsiveWidth();
 
   const [filterableInventory, setFilterableInventory] = useState(inventory);
-  const renderItem: ListRenderItem<InventoryEntry> = ({ item, index }) => {
-    const setupEdit = () => {
-      setEdit(index);
-      setAmount(item.amount);
-    };
-    const save = () => {
-      if (amount === 0) {
-        deleteEntry(item.id);
-      } else if (amount !== item.amount) {
-        updateEntry(item.id, amount);
-      } 
-      setEdit(null);
-    };
-    return (
-      <View style={styles.itemWrapper}>
-        <TouchableOpacity style={styles.row} onPress={setupEdit}> 
-          <InventoryIcon type={item.type} name={item.name} style={styles.icon} />
-          <Text variant="caption" style={styles.itemLabel}>{item.name}</Text>
-          {edit === index ? (
-            <IconButton icon="check" variant="clear" onPress={save} />
-          ) : (
-            <Text style={styles.itemAmount}> x {item.amount}</Text>
-          )}
-        </TouchableOpacity>
-        {edit === index ? (
-          <View key="edit" style={[styles.row, { marginVertical: 12, justifyContent: "space-around" }]}>
-            <NumberInput setValue={setAmount} value={amount} style={styles.countEditor} />
-          </View>
-        ) : null}
-      </View>
-    );
-  };
+  const renderItem: ListRenderItem<InventoryEntry> = useCallback(
+    ({ item }) => {
+      const setupEdit = () => {
+        setEdit(item.id);
+        setAmount(item.amount);
+      };
+      const save = () => {
+        if (amount === 0) {
+          deleteEntry(item.id);
+        } else if (amount !== item.amount) {
+          updateEntry(item.id, amount);
+        }
+        setEdit(null);
+      };
+      return (
+        <View style={styles.itemWrapper}>
+          <TouchableOpacity style={styles.row} onPress={setupEdit}>
+            <InventoryIcon type={item.type} name={item.name} style={styles.icon} />
+            <Text variant="caption" style={styles.itemLabel}>
+              {item.name}
+            </Text>
+            {edit === item.id ? (
+              <IconButton icon="check" variant="clear" onPress={save} />
+            ) : (
+              <Text style={styles.itemAmount}> x {item.amount}</Text>
+            )}
+          </TouchableOpacity>
+          {edit === item.id ? (
+            <View key="edit" style={[styles.row, { marginVertical: 12, justifyContent: "space-around" }]}>
+              <NumberInput setValue={setAmount} value={amount} style={styles.countEditor} />
+            </View>
+          ) : null}
+        </View>
+      );
+    },
+    [amount, deleteEntry, edit, updateEntry]
+  );
   const keyExtractor = (i: InventoryEntry) => i.name;
 
   const filterBy = (text: string) => {
@@ -63,21 +75,36 @@ export default function InventoryLog() {
     setFilterableInventory(inventory);
   }, [inventory]);
 
+  const sections = useMemo(() => {
+    const data = filterableInventory.reduce(
+      (rec, current) => {
+        if (!current) return rec;
+        const category = current.category ?? findCategory(current);
+        const exist = Object.keys(rec).includes(category);
+        if (!exist) rec[category] = { id: category, title: category, data: [] };
+        rec[category].data.push(current);
+        return rec;
+      },
+      {} as Record<string, EntrySection>
+    );
+
+    return Object.values(data);
+  }, [filterableInventory]);
+
   return (
     <View style={[styles.container, { width, paddingBottom }]}>
-      <FlatList<InventoryEntry>
-        data={filterableInventory}
-        ListHeaderComponent={
-          <SearchInput onChangeText={filterBy} />
-        }
-        // key is needed to force re-render when window size changes
-        key={`inventory:${numColumns}`}
-        numColumns={numColumns}
-        stickyHeaderIndices={stickyIndex}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor} 
-        contentContainerStyle={styles.list}
-      />
+      {Platform.OS === "web" && numColumns > 1 ? (
+        sections.map((s) => <InventorySection key={s.id} section={s} renderItem={renderItem} />)
+      ) : (
+        <SectionList<InventoryEntry, EntrySection>
+          sections={sections}
+          ListHeaderComponent={<SearchInput onChangeText={filterBy} />}
+          renderSectionHeader={(info) => <InventoryHeader title={info.section.title} />}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          contentContainerStyle={styles.list}
+        />
+      )}
     </View>
   );
 }
@@ -85,7 +112,7 @@ export default function InventoryLog() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: "auto"
+    margin: "auto",
   },
   list: {
     paddingBottom: 96,
@@ -104,7 +131,7 @@ const styles = StyleSheet.create({
   },
   itemAmount: {
     fontSize: 16,
-    opacity: 0.75
+    opacity: 0.75,
   },
   countEditor: {
     flex: 4,

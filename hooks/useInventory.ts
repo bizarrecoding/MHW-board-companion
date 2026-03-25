@@ -12,23 +12,12 @@ import {
 import { useCallback, useContext, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { InventoryKind } from "../assets/data/types";
+import { ItemList } from "../assets/data/items";
+import { InventoryEntry } from "../assets/data/types";
 import { UserContext } from "../context/UserContext";
 import { database } from "../service/firebase";
-import {
-  addLocalInventoryEntry,
-  deleteLocalInventoryEntry,
-  updateLocalInventoryEntry,
-} from "../util/redux/LocalDataSlice";
+import { addLocalInventoryEntry, deleteLocalInventoryEntry, updateLocalInventoryEntry } from "../util/redux/LocalDataSlice";
 import { RootState } from "../util/redux/store";
-
-export type InventoryEntry = {
-  type: InventoryKind;
-  name: string;
-  amount: number;
-  id: string;
-  timestamp?: string;
-};
 
 const converter = {
   toFirestore: (data: Omit<InventoryEntry, `id`>) => data,
@@ -77,6 +66,7 @@ export const useInventory = () => {
         const existingItem = inventory.find((i) => i.name === item.name);
         if (!existingItem) {
           addDoc(getCollection(user.uid), {
+            category: item.category ?? findCategory(item),
             name: item.name,
             type: item.type,
             amount: 1,
@@ -112,9 +102,7 @@ export const useInventory = () => {
       setInventory([]);
       return;
     }
-    const inventoryRef = collection(database, `user/${user.uid}/inventory`).withConverter(
-      converter
-    );
+    const inventoryRef = collection(database, `user/${user.uid}/inventory`).withConverter(converter);
     const queryInventory = query(inventoryRef, orderBy(`timestamp`));
     const unsubscribe = onSnapshot(queryInventory, (snapshot) => {
       const data = snapshot.docs.map((doc) => converter.fromFirestore(doc));
@@ -124,4 +112,10 @@ export const useInventory = () => {
   }, [user, isGuest, localInventory]);
 
   return { inventory, addEntry, updateEntry, deleteEntry };
+};
+
+export const findCategory = (item: Pick<InventoryEntry, "name" | "category">) => {
+  if (item.category) return item.category;
+  const match = ItemList.find((i) => i.name === item.name);
+  return match?.category ?? "common";
 };
