@@ -1,13 +1,7 @@
 // import * as Clipboard from "expo-clipboard";
 import { router } from "expo-router";
 import React, { useContext } from "react";
-import {
-  Alert,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View
-} from "react-native";
+import { Alert, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { DrawerToggleButton } from "@react-navigation/drawer";
@@ -30,16 +24,8 @@ const ThemeOption: React.FC<ThemeOptionProps> = ({ label, value }) => {
   const dispatch = useDispatch();
   const { theme } = useSelector((state: RootState) => state.settings);
   const selected = value === theme;
-  return (
-    <Button
-      full
-      title={label}
-      variant={selected ? "filled" : "outlined"}
-      onPress={() => dispatch(setTheme(value))}
-    />
-  )
+  return <Button full title={label} variant={selected ? "filled" : "outlined"} onPress={() => dispatch(setTheme(value))} />;
 };
-
 
 export default function SettingsScreen() {
   const dispatch = useDispatch();
@@ -58,14 +44,14 @@ export default function SettingsScreen() {
       await Clipboard.setStringAsync(dataString);
       Alert.alert("Export Successful", "Data copied to clipboard!");
     } catch (error) {
-      const message = (error as Error).message
+      const message = (error as Error).message;
       Alert.alert("Export Failed", message ?? "Clipboard does not contain valid data.");
     }
   };
 
   const handleImport = async () => {
     try {
-      const Clipboard = require("expo-clipboard")
+      const Clipboard = require("expo-clipboard");
       if (!Clipboard) throw new Error("Cannot access clipboard");
       const content = await Clipboard.getStringAsync();
       const parsed = JSON.parse(content);
@@ -76,7 +62,7 @@ export default function SettingsScreen() {
         throw new Error("Clipboard does not contain valid data.");
       }
     } catch (e) {
-      const message = (e as Error).message
+      const message = (e as Error).message;
       Alert.alert("Import Failed", message ?? "Clipboard does not contain valid data.");
     }
   };
@@ -85,25 +71,26 @@ export default function SettingsScreen() {
     <ScrollView style={style.container}>
       <DrawerToggleButton tintColor={tintColor} />
       <View style={[style.section, { width }]}>
-        <Text variant="title" style={style.sectionTitle}>Profile Icon</Text>
+        <Text variant="title" style={style.sectionTitle}>
+          Profile Icon
+        </Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={style.iconList}>
           {Monsters.map((m) => (
             <TouchableOpacity
               key={m}
               onPress={() => dispatch(setProfileIcon(m))}
-              style={[
-                style.iconWrapper,
-                { borderColor: profileIcon === m ? textColor : "transparent" }
-              ]}
+              style={[style.iconWrapper, { borderColor: profileIcon === m ? textColor : "transparent" }]}
             >
-              <MonsterIcon  noRank type={m} style={style.icon} />
+              <MonsterIcon noRank type={m} style={style.icon} />
             </TouchableOpacity>
           ))}
         </ScrollView>
       </View>
 
       <View style={[style.section, { width }]}>
-        <Text variant="title" style={style.sectionTitle}>Appearance</Text>
+        <Text variant="title" style={style.sectionTitle}>
+          Appearance
+        </Text>
         <View style={style.optionsRow}>
           <ThemeOption label="Light" value="light" />
           <ThemeOption label="Dark" value="dark" />
@@ -114,7 +101,9 @@ export default function SettingsScreen() {
       {isGuest && (
         <>
           <View style={[style.section, { width }]}>
-            <Text variant="title" style={style.sectionTitle}>Data Management</Text>
+            <Text variant="title" style={style.sectionTitle}>
+              Data Management
+            </Text>
             <View style={style.optionsRow}>
               <Button full title="Export Data" onPress={handleExport} />
               <Button full title="Import Data" onPress={handleImport} />
@@ -122,14 +111,13 @@ export default function SettingsScreen() {
           </View>
 
           <View style={[style.section, { width }]}>
-            <Text variant="title" style={style.sectionTitle}>Account</Text>
+            <Text variant="title" style={style.sectionTitle}>
+              Account
+            </Text>
             <Text style={{ marginBottom: 16 }}>
               You are currently using a guest account. Create an account to sync your data to the cloud.
             </Text>
-            <Button 
-              title="Create Account / Sync" 
-              onPress={() => router.navigate("/")} 
-            />
+            <Button title="Create Account / Sync" onPress={() => router.navigate("/")} />
           </View>
         </>
       )}
