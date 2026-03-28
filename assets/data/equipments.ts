@@ -12,7 +12,8 @@ export const Armors: EquipmentEntry[] = [
       type: "Fire",
       value: 1
     },
-    effect: "Stun resistance: cannot be stunned"
+    effect: "Stun resistance: cannot be stunned",
+    skill: "Stun Resistance",
   },
   { 
     id: "leather_armor", 
@@ -61,7 +62,8 @@ export const Armors: EquipmentEntry[] = [
     rank: 2,
     def: 0, 
     type: "armor",
-    effect: "Poison resistance: cannot be poisoned" 
+    effect: "Poison resistance: cannot be poisoned",
+    skill: "Poison Resistance"
   },
   { 
     id: "bone_helm", 
@@ -78,7 +80,8 @@ export const Armors: EquipmentEntry[] = [
     rank: 2,
     def: 0, 
     type: "armor",
-    effect: "Slugger: Increases stun damage +1 once" 
+    effect: "Slugger: Increases stun damage +1 once",
+    skill:"Slugger",
   },
   { 
     id: "bone_leggins", 
@@ -99,7 +102,8 @@ export const Armors: EquipmentEntry[] = [
       value: 1
     }, 
     type: "armor", 
-    effect: "Guard: Attack cards that block gains +1 Def" 
+    effect: "Guard: Attack cards that block gains +1 Def",
+    skill: "Guard"
   },
   { 
     id: "barroth_armor", 
@@ -136,7 +140,8 @@ export const Armors: EquipmentEntry[] = [
       type: "Water",
       value: 1,
     },
-    effect: "Sporepuff Expert: +1HP when recovering from anything that is not a potion" 
+    effect: "Sporepuff Expert: +1HP when recovering from anything that is not a potion",
+    skill: "Sporepuff Expert"
   },
   { 
     id: "pukey-pukey_armor", 
@@ -149,7 +154,8 @@ export const Armors: EquipmentEntry[] = [
       type: "Water",
       value: 1,
     },
-    effect: "Botanist: gather phase: when gain a potion, may fully recover without consuming the potion"
+    effect: "Botanist: gather phase: when gain a potion, may fully recover without consuming the potion",
+    skill: "Botanist"
   },
   { 
     id: "pukey-pukey_leggins", 
@@ -162,7 +168,8 @@ export const Armors: EquipmentEntry[] = [
       type: "Water",
       value: 1,
     },
-    effect: "Poison resistance: cannot be poisoned" 
+    effect: "Poison resistance: cannot be poisoned",
+    skill: "Poison Resistance"
   },
   { 
     id: "jyura_helm", 
@@ -175,7 +182,8 @@ export const Armors: EquipmentEntry[] = [
       type: "Water",
       value: 1,
     },
-    effect: "Aquatic Expert: ponds do not discard cards" 
+    effect: "Aquatic Expert: ponds do not discard cards",
+    skill: "Aquatic Expert"
   },
   { 
     id: "jyura_armor", 
@@ -188,7 +196,8 @@ export const Armors: EquipmentEntry[] = [
       type: "Water",
       value: 1,
     },
-    effect: "Water Attack: +1 Water Dmg" 
+    effect: "Water Attack: +1 Water Dmg",
+    skill: "Water Attack"
   },
   { 
     id: "jyura_leggins", 
@@ -213,7 +222,8 @@ export const Armors: EquipmentEntry[] = [
       type: "Fire",
       value: 1,
     },
-    effect: "Heroics: when you have 2 or less HP, gain +1 draw to all non-elemental attacks" 
+    effect: "Heroics: when you have 2 or less HP, gain +1 draw to all non-elemental attacks", 
+    skill: "Heroics"
   },
   { 
     id: "diablos_armor", 
@@ -226,7 +236,8 @@ export const Armors: EquipmentEntry[] = [
       type: "Fire",
       value: 1,
     },
-    effect: "Slugger: Increases stun damage +1 once" 
+    effect: "Slugger: Increases stun damage +1 once",
+    skill: "Slugger"
   },
   { 
     id: "diablos_leggins", 
@@ -239,7 +250,9 @@ export const Armors: EquipmentEntry[] = [
       type: "Fire",
       value: 1,
     },
-    effect: "Set Bonus: Diablos Mastery: +1 draw for all non-elemental attacks" 
+    effect: "Set Bonus: Diablos Mastery: +1 draw for all non-elemental attacks", 
+    skill: "Diablos Mastery",
+    set: true,
   },
 { 
     id: "black-diablos_helm", 
@@ -252,7 +265,9 @@ export const Armors: EquipmentEntry[] = [
       type: "Fire",
       value: 1,
     },
-    effect: "Set Bonus: Black Diablos Mastery: +1 draw for all non-elemental attacks" 
+    effect: "Set Bonus: Black Diablos Mastery: +1 draw for all non-elemental attacks",
+    skill: "Black Diablos Mastery",
+    set: true
   },
   { 
     id: "black-diablos_armor", 
@@ -278,7 +293,8 @@ export const Armors: EquipmentEntry[] = [
       type: "Fire",
       value: 1,
     },
-    effect: "Part breaker: +1 break counter on any attack that increases break"
+    effect: "Part breaker: +1 break counter on any attack that increases break",
+    skill: "Part Breaker"
   },
 ]
 

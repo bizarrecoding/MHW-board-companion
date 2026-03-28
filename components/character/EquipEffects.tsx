@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "../Themed";
+import { useThemeColor } from "../themed/useThemeColor";
 
 type EquipEffectsProps = {
   effects: string;
@@ -8,6 +9,7 @@ type EquipEffectsProps = {
 
 const EquipEffects: React.FC<EquipEffectsProps> = ({ effects }) => {
   const lines = effects.split("\n");
+  const color = useThemeColor({}, "tint");
   return (
     <>
       <Text bold style={styles.titleLabel}>
@@ -19,10 +21,10 @@ const EquipEffects: React.FC<EquipEffectsProps> = ({ effects }) => {
           const [skill, rest] = line.split(":");
           return (
             <Text key={skill} style={styles.effects}>
-              <Text bold style={styles.effects}>
-                {skill}
+              <Text bold style={[styles.effects, { color }]}>
+                {skill}:
               </Text>
-              :{rest}
+              {rest}
             </Text>
           );
         })}

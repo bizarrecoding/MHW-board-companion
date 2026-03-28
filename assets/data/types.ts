@@ -80,6 +80,21 @@ export type Behavior = {
 }
 export type ArmorKind = "helm" | "armor" | 'leggins'
 
+export type Skill = 
+  | "Aquatic Expert"
+  | "Black Diablos Mastery"
+  | "Botanist"
+  | "Diablos Mastery"
+  | "Heroics"
+  | "Guard"
+  | "Part Breaker"
+  | "Poison Resistance"
+  | "Resentment"
+  | "Slugger"
+  | "Sporepuff Expert"
+  | "Stun Resistance"
+  | "Water Attack"
+
 export type EquipmentEntry = {
   id: string;
   type: "armor"
@@ -91,7 +106,9 @@ export type EquipmentEntry = {
     type: Elements | Ailments;
     value: number;
   };
-  effect?: string
+  effect?: string;
+  skill?: Skill;
+  set?: boolean
 }
 
 export type DiceValue = [number, number, number, number];
@@ -111,3 +128,4 @@ export type WeaponEntry = {
 }
 
 export type SetEntry = [WeaponEntry | null, EquipmentEntry | null, EquipmentEntry | null, EquipmentEntry | null];
+

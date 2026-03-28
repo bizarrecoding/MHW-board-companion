@@ -29,14 +29,22 @@ const SetItem: React.FC<SetItemProps> = ({ item, style, onPress }) => {
       </TouchableOpacity>
     );
   }
+
   if (item.type === "weapon") {
+    const deckTotal = item.dices.reduce((total, item) => total + item, 0);
+    const avg = item.dices.reduce((acc, amount, index) => {
+      if (amount === 0) return acc;
+      return acc + ((index + 1) * amount) / deckTotal;
+    }, 0);
     return (
       <TouchableOpacity onPress={onPress} style={[styles.cardWrapper, cardStyle, style]}>
         <View style={styles.equipmentBox}>
           <Image source={getWeaponSource(item.kind)} style={styles.weaponIcon} />
-          <View style={styles.weaponText}>
+          <View style={styles.textStack}>
             <Text style={styles.pieceLabel}>{item.name}</Text>
-            <Text style={styles.pieceLabel}>[{item.dices.join(`,`)}]</Text>
+            <Text style={styles.pieceLabel}>
+              [{item.dices.join(`,`)}] ~{avg.toFixed(2)} Dmg
+            </Text>
           </View>
           {item.def ? <ImageBox type="Defense" value={item.def} /> : null}
         </View>
@@ -49,13 +57,15 @@ const SetItem: React.FC<SetItemProps> = ({ item, style, onPress }) => {
       <TouchableOpacity onPress={onPress} style={[styles.cardWrapper, cardStyle, style]}>
         <View style={styles.equipmentBox}>
           <Image source={getArmorSource(item.kind)} style={styles.weaponIcon} />
-          <Text style={styles.pieceLabel}>{item.name}</Text>
+          <View style={styles.textStack}>
+            <Text style={styles.pieceLabel}>{item.name}</Text>
+            {item.skill ? <Text style={{ textAlign: "center" }}>{item.skill}</Text> : null}
+          </View>
           <View style={styles.defResBox}>
             <ImageBox type="Defense" value={item.def} />
             {item.res ? <ImageBox type={item.res.type} value={item.res.value} /> : null}
           </View>
         </View>
-        {item.effect ? <Text style={{ textAlign: "center" }}>{item.effect}</Text> : null}
       </TouchableOpacity>
     );
   }
@@ -107,7 +117,7 @@ const styles = StyleSheet.create({
     ...commonStyles.row,
     justifyContent: "space-between",
   },
-  weaponText: { alignItems: "center", marginHorizontal: 12 },
+  textStack: { alignItems: "center", marginHorizontal: 12 },
   weaponIcon: {
     width: ICON_SIZE - 16,
     height: ICON_SIZE - 16,

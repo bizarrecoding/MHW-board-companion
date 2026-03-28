@@ -2,6 +2,7 @@ import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { useSelector } from "react-redux";
+import { skills } from "../../assets/data/reference";
 import { Ailments, Elements } from "../../assets/data/types";
 import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
 import { RootState } from "../../util/redux/store";
@@ -24,10 +25,17 @@ const Character: React.FC = () => {
   };
   const { set } = useSelector((state: RootState) => state.character);
   //const set: SetEntry = [Weapons[0], Armors[9], Armors[16], Armors[14]]
-  const effects = set.reduce((acc, item) => {
+  const effects = set.reduce((acc, item, _, array) => {
     if (!item) return acc;
-    if (item.type === "armor" && item.effect) {
-      return acc + item.effect + "\n";
+    if (item.type === "armor" && item.skill) {
+      const effect = item?.skill ? `${item.skill}: ${skills[item.skill]}` : null;
+      if (item.set === true) {
+        const [setName] = item.id.split("_");
+        const armorPieces = array.filter((s) => s?.type === "armor");
+        const setComplete = armorPieces.length === 3 && armorPieces.every((s) => s?.id.includes(setName));
+        if (!setComplete) return acc;
+      }
+      return acc + effect + "\n";
     }
     return acc;
   }, "");
