@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
-import { useSelector } from "react-redux";
-
 import Animated, { SlideInLeft, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useSelector } from "react-redux";
+
 import { BehaviorData } from "../../../assets/data/behaviors";
 import { Behavior, MonsterKind, RankType } from "../../../assets/data/types";
 import { BehaviorCard } from "../../../components/Behaviors/Cards/FaceUpCard";
@@ -35,7 +35,7 @@ const shuffleDeck = (monster: MonsterKind, rank: RankType) => {
 
 type BehaviorsProps = {
   style?: StyleProp<ViewStyle>;
-}
+};
 
 const Behaviors: React.FC<BehaviorsProps> = ({ style }) => {
   const paddingTop = useSafeAreaInsets().top;
@@ -80,18 +80,12 @@ const Behaviors: React.FC<BehaviorsProps> = ({ style }) => {
         </Animated.View>
 
         <View style={styles.counterWrapper}>
-          <Text style={styles.remainingText}>
-            {remaining >= 0 ? remaining : 0}
-          </Text>
+          <Text style={styles.remainingText}>{remaining >= 0 ? remaining : 0}</Text>
           <Text style={styles.remainingLabel}>CARDS REMAINING</Text>
         </View>
       </View>
 
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={discard}
-        style={styles.nextCardArea}
-      >
+      <TouchableOpacity activeOpacity={0.8} onPress={discard} style={styles.nextCardArea}>
         <Text style={styles.nextCardLabel}>TAP TO DISCARD</Text>
         <BehaviorCard hidden behavior={deck[(index + 1) % deck.length]} />
       </TouchableOpacity>
@@ -133,7 +127,7 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     opacity: 0.5,
     fontWeight: "bold",
-  }
+  },
 });
 
 export default Behaviors;

@@ -1,23 +1,22 @@
+import React, { useCallback, useMemo, useState } from "react";
+import { Platform, ScrollView, StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
-import React, { useCallback, useMemo, useState } from 'react'
-import { ScrollView, StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-
-import { MonsterHuntData, PartsData } from '../../assets/data/hunt'
-import { useResponsiveWidth } from '../../hooks/useResponsiveWidth'
-import { setRank } from '../../util/redux/HuntSlice'
-import { RootState } from '../../util/redux/store'
-import { MonsterIcon } from '../InventoryIcon'
-import { Text } from '../Themed'
-import { commonStyles } from '../themed/styles'
-import { useThemeColor } from '../themed/useThemeColor'
-import { HPCounter } from './HPCounter'
-import MonsterParts from './MonsterParts'
-import ResistanceTabs from './ResistanceTabs'
+import { MonsterHuntData, PartsData } from "../../assets/data/hunt";
+import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
+import { setRank } from "../../util/redux/HuntSlice";
+import { RootState } from "../../util/redux/store";
+import { MonsterIcon } from "../InventoryIcon";
+import { Text } from "../Themed";
+import { commonStyles } from "../themed/styles";
+import { useThemeColor } from "../themed/useThemeColor";
+import { HPCounter } from "./HPCounter";
+import MonsterParts from "./MonsterParts";
+import ResistanceTabs from "./ResistanceTabs";
 
 type MonsterScreenProps = {
   style?: StyleProp<ViewStyle>;
-}
+};
 
 const MonsterScreen: React.FC<MonsterScreenProps> = ({ style }) => {
   const width = useResponsiveWidth().width;
@@ -40,7 +39,7 @@ const MonsterScreen: React.FC<MonsterScreenProps> = ({ style }) => {
     //reset visible effects
     setEffects([]);
   };
-  
+
   const effectsText = useMemo(() => {
     let msg = baseHunt?.[rank]?.effects;
     effects.forEach((effect) => {
@@ -50,44 +49,51 @@ const MonsterScreen: React.FC<MonsterScreenProps> = ({ style }) => {
     });
     return msg;
   }, [baseHunt, effects, rank]);
-  
+
   return (
-    <ScrollView style={[styles.scroll, style]} contentContainerStyle={styles.scrollContent}>
-        <View style={styles.mainCard}>
-          <TouchableOpacity onPress={toggle}>
-            <MonsterIcon
-              rank={rank}
-              type={monster}
-              style={{ width: width / 3.5, height: width / 3.5, maxWidth: 150, maxHeight: 150 }}
-            />
-          </TouchableOpacity>
-          <HPCounter max={baseHunt?.[rank]?.maxHP ?? 60} />
-        </View>
+    <ScrollView
+      style={[styles.scroll, style]}
+      contentContainerStyle={styles.scrollContent}
+      showsVerticalScrollIndicator={Platform.OS !== "web"}
+    >
+      <View style={styles.mainCard}>
+        <TouchableOpacity onPress={toggle}>
+          <MonsterIcon
+            rank={rank}
+            type={monster}
+            style={{ width: width / 3.5, height: width / 3.5, maxWidth: 150, maxHeight: 150 }}
+          />
+        </TouchableOpacity>
+        <HPCounter max={baseHunt?.[rank]?.maxHP ?? 60} />
+      </View>
 
-        <View style={styles.sectionHeader}>
-          <Text bold style={[styles.sectionTitle, { borderLeftColor: accentColor, color: accentColor }]}>MONSTER PARTS</Text>
-        </View>
-        <MonsterParts data={baseHunt?.[rank]?.parts!} onBreak={onBreak} />
+      <View style={styles.sectionHeader}>
+        <Text bold style={[styles.sectionTitle, { borderLeftColor: accentColor, color: accentColor }]}>
+          MONSTER PARTS
+        </Text>
+      </View>
+      <MonsterParts data={baseHunt?.[rank]?.parts!} onBreak={onBreak} />
 
-        <View style={[styles.effectsCard]}>
-          <Text bold style={[styles.effectsLabel, { color: accentColor }]}>HUNT EFFECTS</Text>
-          <Text style={styles.effectsText}>{effectsText}</Text>
-        </View>
+      <View style={styles.effectsCard}>
+        <Text bold style={[styles.effectsLabel, { color: accentColor }]}>
+          HUNT EFFECTS
+        </Text>
+        <Text style={styles.effectsText}>{effectsText}</Text>
+      </View>
 
-        <View style={[styles.sectionHeader, { marginTop: 16 }]}>
-          <Text bold style={[styles.sectionTitle, { borderLeftColor: accentColor, color: accentColor }]}>RESISTANCES</Text>
-        </View>
-        {baseHunt?.weakness ? <ResistanceTabs key={monster} data={baseHunt.weakness} /> : null}
-      </ScrollView>
-  )
-}
+      <View style={[styles.sectionHeader, { marginTop: 16 }]}>
+        <Text bold style={[styles.sectionTitle, { borderLeftColor: accentColor, color: accentColor }]}>
+          RESISTANCES
+        </Text>
+      </View>
+      {baseHunt?.weakness ? <ResistanceTabs key={monster} data={baseHunt.weakness} /> : null}
+    </ScrollView>
+  );
+};
 
-export default MonsterScreen
+export default MonsterScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   scroll: {
     flex: 1,
   },
@@ -109,9 +115,9 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 14,
-    letterSpacing: 2, 
+    letterSpacing: 2,
   },
-  effectsCard: { 
+  effectsCard: {
     ...commonStyles.card,
     paddingHorizontal: 16,
     marginTop: 8,
