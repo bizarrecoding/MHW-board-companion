@@ -11,7 +11,7 @@ const InventoryHeader: React.FC<InventoryHeaderProps> = ({ title }) => {
   return (
     <View style={styles.container}>
       <Text bold variant="subtitle" style={styles.capitalize}>
-        {title}
+        {title.replace("_", " ")}
       </Text>
     </View>
   );

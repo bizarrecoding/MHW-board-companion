@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { ListRenderItem, Platform, SectionList, StyleSheet, TouchableOpacity, View } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { ListRenderItem, Platform, ScrollView, SectionList, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { InventoryEntry } from "../../assets/data/types";
-import { findCategory, useInventory } from "../../hooks/useInventory";
+import { useInventory } from "../../hooks/useInventory";
 import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
 import InventoryIcon from "../InventoryIcon";
 import { IconButton, Text } from "../Themed";
@@ -12,12 +12,7 @@ import SearchInput from "../themed/inputs/SearchInput";
 import { commonStyles } from "../themed/styles";
 import InventoryHeader from "./InventoryHeader";
 import { InventorySection } from "./InventorySection";
-
-type EntrySection = {
-  id: string;
-  title: string;
-  data: InventoryEntry[];
-};
+import { EntrySection, useInventoryCategories } from "./hooks/useInventoryCategories";
 
 export default function InventoryLog() {
   const paddingBottom = useSafeAreaInsets().bottom;
@@ -75,28 +70,18 @@ export default function InventoryLog() {
     setFilterableInventory(inventory);
   }, [inventory]);
 
-  const sections = useMemo(() => {
-    const data = filterableInventory.reduce(
-      (rec, current) => {
-        if (!current) return rec;
-        const category = current.category ?? findCategory(current);
-        const exist = Object.keys(rec).includes(category);
-        if (!exist) rec[category] = { id: category, title: category, data: [] };
-        rec[category].data.push(current);
-        return rec;
-      },
-      {} as Record<string, EntrySection>
-    );
-
-    return Object.values(data);
-  }, [filterableInventory]);
+  const sections = useInventoryCategories<InventoryEntry>(filterableInventory);
 
   return (
     <View style={[styles.container, { width, paddingBottom }]}>
       {Platform.OS === "web" && numColumns > 1 ? (
-        sections.map((s) => <InventorySection key={s.id} section={s} renderItem={renderItem} />)
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
+          {sections.map((s) => (
+            <InventorySection key={s.id} section={s} renderItem={renderItem} />
+          ))}
+        </ScrollView>
       ) : (
-        <SectionList<InventoryEntry, EntrySection>
+        <SectionList<InventoryEntry, EntrySection<InventoryEntry>>
           sections={sections}
           ListHeaderComponent={<SearchInput onChangeText={filterBy} />}
           renderSectionHeader={(info) => <InventoryHeader title={info.section.title} />}
@@ -138,5 +123,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 12,
+  },
+  scroll: {
+    paddingBottom: 80,
   },
 });

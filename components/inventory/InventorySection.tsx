@@ -1,26 +1,22 @@
 import React, { useMemo } from "react";
 import { FlatList, ListRenderItem, ListRenderItemInfo, StyleSheet, View } from "react-native";
 
-import { InventoryEntry } from "../../assets/data/types";
+import { InventoryEntry, ItemEntry } from "../../assets/data/types";
 import { commonStyles } from "../themed/styles";
 import InventoryHeader from "./InventoryHeader";
-
-type EntrySection = {
-  id: string;
-  title: string;
-  data: InventoryEntry[];
-};
+import { EntrySection } from "./hooks/useInventoryCategories";
 
 type InventorySectionProps = {
   section: EntrySection;
-  renderItem: ListRenderItem<InventoryEntry>;
+  renderItem: ListRenderItem<ItemEntry> | ListRenderItem<InventoryEntry>;
 };
 
-type DataWithDummies = InventoryEntry | { id: string };
+type DataWithDummies = ItemEntry | InventoryEntry | { id: string };
 
 export const InventorySection: React.FC<InventorySectionProps> = ({ section, renderItem }) => {
   const _renderItem = (props: ListRenderItemInfo<DataWithDummies>) => {
-    if (props.item.id.includes("Dummy")) return <View style={styles.dummyItemWrapper} />;
+    const item = props.item;
+    if ((item as InventoryEntry)?.id?.includes("Dummy")) return <View style={styles.dummyItemWrapper} />;
     return renderItem(props as ListRenderItemInfo<InventoryEntry>);
   };
 
@@ -35,6 +31,13 @@ export const InventorySection: React.FC<InventorySectionProps> = ({ section, ren
     return arr;
   }, [section.data]);
 
+  const keyExtractor = (item: DataWithDummies) => {
+    if ((item as InventoryEntry)?.id) {
+      return (item as InventoryEntry).id;
+    }
+    return (item as ItemEntry).name;
+  };
+
   return (
     <View>
       <InventoryHeader title={section.title} />
@@ -42,7 +45,7 @@ export const InventorySection: React.FC<InventorySectionProps> = ({ section, ren
         data={paddedList}
         key={section.title}
         numColumns={3}
-        keyExtractor={(i) => i.id}
+        keyExtractor={keyExtractor}
         renderItem={_renderItem}
       />
     </View>
