@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setRollPool } from "../../util/redux/RollSlice";
 import { RootState } from "../../util/redux/store";
 import Divider from "../Divider";
-import { View, Text, Button } from "../Themed";
+import { Button, Text, View } from "../Themed";
 import { commonStyles } from "../themed/styles";
 import { useThemeColor } from "../themed/useThemeColor";
 
@@ -26,7 +26,9 @@ export const RollPoolModal = () => {
       <Text style={styles.caption}>The pool is used to calculate the number of times a value will appear in the roll</Text>
       <View style={styles.totalDrawsContainer}>
         <Text style={styles.caption}>Total draws until sharpen: </Text>
-        <Text bold style={styles.totalDraws}>{dice1 + dice2 + dice3 + dice4}</Text>
+        <Text bold style={styles.totalDraws}>
+          {dice1 + dice2 + dice3 + dice4}
+        </Text>
       </View>
       <View style={styles.configRow}>
         <DiceController dice={dice1} face={1} setDice={setDice1} />
@@ -44,7 +46,15 @@ export const RollPoolModal = () => {
   );
 };
 
-const DiceController = ({ dice, setDice, face }: { dice: number, setDice: React.Dispatch<React.SetStateAction<number>>, face: number }) => {
+const DiceController = ({
+  dice,
+  setDice,
+  face,
+}: {
+  dice: number;
+  setDice: React.Dispatch<React.SetStateAction<number>>;
+  face: number;
+}) => {
   const accentColor = useThemeColor({}, `accent`);
   const backgroundColor = useThemeColor({}, `card`);
   const borderColor = useThemeColor({}, `cardBorder`);
@@ -52,27 +62,33 @@ const DiceController = ({ dice, setDice, face }: { dice: number, setDice: React.
   const bgSub = `#8884`;
   return (
     <View style={[styles.configCard, { backgroundColor, borderColor }]}>
-      <Text variant="subtitle" style={styles.faceAmount}>{dice}</Text>
+      <Text variant="subtitle" style={styles.faceAmount}>
+        {dice}
+      </Text>
       <Text variant="button">Face {face}:</Text>
       <View style={styles.controlRow}>
         <TouchableOpacity onPress={() => setDice(dice - 1)} style={[styles.controlButton, { backgroundColor: bgSub }]}>
-          <Text variant="button">-</Text>
+          <Text variant="button" style={styles.editLabel}>
+            -
+          </Text>
         </TouchableOpacity>
-        <View style={{ width: 1, height: '100%', backgroundColor: '#8884' }} />
+        <View style={{ width: 1, height: "100%", backgroundColor: "#8884" }} />
         <TouchableOpacity onPress={() => setDice(dice + 1)} style={[styles.controlButton, { backgroundColor: bgAdd }]}>
-          <Text variant="button">+</Text>
+          <Text variant="button" style={styles.editLabel}>
+            +
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
   totalDrawsContainer: {
     ...commonStyles.row,
     ...commonStyles.card,
-    justifyContent: 'center',
+    justifyContent: "center",
     margin: 16,
   },
   totalDraws: {
@@ -108,12 +124,17 @@ const styles = StyleSheet.create({
   },
   controlRow: {
     ...commonStyles.row,
-    borderTopWidth: 1,
-    borderTopColor: `#8883`,
     marginTop: 12,
   },
   controlButton: {
     ...commonStyles.center,
-    minHeight: 32
+    borderRadius: 12,
+    minHeight: 32,
+    marginHorizontal: 6,
+    marginBottom: 6,
+  },
+  editLabel: {
+    paddingVertical: 12,
+    paddingHorizontal: 24,
   },
 });
