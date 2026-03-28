@@ -21,15 +21,13 @@ export const LogEntryModal = () => {
     if (!monster || !rank || carts < 0) return;
     addLogEntry({ monster, rank, carts });
     router.back();
-  }; 
+  };
   return (
     <View style={[styles.container, { width }]}>
       <Stack.Screen options={{ title: `Hunt Entry` }} />
-      <Text style={styles.title}>
-        Log the details of your completedhunt
-      </Text> 
+      <Text style={styles.title}>Log the details of your completed hunt</Text>
       <View style={{ flex: 1, width: `100%`, paddingHorizontal: 16 }}>
-        <View style={{ width, alignItems: `center`, justifyContent: `center` }}>
+        <View style={{ alignItems: `center`, justifyContent: `center` }}>
           <MonsterIcon type={monster} noRank style={{ width: 96, height: 96 }} />
           <Text bold style={styles.categoryLabel}>
             {monster}
@@ -50,13 +48,15 @@ export const LogEntryModal = () => {
           onValueChange={(value) => setRank(value as RankType)}
           renderLabel={(value) => value.split(` `)[0]}
         />
-        <Text bold style={styles.categoryLabel}>Carts: {carts}</Text>
+        <Text bold style={styles.categoryLabel}>
+          Carts: {carts}
+        </Text>
         <Slider
           data={[0, 1, 2, 3]}
           value={carts}
           onValueChange={(value) => setCarts(value as number)}
           renderLabel={(_value) => ""}
-        /> 
+        />
         <Button title="Save hunt" onPress={saveLogEntry} />
       </View>
     </View>

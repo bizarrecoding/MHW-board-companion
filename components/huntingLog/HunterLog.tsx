@@ -43,12 +43,18 @@ export const HunterLog: React.FC = () => {
         <MonsterIcon type={item.monster} rank={item.carts === 3 ? `failed` : item.rank} />
         <View style={{ flex: 1, marginHorizontal: 12, gap: 12 }}>
           <View style={[styles.row, {}]}>
-            <Text bold variant="caption" style={{ fontSize: 18, letterSpacing: 1 }}>{item.monster}</Text>
+            <Text bold variant="caption" style={{ fontSize: 18, letterSpacing: 1 }}>
+              {item.monster}
+            </Text>
           </View>
           <View style={styles.row}>
-            <Text variant="body" style={styles.subTitle}>{formatTimestamp(item.timestamp)}</Text>
+            <Text variant="body" style={styles.subTitle}>
+              {formatTimestamp(item.timestamp)}
+            </Text>
             {item?.carts ? (
-              <Text variant="body" style={styles.subTitle}>Carted: {item.carts}</Text>
+              <Text variant="body" style={styles.subTitle}>
+                Carted: {item.carts}
+              </Text>
             ) : null}
           </View>
         </View>
@@ -59,11 +65,7 @@ export const HunterLog: React.FC = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      title: (
-        <Text style={styles.title}>
-          TOTAL HUNTS: {logs.length}
-        </Text>
-      ),
+      title: <Text style={styles.title}>TOTAL HUNTS: {logs.length}</Text>,
     });
   }, [logs, navigation]);
 
@@ -81,7 +83,7 @@ export const HunterLog: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: "auto"
+    margin: "auto",
   },
   center: {
     gap: 6,
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
   itemCard: {
     flex: 1,
     ...commonStyles.row,
-    ...commonStyles.card, 
+    ...commonStyles.card,
     marginHorizontal: 12,
     marginVertical: 6,
   },
