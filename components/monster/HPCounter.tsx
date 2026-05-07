@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
-import { alertColor, tintColor } from "../../constants/Colors";
 import { Text } from "../Themed";
+
+const ColorMap = {
+  red: "#FF3333",
+  green: "#00965d",
+};
 
 export const HPCounter: React.FC<{ max: number }> = ({ max }) => {
   const [HP, setHP] = useState<number>(max);
   const [sign, setSign] = useState<-1 | 1>(-1);
-
-  const ColorMap = {
-    red: alertColor,
-    green: tintColor,
-  };
 
   const editHp = () => {
     if (sign === 1) setHP((hp) => Math.min(hp + 1, max));
