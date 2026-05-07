@@ -2,11 +2,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
-import ResistanceIcon from "./ResistanceIcon";
-import { Text } from "../Themed";
-import { useThemeColor } from "../themed/useThemeColor";
 import { Ailments, Elements } from "../../assets/data/types";
+import { Text } from "../Themed";
 import { commonStyles } from "../themed/styles";
+import { useThemeColor } from "../themed/useThemeColor";
+import ResistanceIcon from "./ResistanceIcon";
 
 const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = ({ data }) => {
   const [activeTab, setActiveTab] = useState(`status`);
@@ -27,21 +27,14 @@ const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = 
   return (
     <View style={styles.container}>
       <View style={[styles.tabBar, { backgroundColor: commonStyles.card.backgroundColor }]}>
-        <TouchableOpacity
-          onPress={() => setActiveTab(`status`)}
-          style={[styles.tab, activeTab === `status` && activePanelStyle]}
-        >
-          <Text style={[styles.tabText, activeTab === `status` && styles.activeTabText]}>
-            ELEMENTS
-          </Text>
+        <TouchableOpacity onPress={() => setActiveTab(`status`)} style={[styles.tab, activeTab === `status` && activePanelStyle]}>
+          <Text style={[styles.tabText, activeTab === `status` && styles.activeTabText]}>ELEMENTS</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setActiveTab(`ailment`)}
           style={[styles.tab, activeTab === `ailment` && activePanelStyle]}
         >
-          <Text style={[styles.tabText, activeTab === `ailment` && styles.activeTabText]}>
-            AILMENTS
-          </Text>
+          <Text style={[styles.tabText, activeTab === `ailment` && styles.activeTabText]}>AILMENTS</Text>
         </TouchableOpacity>
       </View>
 
@@ -61,12 +54,12 @@ const ResistanceTabs: React.FC<{ data: Record<Ailments | Elements, number> }> = 
             </>
           ) : (
             <>
-                <View style={styles.column}>
-                  <Resistance type="Paralysis" value={paraRes} max={data.Paralysis} setValue={setParaRes} />
-                  <Resistance type="Poison" value={poisonRes} max={data.Poison} setValue={setPoisonRes} />
+              <View style={styles.column}>
+                <Resistance type="Paralysis" value={paraRes} max={data.Paralysis} setValue={setParaRes} />
+                <Resistance type="Poison" value={poisonRes} max={data.Poison} setValue={setPoisonRes} />
                 <Resistance type="Sleep" value={sleepRes} max={data.Sleep} setValue={setSleepRes} />
               </View>
-                <View style={styles.column}>
+              <View style={styles.column}>
                 <Resistance type="Blast" value={blastRes} max={data.Blast} setValue={setBlastRes} />
                 <Resistance type="Stun" value={stunRes} max={data.Stun} setValue={setStunRes} />
               </View>

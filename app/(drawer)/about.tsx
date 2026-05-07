@@ -1,12 +1,15 @@
-import { DrawerToggleButton } from '@react-navigation/drawer';
-import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { MonsterIcon } from '../../components/InventoryIcon';
-import { Text } from '../../components/Themed';
-import { commonStyles } from '../../components/themed/styles';
-import { useThemeColor } from '../../components/themed/useThemeColor';
-import { build } from '../../constants/build';
-import { useResponsiveWidth } from '../../hooks/useResponsiveWidth';
+import { DrawerToggleButton } from "@react-navigation/drawer";
+import React from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { ExternalLink } from "../../components/ExternalLink";
+import { MonsterIcon } from "../../components/InventoryIcon";
+import { Button, Text } from "../../components/Themed";
+import { commonStyles } from "../../components/themed/styles";
+import { useThemeColor } from "../../components/themed/useThemeColor";
+import { build } from "../../constants/build";
+import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
+
+const KOFI_URL = "https://ko-fi.com/bizarecoding";
 
 const About: React.FC = () => {
   const { width } = useResponsiveWidth();
@@ -19,19 +22,28 @@ const About: React.FC = () => {
 
       <View style={[styles.section, { width }]}>
         <MonsterIcon noRank type="Brachydios" style={styles.avatar} />
-        <Text variant="title" style={styles.title}>MHW Board Companion</Text>
-        <Text variant="caption" style={{ color: "#888", marginBottom: 16 }}>v{build}</Text>
+        <Text variant="title" style={styles.title}>
+          MHW Board Companion
+        </Text>
+        <Text variant="caption" style={{ color: "#888", marginBottom: 16 }}>
+          v{build}
+        </Text>
 
         <View style={styles.card}>
-          <Text variant="subtitle" bold style={styles.cardTitle}>Purpose</Text>
+          <Text variant="subtitle" bold style={styles.cardTitle}>
+            Purpose
+          </Text>
           <Text style={styles.text}>
-            This application is a fan-made digital companion designed to complement your experience with the Monster Hunter World tabletop game.
-            It helps you keep track of the complex book-keeping involved in a campaign, allowing you to focus on the hunt.
+            This application is a fan-made digital companion designed to complement your experience with the Monster Hunter World
+            tabletop game. It helps you keep track of the complex book-keeping involved in a campaign, allowing you to focus on
+            the hunt.
           </Text>
         </View>
 
         <View style={styles.card}>
-          <Text variant="subtitle" bold style={styles.cardTitle}>Key Features</Text>
+          <Text variant="subtitle" bold style={styles.cardTitle}>
+            Key Features
+          </Text>
           <BulletItem icon="⚔️" text="Track Monster Hunts and simplify reward calculation." />
           <BulletItem icon="🎒" text="Manage your hunter's Inventory and materials." />
           <BulletItem icon="🛡️" text="Monitor your Character's gear, defense, and resistances." />
@@ -39,15 +51,33 @@ const About: React.FC = () => {
         </View>
 
         <View style={styles.card}>
-          <Text variant="subtitle" bold style={styles.cardTitle}>Credits</Text>
+          <Text variant="subtitle" bold style={styles.cardTitle}>
+            Credits
+          </Text>
           <Text style={styles.text}>
-            Developed with ❤️ by <Text bold style={{ color: tintColor }}>BizarreCoding</Text>
+            Developed with ❤️ by{" "}
+            <Text bold style={{ color: tintColor }}>
+              BizarreCoding
+            </Text>
           </Text>
           <Text style={[styles.text, styles.disclaimer]}>
-            Monster Hunter: World and all associated logos and assets are trademarks of Capcom Co., Ltd.
-            Monster Hunter World: The Board Game is a product of Steamforged Games.
-            This app is not affiliated with, endorsed by, or sponsored by Capcom or Steamforged Games.
+            Monster Hunter: World and all associated logos and assets are trademarks of Capcom Co., Ltd. Monster Hunter World: The
+            Board Game is a product of Steamforged Games. This app is not affiliated with, endorsed by, or sponsored by Capcom or
+            Steamforged Games.
           </Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text variant="subtitle" bold style={styles.cardTitle}>
+            Support the Project
+          </Text>
+          <Text style={styles.text}>
+            If you enjoy using this app, consider supporting its development with a donation. Every bit helps keep the hunts
+            going!
+          </Text>
+          <ExternalLink href={KOFI_URL} style={styles.donateButton}>
+            <Button title="☕ Buy me a coffee" />
+          </ExternalLink>
         </View>
       </View>
     </ScrollView>
@@ -73,8 +103,8 @@ const styles = StyleSheet.create({
   header: {
     paddingTop: 8,
     paddingLeft: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   section: {
     marginHorizontal: "auto",
@@ -87,11 +117,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   title: {
-    textAlign: 'center',
+    textAlign: "center",
   },
   card: {
     ...commonStyles.card,
-    width: '100%',
+    width: "100%",
     padding: 20,
     marginTop: 24,
   },
@@ -103,8 +133,8 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
   bulletItem: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
     marginBottom: 10,
   },
   bulletIcon: {
@@ -121,6 +151,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 12,
     opacity: 0.6,
-    fontStyle: 'italic',
+    fontStyle: "italic",
+  },
+  donateButton: {
+    marginTop: 16,
+    alignSelf: "center",
   },
 });
