@@ -1,13 +1,12 @@
-import { useColorScheme } from "react-native";
-import Colors from "../../../constants/Colors";
+import React from "react";
 import { View } from "../../Themed";
+import { useThemeColor } from "../../themed/useThemeColor";
 import { BehaviorCardProps } from "./common";
 import { useCardDimensions } from "./useCardDimensions";
 
 const EmptyCard: React.FC<Pick<BehaviorCardProps, `hidden`>> = ({ hidden }) => {
-  const { width, height } = useCardDimensions(hidden); 
-  const scheme = useColorScheme();
-  const { text: borderColor } = Colors[scheme ?? `light`];
+  const { width, height } = useCardDimensions(hidden);
+  const borderColor = useThemeColor({}, "outline");
   return (
     <View
       style={{

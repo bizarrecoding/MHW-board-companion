@@ -81,12 +81,12 @@ const Behaviors: React.FC<BehaviorsProps> = ({ style }) => {
 
         <View style={styles.counterWrapper}>
           <Text style={styles.remainingText}>{remaining >= 0 ? remaining : 0}</Text>
-          <Text style={styles.remainingLabel}>CARDS REMAINING</Text>
+          <Text style={styles.remainingLabel}>CARDS REMAINING </Text>
         </View>
       </View>
 
       <TouchableOpacity activeOpacity={0.8} onPress={discard} style={styles.nextCardArea}>
-        <Text style={styles.nextCardLabel}>TAP TO DISCARD</Text>
+        <Text style={styles.nextCardLabel}>TAP TO DISCARD </Text>
         <BehaviorCard hidden behavior={deck[(index + 1) % deck.length]} />
       </TouchableOpacity>
     </ScrollView>

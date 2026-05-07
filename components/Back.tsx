@@ -8,6 +8,6 @@ type BackProps = {
 };
 
 export const Back: React.FC<BackProps> = ({ onPress }) => {
-  const color = useThemeColor({}, `accent`);
+  const color = useThemeColor({}, `primary`);
   return <MaterialIcons name="arrow-back-ios" size={24} color={color} onPress={onPress} />;
 };

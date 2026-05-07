@@ -1,8 +1,8 @@
 import React from "react";
-import { View, StyleSheet, StyleProp, ViewStyle, TouchableOpacity } from "react-native";
+import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
+import { commonStyles } from "../styles";
 import Text from "../ThemedText";
 import { useThemeColor } from "../useThemeColor";
-import { commonStyles } from "../styles";
  
 
 type NumberInputProps = {
@@ -20,7 +20,7 @@ export default function NumberInput({
   max = 10,
   style,
 }: NumberInputProps) {
-  const accent = useThemeColor({}, `accent`);
+  const accent = useThemeColor({}, `primary`);
   const increment = () => setValue((n) => (n < max ? n + 1 : n));
   const decrement = () => setValue((n) => (n > min ? n - 1 : 0));
   return ( 

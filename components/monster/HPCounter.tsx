@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity, View, StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
+import { alertColor, tintColor } from "../../constants/Colors";
 import { Text } from "../Themed";
-import { tintColor, alertColor } from "../../constants/Colors";
 
 export const HPCounter: React.FC<{ max: number }> = ({ max }) => {
   const [HP, setHP] = useState<number>(max);
@@ -34,17 +34,13 @@ export const HPCounter: React.FC<{ max: number }> = ({ max }) => {
           onPress={() => setSign(-1)}
           style={[styles.toggleBtn, sign === -1 && { backgroundColor: ColorMap.red + `44` }]}
         >
-          <Text style={[styles.toggleText, sign === -1 && { color: ColorMap.red, fontWeight: `bold` }]}>
-            Damage
-          </Text>
+          <Text style={[styles.toggleText, sign === -1 && { color: ColorMap.red, fontWeight: `bold` }]}>Damage </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setSign(1)}
           style={[styles.toggleBtn, sign === 1 && { backgroundColor: ColorMap.green + `44` }]}
         >
-          <Text style={[styles.toggleText, sign === 1 && { color: ColorMap.green, fontWeight: `bold` }]}>
-            Heal
-          </Text>
+          <Text style={[styles.toggleText, sign === 1 && { color: ColorMap.green, fontWeight: `bold` }]}>Heal</Text>
         </TouchableOpacity>
       </View>
 
@@ -54,12 +50,7 @@ export const HPCounter: React.FC<{ max: number }> = ({ max }) => {
           <Text style={styles.hpMax}> / {max}</Text>
         </Text>
         <View style={styles.barContainer}>
-          <View
-            style={[
-              styles.barFill,
-              { width: `${hpPercentage}%`, backgroundColor: barColor },
-            ]}
-          />
+          <View style={[styles.barFill, { width: `${hpPercentage}%`, backgroundColor: barColor }]} />
         </View>
       </TouchableOpacity>
     </View>

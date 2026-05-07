@@ -13,7 +13,7 @@ const KOFI_URL = "https://ko-fi.com/bizarecoding";
 
 const About: React.FC = () => {
   const { width } = useResponsiveWidth();
-  const tintColor = useThemeColor({}, "tint");
+  const tintColor = useThemeColor({}, "primary");
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       <View style={styles.header}>
@@ -76,7 +76,7 @@ const About: React.FC = () => {
             going!
           </Text>
           <ExternalLink href={KOFI_URL} style={styles.donateButton}>
-            <Button title="☕ Buy me a coffee" />
+            <Button full title="☕ Buy me a coffee" />
           </ExternalLink>
         </View>
       </View>
@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
   },
   donateButton: {
+    minHeight: 60,
     marginTop: 16,
     alignSelf: "center",
   },

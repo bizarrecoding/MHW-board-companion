@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useCallback, useMemo } from "react";
-import { FlatList, ListRenderItem, StyleSheet } from "react-native";
+import { FlatList, ListRenderItem, Platform, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { Armors, Weapons } from "../../assets/data/equipments";
 import { EquipmentEntry, WeaponEntry, WeaponKind } from "../../assets/data/types";
@@ -23,6 +23,7 @@ const EquipmentModal = () => {
   const dispatch = useDispatch();
   const { replace } = useLocalSearchParams<{ replace: string }>();
   const [type, kind] = replace.split(`-`) as [string, string];
+  console.log("🚀 ~ EquipmentModal ~ replace:", replace, type, kind);
 
   const onRemove = () => {
     const pieceIndex = setPieceMap[kind] as number;
@@ -47,10 +48,13 @@ const EquipmentModal = () => {
   );
 
   const data: (WeaponEntry | EquipmentEntry)[] = useMemo(() => {
-    if (type === "weapon") return Weapons.filter((w) => w.kind === (kind as WeaponKind));
-    else if (type === "armor") return Armors.filter((armor) => armor.kind === kind);
+    if (type === "weapon") {
+      if (kind === "weapon") return Weapons;
+      return Weapons.filter((w) => w.kind === (kind as WeaponKind));
+    } else if (type === "armor") return Armors.filter((armor) => armor.kind === kind);
     else return [];
   }, [kind, type]);
+  console.log("🚀 ~ EquipmentModal ~ data:", data);
 
   const isTablet = width > 425;
 
@@ -90,12 +94,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContainer: {
-    flex: 1,
     padding: 16,
     alignSelf: "center",
   },
   itemWrapper: {
-    flex: 1,
+    ...Platform.select({ web: { flex: 1 } }),
     margin: 6,
     justifyContent: "space-around",
   },
@@ -105,5 +108,6 @@ const styles = StyleSheet.create({
     borderColor: commonStyles.card.borderColor,
     paddingVertical: 24,
     marginHorizontal: 6,
+    marginBottom: 100,
   },
 });

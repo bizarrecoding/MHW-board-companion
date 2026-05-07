@@ -1,15 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { configureStore, Reducer } from "@reduxjs/toolkit";
-import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
-  persistReducer,
-  persistStore,
-  PURGE,
-  REGISTER,
-  REHYDRATE,
-} from "redux-persist";
+import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 
 import characterSlice, { CharacterState } from "./CharacterSlice";
 import huntSlice, { HuntState } from "./HuntSlice";

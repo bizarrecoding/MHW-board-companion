@@ -9,7 +9,7 @@ type EquipEffectsProps = {
 
 const EquipEffects: React.FC<EquipEffectsProps> = ({ effects }) => {
   const lines = effects.split("\n");
-  const color = useThemeColor({}, "tint");
+  const color = useThemeColor({}, "primary");
   return (
     <>
       <Text bold style={styles.titleLabel}>

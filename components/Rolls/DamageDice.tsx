@@ -1,6 +1,7 @@
-import { ImageBackground, View, StyleSheet } from "react-native";
-import { useThemeColor } from "../themed/useThemeColor";
+import React from "react";
+import { ImageBackground, StyleSheet, View } from "react-native";
 import { Text } from "../Themed";
+import { useThemeColor } from "../themed/useThemeColor";
 
 type DamageDiceProps = {
   cardSize: number;
@@ -15,31 +16,30 @@ const getStyleValuesForCard = (size: number) => {
   return { padding: 8, fontSize: 36, imageSize: size + 8 };
 };
 
-
 const DamageDice: React.FC<DamageDiceProps> = ({ cardSize, rollValue }) => {
   const { padding, fontSize, imageSize } = getStyleValuesForCard(cardSize);
   const backgroundColor = useThemeColor({}, `card`);
   const cardBorderColor = useThemeColor({}, `cardBorder`);
-  const cardTextColor = useThemeColor({}, `text`);
+  const cardTextColor = useThemeColor({}, `secondary`);
 
   return (
-    <View style={[
-      styles.cardWrapper,
-      {
-        width: cardSize + padding * 2,
-        height: cardSize + padding * 2,
-        backgroundColor,
-        borderColor: cardBorderColor
-      }
-    ]}>
+    <View
+      style={[
+        styles.cardWrapper,
+        {
+          width: cardSize + padding * 2,
+          height: cardSize + padding * 2,
+          backgroundColor,
+          borderColor: cardBorderColor,
+        },
+      ]}
+    >
       <ImageBackground
         source={require(`../../assets/images/Blast-MHW_Icon.png`)}
         resizeMode="contain"
         style={{ width: imageSize, height: imageSize, alignItems: `center`, justifyContent: `center` }}
       >
-        <Text style={[styles.rollValue, { fontSize, color: `${cardTextColor}C` }]}>
-          {rollValue}
-        </Text>
+        <Text style={[styles.rollValue, { fontSize, color: cardTextColor }]}>{rollValue}</Text>
       </ImageBackground>
     </View>
   );
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     elevation: 4,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 6,

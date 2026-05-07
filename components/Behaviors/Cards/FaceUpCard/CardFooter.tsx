@@ -1,17 +1,17 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import { useThemeColor } from "../../../themed/useThemeColor";
-import { Text } from "../../../Themed";
+import { StyleSheet, View } from "react-native";
 import { Behavior } from "../../../../assets/data/types";
+import { Text } from "../../../Themed";
+import { useThemeColor } from "../../../themed/useThemeColor";
 
 type FooterUnitProps = {
   icon: "users" | "bolt";
   label: string;
-}
+};
 
 const FooterUnit: React.FC<FooterUnitProps> = ({ icon, label }) => {
-  const textColor = useThemeColor({ light: `#444`, dark: `#888` }, `text`);  
+  const textColor = useThemeColor({ light: `#444`, dark: `#888` }, `text`);
   return (
     <View style={styles.footerUnit}>
       <FontAwesome name={icon} color={`${textColor}8`} size={14} />
@@ -22,15 +22,15 @@ const FooterUnit: React.FC<FooterUnitProps> = ({ icon, label }) => {
 
 type CardFooterProps = {
   behavior: Behavior;
-}
+};
 
 const CardFooter: React.FC<CardFooterProps> = ({ behavior }) => {
   const borderColor = useThemeColor({}, `cardBorder`);
   return (
     <View style={[styles.footerRow, { borderTopColor: borderColor }]}>
-      <FooterUnit icon="users" label={`${behavior.turns} TURNS`} />
+      <FooterUnit icon="users" label={`${behavior.turns} TURNS `} />
       <View style={[styles.divider, { backgroundColor: borderColor }]} />
-      <FooterUnit icon="bolt" label={`${behavior.actions} ACTIONS`} />
+      <FooterUnit icon="bolt" label={`${behavior.actions} ACTIONS `} />
     </View>
   );
 };

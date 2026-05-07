@@ -111,27 +111,4 @@ export const ItemList: ItemEntry[] = [
     name: "Wingdrake hide",
     category: "common"
   },
-  // Black Diablos
-  {
-    type: "shell",
-    name: "Black Diablos Carapace",
-    category: "common"
-  },
-  {
-    type: "claw",
-    name: "Black Spiral Horn",
-    category: "common"
-  },
-  {
-    type: "ridge",
-    name: "Black Diablos Ridge",
-    category: "common"
-  },
-  {
-    type: "gem",
-    name: "Wyvern Gem",
-    category: "common"
-  },
-  //
-
 ];

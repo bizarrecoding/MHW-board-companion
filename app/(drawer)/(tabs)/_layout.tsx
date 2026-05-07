@@ -10,10 +10,7 @@ import Colors from "../../../constants/Colors";
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>[`name`] | `dice`;
-  color: string;
-}) {
+function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>[`name`] | `dice`; color: string }) {
   if (props.name === `dice`) {
     const { name, ...rest } = props;
     return <FontAwesome5 size={28} style={{ marginBottom: -3 }} name={name} {...rest} />;
@@ -26,7 +23,7 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   const width = useWindowDimensions().width;
   const { background, tabIconSelected, tabIconDefault, tint, text } = Colors[colorScheme ?? `light`];
-  const backgroundColor = colorScheme === `dark` ? background : `#fff`;
+
   const isTablet = width >= 768;
   return (
     <Tabs
@@ -35,7 +32,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: tabIconSelected,
         tabBarInactiveTintColor: tabIconDefault,
         tabBarStyle: {
-          backgroundColor,
+          backgroundColor: background,
           shadowColor: colorScheme === `dark` ? `transparent` : undefined,
           borderTopColor: colorScheme === `dark` ? `#6668` : undefined,
         },
@@ -44,7 +41,7 @@ export default function TabLayout() {
         },
         headerStyle: {
           shadowColor: colorScheme === `dark` ? `transparent` : undefined,
-          backgroundColor,
+          backgroundColor: background,
         },
       }}
     >
@@ -52,9 +49,6 @@ export default function TabLayout() {
         name="Story"
         options={{
           title: `Story`,
-          headerTitle: "",
-          headerTransparent: true,
-          headerStyle: { backgroundColor: "transparent" },
           headerLeft: () => <DrawerToggleButton tintColor={tint} />,
           tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
         }}
@@ -69,12 +63,7 @@ export default function TabLayout() {
             <Link href="/modal?type=monster" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome
-                    name="refresh"
-                    size={24}
-                    color={tint}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
+                  <FontAwesome name="refresh" size={24} color={tint} style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }} />
                 )}
               </Pressable>
             </Link>

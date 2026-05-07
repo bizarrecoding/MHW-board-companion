@@ -1,10 +1,10 @@
-import React from 'react';
-import { ColorValue, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { Behavior } from '../../../../assets/data/types';
-import { Text } from '../../../Themed';
-import ResistanceIcon from '../../../monster/ResistanceIcon';
-import { useThemeColor } from '../../../themed/useThemeColor';
-import DirectionalIcon from '../../DirectionalIcon';
+import React from "react";
+import { ColorValue, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { Behavior } from "../../../../assets/data/types";
+import { Text } from "../../../Themed";
+import ResistanceIcon from "../../../monster/ResistanceIcon";
+import { useThemeColor } from "../../../themed/useThemeColor";
+import DirectionalIcon from "../../DirectionalIcon";
 
 type CardContentProps = {
   behavior: Behavior;
@@ -14,7 +14,7 @@ type PanelProps = React.PropsWithChildren & {
   label: string;
   color?: ColorValue;
   style?: StyleProp<ViewStyle>;
-}
+};
 
 const Panel: React.FC<PanelProps> = ({ children, label, color = `#0001`, style }) => {
   const textColor = useThemeColor({ light: `#444`, dark: `#888` }, `text`);
@@ -28,37 +28,43 @@ const Panel: React.FC<PanelProps> = ({ children, label, color = `#0001`, style }
 
 const DirectionSize = 64;
 
-export const CardContent:React.FC<CardContentProps> = ({ behavior }) => {
+export const CardContent: React.FC<CardContentProps> = ({ behavior }) => {
   const accentColor = useThemeColor({ light: `#b0bab7`, dark: `#1e2a20` }, `accent`);
   const panelColor = useThemeColor({ light: `#0001`, dark: `#FFF1` }, `card`);
-  const [movement, direction] = behavior.movement ?? [0, null]; 
+  const [movement, direction] = behavior.movement ?? [0, null];
   return (
     <View style={styles.statsContainer}>
-      <Panel label="POTENTIAL DAMAGE" color={accentColor} style={{ minHeight: 60 }}>
+      <Panel label="POTENTIAL DAMAGE " color={accentColor} style={{ minHeight: 60 }}>
         <View style={styles.damageValueRow}>
-          <Text bold style={styles.damageValue}>{behavior.damage}</Text>
+          <Text bold style={styles.damageValue}>
+            {behavior.damage}
+          </Text>
           {behavior.effect && <ResistanceIcon type={behavior.effect} size={20} style={{ top: 4 }} />}
         </View>
       </Panel>
       <View style={styles.horizontalStats}>
-        <Panel label="DODGE" color={panelColor}>
-          <Text bold style={styles.statValue}>{behavior.dodge}</Text>
+        <Panel label="DODGE " color={panelColor}>
+          <Text bold style={styles.statValue}>
+            {behavior.dodge}
+          </Text>
         </Panel>
-        <Panel label="RANGE" color={panelColor}>
-          <Text bold style={styles.statValue}>{behavior.range}</Text>
+        <Panel label="RANGE " color={panelColor}>
+          <Text bold style={styles.statValue}>
+            {behavior.range}
+          </Text>
         </Panel>
       </View>
       <View style={styles.horizontalStats}>
-        <Panel label="AOE" color={panelColor}>
+        <Panel label="AOE " color={panelColor}>
           <DirectionalIcon size={DirectionSize} directions={behavior.area} />
         </Panel>
-        <Panel label={`MOVEMENT (${movement})`} color={panelColor}>
+        <Panel label={`MOVEMENT (${movement}) `} color={panelColor}>
           <DirectionalIcon size={DirectionSize} directions={direction ? [direction] : null} />
         </Panel>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   statsContainer: {

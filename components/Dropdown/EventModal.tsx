@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, StyleSheet, View } from "react-native";
 
 import { StoryOption } from "../../assets/data/types";
+import Colors from "../../constants/Colors";
 import { useResponsiveWidth } from "../../hooks/useResponsiveWidth";
 import { Button, Text } from "../Themed";
 import { useThemeColor } from "../themed/useThemeColor";
@@ -32,7 +33,7 @@ const EventModal: React.FC<EventModalProps> = ({ visible, onClose, content, chil
           ))}
           <View style={styles.body}>{children}</View>
           <View style={styles.footer}>
-            <Button title="Confirm" style={styles.controls} onPress={onClose} />
+            <Button title="Confirm" darkColor={Colors.dark.onPrimaryFixedVariant} style={styles.controls} onPress={onClose} />
           </View>
         </View>
       </View>
@@ -42,7 +43,7 @@ const EventModal: React.FC<EventModalProps> = ({ visible, onClose, content, chil
 
 const styles = StyleSheet.create({
   modalView: {
-    flex: 1, 
+    flex: 1,
     justifyContent: `center`,
     backgroundColor: `rgba(0,0,0,0.5);`,
   },

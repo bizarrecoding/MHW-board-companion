@@ -58,7 +58,9 @@ const SetItem: React.FC<SetItemProps> = ({ item, style, onPress }) => {
         <View style={styles.equipmentBox}>
           <Image source={getArmorSource(item.kind)} style={styles.weaponIcon} />
           <View style={styles.textStack}>
-            <Text style={styles.pieceLabel}>{item.name}</Text>
+            <Text bold style={styles.pieceLabel}>
+              {item.name}
+            </Text>
             {item.skill ? <Text style={{ textAlign: "center" }}>{item.skill}</Text> : null}
           </View>
           <View style={styles.defResBox}>
@@ -107,11 +109,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
   },
   pieceLabel: {
-    flex: 1,
-    fontWeight: `900`,
-    textShadowColor: `rgba(0, 0, 0, 0.75)`,
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
+    fontWeight: 900,
   },
   equipmentBox: {
     ...commonStyles.row,

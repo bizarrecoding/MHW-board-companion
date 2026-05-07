@@ -1,21 +1,16 @@
-import React, { useEffect } from 'react';
-import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, {
-  useAnimatedReaction,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
-import { scheduleOnRN } from 'react-native-worklets';
-import { useResponsiveWidth } from '../../../hooks/useResponsiveWidth';
-import Text from '../ThemedText';
-import { useThemeColor } from '../useThemeColor';
+import React, { useEffect } from "react";
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import Animated, { useAnimatedReaction, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
+import { useResponsiveWidth } from "../../../hooks/useResponsiveWidth";
+import Text from "../ThemedText";
+import { useThemeColor } from "../useThemeColor";
 
 interface RankSliderProps {
-  data: (string|number)[];
-  value: string|number;
-  onValueChange: (value: string|number) => void;
+  data: (string | number)[];
+  value: string | number;
+  onValueChange: (value: string | number) => void;
   renderLabel?: (value: string) => string;
   containerStyle?: StyleProp<ViewStyle>;
 }
@@ -23,23 +18,17 @@ interface RankSliderProps {
 const THUMB_SIZE = 32;
 const TRACK_HEIGHT = 8;
 
-export const Slider: React.FC<RankSliderProps> = ({
-  data,
-  value,
-  onValueChange,
-  renderLabel,
-  containerStyle,
-}) => {
+export const Slider: React.FC<RankSliderProps> = ({ data, value, onValueChange, renderLabel, containerStyle }) => {
   const { width: screenWidth } = useResponsiveWidth();
   const SEGMENTS = data.length;
   const PADDING = 40;
   const SLIDER_WIDTH = screenWidth - PADDING * 2;
   const SEGMENT_WIDTH = SLIDER_WIDTH / (data.length - 1);
 
-  const accentColor = useThemeColor({}, 'accent');
-  const textColor = useThemeColor({}, 'text');
-  const trackBg = useThemeColor({ light: '#DDD', dark: '#222' }, 'card');
-  const borderColor = useThemeColor({}, 'cardBorder');
+  const accentColor = useThemeColor({}, "primary");
+  const textColor = useThemeColor({}, "text");
+  const trackBg = useThemeColor({ light: "#DDD", dark: "#222" }, "card");
+  const borderColor = useThemeColor({}, "cardBorder");
 
   const currentIndex = data.indexOf(value);
   const translateX = useSharedValue(currentIndex * SEGMENT_WIDTH);
@@ -49,10 +38,10 @@ export const Slider: React.FC<RankSliderProps> = ({
   useEffect(() => {
     const targetX = data.indexOf(value) * SEGMENT_WIDTH;
     translateX.value = withTiming(targetX);
-  }, [value, SEGMENT_WIDTH]);
+  }, [value, SEGMENT_WIDTH, data]);
 
   const snapToIndex = (x: number) => {
-    'worklet';
+    "worklet";
     const index = Math.round(x / SEGMENT_WIDTH);
     return Math.min(Math.max(index, 0), SEGMENTS - 1);
   };
@@ -83,10 +72,7 @@ export const Slider: React.FC<RankSliderProps> = ({
     });
 
   const thumbStyle = useAnimatedStyle(() => ({
-    transform: [
-      { translateX: translateX.value - THUMB_SIZE / 2 },
-      { scale: withTiming(isPressed.value ? 1.2 : 1) },
-    ],
+    transform: [{ translateX: translateX.value - THUMB_SIZE / 2 }, { scale: withTiming(isPressed.value ? 1.2 : 1) }],
     backgroundColor: textColor,
     borderColor: accentColor,
   }));
@@ -97,7 +83,7 @@ export const Slider: React.FC<RankSliderProps> = ({
   }));
 
   const _renderLabel = (value: string) => {
-    if(renderLabel) return renderLabel(value);
+    if (renderLabel) return renderLabel(value);
     return value;
   };
 
@@ -113,20 +99,16 @@ export const Slider: React.FC<RankSliderProps> = ({
         {data.map((item, index) => {
           const markerX = index * SEGMENT_WIDTH;
           return (
-            <Pressable 
-              key={item} 
-              style={[styles.markerWrapper, { left: markerX - 20 }]}
-              onPress={() => onValueChange(item)}
-            >
+            <Pressable key={item} style={[styles.markerWrapper, { left: markerX - 20 }]} onPress={() => onValueChange(item)}>
               <View style={[styles.marker, { backgroundColor: currentIndex >= index ? accentColor : borderColor }]} />
               <Text
                 style={[
-                  styles.rankLabel, 
-                  { 
+                  styles.rankLabel,
+                  {
                     color: currentIndex === index ? accentColor : textColor,
-                    fontWeight: currentIndex === index ? 'bold' : 'normal',
-                    opacity: currentIndex === index ? 1 : 0.5
-                  }
+                    fontWeight: currentIndex === index ? "bold" : "normal",
+                    opacity: currentIndex === index ? 1 : 0.5,
+                  },
                 ]}
               >
                 {_renderLabel(item as string)}
@@ -147,27 +129,27 @@ export const Slider: React.FC<RankSliderProps> = ({
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 30,
-    alignItems: 'center',
+    alignItems: "center",
   },
   trackWrapper: {
     height: 40,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   track: {
     height: TRACK_HEIGHT,
     borderRadius: TRACK_HEIGHT / 2,
-    width: '100%',
-    overflow: 'hidden',
+    width: "100%",
+    overflow: "hidden",
     borderWidth: 1,
   },
   progress: {
-    height: '100%',
+    height: "100%",
   },
   markerWrapper: {
-    position: 'absolute',
+    position: "absolute",
     width: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     zIndex: 1,
   },
   marker: {
@@ -175,16 +157,16 @@ const styles = StyleSheet.create({
     height: 12,
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.3)',
+    borderColor: "rgba(255, 255, 255, 0.3)",
     marginBottom: 28, // Position above track
   },
   rankLabel: {
-    position: 'absolute',
+    position: "absolute",
     top: 22,
     fontSize: 11,
     width: 80,
-    textAlign: 'center',
-    textTransform: 'uppercase',
+    textAlign: "center",
+    textTransform: "uppercase",
     letterSpacing: 2,
   },
   thumb: {
@@ -193,7 +175,7 @@ const styles = StyleSheet.create({
     borderRadius: THUMB_SIZE / 2,
     top: -THUMB_SIZE / 2 - 5,
     borderWidth: 4,
-    borderColor: '#FFF',
+    borderColor: "#FFF",
     elevation: 8,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.5,

@@ -1,21 +1,21 @@
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 import { story } from "../../assets/data/story";
 import { MonsterKind, RankType, StoryEntry, StoryOption } from "../../assets/data/types";
+import Colors from "../../constants/Colors";
 import EventModal from "../Dropdown/EventModal";
 import { MonsterIcon } from "../InventoryIcon";
 import { Button, Text } from "../Themed";
-import { commonStyles } from "../themed/styles";
 import { useThemeColor } from "../themed/useThemeColor";
 import EntryOptions from "./EntryOptions";
 import ItemRewards from "./ItemRewards";
+import PaperPanel, { PaperText } from "./PaperPanel";
 
 type StoryProps = {
   monster: MonsterKind;
   rank: RankType;
-  onReset: () => void;
 };
 
 const getMonsterStory = (monster: MonsterKind) => {
@@ -23,94 +23,116 @@ const getMonsterStory = (monster: MonsterKind) => {
 };
 
 const random = (start: number, end: number) => {
-  // Random number between start and end, +1 to include end
   const range = end - start + 1;
   return Math.floor(start + Math.random() * range);
 };
 
 const getMonsterEntry = (story: StoryEntry[], rank: RankType = `Low Rank`) => {
-  // High and master Rank: Randomize the entry to any of 2,3,4 or 5
   const entryIndex = rank === `Low Rank` ? 1 : random(2, 5);
   const entry = story.find((e) => e.entry === entryIndex);
   return entry ?? story[0];
 };
 
-const StoryContent: React.FC<StoryProps> = ({ monster, rank, onReset }) => {
+const StoryContent: React.FC<StoryProps> = ({ monster, rank }) => {
   const router = useRouter();
-  const story = getMonsterStory(monster);
-  const accentColor = useThemeColor({}, "accent")
-  const cardColor = useThemeColor({}, "card");
-  const cardBorderColor = useThemeColor({}, "cardBorder");
-  const [currentEntry, setCurrentEntry] = useState<StoryEntry>(getMonsterEntry(story, rank));
+  const monsterStory = getMonsterStory(monster);
+
+  const accentColor = useThemeColor({}, "primary");
+  const dividerColor = useThemeColor({}, "outlineVariant");
+
+  const [currentEntry, setCurrentEntry] = useState<StoryEntry>(getMonsterEntry(monsterStory, rank));
   const [option, setOption] = useState<StoryOption>();
+
   const onOptionDismiss = () => {
-    const nextEntry = story.find((entry) => entry.entry === option?.next);
+    const nextEntry = monsterStory.find((entry) => entry.entry === option?.next);
     if (nextEntry) setCurrentEntry(nextEntry);
     setOption(undefined);
   };
 
+  const onHunt = () => {
+    setCurrentEntry(monsterStory[0]);
+    router.replace(`/(tabs)/rolls`);
+  };
+
   return (
-    <View style={styles.container}>
-      {currentEntry?.monster ? (
-        <MonsterIcon noRank type={currentEntry.monster} style={styles.monsterIcon} />
-      ) : null}
-      <View style={[styles.content, { backgroundColor: cardColor, borderColor: cardBorderColor }]}>
-        <Text style={[styles.entryTitle, { color: accentColor }]}>
-          Entry #{currentEntry.entry}
-        </Text>
-        <Text>{currentEntry.content}</Text>
-      </View>
+    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
+      {/* Story Panel - the "journal page" */}
+      <PaperPanel>
+        <View style={styles.header}>
+          {currentEntry?.monster ? <MonsterIcon noRank type={currentEntry.monster} style={styles.monsterIcon} /> : null}
+          <Text style={[styles.monsterName, { color: accentColor }]}>{monster}</Text>
+          <Text style={styles.rankBadge}>{rank} </Text>
+        </View>
+        <PaperText>{currentEntry.content ?? ""}</PaperText>
+      </PaperPanel>
+
+      {/* Rewards Section */}
       <ItemRewards rewards={currentEntry.get} />
-      <EntryOptions
-        story={story}
-        options={currentEntry?.options}
-        setOption={setOption}
-        setNext={setCurrentEntry}
-      />
+
+      {/* Divider between journal content and game mechanics */}
+      <View style={[styles.divider, { borderColor: dividerColor }]} />
+
+      {/* Choice Buttons - "Leather Strap" style decisions */}
+      <EntryOptions story={monsterStory} options={currentEntry?.options} setOption={setOption} setNext={setCurrentEntry} />
+
+      {/* Hunt Button - primary action to start tracking */}
       {currentEntry.monster ? (
-        <Button
-          title="Hunt"
-          style={{ width: "100%", borderRadius: 16 }}
-          onPress={() => {
-            setCurrentEntry(story[0]);
-            router.replace(`/(tabs)/rolls`);
-          }}
-        />
+        <Button darkColor={Colors.dark.onPrimaryFixedVariant} title="Start Hunt" style={styles.huntButton} onPress={onHunt} />
       ) : null}
+
+      {/* Event Modal for choice outcomes */}
       <EventModal visible={!!option} content={option} onClose={onOptionDismiss}>
         <ItemRewards rewards={option?.get} roll={option?.roll} />
       </EventModal>
-    </View>
+    </ScrollView>
   );
 };
 
 export default StoryContent;
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: "auto",
+  },
+  scrollContent: {
     maxWidth: 800,
-    padding: 16,
-    justifyContent: `center`,
-    alignItems: `center`
+    paddingHorizontal: 16,
+    paddingTop: 24,
+    paddingBottom: 32,
+    alignItems: "center",
+  },
+  header: {
+    alignItems: "center",
+    marginBottom: 24,
   },
   monsterIcon: {
-    width: 150,
-    height: 150,
-    marginVertical: 16,
-  },
-  content: {
-    ...commonStyles.card,
-    ...commonStyles.shadows,
-    padding: 16,
-    paddingVertical: 32,
-    marginBottom: 16,
-  },
-  entryTitle: {
-    fontSize: 16,
-    letterSpacing: 1,
-    fontWeight: `bold`,
+    width: 120,
+    height: 120,
     marginBottom: 12,
+  },
+  monsterName: {
+    fontSize: 24,
+    fontWeight: "600",
+    fontFamily: "NewsreaderBold",
+    marginBottom: 4,
+  },
+  rankBadge: {
+    fontSize: 12,
+    fontWeight: "500",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+    marginBottom: 8,
+  },
+  divider: {
+    width: "60%",
+    borderTopWidth: 1,
+    borderStyle: "dashed",
+    marginVertical: 24,
+  },
+  huntButton: {
+    width: "100%",
+    borderRadius: 16,
+    marginTop: 8,
   },
 });

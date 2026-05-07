@@ -23,6 +23,16 @@ export const commonStyles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
   },
+  button: {
+    marginHorizontal: 16,
+    marginVertical: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignItems: `center`,
+    justifyContent: `center`,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
   shadows: {
     elevation: 10,
     shadowColor: "#000A",

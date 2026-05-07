@@ -1,9 +1,9 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import { useThemeColor } from "../themed/useThemeColor";
 import { Direction } from "../../assets/data/types";
+import { useThemeColor } from "../themed/useThemeColor";
 
 interface DirectionalIconProps {
   size?: number;
@@ -14,26 +14,26 @@ type DirectionIconProps = {
   size?: number;
   active?: boolean;
   label: DirectionIconName;
-}
+};
 
-const Diagonal = ({ size = 16 }) => <View style={[styles.tile, { width: size / 3, height: size / 3 }]} />
+const Diagonal = ({ size = 16 }) => <View style={[styles.tile, { width: size / 3, height: size / 3 }]} />;
 
 const DirectionIcon: React.FC<DirectionIconProps> = ({ size = 16, active = false, label }) => {
   const tileStyle = { width: size / 3, height: size / 3 };
-  const accentColor = useThemeColor({}, `accent`);
+  const accentColor = useThemeColor({}, `primary`);
   const textColor = useThemeColor({}, `tabIconDefault`);
   return (
     <View style={[styles.tile, tileStyle, active && { backgroundColor: `${accentColor}20`, borderColor: accentColor }]}>
       <FontAwesome name={label} color={active ? accentColor : textColor} size={size / 4} />
     </View>
-  )
-}
+  );
+};
 
-const DirectionalIcon: React.FC<DirectionalIconProps> = ({ size = 16, directions }) => { 
+const DirectionalIcon: React.FC<DirectionalIconProps> = ({ size = 16, directions }) => {
   const front = directions?.includes(`Front`);
   const back = directions?.includes(`Back`);
   const left = directions?.includes(`Left`);
-  const right = directions?.includes(`Right`);  
+  const right = directions?.includes(`Right`);
   return (
     <View style={{ width: size, height: size }}>
       <View style={styles.row}>

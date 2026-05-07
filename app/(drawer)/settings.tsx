@@ -1,10 +1,11 @@
 // import * as Clipboard from "expo-clipboard";
 import { router } from "expo-router";
 import React, { useContext } from "react";
-import { Alert, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, Platform, ScrollView, StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { DrawerToggleButton } from "@react-navigation/drawer";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Monsters } from "../../assets/data/types";
 import { MonsterIcon } from "../../components/InventoryIcon";
 import { Button, Text } from "../../components/Themed";
@@ -24,15 +25,24 @@ const ThemeOption: React.FC<ThemeOptionProps> = ({ label, value }) => {
   const dispatch = useDispatch();
   const { theme } = useSelector((state: RootState) => state.settings);
   const selected = value === theme;
-  return <Button full title={label} variant={selected ? "filled" : "outlined"} onPress={() => dispatch(setTheme(value))} />;
+  return (
+    <Button
+      full
+      title={label}
+      variant={selected ? "filled" : "outlined"}
+      onPress={() => dispatch(setTheme(value))}
+      style={{ marginHorizontal: Platform.OS !== "web" ? 4 : undefined }}
+    />
+  );
 };
 
 export default function SettingsScreen() {
   const dispatch = useDispatch();
+  const paddingTop = useSafeAreaInsets().top;
   const { width } = useResponsiveWidth();
   const { profileIcon } = useSelector((state: RootState) => state.settings);
   const { isGuest } = useContext(UserContext);
-  const tintColor = useThemeColor({}, "tint");
+  const tintColor = useThemeColor({}, "primary");
   const textColor = useThemeColor({}, "text");
   const localData = useSelector((state: RootState) => state.localData);
 
@@ -67,10 +77,13 @@ export default function SettingsScreen() {
     }
   };
 
+  const sectionStyle: ViewStyle =
+    Platform.OS === "web" ? { width, margin: "auto", marginVertical: 24 } : { flex: 1, marginHorizontal: 12 };
+
   return (
-    <ScrollView style={style.container}>
+    <ScrollView style={style.container} contentContainerStyle={{ paddingTop }}>
       <DrawerToggleButton tintColor={tintColor} />
-      <View style={[style.section, { width }]}>
+      <View style={[style.section, sectionStyle]}>
         <Text variant="title" style={style.sectionTitle}>
           Profile Icon
         </Text>
@@ -87,7 +100,7 @@ export default function SettingsScreen() {
         </ScrollView>
       </View>
 
-      <View style={[style.section, { width }]}>
+      <View style={[style.section, sectionStyle]}>
         <Text variant="title" style={style.sectionTitle}>
           Appearance
         </Text>
@@ -100,7 +113,7 @@ export default function SettingsScreen() {
 
       {isGuest && (
         <>
-          <View style={[style.section, { width }]}>
+          <View style={[style.section, sectionStyle]}>
             <Text variant="title" style={style.sectionTitle}>
               Data Management
             </Text>
@@ -110,7 +123,7 @@ export default function SettingsScreen() {
             </View>
           </View>
 
-          <View style={[style.section, { width }]}>
+          <View style={[style.section, sectionStyle]}>
             <Text variant="title" style={style.sectionTitle}>
               Account
             </Text>
@@ -130,11 +143,10 @@ const style = StyleSheet.create({
     flex: 1,
   },
   section: {
-    marginBottom: 32,
     padding: 16,
     borderRadius: 12,
     backgroundColor: "#8882",
-    margin: "auto",
+    marginBottom: 32,
   },
   sectionTitle: {
     marginBottom: 16,

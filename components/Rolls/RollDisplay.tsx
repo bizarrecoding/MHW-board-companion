@@ -35,7 +35,7 @@ const RollDisplay: React.FC<RollDisplayProps> = ({ roll = [] }) => {
   const cardStyle = {
     backgroundColor: cardColor,
     borderColor: cardBorderColor,
-  }; 
+  };
 
   const cardSize = useMemo(() => {
     if (roll.length === 0) return 0;
@@ -47,15 +47,19 @@ const RollDisplay: React.FC<RollDisplayProps> = ({ roll = [] }) => {
     const itemWidth = (baseSize - negativeSpacing) / perRow - ROLL_PADDING;
     // ensure desktop web looks good due to width scaling
     return Math.min(itemWidth, 145);
-  }, [width, roll.length, orientation]);
+  }, [width, roll.length, orientation, height]);
 
   if (roll.length === 0) return null;
 
   return (
     <View style={styles.container}>
       <View style={[styles.header, cardStyle]}>
-        <Text bold style={styles.totalLabel}>TOTAL DAMAGE</Text>
-        <Text bold style={styles.totalValue}>{totalDamage}</Text>
+        <Text bold style={styles.totalLabel}>
+          TOTAL DAMAGE
+        </Text>
+        <Text bold style={styles.totalValue}>
+          {totalDamage}
+        </Text>
       </View>
 
       <View style={styles.grid}>

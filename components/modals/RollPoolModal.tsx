@@ -55,7 +55,7 @@ const DiceController = ({
   setDice: React.Dispatch<React.SetStateAction<number>>;
   face: number;
 }) => {
-  const accentColor = useThemeColor({}, `accent`);
+  const accentColor = useThemeColor({}, `primary`);
   const backgroundColor = useThemeColor({}, `card`);
   const borderColor = useThemeColor({}, `cardBorder`);
   const bgAdd = `${accentColor}88`;

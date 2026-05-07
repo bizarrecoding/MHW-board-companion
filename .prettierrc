@@ -1,6 +1,6 @@
 {
     "endOfLine": "auto",
-    "printWidth": 130,
+    "printWidth": 100,
     "trailingComma": "es5",
     "singleQuote": false,
     "quotes": "backtick",

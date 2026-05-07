@@ -1,18 +1,18 @@
-import { FontAwesome } from '@expo/vector-icons';
-import { Link } from 'expo-router';
-import React, { useState } from 'react';
-import { Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Text } from '../Themed';
-import { commonStyles } from '../themed/styles';
-import { useThemeColor } from '../themed/useThemeColor';
+import { FontAwesome } from "@expo/vector-icons";
+import { Link } from "expo-router";
+import React, { useState } from "react";
+import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text } from "../Themed";
+import { commonStyles } from "../themed/styles";
+import { useThemeColor } from "../themed/useThemeColor";
 
 type RollControlsProps = {
   rollDamage: (numberToRoll: number) => void;
 };
 
-export const RollControls:React.FC<RollControlsProps> = ({ rollDamage }) => {
+export const RollControls: React.FC<RollControlsProps> = ({ rollDamage }) => {
   const [numberToRoll, setNumberToRoll] = useState(1);
-  const accentColor = useThemeColor({}, `accent`);
+  const accentColor = useThemeColor({}, `primary`);
   const cardColor = useThemeColor({}, `card`);
   const cardBorderColor = useThemeColor({}, `cardBorder`);
   const textColor = useThemeColor({}, `text`);
@@ -20,30 +20,33 @@ export const RollControls:React.FC<RollControlsProps> = ({ rollDamage }) => {
   const increment = () => setNumberToRoll((n) => (n < 10 ? n + 1 : n));
   const decrement = () => setNumberToRoll((n) => (n > 0 ? n - 1 : 0));
   return (
-    <View style={[styles.controlsCard, {
-      backgroundColor: cardColor,
-      borderColor: cardBorderColor,
-    }]}>
+    <View
+      style={[
+        styles.controlsCard,
+        {
+          backgroundColor: cardColor,
+          borderColor: cardBorderColor,
+        },
+      ]}
+    >
       <View style={styles.pickerSection}>
-        <Text bold style={styles.pickerLabel}>DICE TO ROLL</Text>
+        <Text bold style={styles.pickerLabel}>
+          DICE TO ROLL
+        </Text>
         <View style={styles.pickerRow}>
-          <View style={{ minWidth: 40 }}/>
-          <TouchableOpacity
-            onPress={decrement}
-            style={[styles.pickerBtn, { borderColor: cardBorderColor }]}
-          >
-            <Text style={[styles.pickerBtnText, { color: `${textColor}8` }]}>-</Text>
+          <View style={{ minWidth: 40 }} />
+          <TouchableOpacity onPress={decrement} style={[styles.pickerBtn, { borderColor: cardBorderColor }]}>
+            <Text style={[styles.pickerBtnText, { color: textColor }]}>-</Text>
           </TouchableOpacity>
 
           <View style={styles.numberDisplay}>
-            <Text bold style={styles.numberText}>{numberToRoll}</Text>
+            <Text bold style={styles.numberText}>
+              {numberToRoll}
+            </Text>
           </View>
 
-          <TouchableOpacity
-            onPress={increment}
-            style={[styles.pickerBtn, { borderColor: cardBorderColor }]}
-          >
-            <Text style={[styles.pickerBtnText, { color: `${textColor}8` }]}>+</Text>
+          <TouchableOpacity onPress={increment} style={[styles.pickerBtn, { borderColor: cardBorderColor }]}>
+            <Text style={[styles.pickerBtnText, { color: textColor }]}>+</Text>
           </TouchableOpacity>
           <ConfigLink />
         </View>
@@ -53,29 +56,24 @@ export const RollControls:React.FC<RollControlsProps> = ({ rollDamage }) => {
         style={[styles.rollActionBtn, { backgroundColor: accentColor }]}
         activeOpacity={0.8}
       >
-        <Text bold style={styles.rollActionText}>ROLL DAMAGE</Text>
+        <Text bold style={styles.rollActionText}>
+          ROLL DAMAGE
+        </Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 const ConfigLink: React.FC = () => {
-  const textColor = useThemeColor({}, `text`);
+  const textColor = useThemeColor({}, `primary`);
   return (
-    <Link href="/modal?type=roll" asChild style={{ minWidth: 40, alignItems: `center`}}>
+    <Link href="/modal?type=roll" asChild style={{ minWidth: 40, alignItems: `center` }}>
       <Pressable>
-        {({ pressed }) => (
-          <FontAwesome
-            name="cog"
-            size={25}
-            color={`${textColor}8`}
-            style={{ opacity: pressed ? 0.5 : 1 }}
-          />
-        )}
+        {({ pressed }) => <FontAwesome name="cog" size={25} color={textColor} style={{ opacity: pressed ? 0.5 : 1 }} />}
       </Pressable>
     </Link>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   controlsCard: {
@@ -83,7 +81,7 @@ const styles = StyleSheet.create({
     ...commonStyles.shadows,
     maxWidth: 600,
     marginBottom: 8,
-    marginHorizontal: `auto`, 
+    marginHorizontal: `auto`,
     padding: 16,
   },
   pickerSection: {
@@ -113,7 +111,7 @@ const styles = StyleSheet.create({
   },
   pickerBtnText: {
     fontSize: 24,
-    lineHeight: 24, 
+    lineHeight: 24,
     textAlign: `center`,
   },
   numberDisplay: {
@@ -128,7 +126,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 16,
     alignItems: `center`,
-    justifyContent: `center`, 
+    justifyContent: `center`,
   },
   rollActionText: {
     fontSize: 18,

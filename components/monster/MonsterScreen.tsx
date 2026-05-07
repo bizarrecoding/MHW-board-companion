@@ -21,7 +21,7 @@ type MonsterScreenProps = {
 const MonsterScreen: React.FC<MonsterScreenProps> = ({ style }) => {
   const width = useResponsiveWidth().width;
   const dispatch = useDispatch();
-  const accentColor = useThemeColor({}, `accent`);
+  const accentColor = useThemeColor({}, `primary`);
   const { monster, rank } = useSelector((state: RootState) => state.hunt);
   const baseHunt = MonsterHuntData[monster ?? `Barroth`];
   const [effects, setEffects] = useState<(keyof PartsData)[]>([]);

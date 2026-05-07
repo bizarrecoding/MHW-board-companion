@@ -18,7 +18,7 @@ export type TextInputProps = ThemeProps &
     contentContainerStyle?: StyleProp<ViewStyle>;
   };
 
-const TRANSPARENCY_MOD = `D`;
+const TRANSPARENCY_MOD = `DD`;
 
 export default function TextInput(props: TextInputProps) {
   const { style, lightColor, darkColor, variant = `body`, contentContainerStyle, ...otherProps } = props;

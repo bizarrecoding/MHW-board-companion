@@ -1,10 +1,10 @@
-import { View, StyleSheet } from 'react-native'
-import React from 'react'
-import InventoryIcon from '../../../InventoryIcon';
-import TargetIcon from '../../TargetIcon';
-import { Behavior, InventoryKind } from '../../../../assets/data/types';
-import { Text } from '../../../Themed';
-import { useThemeColor } from '../../../themed/useThemeColor';
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { Behavior, InventoryKind } from "../../../../assets/data/types";
+import InventoryIcon from "../../../InventoryIcon";
+import { Text } from "../../../Themed";
+import { useThemeColor } from "../../../themed/useThemeColor";
+import TargetIcon from "../../TargetIcon";
 
 type CardHeaderProps = {
   behavior: Behavior;
@@ -25,22 +25,24 @@ const getIconFromPart = (part: string): InventoryKind => {
   }
 };
 
-export const CardHeader:React.FC<CardHeaderProps> = ({ behavior }) => {
-  const accentColor = useThemeColor({}, `accent`);
-  const textColor = useThemeColor({ light: `#444`, dark: `#888` }, `text`);  
+export const CardHeader: React.FC<CardHeaderProps> = ({ behavior }) => {
+  const accentColor = useThemeColor({}, `primary`);
+  const textColor = useThemeColor({ light: `#444`, dark: `#888` }, `text`);
   return (
     <View style={styles.headerRow}>
       <View style={[styles.partIconWrapper, { borderColor: accentColor }]}>
         <InventoryIcon type={getIconFromPart(behavior.part)} />
       </View>
       <View style={styles.nameWrapper}>
-        <Text bold style={styles.behaviorName}>{behavior.name}</Text>
+        <Text bold style={styles.behaviorName}>
+          {behavior.name}
+        </Text>
         <Text style={[styles.partLabel, { color: textColor }]}>{behavior.part} Attack</Text>
       </View>
       <TargetIcon target={behavior.target} />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   headerRow: {

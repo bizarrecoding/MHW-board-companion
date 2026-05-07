@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, ViewStyle, View, StyleSheet } from "react-native";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { ItemList } from "../../assets/data/items";
 import { ItemEntry } from "../../assets/data/types";
 import InventoryIcon from "../InventoryIcon";
@@ -21,17 +21,15 @@ const ItemRewards: React.FC<ItemRewardsProps> = ({ rewards, roll, style }) => {
   if (!rewards?.length && !roll?.length) return null;
 
   const rewardsList = rewards?.length ? [...rewards] : [];
-  console.log("rewardsList", rewardsList);
   if (roll?.length) rewardsList.push(getFromRoll(roll));
   return (
     <>
-      <Text variant="caption" style={{ letterSpacing:2, marginVertical: 10 }}>
+      <Text variant="caption" style={{ letterSpacing: 2, marginVertical: 10 }}>
         REWARDS:
       </Text>
       <View style={[styles.row, styles.center, style]}>
         {rewardsList.map((item, _index) => {
           const entry = ItemList.find((entry) => entry.name === item);
-          console.log("entry", entry);
           if (!entry) return null;
           const { type, name } = entry as ItemEntry;
           return (

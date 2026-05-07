@@ -1,6 +1,6 @@
 import { useNavigation } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Platform, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { story } from "../../../assets/data/story";
@@ -19,7 +19,6 @@ const Story = () => {
   const { width } = useResponsiveWidth();
   const [needToPick, setNeedToPick] = useState(true);
   const { monster, rank } = useSelector((state: RootState) => state.hunt);
-  console.log("🚀 ~ Story ~ monster:", monster);
 
   const dispatchMonster = (monster: MonsterKind) => {
     dispatch(setMonster(monster));
@@ -32,14 +31,7 @@ const Story = () => {
     navigation.setOptions({
       headerRight: () => {
         if (needToPick) return null;
-        return (
-          <IconButton
-            size={24}
-            icon="refresh"
-            style={{ marginRight: 16 }}
-            onPress={() => setNeedToPick(true)}
-          />
-        );
+        return <IconButton size={24} icon="refresh" style={{ marginRight: 16 }} onPress={() => setNeedToPick(true)} />;
       },
     });
   }, [navigation, needToPick]);
@@ -49,12 +41,9 @@ const Story = () => {
     .map(([k]) => k) as MonsterKind[];
 
   return (
-    <View style={{ flex: 1, width, margin: "auto" }}>
+    <ScrollView style={[styles.container, { width }]}>
       {needToPick ? (
-        <StoryPicker
-          setMonster={dispatchMonster}
-          allowedChoices={availableMonsters}
-        >
+        <StoryPicker setMonster={dispatchMonster} allowedChoices={availableMonsters}>
           <Text style={styles.title}>Choose a monster to start your story:</Text>
           <Slider
             data={Ranks}
@@ -64,9 +53,9 @@ const Story = () => {
           />
         </StoryPicker>
       ) : (
-        <StoryContent monster={monster} rank={rank} onReset={() => setNeedToPick(true)} />
+        <StoryContent monster={monster} rank={rank} />
       )}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -76,14 +65,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: "auto",
-    justifyContent: `center`,
   },
   title: {
     fontSize: 14,
     textTransform: "uppercase",
     letterSpacing: 2,
     opacity: 0.7,
-    marginTop: Platform.OS === "web" ? 0 : 40,
     marginBottom: 8,
     textAlign: "center",
   },

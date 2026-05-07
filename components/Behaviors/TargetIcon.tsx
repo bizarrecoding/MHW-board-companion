@@ -1,5 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
+import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import Colors from "../../constants/Colors";
 import { useThemeColor } from "../themed/useThemeColor";
 
 type TargetIconProps = {
@@ -9,11 +11,13 @@ type TargetIconProps = {
 
 const TargetIcon: React.FC<TargetIconProps> = ({ target, style }) => {
   const icon = target === `Melee` ? `gavel` : `crosshairs`;
-  const backgroundColor = useThemeColor({ light: '#B74', dark: `#B74` }, `card`);
-  const borderColor = useThemeColor({ light: `#FA7`, dark: `#FA7` }, `cardBorder`);
+  const backgroundColor = useThemeColor({}, `secondary`) + 88;
+  const borderColor = useThemeColor({ light: Colors.light.secondary }, `secondaryContainer`);
+  const iconColor = useThemeColor({ light: Colors.light.secondaryFixedDim }, `onSecondary`);
+
   return (
     <View style={[styles.iconWrapper, { backgroundColor, borderColor }, style]}>
-      <FontAwesome name={icon} size={32} color="#333" style={styles.icon} />
+      <FontAwesome name={icon} size={32} color={iconColor} style={styles.icon} />
     </View>
   );
 };
