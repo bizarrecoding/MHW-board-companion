@@ -25,6 +25,9 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require(`../assets/fonts/SpaceMono-Regular.ttf`),
+    Newsreader: require("../assets/fonts/Newsreader_14pt-Regular.ttf"),
+    NewsreaderItalic: require("../assets/fonts/Newsreader_14pt-MediumItalic.ttf"),
+    NewsreaderBold: require("../assets/fonts/Newsreader_14pt-SemiBold.ttf"),
     ...FontAwesome.font,
   });
 
@@ -65,18 +68,6 @@ function RootLayoutNav() {
   const { user, setUser, isGuest, setIsGuest } = useContext(UserContext);
   const router = useRouter();
 
-  const [loaded, error] = useFonts({
-    Newsreader: require("../assets/fonts/Newsreader_14pt-Regular.ttf"),
-    NewsreaderItalic: require("../assets/fonts/Newsreader_14pt-MediumItalic.ttf"),
-    NewsreaderBold: require("../assets/fonts/Newsreader_14pt-SemiBold.ttf"),
-  });
-
-  useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, error]);
-
   useEffect(() => {
     // Fast login
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -93,9 +84,6 @@ function RootLayoutNav() {
     return unsubscribe;
   }, [setUser, isGuest]);
 
-  if (!loaded && !error) {
-    return null;
-  }
   return (
     <ThemeProvider value={theme === `dark` ? DarkTheme : DefaultTheme}>
       <StatusBar style={statusBarStyle} />
