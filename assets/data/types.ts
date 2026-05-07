@@ -1,7 +1,7 @@
 
 export type Elements = `Fire` | `Water` | `Thunder` | `Ice` | `Dragon`;
 export type Ailments = `Paralysis` | `Poison` | `Sleep` | `Blast` | `Stun`;
-export type MonsterKind = `Barroth` | `Pukei-Pukei` | `Jyuratodus` | `Diablos` | `Black Diablos` | `Brachydios`;
+export type MonsterKind = `Barroth` | `Pukei-Pukei` | `Jyuratodus` | `Diablos` | `Black Diablos` | `Brachydios` | `Rathalos`;
 
 export const Monsters: MonsterKind[] = [
   `Barroth`,
@@ -9,7 +9,8 @@ export const Monsters: MonsterKind[] = [
   `Jyuratodus`,
   `Diablos`,
   `Black Diablos`,
-  `Brachydios`
+  `Brachydios`,
+  `Rathalos`
 ];
 
 export type RankType = `Low Rank` | `High Rank` | `Master Rank`;

@@ -4,6 +4,7 @@ import brachydios from "./brachydios";
 import diablos from "./diablos";
 import jyuratodus from "./jyuratodus";
 import pukey_pukei from "./pukei_pukei";
+import rathalos from "./rathalos";
 
 export const rewards = {
   Barroth: barroth.rewards,
@@ -11,5 +12,6 @@ export const rewards = {
   Jyuratodus: jyuratodus.rewards,
   Diablos: diablos.rewards,
   Brachydios: brachydios.rewards,
-  "Black Diablos": black_diablos.rewards
+  "Black Diablos": black_diablos.rewards,
+  Rathalos: rathalos.rewards,
 };

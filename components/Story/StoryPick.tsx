@@ -1,14 +1,5 @@
 import React, { useCallback } from "react";
-import {
-  FlatList,
-  ImageStyle,
-  ListRenderItem,
-  Platform,
-  StyleProp,
-  StyleSheet,
-  TouchableOpacity,
-  ViewStyle,
-} from "react-native";
+import { FlatList, ImageStyle, ListRenderItem, Platform, StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MonsterKind, Monsters } from "../../assets/data/types";
@@ -26,50 +17,41 @@ type StoryPickerProps = React.PropsWithChildren<{
 const getLayout = (screenWidth: number, baseColumns: number) => {
   const maxColumns = 3;
   const numColumns = Math.min(baseColumns + 1, maxColumns);
-  const width = Math.min(screenWidth, 700)
+  const width = Math.min(screenWidth, 700);
   const columnSize = width / numColumns - 28;
   return { numColumns, width, columnSize };
-}
+};
 
-const StoryPicker: React.FC<StoryPickerProps> = ({
-  setMonster,
-  allowedChoices = Monsters,
-  style,
-  children,
-}) => { 
+const StoryPicker: React.FC<StoryPickerProps> = ({ setMonster, allowedChoices = Monsters, style, children }) => {
   const paddingTop = Math.max(useSafeAreaInsets().top, 60);
   const textColor = useThemeColor({}, `text`);
   const { width: screenWidth, numColumns: baseColumns } = useResponsiveWidth();
   const { numColumns, width, columnSize } = getLayout(screenWidth, baseColumns);
 
-  const renderItem: ListRenderItem<MonsterKind> = useCallback(({ item }) => {
-    const styleOverride: ImageStyle = {
-      width: width / 3,
-      height: width / 3,
-      borderColor: `#0000`,
-      marginBottom: 8,
-      maxWidth: 150,
-      maxHeight: 150,
-    };
-    const disabled = !allowedChoices.includes(item);
-    return (
-      <TouchableOpacity
-        onPress={() => setMonster(item)}
-        disabled={disabled}
-        style={[styles.monsterCard, { width: columnSize, opacity: disabled ? 0.4 : 1 }]}
-      >
-        <MonsterIcon
-          rank="none"
-          type={item}
-          style={styleOverride}
+  const renderItem: ListRenderItem<MonsterKind> = useCallback(
+    ({ item }) => {
+      const styleOverride: ImageStyle = {
+        width: width / 3,
+        height: width / 3,
+        borderColor: `#0000`,
+        marginBottom: 8,
+        maxWidth: 150,
+        maxHeight: 150,
+      };
+      const disabled = !allowedChoices.includes(item);
+      return (
+        <TouchableOpacity
+          onPress={() => setMonster(item)}
           disabled={disabled}
-        />
-        <Text style={[styles.monsterName, { color: disabled ? "#777" : textColor }]}>
-          {item}
-        </Text>
-      </TouchableOpacity>
-    )
-  }, [allowedChoices, columnSize, setMonster, width, textColor]);
+          style={[styles.monsterCard, { width: columnSize, opacity: disabled ? 0.4 : 1 }]}
+        >
+          <MonsterIcon rank="none" type={item} style={styleOverride} disabled={disabled} />
+          <Text style={[styles.monsterName, { color: disabled ? "#777" : textColor }]}>{item}</Text>
+        </TouchableOpacity>
+      );
+    },
+    [allowedChoices, columnSize, setMonster, width, textColor]
+  );
 
   return (
     <FlatList<MonsterKind>
@@ -89,7 +71,6 @@ export default StoryPicker;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingTop: 20,
     paddingHorizontal: 16,
     alignItems: `center`,

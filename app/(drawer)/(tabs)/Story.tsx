@@ -40,21 +40,21 @@ const Story = () => {
     .filter(([_, v]) => v.length > 0)
     .map(([k]) => k) as MonsterKind[];
 
+  if (needToPick)
+    return (
+      <StoryPicker setMonster={dispatchMonster} allowedChoices={availableMonsters}>
+        <Text style={styles.title}>Choose a monster to start your story:</Text>
+        <Slider
+          data={Ranks}
+          value={rank}
+          onValueChange={(rank) => dispatchRank(rank as RankType)}
+          renderLabel={(rank) => rank.split(" ")[0]}
+        />
+      </StoryPicker>
+    );
   return (
     <ScrollView style={[styles.container, { width }]}>
-      {needToPick ? (
-        <StoryPicker setMonster={dispatchMonster} allowedChoices={availableMonsters}>
-          <Text style={styles.title}>Choose a monster to start your story:</Text>
-          <Slider
-            data={Ranks}
-            value={rank}
-            onValueChange={(rank) => dispatchRank(rank as RankType)}
-            renderLabel={(rank) => rank.split(" ")[0]}
-          />
-        </StoryPicker>
-      ) : (
-        <StoryContent monster={monster} rank={rank} />
-      )}
+      <StoryContent monster={monster} rank={rank} />
     </ScrollView>
   );
 };

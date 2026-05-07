@@ -5,6 +5,7 @@ const ColorMap: Record<string, string> = {
   "Pukei-Pukei": `#77AA22`,
   "Black Diablos": `#666666`,
   "Brachydios": "#714785",
+  "Rathalos": "#CC3333",
 }
 
 export default ColorMap;

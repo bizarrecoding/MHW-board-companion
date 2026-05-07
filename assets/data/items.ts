@@ -4,6 +4,7 @@ import brachydios from "./brachydios";
 import diablos from "./diablos";
 import jyuratodus from "./jyuratodus";
 import pukei_pukei from "./pukei_pukei";
+import rathalos from "./rathalos";
 import { ItemEntry } from "./types";
 
 export const ItemList: ItemEntry[] = [
@@ -13,6 +14,7 @@ export const ItemList: ItemEntry[] = [
   ...pukei_pukei.items,
   ...diablos.items,
   ...black_diablos.items,
+  ...rathalos.items,
   {
     type: "potion",
     name: "Potion",

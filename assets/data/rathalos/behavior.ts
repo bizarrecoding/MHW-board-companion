@@ -1,0 +1,153 @@
+import { Behavior } from "../types"
+
+const Behaviors: Behavior[] = [
+  {
+    name: "Fireball",
+    part: "Head",
+    effect: "Fire",
+    movement: [0, null],
+    area: ["Front"],
+    target: "Ranged",
+    damage: 7,
+    range: 3,
+    dodge: 3,
+    actions: 2,
+    turns: 1
+  }, {
+    name: "Diving Flame",
+    part: "Head",
+    effect: "Fire",
+    movement: [4, "Front"],
+    area: ["Front"],
+    target: "Melee",
+    damage: 8,
+    range: 2,
+    dodge: 2,
+    actions: 2,
+    turns: 2
+  }, {
+    rank: "High Rank",
+    name: "Inferno Breath",
+    part: "Head",
+    effect: "Fire",
+    movement: [0, null],
+    area: ["Front", "Left", "Right"],
+    target: "Ranged",
+    damage: 9,
+    range: 3,
+    dodge: 3,
+    actions: 3,
+    turns: 2
+  }, {
+    name: "Claw Swipe",
+    part: "Head",
+    effect: null,
+    movement: [2, "Front"],
+    area: ["Front", "Left"],
+    target: "Melee",
+    damage: 6,
+    range: 1,
+    dodge: 3,
+    actions: 2,
+    turns: 1
+  }, {
+    name: "Tail Sweep",
+    part: "Tail",
+    effect: null,
+    movement: [1, "Front"],
+    area: ["Back", "Left", "Right"],
+    target: "Melee",
+    damage: 7,
+    range: 2,
+    dodge: 3,
+    actions: 2,
+    turns: 1
+  }, {
+    name: "Poison Tail",
+    part: "Tail",
+    effect: "Poison",
+    movement: [2, "Back"],
+    area: ["Back"],
+    target: "Melee",
+    damage: 6,
+    range: 2,
+    dodge: 2,
+    actions: 2,
+    turns: 2
+  }, {
+    rank: "High Rank",
+    name: "Flame Tail",
+    part: "Tail",
+    effect: "Fire",
+    movement: [2, "Front"],
+    area: ["Back", "Left", "Right"],
+    target: "Melee",
+    damage: 8,
+    range: 2,
+    dodge: 3,
+    actions: 2,
+    turns: 2
+  }, {
+    name: "Wing Buffet",
+    part: "Back",
+    effect: null,
+    movement: [2, "Front"],
+    area: ["Front", "Left", "Right"],
+    target: "Melee",
+    damage: 6,
+    range: 1,
+    dodge: 4,
+    actions: 2,
+    turns: 1
+  }, {
+    name: "Aerial Drop",
+    part: "Back",
+    effect: "Fire",
+    movement: [3, "Front"],
+    area: ["Front"],
+    target: "Ranged",
+    damage: 9,
+    range: 2,
+    dodge: 2,
+    actions: 1,
+    turns: 3
+  }, {
+    rank: "Master Rank",
+    name: "Raging Flame Dive",
+    part: "Head",
+    effect: "Fire",
+    movement: [5, "Front"],
+    area: ["Front", "Left", "Right"],
+    target: "Melee",
+    damage: 10,
+    range: 3,
+    dodge: 2,
+    actions: 2,
+    turns: 3
+  }, {
+    name: "Soaring Retreat",
+    part: "Back",
+    effect: null,
+    movement: [4, null],
+    area: [],
+    target: "Ranged",
+    damage: 0,
+    range: 0,
+    dodge: 5,
+    actions: 3,
+    turns: 1
+  }, {
+    name: "Leg Stomp",
+    part: "Legs",
+    effect: null,
+    movement: [2, "Front"],
+    area: ["Front"],
+    target: "Melee",
+    damage: 5,
+    range: 1,
+    dodge: 3,
+    actions: 2,
+    turns: 1
+  },
+]
+export default Behaviors

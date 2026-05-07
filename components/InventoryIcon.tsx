@@ -11,6 +11,7 @@ const Jyuratodus = require(`../assets/images/monster/MHW-Jyuratodus_Icon.webp`);
 const PukeiPukei = require(`../assets/images/monster/MHW-Pukei-Pukei_Icon.webp`);
 const BlackDiablos = require(`../assets/images/monster/MHW-Black_Diablos_Icon.webp`);
 const Brachydios = require(`../assets/images/monster/MHW-Brachydios_Icon.png`);
+const Rathalos = require(`../assets/images/monster/MHW-Rathalos_Icon.webp`);
 
 const ColorMap: Record<string, string> = {
   ...MonsterColorMap,
@@ -199,6 +200,8 @@ export const MonsterIconBG: React.FC<MonsterIconProps> = ({ type, style, disable
       return <Image style={iconStyles} resizeMode="contain" source={BlackDiablos} />;
     case `Brachydios`:
       return <Image style={iconStyles} resizeMode="contain" source={Brachydios} />;
+    case `Rathalos`:
+      return <Image style={iconStyles} resizeMode="contain" source={Rathalos} />;
     default:
       return <View style={iconStyles} />;
   }

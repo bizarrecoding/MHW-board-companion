@@ -4,6 +4,7 @@ import brachydios from "./brachydios";
 import diablos from "./diablos";
 import jyuratodus from "./jyuratodus";
 import pukey_pukei from "./pukei_pukei";
+import rathalos from "./rathalos";
 import { Behavior, MonsterKind } from "./types";
 
 export const BehaviorData: Record<MonsterKind, (Behavior|null)[] | null> = {
@@ -13,4 +14,5 @@ export const BehaviorData: Record<MonsterKind, (Behavior|null)[] | null> = {
   Diablos: diablos.behavior, 
   "Black Diablos": black_diablos.behavior,
   Brachydios: brachydios.behavior,
+  Rathalos: rathalos.behavior,
 }

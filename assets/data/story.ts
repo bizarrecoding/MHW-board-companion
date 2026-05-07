@@ -3,6 +3,7 @@ import brachydios from "./brachydios";
 import diablos from "./diablos";
 import jyuratodus from "./jyuratodus";
 import pukey_pukei from "./pukei_pukei";
+import rathalos from "./rathalos";
 import { MonsterKind, StoryEntry } from "./types";
 
 export const story: Record<MonsterKind, StoryEntry[]> = {
@@ -12,5 +13,5 @@ export const story: Record<MonsterKind, StoryEntry[]> = {
   "Pukei-Pukei": pukey_pukei.story,
   "Black Diablos": diablos.story,
   Brachydios: brachydios.story,
-
+  Rathalos: rathalos.story,
 };
